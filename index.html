@@ -419,28 +419,46 @@
         .timeline-item.left .timeline-dot { right: -8px; }
         .timeline-item.right .timeline-dot { left: -8px; }
         .timeline-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 28px 24px;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-            position: relative;
-        }
-        .timeline-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-        }
-        .timeline-card:hover {
-            background: var(--surface-hover);
-            border-color: var(--border-hover);
-            transform: translateY(-4px);
-        }
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+}
+.timeline-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+}
+.timeline-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(10,10,15,0.85) 0%, rgba(10,10,15,0.6) 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+.timeline-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-4px);
+}
+.timeline-card .timeline-year,
+.timeline-card .timeline-icon,
+.timeline-card h3,
+.timeline-card p {
+    position: relative;
+    z-index: 1;
+}
         .timeline-year {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.75rem;
@@ -913,9 +931,9 @@
                 <div class="timeline-line"></div>
                 
                 <div class="timeline-item left animate-on-scroll">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-year">2023</div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-card" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c7f1?auto=format&fit=crop&w=600&q=80');">
+                    <div class="timeline-year">2023</div>
                         <div class="timeline-icon icon-edu">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
@@ -928,9 +946,9 @@
                 </div>
 
                 <div class="timeline-item right animate-on-scroll">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-year">2024</div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-card" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80');">
+                    <div class="timeline-year">2024</div>
                         <div class="timeline-icon icon-project">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
@@ -943,9 +961,9 @@
                 </div>
 
                 <div class="timeline-item left animate-on-scroll">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-year">2025</div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-card" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80');">
+                    <div class="timeline-year">2025</div>
                         <div class="timeline-icon icon-data">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect x="3" y="3" width="18" height="18" rx="2"/>
@@ -958,9 +976,9 @@
                 </div>
 
                 <div class="timeline-item right animate-on-scroll">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-year">2026</div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-card" style="background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80');">
+                    <div class="timeline-year">2026</div>
                         <div class="timeline-icon icon-skills">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polygon points="12 2 2 7 12 12 22 7 12 2"/>
@@ -1279,7 +1297,7 @@
                                 </div>
                                 <div class="desc-item">
                                     <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Kling、Runway Gen-3、Sora</span>
+                                    <span class="desc-text">豆包、Kling、Runway Gen-3</span>
                                 </div>
                             </div>
                         </div>
@@ -1322,45 +1340,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
-                        <div class="video-wrapper">
-                            <video src="视频合集/广告片7.mp4" preload="metadata" muted loop></video>
-                            <div class="video-overlay">
-                                <button class="play-btn">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
-                                        <polygon points="5 3 19 12 5 21 5 3"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 7</h3>
-                            <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
-                                    <span class="desc-text">时尚品牌春季系列广告，融合东方美学与现代时尚，展现传统文化元素在当代设计中的新生</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
-                                    <span class="desc-text">柔光漫射营造梦幻氛围，彩色滤光片创造艺术感光影，水波纹反射增添灵动</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">全景展现服装整体造型，中景展示搭配细节，近景捕捉面料质感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
-                                    <span class="desc-text">慢动作捕捉飘逸动感，推镜头聚焦设计亮点，鱼眼镜头营造视觉张力</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Pika Labs、Kling、Runway Gen-3</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div id="game" class="video-category-section animate-on-scroll">
@@ -1789,7 +1768,7 @@
                         </svg>
                     </div>
                     <h3>AI广告片</h3>
-                    <p>7个作品</p>
+                    <p>6个作品</p>
                     <span class="cat-arrow">→</span>
                 </a>
                 <a href="video-collection.html#game" class="category-card-bento animate-on-scroll">
