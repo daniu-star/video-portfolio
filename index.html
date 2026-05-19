@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>陈俊良 | 个人作品集</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
@@ -19,47 +19,68 @@
     </nav>
 
     <section class="hero">
-        <div class="hero-bg"></div>
+        <canvas id="particles-canvas"></canvas>
+        <div class="hero-gradient"></div>
         <div class="hero-content">
-            <div class="profile-section">
-                <div class="avatar-wrapper">
-                    <div class="avatar-placeholder">
-                        <span>CJL</span>
-                    </div>
-                </div>
-                <div class="profile-info">
-                    <h1 class="name">陈俊良</h1>
-                    <p class="title">中央民族大学硕士研究生</p>
-                    <p class="major">智能传播专业</p>
-                    <div class="hero-tags">
-                        <span class="tag">AIGC</span>
-                        <span class="tag">RAG</span>
-                        <span class="tag">全栈开发</span>
-                        <span class="tag">大数据分析</span>
-                    </div>
-                </div>
+            <div class="hero-badge animate-on-scroll">欢迎来到我的作品集</div>
+            <h1 class="hero-title animate-on-scroll">
+                <span class="title-line">陈俊良</span>
+                <span class="title-subtitle">中央民族大学硕士研究生</span>
+            </h1>
+            <p class="hero-major animate-on-scroll">智能传播专业</p>
+            <div class="hero-tags animate-on-scroll">
+                <span class="tag tag-aigc">AIGC</span>
+                <span class="tag tag-rag">RAG</span>
+                <span class="tag tag-fullstack">全栈开发</span>
+                <span class="tag tag-data">大数据分析</span>
             </div>
-            <p class="hero-desc">探索AI生成视频与创意内容的无限可能</p>
-            <a href="video-collection.html" class="cta-button">浏览作品</a>
+            <p class="hero-desc animate-on-scroll">探索AI生成视频与创意内容的无限可能</p>
+            <div class="hero-cta animate-on-scroll">
+                <a href="#videos" class="cta-primary">浏览作品</a>
+                <a href="#about" class="cta-secondary">了解更多</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>向下滚动</span>
+            <div class="scroll-arrow"></div>
         </div>
     </section>
 
-    <section class="about-me">
+    <section id="about" class="about-section">
         <div class="container">
-            <h2 class="section-title">关于我</h2>
+            <h2 class="section-title animate-on-scroll">
+                <span class="title-number">01</span>
+                关于我
+            </h2>
             <div class="about-grid">
-                <div class="about-card">
-                    <div class="about-icon">🎓</div>
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                        </svg>
+                    </div>
                     <h3>教育背景</h3>
                     <p>中央民族大学硕士研究生，主修智能传播专业，专注于人工智能与传播学的交叉研究。</p>
                 </div>
-                <div class="about-card">
-                    <div class="about-icon">💼</div>
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                    </div>
                     <h3>项目经历</h3>
                     <p>曾为企业设计、打造商业化网站，并运营生成十余条AIGC原创广告片，具备丰富的实战经验。</p>
                 </div>
-                <div class="about-card">
-                    <div class="about-icon">🛠️</div>
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                            <polyline points="2 17 12 22 22 17"/>
+                            <polyline points="2 12 12 17 22 12"/>
+                        </svg>
+                    </div>
                     <h3>专业技能</h3>
                     <p>擅长网页前后端设计与大数据分析，具备较强的AIGC、RAG能力，能够独立完成复杂项目。</p>
                 </div>
@@ -67,58 +88,85 @@
         </div>
     </section>
 
-    <section class="skills">
+    <section id="skills" class="skills-section">
         <div class="container">
-            <h2 class="section-title">技能图谱</h2>
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3>前端开发</h3>
-                    <div class="skill-items">
+            <h2 class="section-title animate-on-scroll">
+                <span class="title-number">02</span>
+                技能图谱
+            </h2>
+            <div class="skills-grid">
+                <div class="skill-card animate-on-scroll">
+                    <div class="skill-header">
+                        <div class="skill-icon skill-icon-frontend">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                        </div>
+                        <h3>前端开发</h3>
+                    </div>
+                    <div class="skill-list">
                         <div class="skill-item">
                             <span class="skill-name">HTML/CSS</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                            <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">JavaScript</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                            <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">Vue/React</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                            <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
                         </div>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3>后端开发</h3>
-                    <div class="skill-items">
+                <div class="skill-card animate-on-scroll">
+                    <div class="skill-header">
+                        <div class="skill-icon skill-icon-backend">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                                <path d="M9 9h6M9 13h6M9 17h6"/>
+                            </svg>
+                        </div>
+                        <h3>后端开发</h3>
+                    </div>
+                    <div class="skill-list">
                         <div class="skill-item">
                             <span class="skill-name">Python</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
+                            <div class="skill-bar"><div class="skill-progress" data-width="88"></div></div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">Node.js</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                            <div class="skill-bar"><div class="skill-progress" data-width="75"></div></div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">数据库</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 82%"></div></div>
+                            <div class="skill-bar"><div class="skill-progress" data-width="82"></div></div>
                         </div>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3>AI能力</h3>
-                    <div class="skill-items">
+                <div class="skill-card animate-on-scroll">
+                    <div class="skill-header">
+                        <div class="skill-icon skill-icon-ai">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 16v-4M12 8h.01"/>
+                            </svg>
+                        </div>
+                        <h3>AI能力</h3>
+                    </div>
+                    <div class="skill-list">
                         <div class="skill-item">
                             <span class="skill-name">AIGC</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div>
+                            <div class="skill-bar"><div class="skill-progress" data-width="92"></div></div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">RAG</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
+                            <div class="skill-bar"><div class="skill-progress" data-width="88"></div></div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">大数据分析</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                            <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
                         </div>
                     </div>
                 </div>
@@ -126,61 +174,176 @@
         </div>
     </section>
 
-    <section class="featured">
+    <section id="videos" class="videos-section">
         <div class="container">
-            <h2 class="section-title">精选作品</h2>
-            <div class="featured-grid">
-                <div class="featured-item">
-                    <div class="video-card">
-                        <video src="视频合集/AI纪录片《何以为家》.mp4" controls preload="metadata"></video>
-                        <div class="video-info">
-                            <h3>AI纪录片《何以为家》</h3>
-                            <p>AI创作的纪录片作品</p>
+            <h2 class="section-title animate-on-scroll">
+                <span class="title-number">03</span>
+                精选作品
+            </h2>
+            <div class="video-gallery">
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/AI纪录片《何以为家》.mp4" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
-                </div>
-                <div class="featured-item">
-                    <div class="video-card">
-                        <video src="视频合集/长游戏AI视频1.mp4" poster="视频合集/长游戏AI视频生成记录1.png" controls preload="metadata"></video>
-                        <div class="video-info">
-                            <h3>长游戏AI视频</h3>
-                            <p>AI游戏视频创作</p>
-                        </div>
+                    <div class="video-info">
+                        <span class="video-category">纪录片</span>
+                        <h3>AI纪录片《何以为家》</h3>
+                        <p>AI创作的纪录片作品</p>
                     </div>
                 </div>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/长游戏AI视频1.mp4" poster="视频合集/长游戏AI视频生成记录1.png" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-category">游戏AI</span>
+                        <h3>长游戏AI视频</h3>
+                        <p>AI游戏视频创作</p>
+                    </div>
+                </div>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/广告片1.mp4" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-category">广告作品</span>
+                        <h3>广告片1</h3>
+                        <p>AIGC原创广告作品</p>
+                    </div>
+                </div>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/广告片2.mp4" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-category">广告作品</span>
+                        <h3>广告片2</h3>
+                        <p>AIGC原创广告作品</p>
+                    </div>
+                </div>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/长游戏AI视频2.mp4" poster="视频合集/长游戏AI视频生成记录2.png" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-category">游戏AI</span>
+                        <h3>长游戏AI视频2</h3>
+                        <p>AI游戏视频创作</p>
+                    </div>
+                </div>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/广告片3.mp4" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-category">广告作品</span>
+                        <h3>广告片3</h3>
+                        <p>AIGC原创广告作品</p>
+                    </div>
+                </div>
+            </div>
+            <div class="view-all animate-on-scroll">
+                <a href="video-collection.html" class="view-all-btn">查看全部作品</a>
             </div>
         </div>
     </section>
 
-    <section class="categories">
+    <section class="categories-section">
         <div class="container">
-            <h2 class="section-title">作品分类</h2>
+            <h2 class="section-title animate-on-scroll">
+                <span class="title-number">04</span>
+                作品分类
+            </h2>
             <div class="category-grid">
-                <a href="video-collection.html" class="category-card">
-                    <div class="category-icon">🎬</div>
+                <a href="video-collection.html" class="category-card animate-on-scroll">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polygon points="10 8 16 12 10 16 10 8"/>
+                        </svg>
+                    </div>
                     <h3>纪录片</h3>
                     <p>1个作品</p>
+                    <span class="category-arrow">→</span>
                 </a>
-                <a href="video-collection.html#ad" class="category-card">
-                    <div class="category-icon">�</div>
+                <a href="video-collection.html#ad" class="category-card animate-on-scroll">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M9 9l6 6M15 9l-6 6"/>
+                        </svg>
+                    </div>
                     <h3>广告作品</h3>
                     <p>7个作品</p>
+                    <span class="category-arrow">→</span>
                 </a>
-                <a href="video-collection.html#game" class="category-card">
-                    <div class="category-icon">�</div>
+                <a href="video-collection.html#game" class="category-card animate-on-scroll">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="6" width="20" height="12" rx="2"/>
+                            <path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/>
+                        </svg>
+                    </div>
                     <h3>游戏AI视频</h3>
                     <p>7个作品</p>
+                    <span class="category-arrow">→</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <footer>
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-info">
                     <h3>陈俊良</h3>
                     <p>中央民族大学 · 智能传播</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">首页</a>
+                    <a href="video-collection.html">视频合集</a>
                 </div>
                 <div class="footer-copyright">
                     <p>&copy; 2026 陈俊良. All rights reserved.</p>
@@ -189,6 +352,165 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationId;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 15000));
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        const opacity = (1 - distance / 150) * 0.15;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();
+            animationId = requestAnimationFrame(animateParticles);
+        }
+
+        resizeCanvas();
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.skill-progress').forEach(bar => {
+            const width = bar.getAttribute('data-width');
+            const skillObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            bar.style.width = width + '%';
+                        }, 300);
+                    }
+                });
+            }, { threshold: 0.5 });
+            skillObserver.observe(bar);
+        });
+
+        document.querySelectorAll('.video-card').forEach(card => {
+            const video = card.querySelector('video');
+            const playBtn = card.querySelector('.play-btn');
+
+            card.addEventListener('mouseenter', () => {
+                video.play().catch(() => {});
+            });
+
+            card.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+            });
+
+            playBtn.addEventListener('click', () => {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) {
+                    video.webkitRequestFullscreen();
+                }
+                video.muted = false;
+                video.play();
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
