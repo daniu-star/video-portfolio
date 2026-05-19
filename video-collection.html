@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>视频合集 - 陈俊良</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
@@ -18,20 +18,43 @@
         </div>
     </nav>
 
-    <section class="page-header">
-        <div class="container">
-            <h1>视频合集</h1>
-            <p>精选视频作品展示</p>
+    <section class="hero page-hero">
+        <canvas id="particles-canvas"></canvas>
+        <div class="hero-gradient"></div>
+        <div class="hero-content">
+            <div class="hero-badge animate-on-scroll">精选作品展示</div>
+            <h1 class="hero-title animate-on-scroll">
+                <span class="title-line">视频合集</span>
+                <span class="title-subtitle">AI生成视频与创意内容</span>
+            </h1>
+            <p class="hero-desc animate-on-scroll">探索AIGC创作的无限可能，包含纪录片、广告作品与游戏AI视频</p>
+        </div>
+        <div class="scroll-indicator">
+            <span>向下滚动</span>
+            <div class="scroll-arrow"></div>
         </div>
     </section>
 
-    <section id="documentary" class="video-gallery">
+    <section id="documentary" class="videos-section">
         <div class="container">
-            <h2 class="section-title">纪录片</h2>
-            <div class="video-grid">
-                <div class="video-item">
-                    <video src="视频合集/AI纪录片《何以为家》.mp4" controls preload="metadata"></video>
+            <h2 class="section-title animate-on-scroll">
+                <span class="title-number">01</span>
+                纪录片
+            </h2>
+            <div class="video-gallery">
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/AI纪录片《何以为家》.mp4" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">纪录片</span>
                         <h3>AI纪录片《何以为家》</h3>
                         <p>AI创作的纪录片作品</p>
                     </div>
@@ -40,124 +63,270 @@
         </div>
     </section>
 
-    <section id="ad" class="video-gallery">
+    <section id="ad" class="videos-section" style="background: var(--bg-primary);">
         <div class="container">
-            <h2 class="section-title">广告作品</h2>
-            <div class="video-grid">
-                <div class="video-item">
-                    <video src="视频合集/广告片1.mp4" controls preload="metadata"></video>
+            <h2 class="section-title animate-on-scroll">
+                <span class="title-number">02</span>
+                广告作品
+            </h2>
+            <div class="video-gallery">
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/广告片1.mp4" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">广告作品</span>
                         <h3>广告片 1</h3>
-                        <p>创意广告作品</p>
+                        <p>AIGC原创广告作品</p>
                     </div>
                 </div>
 
-                <div class="video-item">
-                    <video src="视频合集/广告片2.mp4" controls preload="metadata"></video>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/广告片2.mp4" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">广告作品</span>
                         <h3>广告片 2</h3>
-                        <p>创意广告作品</p>
+                        <p>AIGC原创广告作品</p>
                     </div>
                 </div>
 
-                <div class="video-item">
-                    <video src="视频合集/广告片3.mp4" controls preload="metadata"></video>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/广告片3.mp4" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">广告作品</span>
                         <h3>广告片 3</h3>
-                        <p>创意广告作品</p>
+                        <p>AIGC原创广告作品</p>
                     </div>
                 </div>
 
-                <div class="video-item">
-                    <video src="视频合集/广告片4.mp4" controls preload="metadata"></video>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/广告片4.mp4" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">广告作品</span>
                         <h3>广告片 4</h3>
-                        <p>创意广告作品</p>
+                        <p>AIGC原创广告作品</p>
                     </div>
                 </div>
 
-                <div class="video-item">
-                    <video src="视频合集/广告片5.mp4" controls preload="metadata"></video>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/广告片5.mp4" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">广告作品</span>
                         <h3>广告片 5</h3>
-                        <p>创意广告作品</p>
+                        <p>AIGC原创广告作品</p>
                     </div>
                 </div>
 
-                <div class="video-item">
-                    <video src="视频合集/广告片6.mp4" controls preload="metadata"></video>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/广告片6.mp4" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">广告作品</span>
                         <h3>广告片 6</h3>
-                        <p>创意广告作品</p>
+                        <p>AIGC原创广告作品</p>
                     </div>
                 </div>
 
-                <div class="video-item">
-                    <video src="视频合集/广告片7.mp4" controls preload="metadata"></video>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/广告片7.mp4" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">广告作品</span>
                         <h3>广告片 7</h3>
-                        <p>创意广告作品</p>
+                        <p>AIGC原创广告作品</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="game" class="video-gallery">
+    <section id="game" class="videos-section">
         <div class="container">
-            <h2 class="section-title">游戏AI视频</h2>
-            <div class="video-grid">
-                <div class="video-item">
-                    <video src="视频合集/长游戏AI视频1.mp4" poster="视频合集/长游戏AI视频生成记录1.png" controls preload="metadata"></video>
+            <h2 class="section-title animate-on-scroll">
+                <span class="title-number">03</span>
+                游戏AI视频
+            </h2>
+            <div class="video-gallery">
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/长游戏AI视频1.mp4" poster="视频合集/长游戏AI视频生成记录1.png" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">游戏AI</span>
                         <h3>长游戏AI视频 1</h3>
                         <p>AI游戏视频创作</p>
                     </div>
                 </div>
 
-                <div class="video-item">
-                    <video src="视频合集/长游戏AI视频2.mp4" poster="视频合集/长游戏AI视频生成记录2.png" controls preload="metadata"></video>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/长游戏AI视频2.mp4" poster="视频合集/长游戏AI视频生成记录2.png" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">游戏AI</span>
                         <h3>长游戏AI视频 2</h3>
                         <p>AI游戏视频创作</p>
                     </div>
                 </div>
 
-                <div class="video-item">
-                    <video src="视频合集/长游戏AI视频3.mp4" poster="视频合集/长游戏AI视频生成记录3.png" controls preload="metadata"></video>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/长游戏AI视频3.mp4" poster="视频合集/长游戏AI视频生成记录3.png" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">游戏AI</span>
                         <h3>长游戏AI视频 3</h3>
                         <p>AI游戏视频创作</p>
                     </div>
                 </div>
 
-                <div class="video-item">
-                    <video src="视频合集/长游戏AI视频4.mp4" poster="视频合集/长游戏AI视频生成记录4.png" controls preload="metadata"></video>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/长游戏AI视频4.mp4" poster="视频合集/长游戏AI视频生成记录4.png" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">游戏AI</span>
                         <h3>长游戏AI视频 4</h3>
                         <p>AI游戏视频创作</p>
                     </div>
                 </div>
 
-                <div class="video-item">
-                    <video src="视频合集/长游戏AI视频5.mp4" poster="视频合集/长游戏AI视频生成记录5.png" controls preload="metadata"></video>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/长游戏AI视频5.mp4" poster="视频合集/长游戏AI视频生成记录5.png" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">游戏AI</span>
                         <h3>长游戏AI视频 5</h3>
                         <p>AI游戏视频创作</p>
                     </div>
                 </div>
 
-                <div class="video-item">
-                    <video src="视频合集/长游戏AI视频6.mp4" poster="视频合集/长游戏AI视频生成记录6.png" controls preload="metadata"></video>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/长游戏AI视频6.mp4" poster="视频合集/长游戏AI视频生成记录6.png" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">游戏AI</span>
                         <h3>长游戏AI视频 6</h3>
                         <p>AI游戏视频创作</p>
                     </div>
                 </div>
 
-                <div class="video-item">
-                    <video src="视频合集/长游戏AI视频7.mp4" poster="视频合集/长游戏AI视频生成记录7.png" controls preload="metadata"></video>
+                <div class="video-card animate-on-scroll">
+                    <div class="video-wrapper">
+                        <video src="视频合集/长游戏AI视频7.mp4" poster="视频合集/长游戏AI视频生成记录7.png" preload="metadata" muted loop></video>
+                        <div class="video-overlay">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="video-info">
+                        <span class="video-category">游戏AI</span>
                         <h3>长游戏AI视频 7</h3>
                         <p>AI游戏视频创作</p>
                     </div>
@@ -166,12 +335,16 @@
         </div>
     </section>
 
-    <footer>
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-info">
                     <h3>陈俊良</h3>
                     <p>中央民族大学 · 智能传播</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">首页</a>
+                    <a href="video-collection.html">视频合集</a>
                 </div>
                 <div class="footer-copyright">
                     <p>&copy; 2026 陈俊良. All rights reserved.</p>
@@ -180,6 +353,151 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationId;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 15000));
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        const opacity = (1 - distance / 150) * 0.15;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();
+            animationId = requestAnimationFrame(animateParticles);
+        }
+
+        resizeCanvas();
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.video-card').forEach(card => {
+            const video = card.querySelector('video');
+            const playBtn = card.querySelector('.play-btn');
+
+            card.addEventListener('mouseenter', () => {
+                video.play().catch(() => {});
+            });
+
+            card.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+            });
+
+            playBtn.addEventListener('click', () => {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) {
+                    video.webkitRequestFullscreen();
+                }
+                video.muted = false;
+                video.play();
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
