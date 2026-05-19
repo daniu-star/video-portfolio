@@ -4,38 +4,892 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>陈俊良 | 个人作品集</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0a0f;
+            --bg-secondary: #111118;
+            --surface: rgba(255, 255, 255, 0.03);
+            --surface-hover: rgba(255, 255, 255, 0.06);
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --text: #e8e8ed;
+            --text-secondary: #9d9db3;
+            --text-muted: #5e5e72;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            --accent2: #8b5cf6;
+            --accent3: #06b6d4;
+            --green: #10b981;
+            --orange: #f59e0b;
+            --pink: #ec4899;
+            --red: #ef4444;
+            --gradient-1: linear-gradient(135deg, #6366f1, #8b5cf6);
+            --gradient-2: linear-gradient(135deg, #06b6d4, #10b981);
+            --gradient-3: linear-gradient(135deg, #f59e0b, #ef4444);
+            --gradient-4: linear-gradient(135deg, #ec4899, #8b5cf6);
+            --glass: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-lg: 24px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 48px;
+            letter-spacing: -0.02em;
+        }
+        .title-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55em;
+            color: var(--accent);
+            font-weight: 500;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 6px 14px;
+            border-radius: 100px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 12px 24px;
+            transition: var(--transition);
+        }
+        .navbar.scrolled {
+            background: rgba(10, 10, 15, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 8px 24px;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .nav-links { display: flex; gap: 4px; }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 100px;
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+            background: var(--glass);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+            padding: 4px;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 15, 0.97);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .mobile-menu a:hover { color: var(--accent); }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 120px 24px 80px;
+        }
+        #orb-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
+        }
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            font-family: 'JetBrains Mono', 'Noto Sans SC', monospace;
+        }
+        .hero-title .char { position: relative; }
+        .hero-title .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 0.8em;
+            background: var(--accent);
+            margin-left: 4px;
+            animation: blink 0.8s infinite;
+            vertical-align: baseline;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            margin-bottom: 32px;
+        }
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        .hero-tags span {
+            padding: 6px 18px;
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        .tag-aigc { background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.25); }
+        .tag-fullstack { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25); }
+        .tag-rag { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25); }
+        .tag-data { background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.25); }
+        .hero-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+        }
+        .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .cta-primary, .cta-secondary {
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .cta-primary {
+            background: var(--gradient-1);
+            color: #fff;
+            box-shadow: 0 4px 24px var(--accent-glow);
+        }
+        .cta-primary:hover { box-shadow: 0 6px 36px rgba(99, 102, 241, 0.5); transform: translateY(-2px); }
+        .cta-secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+            backdrop-filter: blur(10px);
+        }
+        .cta-secondary:hover { background: var(--surface-hover); border-color: var(--border-hover); }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            animation: float 2s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-8px); } }
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-muted);
+            border-bottom: 2px solid var(--text-muted);
+            transform: rotate(45deg);
+        }
+
+        .about-section {
+            padding: 100px 0;
+            position: relative;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            gap: 16px;
+        }
+        .bento-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+        .bento-card:hover { background: var(--surface-hover); border-color: var(--border-hover); transform: translateY(-2px); }
+        .bento-card.span-2 { grid-column: span 2; }
+        .bento-card .bento-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .bento-card .bento-icon svg { width: 22px; height: 22px; }
+        .bento-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
+        .bento-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; }
+        .bento-card p strong { color: var(--text); }
+        .icon-edu { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+        .icon-data { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+        .icon-project { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+        .icon-skills { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
+
+        .stats-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+            justify-content: center;
+        }
+        .stat-item { text-align: center; }
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        .stat-label { font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, var(--accent), var(--accent2), transparent);
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 0;
+        }
+        .timeline-item.left {
+            left: 0;
+            padding-right: 50px;
+            text-align: right;
+        }
+        .timeline-item.right {
+            left: 50%;
+            padding-left: 50px;
+        }
+        .timeline-dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            box-shadow: 0 0 20px var(--accent-glow), 0 0 60px rgba(99, 102, 241, 0.3);
+            top: 40px;
+            z-index: 2;
+        }
+        .timeline-item.left .timeline-dot { right: -8px; }
+        .timeline-item.right .timeline-dot { left: -8px; }
+        .timeline-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 28px 24px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            position: relative;
+        }
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+        .timeline-card:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+        }
+        .timeline-year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+        .timeline-card .timeline-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .timeline-item.left .timeline-icon { margin-left: auto; }
+        .timeline-item.right .timeline-icon { margin-right: auto; }
+        .timeline-card .timeline-icon svg { width: 20px; height: 20px; }
+        .timeline-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
+        .timeline-card p { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.8; }
+        .timeline-card p strong { color: var(--text); }
+        .icon-edu { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+        .icon-data { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+        .icon-project { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+        .icon-skills { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
+
+        @media (max-width: 768px) {
+            .timeline-line { left: 20px; }
+            .timeline-item { width: 100%; padding-left: 50px !important; padding-right: 0 !important; text-align: left !important; }
+            .timeline-item.left { left: 0; }
+            .timeline-item.right { left: 0; }
+            .timeline-dot { left: 12px !important; right: auto !important; }
+            .timeline-item.left .timeline-icon { margin-left: 0; }
+            .timeline-card .timeline-icon { margin-bottom: 12px; }
+        }
+
+        .skills-marquee-section {
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .marquee-wrap {
+            overflow: hidden;
+            padding: 12px 0;
+            mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+            -webkit-mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+        }
+        .marquee-track {
+            display: flex;
+            gap: 12px;
+            width: max-content;
+        }
+        .marquee-track.forward { animation: marquee-left 30s linear infinite; }
+        .marquee-track.reverse { animation: marquee-right 30s linear infinite; }
+        @keyframes marquee-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+        .marquee-tag {
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            white-space: nowrap;
+            border: 1px solid var(--glass-border);
+            background: var(--glass);
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+        .marquee-tag:hover {
+            background: var(--surface-hover);
+            color: var(--text);
+            border-color: var(--border-hover);
+        }
+
+        .videos-section {
+            padding: 80px 0;
+            position: relative;
+        }
+        .video-category-section { margin-bottom: 80px; }
+        .video-category-section:last-of-type { margin-bottom: 40px; }
+        .category-header {
+            margin-bottom: 32px;
+            padding-left: 20px;
+            border-left: 3px solid;
+            border-image: var(--gradient-1) 1;
+        }
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        .category-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+        .video-gallery {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        .video-gallery-ads,
+        .video-gallery-game {
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        }
+        .video-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+        .video-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(99, 102, 241, 0.35);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
+        }
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .video-card:hover .video-overlay { background: rgba(0, 0, 0, 0.5); }
+        .play-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .play-btn svg { width: 20px; height: 20px; color: #fff; margin-left: 3px; }
+        .video-card:hover .play-btn {
+            background: rgba(99, 102, 241, 0.7);
+            border-color: var(--accent);
+            transform: scale(1.1);
+        }
+        .video-info {
+            padding: 20px 24px;
+        }
+        .video-category-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 100px;
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+            margin-bottom: 8px;
+        }
+        .video-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .video-description { display: none; }
+        .video-card .video-description {
+            display: block;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 16px;
+            margin-top: 8px;
+        }
+        .desc-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+        .desc-label {
+            color: var(--accent);
+            font-weight: 600;
+            white-space: nowrap;
+            min-width: 68px;
+        }
+        .desc-text { color: var(--text-secondary); }
+
+        .view-all { text-align: center; margin-top: 48px; }
+        .view-all-btn {
+            display: inline-block;
+            padding: 14px 40px;
+            border-radius: 100px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        .view-all-btn:hover {
+            background: var(--surface-hover);
+            border-color: var(--accent);
+            box-shadow: 0 4px 24px var(--accent-glow);
+        }
+
+        .categories-section { padding: 80px 0; }
+        .category-grid-bento {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .category-card-bento {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 28px 24px;
+            text-decoration: none;
+            color: var(--text);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        .category-card-bento::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            opacity: 0.08;
+            transition: var(--transition);
+        }
+        .category-card-bento:nth-child(1)::after { background: #6366f1; }
+        .category-card-bento:nth-child(2)::after { background: #06b6d4; }
+        .category-card-bento:nth-child(3)::after { background: #f59e0b; }
+        .category-card-bento:nth-child(4)::after { background: #ec4899; }
+        .category-card-bento:hover { transform: translateY(-4px); }
+        .category-card-bento:hover::after { opacity: 0.15; }
+        .category-card-bento:nth-child(1):hover { border-color: rgba(99, 102, 241, 0.5); }
+        .category-card-bento:nth-child(2):hover { border-color: rgba(6, 182, 212, 0.5); }
+        .category-card-bento:nth-child(3):hover { border-color: rgba(245, 158, 11, 0.5); }
+        .category-card-bento:nth-child(4):hover { border-color: rgba(236, 72, 153, 0.5); }
+        .category-card-bento .cat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .category-card-bento:nth-child(1) .cat-icon { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+        .category-card-bento:nth-child(2) .cat-icon { background: rgba(6, 182, 212, 0.15); color: #22d3ee; }
+        .category-card-bento:nth-child(3) .cat-icon { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+        .category-card-bento:nth-child(4) .cat-icon { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
+        .category-card-bento .cat-icon svg { width: 24px; height: 24px; }
+        .category-card-bento h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+        .category-card-bento p { font-size: 0.82rem; color: var(--text-muted); }
+        .cat-arrow {
+            position: absolute;
+            bottom: 28px;
+            right: 24px;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+        .category-card-bento:hover .cat-arrow { color: var(--text); transform: translateX(4px); }
+
+        .contact-section { padding: 80px 0 100px; }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .contact-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 28px 24px;
+            text-decoration: none;
+            color: var(--text);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            position: relative;
+            display: block;
+        }
+        .contact-card:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: #818cf8;
+        }
+        .contact-icon svg { width: 22px; height: 22px; }
+        .contact-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+        .contact-text { font-size: 0.9rem; color: var(--text-secondary); }
+        .contact-card-arrow {
+            position: absolute;
+            bottom: 28px;
+            right: 24px;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+        .contact-card:hover .contact-card-arrow { color: var(--accent); transform: translateX(4px); }
+        .contact-cta { text-align: center; }
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 48px;
+            border-radius: 100px;
+            background: var(--gradient-1);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 24px var(--accent-glow);
+        }
+        .contact-btn:hover {
+            box-shadow: 0 6px 40px rgba(99, 102, 241, 0.5);
+            transform: translateY(-2px);
+        }
+        .contact-btn svg { width: 20px; height: 20px; }
+
+        .footer {
+            border-top: 1px solid var(--glass-border);
+            padding: 40px 0;
+        }
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .footer-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .footer-info p { font-size: 0.82rem; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+        .footer-links a:hover { color: var(--text); }
+        .footer-copyright p { font-size: 0.8rem; color: var(--text-muted); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .bento-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+            .bento-card.span-2 { grid-column: span 1; }
+            .category-grid-bento { grid-template-columns: repeat(2, 1fr); }
+            .contact-grid { grid-template-columns: 1fr; }
+            .video-gallery-ads,
+            .video-gallery-game { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .category-grid-bento { grid-template-columns: 1fr; }
+            .hero-cta { flex-direction: column; align-items: center; }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">陈俊良</a>
-            <div class="nav-links">
+            <a href="#" class="logo">陈俊良</a>
+            <div class="nav-links" id="navLinks">
                 <a href="#about" class="active">个人概况</a>
                 <a href="#documentary">AI纪录片</a>
                 <a href="#ads">AI广告片</a>
                 <a href="#game">长AI游戏视频</a>
                 <a href="#real-documentary">实拍纪录片</a>
             </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
 
-    <section class="hero">
-        <canvas id="particles-canvas"></canvas>
-        <div class="hero-gradient"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" data-nav>个人概况</a>
+        <a href="#documentary" data-nav>AI纪录片</a>
+        <a href="#ads" data-nav>AI广告片</a>
+        <a href="#game" data-nav>长AI游戏视频</a>
+        <a href="#real-documentary" data-nav>实拍纪录片</a>
+    </div>
+
+    <section class="hero" id="hero">
+        <canvas id="orb-canvas"></canvas>
         <div class="hero-content">
             <div class="hero-badge animate-on-scroll">欢迎来到我的作品集</div>
-            <h1 class="hero-title animate-on-scroll">
-                <span class="title-line">陈俊良</span>
-                <span class="title-subtitle">中央民族大学硕士研究生</span>
+            <h1 class="hero-title animate-on-scroll" id="heroTitle">
+                <span id="typingText"></span><span class="cursor"></span>
             </h1>
-            <p class="hero-major animate-on-scroll">智能传播专业</p>
+            <p class="hero-subtitle animate-on-scroll">中央民族大学 · 智能传播 · 硕士</p>
             <div class="hero-tags animate-on-scroll">
-                <span class="tag tag-aigc">AIGC</span>
-                <span class="tag tag-rag">RAG</span>
-                <span class="tag tag-fullstack">全栈开发</span>
-                <span class="tag tag-data">大数据分析</span>
+                <span class="tag-aigc">AIGC</span>
+                <span class="tag-fullstack">全栈开发</span>
+                <span class="tag-rag">RAG</span>
+                <span class="tag-data">大数据分析</span>
             </div>
             <p class="hero-desc animate-on-scroll">探索AI生成视频与创意内容的无限可能</p>
             <div class="hero-cta animate-on-scroll">
@@ -55,124 +909,126 @@
                 <span class="title-number">01</span>
                 关于我
             </h2>
-            <div class="about-grid">
-                <div class="about-card animate-on-scroll">
-                    <div class="about-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                        </svg>
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-item left animate-on-scroll">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-icon icon-edu">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                            </svg>
+                        </div>
+                        <h3>教育背景</h3>
+                        <p>中央民族大学硕士研究生，主修智能传播专业，专注于人工智能与传播学的交叉研究。参与多项省部级科研项目，具备扎实的学术研究能力。研究方向涵盖AIGC内容生成、智能媒体传播、大数据舆情分析等前沿领域。</p>
                     </div>
-                    <h3>教育背景</h3>
-                    <p>中央民族大学硕士研究生，主修智能传播专业，专注于人工智能与传播学的交叉研究。参与多项省部级科研项目，具备扎实的学术研究能力。研究方向涵盖AIGC内容生成、智能媒体传播、大数据舆情分析等前沿领域。</p>
                 </div>
-                <div class="about-card animate-on-scroll">
-                    <div class="about-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                        </svg>
+
+                <div class="timeline-item right animate-on-scroll">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-icon icon-project">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                            </svg>
+                        </div>
+                        <h3>项目经历</h3>
+                        <p><strong>商业化网站建设：</strong>为多家企业设计、开发商业化网站，涵盖电商平台、企业官网、在线教育等领域，具备完整的前后端开发能力，项目累计服务用户超10万+。<br><br><strong>AIGC视频创作：</strong>运营生成十余条AIGC原创广告片，作品涵盖品牌形象、产品推广、节日营销等多种类型，熟练掌握Runway、Pika、Kling、Sora等主流AI视频生成工具。<br><br><strong>纪录片导演：</strong>担任东兴电商纪录片总导演（部校共建项目），独立完成从策划、拍摄到后期制作的全流程工作。广西三月三纪录片荣获广西日报年度最佳宣传片，获广西自治区党委宣传部表彰。</p>
                     </div>
-                    <h3>项目经历</h3>
-                    <p><strong>商业化网站建设：</strong>为多家企业设计、开发商业化网站，涵盖电商平台、企业官网、在线教育等领域，具备完整的前后端开发能力，项目累计服务用户超10万+。<br><br><strong>AIGC视频创作：</strong>运营生成十余条AIGC原创广告片，作品涵盖品牌形象、产品推广、节日营销等多种类型，熟练掌握Runway、Pika、Kling、Sora等主流AI视频生成工具。<br><br><strong>纪录片导演：</strong>担任东兴电商纪录片总导演（部校共建项目），独立完成从策划、拍摄到后期制作的全流程工作。广西三月三纪录片荣获广西日报年度最佳宣传片，获广西自治区党委宣传部表彰。</p>
                 </div>
-                <div class="about-card animate-on-scroll">
-                    <div class="about-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                            <polyline points="2 17 12 22 22 17"/>
-                            <polyline points="2 12 12 17 22 12"/>
-                        </svg>
+
+                <div class="timeline-item left animate-on-scroll">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-year">2025</div>
+                        <div class="timeline-icon icon-data">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M3 9h18M9 21V9"/>
+                            </svg>
+                        </div>
+                        <h3>数据概览</h3>
+                        <p><strong>15+</strong> 项目经历 · <strong>10+</strong> 获奖荣誉 · <strong>10万+</strong> 服务用户</p>
                     </div>
-                    <h3>专业技能</h3>
-                    <p><strong>前端开发：</strong>精通HTML5/CSS3/JavaScript ES6+，熟练使用Vue3/React框架，具备响应式设计、跨浏览器兼容性处理、性能优化经验，熟悉Webpack/Vite构建工具。<br><br><strong>后端开发：</strong>熟练使用Python/Node.js进行服务端开发，具备RESTful API设计、数据库设计（MySQL/MongoDB）、服务器部署经验。<br><br><strong>AI能力：</strong>精通AIGC视频生成与图像生成，擅长RAG系统开发、Prompt Engineering、大数据分析与可视化。<br><br><strong>视频制作：</strong>具备实拍纪录片、AI视频生成、后期剪辑全流程能力，熟练使用Premiere、DaVinci Resolve、After Effects等专业软件。</p>
+                </div>
+
+                <div class="timeline-item right animate-on-scroll">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-year">2026</div>
+                        <div class="timeline-icon icon-skills">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                                <polyline points="2 17 12 22 22 17"/>
+                                <polyline points="2 12 12 17 22 12"/>
+                            </svg>
+                        </div>
+                        <h3>专业技能</h3>
+                        <p><strong>前端开发：</strong>精通HTML5/CSS3/JavaScript ES6+，熟练使用Vue3/React框架，具备响应式设计、跨浏览器兼容性处理、性能优化经验，熟悉Webpack/Vite构建工具。<br><br><strong>后端开发：</strong>熟练使用Python/Node.js进行服务端开发，具备RESTful API设计、数据库设计（MySQL/MongoDB）、服务器部署经验。<br><br><strong>AI能力：</strong>精通AIGC视频生成与图像生成，擅长RAG系统开发、Prompt Engineering、大数据分析与可视化。<br><br><strong>视频制作：</strong>具备实拍纪录片、AI视频生成、后期剪辑全流程能力，熟练使用Premiere、DaVinci Resolve、After Effects等专业软件。</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="skills" class="skills-section">
+    <section class="skills-marquee-section">
         <div class="container">
             <h2 class="section-title animate-on-scroll">
                 <span class="title-number">02</span>
-                技能图谱
+                技术栈
             </h2>
-            <div class="skills-grid">
-                <div class="skill-card animate-on-scroll">
-                    <div class="skill-header">
-                        <div class="skill-icon skill-icon-frontend">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="16 18 22 12 16 6"/>
-                                <polyline points="8 6 2 12 8 18"/>
-                            </svg>
-                        </div>
-                        <h3>前端开发</h3>
-                    </div>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span class="skill-name">HTML/CSS</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">JavaScript</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Vue/React</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-card animate-on-scroll">
-                    <div class="skill-header">
-                        <div class="skill-icon skill-icon-backend">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="4" y="4" width="16" height="16" rx="2"/>
-                                <path d="M9 9h6M9 13h6M9 17h6"/>
-                            </svg>
-                        </div>
-                        <h3>后端开发</h3>
-                    </div>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span class="skill-name">Python</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="88"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Node.js</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="75"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">数据库</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="82"></div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-card animate-on-scroll">
-                    <div class="skill-header">
-                        <div class="skill-icon skill-icon-ai">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M12 16v-4M12 8h.01"/>
-                            </svg>
-                        </div>
-                        <h3>AI能力</h3>
-                    </div>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span class="skill-name">AIGC</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="92"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">RAG</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="88"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">大数据分析</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        <div class="marquee-wrap">
+            <div class="marquee-track forward" id="marquee1">
+                <span class="marquee-tag">HTML5</span>
+                <span class="marquee-tag">CSS3</span>
+                <span class="marquee-tag">JavaScript ES6+</span>
+                <span class="marquee-tag">Vue 3</span>
+                <span class="marquee-tag">React</span>
+                <span class="marquee-tag">Python</span>
+                <span class="marquee-tag">Node.js</span>
+                <span class="marquee-tag">AIGC</span>
+                <span class="marquee-tag">RAG</span>
+                <span class="marquee-tag">MySQL</span>
+                <span class="marquee-tag">MongoDB</span>
+                <span class="marquee-tag">Webpack</span>
+                <span class="marquee-tag">Vite</span>
+                <span class="marquee-tag">Runway</span>
+                <span class="marquee-tag">Kling</span>
+                <span class="marquee-tag">Sora</span>
+                <span class="marquee-tag">Pika Labs</span>
+                <span class="marquee-tag">Premiere</span>
+                <span class="marquee-tag">DaVinci Resolve</span>
+                <span class="marquee-tag">After Effects</span>
+            </div>
+        </div>
+        <div class="marquee-wrap" style="margin-top: 8px;">
+            <div class="marquee-track reverse" id="marquee2">
+                <span class="marquee-tag">Midjourney</span>
+                <span class="marquee-tag">Stable Diffusion</span>
+                <span class="marquee-tag">Prompt Engineering</span>
+                <span class="marquee-tag">大数据分析</span>
+                <span class="marquee-tag">数据可视化</span>
+                <span class="marquee-tag">RESTful API</span>
+                <span class="marquee-tag">响应式设计</span>
+                <span class="marquee-tag">Git</span>
+                <span class="marquee-tag">Linux</span>
+                <span class="marquee-tag">Docker</span>
+                <span class="marquee-tag">Figma</span>
+                <span class="marquee-tag">Tailwind CSS</span>
+                <span class="marquee-tag">TypeScript</span>
+                <span class="marquee-tag">Next.js</span>
+                <span class="marquee-tag">FastAPI</span>
+                <span class="marquee-tag">Flask</span>
+                <span class="marquee-tag">LangChain</span>
+                <span class="marquee-tag">Vector DB</span>
+                <span class="marquee-tag">Embedding</span>
+                <span class="marquee-tag">LLM</span>
             </div>
         </div>
     </section>
@@ -183,10 +1039,10 @@
                 <span class="title-number">03</span>
                 精选作品
             </h2>
-            
+
             <div id="documentary" class="video-category-section animate-on-scroll">
                 <div class="category-header">
-                    <h3 class="category-title">01 纪录片</h3>
+                    <h3 class="category-title">01 AI纪录片</h3>
                     <p class="category-desc">探讨AI时代人类与技术的共生关系，通过纪录片形式展现人工智能对现代社会的影响</p>
                 </div>
                 <div class="video-gallery">
@@ -202,7 +1058,7 @@
                             </div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category">纪录片</span>
+                            <span class="video-category-label">纪录片</span>
                             <h3>AI纪录片《何以为家》</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -233,7 +1089,7 @@
 
             <div id="ads" class="video-category-section animate-on-scroll">
                 <div class="category-header">
-                    <h3 class="category-title">02 广告片</h3>
+                    <h3 class="category-title">02 AI广告片</h3>
                     <p class="category-desc">品牌商业广告创意视频，展示产品特性与品牌价值</p>
                 </div>
                 <div class="video-gallery video-gallery-ads">
@@ -249,7 +1105,7 @@
                             </div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category">广告作品</span>
+                            <span class="video-category-label">广告作品</span>
                             <h3>广告片 1</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -287,7 +1143,7 @@
                             </div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category">广告作品</span>
+                            <span class="video-category-label">广告作品</span>
                             <h3>广告片 2</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -325,7 +1181,7 @@
                             </div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category">广告作品</span>
+                            <span class="video-category-label">广告作品</span>
                             <h3>广告片 3</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -352,6 +1208,159 @@
                         </div>
                     </div>
                 </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/广告片4.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">广告作品</span>
+                            <h3>广告片 4</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">奢侈品牌形象广告，运用极简主义美学呈现品牌格调，通过抽象视觉语言传递品牌哲学</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">雕塑感硬光塑造产品质感，大面积阴影留白营造神秘高级感，局部高光引导视觉焦点</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">超特写展现材质细节，中景展示产品全貌，远景构建意境空间</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">缓慢的轨道移动营造仪式感，固定镜头强调画面构图美感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Runway Gen-3、Pika Labs、Kling</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/广告片5.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">广告作品</span>
+                            <h3>广告片 5</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">科技产品发布会风格广告，以未来感视觉语言展现产品创新功能与设计美学</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">冷白基调光营造科技纯净感，动态光效追踪产品轮廓，营造未来科技氛围</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">特写突出产品设计细节，中景展示使用场景，大景强调空间沉浸感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">环绕三维展示产品全貌，微距镜头捕捉交互细节，节奏感剪辑配合音乐</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Kling、Runway Gen-3、Sora</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/广告片6.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">广告作品</span>
+                            <h3>广告片 6</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">旅行品牌目的地广告，通过梦幻般的自然风光与人文体验激发用户的探索欲望</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">黄金时段暖色调为主，日出日落光线营造温暖浪漫氛围，逆光勾勒人物剪影</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">航拍大景展现壮丽自然，中景记录人文活动，近景捕捉真实情感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">航拍俯视展现地理全貌，延时摄影呈现光影变化，平稳横移展示空间层次</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Runway Gen-2、Pika Labs、Midjourney</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/广告片7.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">广告作品</span>
+                            <h3>广告片 7</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">时尚品牌春季系列广告，融合东方美学与现代时尚，展现传统文化元素在当代设计中的新生</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">柔光漫射营造梦幻氛围，彩色滤光片创造艺术感光影，水波纹反射增添灵动</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">全景展现服装整体造型，中景展示搭配细节，近景捕捉面料质感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">慢动作捕捉飘逸动感，推镜头聚焦设计亮点，鱼眼镜头营造视觉张力</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Pika Labs、Kling、Runway Gen-3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="game" class="video-category-section animate-on-scroll">
@@ -362,7 +1371,7 @@
                 <div class="video-gallery video-gallery-game">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频1.mp4" poster="视频合集/长游戏AI视频生成记录1.png" preload="metadata" muted loop></video>
+                            <video src="视频合集/长游戏AI视频1.mp4" preload="metadata" muted loop></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -372,7 +1381,7 @@
                             </div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category">游戏AI</span>
+                            <span class="video-category-label">游戏AI</span>
                             <h3>长游戏AI视频 1</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -400,7 +1409,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频2.mp4" poster="视频合集/长游戏AI视频生成记录2.png" preload="metadata" muted loop></video>
+                            <video src="视频合集/长游戏AI视频2.mp4" preload="metadata" muted loop></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -410,7 +1419,7 @@
                             </div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category">游戏AI</span>
+                            <span class="video-category-label">游戏AI</span>
                             <h3>长游戏AI视频 2</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -436,6 +1445,196 @@
                             </div>
                         </div>
                     </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/长游戏AI视频3.mp4" poster="视频合集/长游戏AI视频生成记录3.png" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">游戏AI</span>
+                            <h3>长游戏AI视频 3</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">暗黑奇幻风格场景展示，描绘被遗忘王国的幽暗秘境与失落文明的遗迹探索</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">暗调冷色为主，烛光与魔法光芒形成明暗对比，营造压抑而神秘的氛围</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">中景跟拍角色探索旅程，特写捕捉环境中诡异细节，远景呈现宏大地下世界</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">肩扛跟拍增强沉浸感，缓慢推拉引导视线，突发快速摇摄制造紧张感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Runway Gen-3、Pika Labs、Kling</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/长游戏AI视频4.mp4" poster="视频合集/长游戏AI视频生成记录4.png" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">游戏AI</span>
+                            <h3>长游戏AI视频 4</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">开放世界沙盒场景展示，呈现广袤自然环境中玩家的自由探索与动态交互</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">动态昼夜循环系统，清晨暖光与夜晚冷色自然过渡，体积光穿透树冠营造真实感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">航拍大景展示地形全貌，全景呈现生态细节，中景记录角色与环境的实时互动</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">自由视角漫游系统，跟随视角记录探索过程，定点延时展示环境变化</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Sora、Runway Gen-2、Stable Video Diffusion</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/长游戏AI视频5.mp4" poster="视频合集/长游戏AI视频生成记录5.png" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">游戏AI</span>
+                            <h3>长游戏AI视频 5</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">角色扮演战斗场景，展现华丽技能特效与策略性战斗系统的视觉冲击力</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">技能光效色彩丰富，粒子特效绚烂，慢动作定格关键打击瞬间强化视觉张力</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">全景展示战斗场面，近景捕捉角色表情与动作细节，特写突出技能特效</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">环绕镜头展示战斗全景，快速跟拍动作轨迹，慢动作放大关键打击瞬间</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Kling、Runway Gen-3、Pika Labs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/长游戏AI视频6.mp4" poster="视频合集/长游戏AI视频生成记录6.png" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">游戏AI</span>
+                            <h3>长游戏AI视频 6</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">末日生存主题场景，呈现废土世界中幸存者的挣扎求生与荒凉美感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">灰暗冷色调为主，尘土飞扬的雾状光线，火焰暖光形成稀缺的希望象征</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">大远景展示荒芜地貌，中景记录生存日常，近景捕捉人物情感与物资细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">手持晃动镜头增强纪实感，航拍俯瞰展现末日景观，变焦镜头强调空间纵深感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Runway Gen-3、Kling、Midjourney</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/长游戏AI视频7.mp4" poster="视频合集/长游戏AI视频生成记录7.png" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">游戏AI</span>
+                            <h3>长游戏AI视频 7</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">武侠动作风格场景，展现东方武侠世界中的轻功对决与江湖意境之美</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">水墨风格光影渲染，竹林透光与湖面反光营造东方诗意，动作残影增强动感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">全景展示轻功飞跃姿态，中景记录兵器交锋，特写捕捉眼神交锋的张力</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">快速横移跟拍追逐场景，升格慢镜展示轻功细节，俯拍营造俯瞰江湖的意境</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Pika Labs、Runway Gen-3、Kling</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -457,7 +1656,7 @@
                             </div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category">实拍纪录片</span>
+                            <span class="video-category-label">实拍纪录片</span>
                             <h3>实拍纪录片——广西三月三</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -485,7 +1684,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/纪录片——东兴电商宣传.mp4" preload="metadata" muted loop></video>
+                            <video src="视频合集/纪录片——东兴电商宣传.mp4" poster="视频合集/image.png" preload="metadata" muted loop></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -495,7 +1694,7 @@
                             </div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category">实拍纪录片</span>
+                            <span class="video-category-label">实拍纪录片</span>
                             <h3>纪录片——东兴电商宣传</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -533,7 +1732,7 @@
                             </div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category">实拍纪录片</span>
+                            <span class="video-category-label">实拍纪录片</span>
                             <h3>实拍纪录片——五四青年节</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -570,9 +1769,9 @@
                 <span class="title-number">04</span>
                 作品分类
             </h2>
-            <div class="category-grid">
-                <a href="video-collection.html" class="category-card animate-on-scroll">
-                    <div class="category-icon">
+            <div class="category-grid-bento">
+                <a href="video-collection.html" class="category-card-bento animate-on-scroll">
+                    <div class="cat-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"/>
                             <polygon points="10 8 16 12 10 16 10 8"/>
@@ -580,10 +1779,10 @@
                     </div>
                     <h3>AI纪录片</h3>
                     <p>1个作品</p>
-                    <span class="category-arrow">→</span>
+                    <span class="cat-arrow">→</span>
                 </a>
-                <a href="video-collection.html#ad" class="category-card animate-on-scroll">
-                    <div class="category-icon">
+                <a href="video-collection.html#ad" class="category-card-bento animate-on-scroll">
+                    <div class="cat-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="3" width="18" height="18" rx="2"/>
                             <path d="M9 9l6 6M15 9l-6 6"/>
@@ -591,10 +1790,10 @@
                     </div>
                     <h3>AI广告片</h3>
                     <p>7个作品</p>
-                    <span class="category-arrow">→</span>
+                    <span class="cat-arrow">→</span>
                 </a>
-                <a href="video-collection.html#game" class="category-card animate-on-scroll">
-                    <div class="category-icon">
+                <a href="video-collection.html#game" class="category-card-bento animate-on-scroll">
+                    <div class="cat-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="2" y="6" width="20" height="12" rx="2"/>
                             <path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/>
@@ -602,10 +1801,10 @@
                     </div>
                     <h3>长AI游戏视频</h3>
                     <p>7个作品</p>
-                    <span class="category-arrow">→</span>
+                    <span class="cat-arrow">→</span>
                 </a>
-                <a href="video-collection.html#real-documentary" class="category-card animate-on-scroll">
-                    <div class="category-icon">
+                <a href="video-collection.html#real-documentary" class="category-card-bento animate-on-scroll">
+                    <div class="cat-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M23 7l-7 5 7 5V7z"/>
                             <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
@@ -613,7 +1812,7 @@
                     </div>
                     <h3>实拍纪录片</h3>
                     <p>3个作品</p>
-                    <span class="category-arrow">→</span>
+                    <span class="cat-arrow">→</span>
                 </a>
             </div>
         </div>
@@ -679,7 +1878,7 @@
                     <p>中央民族大学 · 智能传播</p>
                 </div>
                 <div class="footer-links">
-                    <a href="index.html">首页</a>
+                    <a href="#">首页</a>
                     <a href="video-collection.html">视频合集</a>
                 </div>
                 <div class="footer-copyright">
@@ -690,164 +1889,265 @@
     </footer>
 
     <script>
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let animationId;
+        (function() {
+            var canvas = document.getElementById('orb-canvas');
+            var ctx = canvas.getContext('2d');
+            var orbs = [];
+            var animationId;
+            var mouseX = -1000;
+            var mouseY = -1000;
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
 
-        class Particle {
-            constructor() {
+            function Orb() {
                 this.reset();
             }
 
-            reset() {
+            Orb.prototype.reset = function() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.5 + 0.2;
-            }
+                this.radius = Math.random() * 180 + 80;
+                this.speedX = (Math.random() - 0.5) * 1.2;
+                this.speedY = (Math.random() - 0.5) * 1.2;
+                this.hue = Math.random() * 360;
+                this.hueSpeed = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.25 + 0.08;
+                this.pulseSpeed = Math.random() * 0.01 + 0.005;
+                this.pulseOffset = Math.random() * Math.PI * 2;
+            };
 
-            update() {
+            Orb.prototype.update = function(time) {
                 this.x += this.speedX;
                 this.y += this.speedY;
+                this.hue += this.hueSpeed;
+                if (this.hue < 0) this.hue += 360;
+                if (this.hue > 360) this.hue -= 360;
 
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
+                var dx = this.x - mouseX;
+                var dy = this.y - mouseY;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 300) {
+                    var force = (1 - dist / 300) * 0.8;
+                    this.x += (dx / dist) * force;
+                    this.y += (dy / dist) * force;
+                }
 
-            draw() {
+                if (this.x < -this.radius) this.x = canvas.width + this.radius;
+                if (this.x > canvas.width + this.radius) this.x = -this.radius;
+                if (this.y < -this.radius) this.y = canvas.height + this.radius;
+                if (this.y > canvas.height + this.radius) this.y = -this.radius;
+            };
+
+            Orb.prototype.draw = function(time) {
+                var pulse = Math.sin(time * this.pulseSpeed + this.pulseOffset) * 0.3 + 1;
+                var r = this.radius * pulse;
+                var grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r);
+                var alpha = this.opacity;
+                grad.addColorStop(0, 'hsla(' + this.hue + ', 70%, 60%, ' + alpha + ')');
+                grad.addColorStop(0.4, 'hsla(' + this.hue + ', 60%, 50%, ' + (alpha * 0.6) + ')');
+                grad.addColorStop(0.7, 'hsla(' + this.hue + ', 50%, 40%, ' + (alpha * 0.15) + ')');
+                grad.addColorStop(1, 'hsla(' + this.hue + ', 40%, 30%, 0)');
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
+                ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
+                ctx.fillStyle = grad;
                 ctx.fill();
+            };
+
+            function initOrbs() {
+                orbs = [];
+                var count = Math.min(8, Math.floor((canvas.width * canvas.height) / 120000) + 3);
+                for (var i = 0; i < count; i++) {
+                    orbs.push(new Orb());
+                }
             }
-        }
 
-        function initParticles() {
-            particles = [];
-            const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 15000));
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function connectParticles() {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 150) {
-                        const opacity = (1 - distance / 150) * 0.15;
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
+            function connectOrbs() {
+                for (var i = 0; i < orbs.length; i++) {
+                    for (var j = i + 1; j < orbs.length; j++) {
+                        var dx = orbs[i].x - orbs[j].x;
+                        var dy = orbs[i].y - orbs[j].y;
+                        var distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 350) {
+                            var opacity = (1 - distance / 350) * 0.06;
+                            ctx.beginPath();
+                            ctx.strokeStyle = 'rgba(255, 255, 255, ' + opacity + ')';
+                            ctx.lineWidth = 1;
+                            ctx.moveTo(orbs[i].x, orbs[i].y);
+                            ctx.lineTo(orbs[j].x, orbs[j].y);
+                            ctx.stroke();
+                        }
                     }
                 }
             }
-        }
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-
-            connectParticles();
-            animationId = requestAnimationFrame(animateParticles);
-        }
-
-        resizeCanvas();
-        initParticles();
-        animateParticles();
-
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initParticles();
-        });
-
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 100);
+            function animateOrbs(time) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (var i = 0; i < orbs.length; i++) {
+                    orbs[i].update(time);
+                    orbs[i].draw(time);
                 }
+                connectOrbs();
+                animationId = requestAnimationFrame(animateOrbs);
+            }
+
+            resizeCanvas();
+            initOrbs();
+            animationId = requestAnimationFrame(animateOrbs);
+
+            window.addEventListener('resize', function() {
+                resizeCanvas();
+                initOrbs();
             });
-        }, observerOptions);
 
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
+            document.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
 
-        document.querySelectorAll('.skill-progress').forEach(bar => {
-            const width = bar.getAttribute('data-width');
-            const skillObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            bar.style.width = width + '%';
-                        }, 300);
+            var typingText = '陈俊良';
+            var typingEl = document.getElementById('typingText');
+            var charIndex = 0;
+            var isDeleting = false;
+
+            function typeEffect() {
+                if (!isDeleting && charIndex < typingText.length) {
+                    typingEl.textContent = typingText.substring(0, charIndex + 1);
+                    charIndex++;
+                    setTimeout(typeEffect, 150);
+                } else if (!isDeleting && charIndex >= typingText.length) {
+                    setTimeout(function() {
+                        isDeleting = true;
+                        typeEffect();
+                    }, 3000);
+                } else if (isDeleting && charIndex > 0) {
+                    charIndex--;
+                    typingEl.textContent = typingText.substring(0, charIndex);
+                    setTimeout(typeEffect, 80);
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    setTimeout(typeEffect, 500);
+                }
+            }
+            typeEffect();
+
+            var navbar = document.getElementById('navbar');
+            var hamburger = document.getElementById('hamburger');
+            var mobileMenu = document.getElementById('mobileMenu');
+            var navLinks = document.querySelectorAll('#navLinks a');
+            var mobileNavLinks = document.querySelectorAll('#mobileMenu a[data-nav]');
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                var sections = ['about', 'documentary', 'ads', 'game', 'real-documentary'];
+                var currentSection = '';
+                for (var i = 0; i < sections.length; i++) {
+                    var sectionEl = document.getElementById(sections[i]);
+                    if (sectionEl) {
+                        var rect = sectionEl.getBoundingClientRect();
+                        if (rect.top <= 120 && rect.bottom >= 120) {
+                            currentSection = sections[i];
+                            break;
+                        }
+                    }
+                }
+
+                navLinks.forEach(function(link) {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentSection) {
+                        link.classList.add('active');
                     }
                 });
-            }, { threshold: 0.5 });
-            skillObserver.observe(bar);
-        });
-
-        document.querySelectorAll('.video-card').forEach(card => {
-            const video = card.querySelector('video');
-            const playBtn = card.querySelector('.play-btn');
-
-            card.addEventListener('mouseenter', () => {
-                video.play().catch(() => {});
             });
 
-            card.addEventListener('mouseleave', () => {
-                video.pause();
-                video.currentTime = 0;
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
             });
 
-            playBtn.addEventListener('click', () => {
-                if (video.requestFullscreen) {
-                    video.requestFullscreen();
-                } else if (video.webkitRequestFullscreen) {
-                    video.webkitRequestFullscreen();
+            mobileNavLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                    var target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            var observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry, index) {
+                    if (entry.isIntersecting) {
+                        setTimeout(function() {
+                            entry.target.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
+                observer.observe(el);
+            });
+
+            document.querySelectorAll('.video-card').forEach(function(card) {
+                var video = card.querySelector('video');
+                var playBtn = card.querySelector('.play-btn');
+
+                card.addEventListener('mouseenter', function() {
+                    video.play().catch(function() {});
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+
+                playBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                    } else if (video.webkitRequestFullscreen) {
+                        video.webkitRequestFullscreen();
+                    }
+                    video.muted = false;
+                    video.play();
+                });
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    var href = this.getAttribute('href');
+                    if (href === '#') return;
+                    e.preventDefault();
+                    var target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            (function cloneMarquee() {
+                var marquee1 = document.getElementById('marquee1');
+                var marquee2 = document.getElementById('marquee2');
+                if (marquee1) {
+                    marquee1.innerHTML = marquee1.innerHTML + marquee1.innerHTML;
                 }
-                video.muted = false;
-                video.play();
-            });
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                if (marquee2) {
+                    marquee2.innerHTML = marquee2.innerHTML + marquee2.innerHTML;
                 }
-            });
-        });
+            })();
+        })();
     </script>
 </body>
 </html>

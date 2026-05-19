@@ -3,34 +3,569 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>视频合集 - 陈俊良</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>视频合集 - 陈俊良 | 个人作品集</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0a0f;
+            --bg-secondary: #111118;
+            --surface: rgba(255, 255, 255, 0.03);
+            --surface-hover: rgba(255, 255, 255, 0.06);
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --text: #e8e8ed;
+            --text-secondary: #9d9db3;
+            --text-muted: #5e5e72;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            --accent2: #8b5cf6;
+            --accent3: #06b6d4;
+            --green: #10b981;
+            --orange: #f59e0b;
+            --pink: #ec4899;
+            --red: #ef4444;
+            --gradient-1: linear-gradient(135deg, #6366f1, #8b5cf6);
+            --gradient-2: linear-gradient(135deg, #06b6d4, #10b981);
+            --gradient-3: linear-gradient(135deg, #f59e0b, #ef4444);
+            --gradient-4: linear-gradient(135deg, #ec4899, #8b5cf6);
+            --glass: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-lg: 24px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 48px;
+            letter-spacing: -0.02em;
+        }
+        .title-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55em;
+            color: var(--accent);
+            font-weight: 500;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 6px 14px;
+            border-radius: 100px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 12px 24px;
+            transition: var(--transition);
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .navbar.scrolled {
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 24px;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .nav-links { display: flex; gap: 4px; }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 100px;
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+            background: var(--glass);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+            padding: 4px;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 15, 0.97);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .mobile-menu a:hover { color: var(--accent); }
+
+        .hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 120px 24px 80px;
+        }
+        #orb-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
+        }
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        .hero-title .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            margin-bottom: 32px;
+        }
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        .hero-tags span {
+            padding: 6px 18px;
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        .tag-aigc { background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.25); }
+        .tag-fullstack { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25); }
+        .tag-rag { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25); }
+        .tag-data { background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.25); }
+        .hero-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            animation: float 2s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-8px); } }
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-muted);
+            border-bottom: 2px solid var(--text-muted);
+            transform: rotate(45deg);
+        }
+
+        .videos-section {
+            padding: 80px 0;
+            position: relative;
+        }
+        .video-category-section { margin-bottom: 80px; }
+        .video-category-section:last-of-type { margin-bottom: 40px; }
+        .category-header {
+            margin-bottom: 32px;
+            padding-left: 24px;
+            border-left: 4px solid;
+            border-image: var(--gradient-1) 1;
+            position: relative;
+        }
+        .category-header::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 40px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .video-category-section:hover .category-header::after {
+            opacity: 1;
+            width: 80px;
+        }
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        .category-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+        .video-gallery {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        .video-gallery-ads,
+        .video-gallery-game {
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        }
+        .video-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: var(--transition);
+            position: relative;
+        }
+        .video-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+        }
+        .video-card::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--radius-lg);
+            background: var(--gradient-1);
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition);
+            filter: blur(8px);
+        }
+        .video-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 16px 48px rgba(99, 102, 241, 0.2), 0 0 30px rgba(99, 102, 241, 0.08);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .video-card:hover::after {
+            opacity: 0.15;
+        }
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .video-card:hover .video-overlay { background: rgba(0, 0, 0, 0.55); }
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+        .play-btn::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            opacity: 0.3;
+            filter: blur(6px);
+            transition: var(--transition);
+        }
+        .play-btn svg {
+            width: 22px;
+            height: 22px;
+            color: #fff;
+            margin-left: 4px;
+            position: relative;
+            z-index: 1;
+        }
+        .video-card:hover .play-btn {
+            transform: scale(1.15);
+            box-shadow: 0 6px 30px var(--accent-glow);
+        }
+        .video-card:hover .play-btn::before {
+            opacity: 0.5;
+            filter: blur(10px);
+        }
+        .video-info {
+            padding: 20px 24px;
+            position: relative;
+        }
+        .video-category-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 100px;
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+            margin-bottom: 8px;
+        }
+        .video-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .video-description { display: none; }
+        .video-card .video-description {
+            display: block;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 16px;
+            margin-top: 8px;
+        }
+        .desc-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .desc-item:last-child { margin-bottom: 0; }
+        .desc-label {
+            flex-shrink: 0;
+            color: var(--accent);
+            font-weight: 600;
+            min-width: 72px;
+            font-size: 0.8rem;
+        }
+        .desc-text {
+            color: var(--text-secondary);
+        }
+
+        .footer {
+            border-top: 1px solid var(--glass-border);
+            padding: 40px 0;
+        }
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .footer-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .footer-info p { font-size: 0.82rem; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+        .footer-links a:hover { color: var(--text); }
+        .footer-copyright p { font-size: 0.8rem; color: var(--text-muted); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .video-gallery-ads,
+            .video-gallery-game { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-tags { gap: 6px; }
+            .hero-tags span { font-size: 0.75rem; padding: 4px 12px; }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">陈俊良</a>
-            <div class="nav-links">
-                <a href="index.html#about">个人概况</a>
-                <a href="#documentary">AI纪录片</a>
-                <a href="#ad">AI广告片</a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">首页</a>
+                <a href="#documentary" class="active">AI纪录片</a>
+                <a href="#ads">AI广告片</a>
                 <a href="#game">长AI游戏视频</a>
                 <a href="#real-documentary">实拍纪录片</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
 
-    <section class="hero page-hero">
-        <canvas id="particles-canvas"></canvas>
-        <div class="hero-gradient"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" data-nav>首页</a>
+        <a href="#documentary" data-nav>AI纪录片</a>
+        <a href="#ads" data-nav>AI广告片</a>
+        <a href="#game" data-nav>长AI游戏视频</a>
+        <a href="#real-documentary" data-nav>实拍纪录片</a>
+    </div>
+
+    <section class="hero" id="hero">
+        <canvas id="orb-canvas"></canvas>
         <div class="hero-content">
-            <div class="hero-badge animate-on-scroll">精选作品展示</div>
+            <div class="hero-badge animate-on-scroll">全部视频作品</div>
             <h1 class="hero-title animate-on-scroll">
-                <span class="title-line">视频合集</span>
-                <span class="title-subtitle">AI生成视频与创意内容</span>
+                <span class="gradient-text">视频合集</span>
             </h1>
-            <p class="hero-desc animate-on-scroll">探索AIGC创作的无限可能，包含纪录片、广告作品与游戏AI视频</p>
+            <p class="hero-subtitle animate-on-scroll">中央民族大学 · 智能传播 · 硕士</p>
+            <div class="hero-tags animate-on-scroll">
+                <span class="tag-aigc">AIGC</span>
+                <span class="tag-fullstack">全栈开发</span>
+                <span class="tag-rag">RAG</span>
+                <span class="tag-data">大数据分析</span>
+            </div>
+            <p class="hero-desc animate-on-scroll">汇集全部AI生成视频与实拍纪录片作品，展示多元创作能力</p>
         </div>
         <div class="scroll-indicator">
             <span>向下滚动</span>
@@ -38,753 +573,725 @@
         </div>
     </section>
 
-    <section id="documentary" class="videos-section">
+    <section class="videos-section">
         <div class="container">
-            <div class="category-header animate-on-scroll">
-                <h2 class="section-title">
-                    <span class="title-number">01</span>
-                    纪录片
-                </h2>
-                <p class="category-desc">探讨AI时代人类与技术的共生关系，通过纪录片形式展现人工智能对现代社会的影响</p>
-            </div>
-            <div class="video-gallery">
-                <div class="video-card video-card-large animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/AI纪录片《何以为家》.mp4" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">纪录片</span>
-                        <h3>AI纪录片《何以为家》</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">深度探讨AI时代人类归属感与身份认同议题，通过纪实影像呈现科技洪流中个体命运的沉浮与抉择</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">采用低色温暖调柔光营造人文关怀氛围，关键场景运用逆光剪影强化情感张力</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">以全景交代环境背景，中景呈现人物互动，特写捕捉情感细节，形成叙事节奏</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">固定镜头为主保持纪实感，辅以缓慢推拉引导观众沉浸思考</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Runway Gen-2、Pika Labs、Midjourney</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="ad" class="videos-section" style="background: var(--bg-primary);">
-        <div class="container">
-            <div class="category-header animate-on-scroll">
-                <h2 class="section-title">
-                    <span class="title-number">02</span>
-                    广告片
-                </h2>
-                <p class="category-desc">品牌商业广告创意视频，展示产品特性与品牌价值</p>
-            </div>
-            <div class="video-gallery">
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/广告片1.mp4" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">广告作品</span>
-                        <h3>广告片 1</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">科技感品牌形象广告，通过未来都市意象展现品牌创新精神与前沿定位</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">冷色调硬光打造科技质感，霓虹光效点缀营造赛博朋克氛围</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">大远景展示城市宏观，快速切换近景特写强化视觉冲击力</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">快速推拉与动态跟拍结合，营造紧张刺激的节奏感</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Runway Gen-3、Kling</span>
-                            </div>
-                        </div>
-                    </div>
+            <div id="documentary" class="video-category-section animate-on-scroll">
+                <div class="category-header">
+                    <h3 class="category-title">01 AI纪录片</h3>
+                    <p class="category-desc">探讨AI时代人类与技术的共生关系，通过纪录片形式展现人工智能对现代社会的影响</p>
                 </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/广告片2.mp4" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">广告作品</span>
-                        <h3>广告片 2</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">生活方式类产品广告，以温馨家庭场景传递产品温度与人文关怀</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">自然柔光为主，侧光塑造立体感，黄金时段光线营造温暖氛围</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">中景为主展现生活场景，穿插近景特写捕捉情感瞬间</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">平稳摇移镜头营造舒适感，固定镜头突出产品细节</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Sora、Pika Labs</span>
+                <div class="video-gallery">
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/AI纪录片《何以为家》.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/广告片3.mp4" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">广告作品</span>
-                        <h3>广告片 3</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">运动品牌活力广告，通过动感画面传递青春能量与运动激情</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">高对比度硬光强化动感，逆光勾勒人物轮廓，营造力量美学</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">全景展示运动姿态，近景捕捉表情张力，特写强调产品细节</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">快速跟拍与环绕镜头结合，手持感增强现场感与代入感</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Kling、Runway Gen-3</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/广告片4.mp4" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">广告作品</span>
-                        <h3>广告片 4</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">美妆护肤类产品广告，以优雅视觉语言展现产品质感与女性魅力</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">柔和散射光为主，正面光均匀照亮产品，营造高级质感</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">近景特写为主展示产品细节，中景呈现使用场景，营造亲密感</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">微距镜头捕捉产品纹理，缓慢推镜头引导视觉焦点</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Runway Gen-3、Midjourney</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/广告片5.mp4" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">广告作品</span>
-                        <h3>广告片 5</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">美食餐饮类广告，通过诱人画面激发食欲，传递品牌美味形象</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">暖色调主光营造食欲感，侧逆光突出食物光泽与质感</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">特写为主展示食物细节，中景呈现用餐氛围，全景交代环境</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">环绕拍摄展示食物全貌，快速剪辑增强节奏感与食欲诱惑</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Kling、Sora</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/广告片6.mp4" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">广告作品</span>
-                        <h3>广告片 6</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">汽车品牌形象广告，以公路旅行为主题展现自由与探索精神</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">自然光为主，黄金时段逆光勾勒车身线条，营造自由浪漫氛围</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">大远景展示壮阔风景，中景呈现驾驶体验，特写突出车辆细节</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">航拍视角展现公路延展，跟拍镜头增强速度感与代入感</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Runway Gen-3、Pika Labs</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/广告片7.mp4" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">广告作品</span>
-                        <h3>广告片 7</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">节日主题创意广告，以温馨情感叙事传递品牌温度与节日祝福</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">暖色调柔光营造节日氛围，烛光与装饰灯光点缀增强温馨感</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">中近景为主呈现人物情感，全景展示节日场景，特写捕捉礼物细节</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">缓慢推镜头营造情感递进，固定镜头突出温馨瞬间</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Sora、Kling、Midjourney</span>
+                        <div class="video-info">
+                            <span class="video-category-label">纪录片</span>
+                            <h3>AI纪录片《何以为家》</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">深度探讨AI时代人类归属感与身份认同议题，通过纪实影像呈现科技洪流中个体命运的沉浮与抉择</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">采用低色温暖调柔光营造人文关怀氛围，关键场景运用逆光剪影强化情感张力</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">以全景交代环境背景，中景呈现人物互动，特写捕捉情感细节，形成叙事节奏</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">固定镜头为主保持纪实感，辅以缓慢推拉引导观众沉浸思考</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Runway Gen-2、Pika Labs、Midjourney</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="game" class="videos-section">
-        <div class="container">
-            <div class="category-header animate-on-scroll">
-                <h2 class="section-title">
-                    <span class="title-number">03</span>
-                    长AI游戏视频
-                </h2>
-                <p class="category-desc">AI生成的游戏场景与角色互动视频，展示游戏世界观</p>
-            </div>
-            <div class="video-gallery">
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/长游戏AI视频1.mp4" poster="视频合集/长游戏AI视频生成记录1.png" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">游戏AI</span>
-                        <h3>长游戏AI视频 1</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">奇幻风格游戏场景展示，呈现魔法世界的宏大叙事与神秘氛围</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">神秘紫蓝色调为主，魔法光效点缀，营造奇幻梦境感</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">大远景展示世界全貌，中景呈现角色与环境互动，特写突出魔法细节</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">缓慢航拍视角探索场景，推镜头引导观众发现隐藏细节</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Runway Gen-2、Stable Video Diffusion</span>
-                            </div>
-                        </div>
-                    </div>
+            <div id="ads" class="video-category-section animate-on-scroll">
+                <div class="category-header">
+                    <h3 class="category-title">02 AI广告片</h3>
+                    <p class="category-desc">品牌商业广告创意视频，展示产品特性与品牌价值</p>
                 </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/长游戏AI视频2.mp4" poster="视频合集/长游戏AI视频生成记录2.png" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">游戏AI</span>
-                        <h3>长游戏AI视频 2</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">科幻机甲战斗场景，展现未来战争的紧张氛围与机械美学</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">金属质感冷光为主，爆炸火光形成强烈对比，强化战场氛围</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">远景呈现战场全貌，中景展示机甲对决，近景捕捉战斗细节</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">快速摇移与跟拍模拟战斗节奏，低角度仰拍强化机甲压迫感</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Pika、Kling</span>
+                <div class="video-gallery video-gallery-ads">
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/广告片1.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/长游戏AI视频3.mp4" poster="视频合集/长游戏AI视频生成记录3.png" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">游戏AI</span>
-                        <h3>长游戏AI视频 3</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">古风武侠游戏场景，展现江湖世界的诗意美学与侠义精神</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">水墨风格柔光为主，晨曦薄雾营造诗意氛围，剑光闪烁增添动感</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">远景展示山水意境，中景呈现武打动作，近景刻画人物神态</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">缓慢摇移展现山水画卷，快速切换呈现武打节奏</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Runway Gen-2、Midjourney</span>
+                        <div class="video-info">
+                            <span class="video-category-label">广告作品</span>
+                            <h3>广告片 1</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">科技感品牌形象广告，通过未来都市意象展现品牌创新精神与前沿定位</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">冷色调硬光打造科技质感，霓虹光效点缀营造赛博朋克氛围</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">大远景展示城市宏观，快速切换近景特写强化视觉冲击力</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">快速推拉与动态跟拍结合，营造紧张刺激的节奏感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Runway Gen-3、Kling</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/长游戏AI视频4.mp4" poster="视频合集/长游戏AI视频生成记录4.png" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">游戏AI</span>
-                        <h3>长游戏AI视频 4</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">末日生存游戏场景，呈现废土世界的荒凉与人类求生意志</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">低饱和度冷色调为主，昏黄夕阳营造荒凉感，阴影强化危机氛围</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">大远景展示废土荒原，中景呈现生存探索，近景捕捉紧张表情</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">手持感跟拍增强代入感，低角度拍摄强化环境压迫感</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Stable Video Diffusion、Kling</span>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/广告片2.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/长游戏AI视频5.mp4" poster="视频合集/长游戏AI视频生成记录5.png" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">游戏AI</span>
-                        <h3>长游戏AI视频 5</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">海洋探险游戏场景，展现深海世界的神秘与未知探索的魅力</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">深蓝色调为主，水下光线穿透营造神秘感，生物荧光点缀增添奇幻</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">远景展示深海广阔，中景呈现探险过程，近景捕捉海洋生物细节</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">缓慢漂浮感镜头模拟水下体验，环绕拍摄展示生物全貌</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Pika、Runway Gen-2</span>
+                        <div class="video-info">
+                            <span class="video-category-label">广告作品</span>
+                            <h3>广告片 2</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">生活方式类产品广告，以温馨家庭场景传递产品温度与人文关怀</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">自然柔光为主，侧光塑造立体感，黄金时段光线营造温暖氛围</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">中景为主展现生活场景，穿插近景特写捕捉情感瞬间</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">平稳摇移镜头营造舒适感，固定镜头突出产品细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Sora、Pika Labs</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/长游戏AI视频6.mp4" poster="视频合集/长游戏AI视频生成记录6.png" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">游戏AI</span>
-                        <h3>长游戏AI视频 6</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">恐怖悬疑游戏场景，营造紧张刺激的氛围与心理惊悚体验</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">高对比度暗调为主，闪烁灯光营造不安感，阴影隐藏未知威胁</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">中近景为主增强紧张感，远景展示阴森环境，特写捕捉恐惧表情</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">不稳定手持感镜头增强不安，突然推镜头制造惊吓效果</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Kling、Stable Video Diffusion</span>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/广告片3.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/长游戏AI视频7.mp4" poster="视频合集/长游戏AI视频生成记录7.png" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
+                        <div class="video-info">
+                            <span class="video-category-label">广告作品</span>
+                            <h3>广告片 3</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">运动品牌活力广告，通过动感画面传递青春能量与运动激情</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">高对比度硬光强化动感，逆光勾勒人物轮廓，营造力量美学</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">全景展示运动姿态，近景捕捉表情张力，特写强调产品细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">快速跟拍与环绕镜头结合，手持感增强现场感与代入感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Kling、Runway Gen-3</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="video-info">
-                        <span class="video-category">游戏AI</span>
-                        <h3>长游戏AI视频 7</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">童话风格游戏场景，展现梦幻王国的纯真美好与冒险旅程</span>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/广告片4.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
                             </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">明亮柔和色调为主，彩虹光效点缀，营造童话梦幻氛围</span>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">广告作品</span>
+                            <h3>广告片 4</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">美妆品牌产品广告，通过精致画面展现产品质感与美学理念</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">柔光漫射营造梦幻氛围，高光点缀突出产品质感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">特写展示产品细节，中景呈现使用场景，近景捕捉情感表达</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">慢动作展现产品流动感，微距拍摄突出材质细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Runway Gen-2、Pika Labs</span>
+                                </div>
                             </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">全景展示童话城堡，中景呈现角色冒险，近景捕捉可爱表情</span>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/广告片5.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
                             </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">平稳流畅的摇移镜头，营造轻松愉悦的观看体验</span>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">广告作品</span>
+                            <h3>广告片 5</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">食品品牌创意广告，通过诱人的视觉呈现激发食欲与购买欲望</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">暖色灯光突出食物色泽，侧光强化立体层次感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">微距特写展现食材细节，中景呈现用餐氛围</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">稳定推近镜头聚焦美食，慢镜头捕捉食材动态</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Kling、Runway Gen-3</span>
+                                </div>
                             </div>
-                            <div class="desc-item">
-                                <span class="desc-label">AI工具</span>
-                                <span class="desc-text">Runway Gen-2、Pika、Midjourney</span>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/广告片6.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">广告作品</span>
+                            <h3>广告片 6</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">旅行品牌目的地广告，通过梦幻般的自然风光与人文体验激发用户的探索欲望</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">黄金时段暖色调为主，日出日落光线营造温暖浪漫氛围，逆光勾勒人物剪影</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">航拍大景展现壮丽自然，中景记录人文活动，近景捕捉真实情感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">航拍俯视展现地理全貌，延时摄影呈现光影变化，平稳横移展示空间层次</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Runway Gen-2、Pika Labs、Midjourney</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/广告片7.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">广告作品</span>
+                            <h3>广告片 7</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">时尚品牌春季系列广告，融合东方美学与现代时尚，展现传统文化元素在当代设计中的新生</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">柔光漫射营造梦幻氛围，彩色滤光片创造艺术感光影，水波纹反射增添灵动</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">全景展现服装整体造型，中景展示搭配细节，近景捕捉面料质感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">慢动作捕捉飘逸动感，推镜头聚焦设计亮点，鱼眼镜头营造视觉张力</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Pika Labs、Kling、Runway Gen-3</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="real-documentary" class="videos-section" style="background: var(--bg-primary);">
-        <div class="container">
-            <div class="category-header animate-on-scroll">
-                <h2 class="section-title">
-                    <span class="title-number">04</span>
-                    实拍纪录片
-                </h2>
-                <p class="category-desc">实地拍摄纪录片作品，记录真实故事与文化传承</p>
+            <div id="game" class="video-category-section animate-on-scroll">
+                <div class="category-header">
+                    <h3 class="category-title">03 长AI游戏视频</h3>
+                    <p class="category-desc">AI生成的游戏场景与角色互动视频，展示游戏世界观</p>
+                </div>
+                <div class="video-gallery video-gallery-game">
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/长游戏AI视频1.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">游戏AI</span>
+                            <h3>长游戏AI视频 1</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">奇幻风格游戏场景展示，呈现魔法世界的宏大叙事与神秘氛围</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">神秘紫蓝色调为主，魔法光效点缀，营造奇幻梦境感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">大远景展示世界全貌，中景呈现角色与环境互动，特写突出魔法细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">缓慢航拍视角探索场景，推镜头引导观众发现隐藏细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Runway Gen-2、Stable Video Diffusion</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/长游戏AI视频2.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">游戏AI</span>
+                            <h3>长游戏AI视频 2</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">科幻机甲战斗场景，展现未来战争的紧张氛围与机械美学</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">金属质感冷光为主，爆炸火光形成强烈对比，强化战场氛围</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">远景呈现战场全貌，中景展示机甲对决，近景捕捉战斗细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">快速摇移与跟拍模拟战斗节奏，低角度仰拍强化机甲压迫感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Pika、Kling</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/长游戏AI视频3.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">游戏AI</span>
+                            <h3>长游戏AI视频 3</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">末日废土风格游戏场景，展现荒凉世界中的生存挣扎与人性光辉</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">低饱和灰黄调营造末世氛围，火光与霓虹点缀形成视觉焦点</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">大远景展现废土全貌，中景呈现人物探索，近景捕捉生存细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">摇晃手持镜头增强紧张感，航拍俯瞰展现废墟规模</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Runway Gen-3、Pika Labs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/长游戏AI视频4.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">游戏AI</span>
+                            <h3>长游戏AI视频 4</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">东方玄幻风格游戏场景，以水墨画风融合仙侠意境展现独特东方美学</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">水墨渐变光影过渡，留白手法营造空灵感，霞光点缀增添神秘色彩</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">全景展现山水意境，中景呈现修行场景，特写捕捉法术光影</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">画卷式横移展现风景，缓慢推拉营造沉浸式体验</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Stable Video Diffusion、Kling</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/长游戏AI视频5.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">游戏AI</span>
+                            <h3>长游戏AI视频 5</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">赛博朋克风格城市夜景，展现霓虹闪烁的未来都市与底层市井生活</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">霓虹紫蓝色调为主，高对比明暗反差营造赛博朋克标志性视觉风格</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">大远景呈现城市天际线，中景展示街头生态，特写捕捉霓虹细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">缓慢推轨穿行街巷，俯拍展现城市布局，快速闪切增强节奏感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Runway Gen-3、Pika Labs、Midjourney</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/长游戏AI视频6.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">游戏AI</span>
+                            <h3>长游戏AI视频 6</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">史前奇幻世界场景，展现恐龙与原始自然的壮阔生态与生存法则</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">自然日光为主，丛林斑驳光影营造原始氛围，黄昏色调增添史诗感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">大远景展现史前地貌，中景呈现生物互动，特写捕捉生物特征</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">航拍视角俯瞰丛林，跟拍生物迁徙，低角度拍摄增强生物压迫感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Runway Gen-2、Stable Video Diffusion</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/长游戏AI视频7.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">游戏AI</span>
+                            <h3>长游戏AI视频 7</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">暗黑哥特风格场景，展现阴森古堡与超自然力量交织的恐惧美学</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">低亮度冷色调为主，烛光与月光形成明暗对比，阴影塑造神秘氛围</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">全景展现古堡宏大规模，中景呈现角色探索，特写捕捉诡异细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">缓慢推进镜头营造紧张感，主观视角增强代入，快速摇移制造惊悚效果</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">AI工具</span>
+                                    <span class="desc-text">Kling、Pika Labs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="video-gallery">
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/实拍纪录片——广西三月三_压缩.mp4" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">实拍纪录片</span>
-                        <h3>实拍纪录片——广西三月三</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">广西三月三传统节日文化纪录片，展现壮族人民的节日庆典与文化传承</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">自然光为主，黄金时段拍摄，暖色调呈现节日氛围</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">远景展现山水风光，中景记录民俗活动，近景捕捉人物表情</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">航拍大景、跟拍人物、固定镜头记录仪式</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">荣誉</span>
-                                <span class="desc-text">广西日报年度最佳宣传片、广西自治区党委宣传部表彰</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/纪录片——东兴电商宣传.mp4" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <span class="video-category">实拍纪录片</span>
-                        <h3>纪录片——东兴电商宣传</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">东兴市电商发展纪录片，记录边境城市电商产业的崛起与发展</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">自然光与室内灯光结合，冷暖色调对比展现城市活力</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">全景展示城市面貌，中景记录工作场景，特写展示产品细节</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">延时摄影展现城市变化，跟拍记录工作流程</span>
-                            </div>
-                            <div class="desc-item">
-                                <span class="desc-label">项目性质</span>
-                                <span class="desc-text">部校共建项目，本人担任总导演</span>
-                            </div>
-                        </div>
-                    </div>
+            <div id="real-documentary" class="video-category-section animate-on-scroll">
+                <div class="category-header">
+                    <h3 class="category-title">04 实拍纪录片</h3>
+                    <p class="category-desc">实地拍摄纪录片作品，记录真实故事与文化传承</p>
                 </div>
-
-                <div class="video-card animate-on-scroll">
-                    <div class="video-wrapper">
-                        <video src="视频合集/实拍纪录片——五四青年节_高压缩.mp4" preload="metadata" muted loop></video>
-                        <div class="video-overlay">
-                            <button class="play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                            </button>
+                <div class="video-gallery">
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/实拍纪录片——广西三月三_压缩.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">实拍纪录片</span>
+                            <h3>实拍纪录片——广西三月三</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">广西三月三传统节日文化纪录片，展现壮族人民的节日庆典与文化传承</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">自然光为主，黄金时段拍摄，暖色调呈现节日氛围</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">远景展现山水风光，中景记录民俗活动，近景捕捉人物表情</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">航拍大景、跟拍人物、固定镜头记录仪式</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">荣誉</span>
+                                    <span class="desc-text">广西日报年度最佳宣传片、广西自治区党委宣传部表彰</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="video-info">
-                        <span class="video-category">实拍纪录片</span>
-                        <h3>实拍纪录片——五四青年节</h3>
-                        <div class="video-description">
-                            <div class="desc-item">
-                                <span class="desc-label">内容概述</span>
-                                <span class="desc-text">五四青年节主题纪录片，展现新时代青年的精神风貌与奋斗故事</span>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/纪录片——东兴电商宣传.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
                             </div>
-                            <div class="desc-item">
-                                <span class="desc-label">光影设计</span>
-                                <span class="desc-text">高调摄影为主，明亮通透的画面风格</span>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">实拍纪录片</span>
+                            <h3>纪录片——东兴电商宣传</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">东兴市电商发展纪录片，记录边境城市电商产业的崛起与发展</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">自然光与室内灯光结合，冷暖色调对比展现城市活力</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">全景展示城市面貌，中景记录工作场景，特写展示产品细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">延时摄影展现城市变化，跟拍记录工作流程</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">项目性质</span>
+                                    <span class="desc-text">部校共建项目，本人担任总导演</span>
+                                </div>
                             </div>
-                            <div class="desc-item">
-                                <span class="desc-label">景别设计</span>
-                                <span class="desc-text">中近景为主，突出人物形象与情感表达</span>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/实拍纪录片——五四青年节_高压缩.mp4" preload="metadata" muted loop></video>
+                            <div class="video-overlay">
+                                <button class="play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
                             </div>
-                            <div class="desc-item">
-                                <span class="desc-label">镜头设计</span>
-                                <span class="desc-text">手持跟拍增加真实感，固定镜头记录访谈</span>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label">实拍纪录片</span>
+                            <h3>实拍纪录片——五四青年节</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-text">五四青年节主题纪录片，展现新时代青年的精神风貌与奋斗故事</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-text">高调摄影为主，明亮通透的画面风格</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-text">中近景为主，突出人物形象与情感表达</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-text">手持跟拍增加真实感，固定镜头记录访谈</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -807,150 +1314,228 @@
     </footer>
 
     <script>
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let animationId;
+        (function() {
+            var canvas = document.getElementById('orb-canvas');
+            var ctx = canvas.getContext('2d');
+            var orbs = [];
+            var animationId;
+            var mouseX = -1000;
+            var mouseY = -1000;
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
 
-        class Particle {
-            constructor() {
+            function Orb() {
                 this.reset();
             }
 
-            reset() {
+            Orb.prototype.reset = function() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.5 + 0.2;
-            }
+                this.radius = Math.random() * 180 + 80;
+                this.speedX = (Math.random() - 0.5) * 1.2;
+                this.speedY = (Math.random() - 0.5) * 1.2;
+                this.hue = Math.random() * 360;
+                this.hueSpeed = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.25 + 0.08;
+                this.pulseSpeed = Math.random() * 0.01 + 0.005;
+                this.pulseOffset = Math.random() * Math.PI * 2;
+            };
 
-            update() {
+            Orb.prototype.update = function(time) {
                 this.x += this.speedX;
                 this.y += this.speedY;
+                this.hue += this.hueSpeed;
+                if (this.hue < 0) this.hue += 360;
+                if (this.hue > 360) this.hue -= 360;
 
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
+                var dx = this.x - mouseX;
+                var dy = this.y - mouseY;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 300) {
+                    var force = (1 - dist / 300) * 0.8;
+                    this.x += (dx / dist) * force;
+                    this.y += (dy / dist) * force;
+                }
 
-            draw() {
+                if (this.x < -this.radius) this.x = canvas.width + this.radius;
+                if (this.x > canvas.width + this.radius) this.x = -this.radius;
+                if (this.y < -this.radius) this.y = canvas.height + this.radius;
+                if (this.y > canvas.height + this.radius) this.y = -this.radius;
+            };
+
+            Orb.prototype.draw = function(time) {
+                var pulse = Math.sin(time * this.pulseSpeed + this.pulseOffset) * 0.3 + 1;
+                var r = this.radius * pulse;
+                var grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r);
+                var alpha = this.opacity;
+                grad.addColorStop(0, 'hsla(' + this.hue + ', 70%, 60%, ' + alpha + ')');
+                grad.addColorStop(0.4, 'hsla(' + this.hue + ', 60%, 50%, ' + (alpha * 0.6) + ')');
+                grad.addColorStop(0.7, 'hsla(' + this.hue + ', 50%, 40%, ' + (alpha * 0.15) + ')');
+                grad.addColorStop(1, 'hsla(' + this.hue + ', 40%, 30%, 0)');
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
+                ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
+                ctx.fillStyle = grad;
                 ctx.fill();
+            };
+
+            function initOrbs() {
+                orbs = [];
+                var count = Math.min(8, Math.floor((canvas.width * canvas.height) / 120000) + 3);
+                for (var i = 0; i < count; i++) {
+                    orbs.push(new Orb());
+                }
             }
-        }
 
-        function initParticles() {
-            particles = [];
-            const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 15000));
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function connectParticles() {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 150) {
-                        const opacity = (1 - distance / 150) * 0.15;
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
+            function connectOrbs() {
+                for (var i = 0; i < orbs.length; i++) {
+                    for (var j = i + 1; j < orbs.length; j++) {
+                        var dx = orbs[i].x - orbs[j].x;
+                        var dy = orbs[i].y - orbs[j].y;
+                        var distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 350) {
+                            var opacity = (1 - distance / 350) * 0.06;
+                            ctx.beginPath();
+                            ctx.strokeStyle = 'rgba(255, 255, 255, ' + opacity + ')';
+                            ctx.lineWidth = 1;
+                            ctx.moveTo(orbs[i].x, orbs[i].y);
+                            ctx.lineTo(orbs[j].x, orbs[j].y);
+                            ctx.stroke();
+                        }
                     }
                 }
             }
-        }
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
+            function animateOrbs(time) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (var i = 0; i < orbs.length; i++) {
+                    orbs[i].update(time);
+                    orbs[i].draw(time);
+                }
+                connectOrbs();
+                animationId = requestAnimationFrame(animateOrbs);
+            }
 
-            connectParticles();
-            animationId = requestAnimationFrame(animateParticles);
-        }
-
-        resizeCanvas();
-        initParticles();
-        animateParticles();
-
-        window.addEventListener('resize', () => {
             resizeCanvas();
-            initParticles();
-        });
+            initOrbs();
+            animationId = requestAnimationFrame(animateOrbs);
 
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+            window.addEventListener('resize', function() {
+                resizeCanvas();
+                initOrbs();
+            });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 100);
+            document.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            var navbar = document.getElementById('navbar');
+            var hamburger = document.getElementById('hamburger');
+            var mobileMenu = document.getElementById('mobileMenu');
+            var navLinks = document.querySelectorAll('#navLinks a');
+            var mobileNavLinks = document.querySelectorAll('#mobileMenu a[data-nav]');
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
                 }
-            });
-        }, observerOptions);
 
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
-
-        document.querySelectorAll('.video-card').forEach(card => {
-            const video = card.querySelector('video');
-            const playBtn = card.querySelector('.play-btn');
-
-            card.addEventListener('mouseenter', () => {
-                video.play().catch(() => {});
-            });
-
-            card.addEventListener('mouseleave', () => {
-                video.pause();
-                video.currentTime = 0;
-            });
-
-            playBtn.addEventListener('click', () => {
-                if (video.requestFullscreen) {
-                    video.requestFullscreen();
-                } else if (video.webkitRequestFullscreen) {
-                    video.webkitRequestFullscreen();
+                var sections = ['documentary', 'ads', 'game', 'real-documentary'];
+                var currentSection = '';
+                for (var i = 0; i < sections.length; i++) {
+                    var sectionEl = document.getElementById(sections[i]);
+                    if (sectionEl) {
+                        var rect = sectionEl.getBoundingClientRect();
+                        if (rect.top <= 120 && rect.bottom >= 120) {
+                            currentSection = sections[i];
+                            break;
+                        }
+                    }
                 }
-                video.muted = false;
-                video.play();
-            });
-        });
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                navLinks.forEach(function(link) {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentSection) {
+                        link.classList.add('active');
+                    }
+                });
             });
-        });
+
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            mobileNavLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                    var target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            var observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry, index) {
+                    if (entry.isIntersecting) {
+                        setTimeout(function() {
+                            entry.target.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
+                observer.observe(el);
+            });
+
+            document.querySelectorAll('.video-card').forEach(function(card) {
+                var video = card.querySelector('video');
+                var playBtn = card.querySelector('.play-btn');
+
+                card.addEventListener('mouseenter', function() {
+                    video.play().catch(function() {});
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+
+                playBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                    } else if (video.webkitRequestFullscreen) {
+                        video.webkitRequestFullscreen();
+                    }
+                    video.muted = false;
+                    video.play();
+                });
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    var href = this.getAttribute('href');
+                    if (href === '#') return;
+                    e.preventDefault();
+                    var target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        })();
     </script>
 </body>
 </html>
