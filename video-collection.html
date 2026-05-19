@@ -376,9 +376,17 @@
             position: relative;
             width: 100%;
             aspect-ratio: 16 / 9;
-            background: #000;
+            background: linear-gradient(110deg, #0a0a1a 30%, #141428 50%, #0a0a1a 70%);
+            background-size: 200% 100%;
             overflow: hidden;
             cursor: pointer;
+        }
+        .video-wrapper:has(video[data-loaded="false"]) {
+            animation: loadingShimmer 1.5s ease-in-out infinite;
+        }
+        @keyframes loadingShimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
         .video-wrapper video {
             width: 100%;
@@ -584,7 +592,7 @@
                 <div class="video-gallery">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/AI纪录片《何以为家》.mp4" preload="metadata" muted loop></video>
+                            <video src="视频合集/AI纪录片《何以为家》.mp4" preload="none" muted loop></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1482,6 +1490,27 @@
                         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 });
+            });
+
+            var videoObserverOptions = { rootMargin: '200px 0px' };
+            var videoObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var video = entry.target.querySelector('video');
+                        if (video && video.dataset.loaded !== 'true') {
+                            video.preload = 'metadata';
+                            video.load();
+                            video.dataset.loaded = 'true';
+                        }
+                        videoObserver.unobserve(entry.target);
+                    }
+                });
+            }, videoObserverOptions);
+
+            document.querySelectorAll('.video-card').forEach(function(card) {
+                var video = card.querySelector('video');
+                if (video) video.dataset.loaded = 'false';
+                videoObserver.observe(card);
             });
 
             var observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
