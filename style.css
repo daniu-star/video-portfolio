@@ -1091,6 +1091,12 @@ textarea:focus-visible {
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.video-wrapper .bilibili-player {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-lg);
+}
+
 .video-card:hover .video-wrapper video {
     transform: scale(1.05);
 }
