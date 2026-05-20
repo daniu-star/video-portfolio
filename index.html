@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="//player.bilibili.com">
     <link rel="dns-prefetch" href="//player.bilibili.com">
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -3023,5 +3025,14 @@ if (mouseGlow) {
 }
         })();
     </script>
+
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <button class="video-modal-close" aria-label="关闭视频">&times;</button>
+            <div class="video-modal-player">
+                <iframe id="modalPlayer" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
