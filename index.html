@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -6,226 +6,9 @@
     <title>陈俊良 | 个人作品集</title>
     <meta name="description" content="陈俊良的个人作品集，展示AI纪录片、AI广告片、游戏视频和实拍纪录片作品">
     <meta name="keywords" content="陈俊良,作品集,AI视频,纪录片,广告片">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="//player.bilibili.com">
-    <link rel="dns-prefetch" href="//player.bilibili.com">
-    <link rel="preload" href="style.css" as="style">
+    <link rel="stylesheet" href="style.css">
     <link rel="preload" href="script.js" as="script">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg: #f5f6fa;
-            --bg-secondary: #ffffff;
-            --surface: rgba(99, 102, 241, 0.04);
-            --surface-hover: rgba(99, 102, 241, 0.08);
-            --border: rgba(99, 102, 241, 0.1);
-            --border-hover: rgba(99, 102, 241, 0.2);
-            --text: #1a1a2e;
-            --text-secondary: #3a3a5a;
-            --text-muted: #5a5a7a;
-            --accent: #6366f1;
-            --accent-glow: rgba(99, 102, 241, 0.15);
-            --accent2: #8b5cf6;
-            --accent3: #06b6d4;
-            --green: #10b981;
-            --orange: #f59e0b;
-            --pink: #ec4899;
-            --red: #ef4444;
-            --gradient-1: linear-gradient(135deg, #6366f1, #a855f7);
-            --gradient-2: linear-gradient(135deg, #06b6d4, #10b981);
-            --gradient-3: linear-gradient(135deg, #f59e0b, #ef4444);
-            --gradient-4: linear-gradient(135deg, #ec4899, #8b5cf6);
-            --glass: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(99, 102, 241, 0.1);
-            --radius: 12px;
-            --radius-sm: 8px;
-            --radius-lg: 16px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg: #0f0f1a;
-                --bg-secondary: #1a1a2e;
-                --surface: rgba(99, 102, 241, 0.08);
-                --surface-hover: rgba(99, 102, 241, 0.15);
-                --border: rgba(99, 102, 241, 0.15);
-                --border-hover: rgba(99, 102, 241, 0.3);
-                --text: #e2e2f0;
-                --text-secondary: #a0a0c0;
-                --text-muted: #707090;
-                --glass: rgba(26, 26, 46, 0.85);
-                --glass-border: rgba(99, 102, 241, 0.15);
-            }
-            body { background: var(--bg); color: var(--text); }
-            .navbar.scrolled { background: rgba(15, 15, 26, 0.92); border-bottom-color: var(--border); }
-            .mobile-menu { background: rgba(15, 15, 26, 0.97); }
-            .bento-card { background: var(--glass); border-color: var(--glass-border); }
-            .video-card { background: var(--glass); border-color: var(--glass-border); }
-            .category-card-bento { background: var(--glass); border-color: var(--glass-border); }
-            .contact-card { background: var(--glass); border-color: var(--glass-border); }
-            .category-header { background: var(--glass); border-color: var(--glass-border); }
-            .hero { background: linear-gradient(180deg, #0f0f1a 0%, var(--bg) 100%); }
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Microsoft YaHei', '微软雅黑', 'PingFang SC', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.9;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
-        ::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.25); border-radius: 3px; }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
-        .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 400;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 48px;
-            letter-spacing: 0.05em;
-            font-family: 'KaiTi', 'STKaiti', '楷体', serif;
-        }
-        .title-number {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.55em;
-            color: var(--accent);
-            font-weight: 500;
-            background: rgba(99, 102, 241, 0.1);
-            padding: 6px 14px;
-            border-radius: 100px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-        }
-
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 12px 24px;
-            transition: var(--transition);
-        }
-        .navbar.scrolled {
-            background: rgba(245, 246, 250, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 8px 24px;
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-            letter-spacing: -0.02em;
-        }
-        .nav-links { display: flex; gap: 4px; }
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 100px;
-            transition: var(--transition);
-            position: relative;
-        }
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--text);
-            background: var(--glass);
-        }
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-            z-index: 1001;
-            padding: 4px;
-        }
-        .hamburger span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--text);
-            border-radius: 2px;
-            transition: var(--transition);
-        }
-        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(245, 246, 250, 0.97);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            z-index: 999;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 32px;
-        }
-        .mobile-menu.active { display: flex; }
-        .mobile-menu a {
-            color: var(--text);
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-        .mobile-menu a:hover { color: var(--accent); }
-
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            padding: 120px 24px 80px;
-            background: linear-gradient(180deg, #eeeef5 0%, var(--bg) 100%);
-        }
         #orb-canvas {
             position: absolute;
             top: 0;
@@ -233,161 +16,6 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            max-width: 800px;
-        }
-        .hero-badge {
-            display: inline-block;
-            padding: 6px 20px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 100px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 32px;
-            backdrop-filter: blur(10px);
-        }
-        .hero-title {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 900;
-            letter-spacing: 0.05em;
-            line-height: 1.2;
-            margin-bottom: 16px;
-            font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive;
-        }
-        .hero-title .char { position: relative; }
-        .hero-title .cursor {
-            display: inline-block;
-            width: 3px;
-            height: 0.8em;
-            background: var(--accent);
-            margin-left: 4px;
-            animation: blink 0.8s infinite;
-            vertical-align: baseline;
-        }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .hero-subtitle {
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-            letter-spacing: 0.05em;
-            margin-bottom: 32px;
-            font-family: 'ZCOOL KuaiLe', 'ZCOOL QingKe HuangYou', cursive;
-        }
-        .hero-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-        .hero-tags span {
-            padding: 6px 18px;
-            border-radius: 100px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-        }
-        .tag-aigc { background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.25); }
-        .tag-fullstack { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25); }
-        .tag-rag { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25); }
-        .tag-data { background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.25); }
-        .hero-desc {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 40px;
-        }
-        .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-        .cta-primary, .cta-secondary {
-            padding: 14px 32px;
-            border-radius: var(--radius);
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        .cta-primary {
-            background: var(--accent);
-            color: #fff;
-            box-shadow: 0 2px 12px var(--accent-glow);
-        }
-        .cta-primary:hover { box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25); transform: translateY(-2px); }
-        .cta-secondary {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: var(--text);
-            backdrop-filter: blur(10px);
-        }
-        .cta-secondary:hover { background: var(--surface-hover); border-color: var(--border-hover); }
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            animation: float 2s ease-in-out infinite;
-        }
-        @keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-8px); } }
-        .scroll-arrow {
-            width: 20px;
-            height: 20px;
-            border-right: 2px solid var(--text-muted);
-            border-bottom: 2px solid var(--text-muted);
-            transform: rotate(45deg);
-        }
-
-        .about-section {
-            padding: 100px 0;
-            position: relative;
-        }
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: auto auto;
-            gap: 16px;
-        }
-        .bento-card.span-2 { grid-column: span 2; }
-        .bento-card .bento-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            background: none;
-        }
-        .bento-card .bento-icon svg { width: 22px; height: 22px; }
-        .bento-card h3 { font-size: 1.2rem; font-weight: 400; margin-bottom: 12px; letter-spacing: 0.05em; font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive; }
-        .bento-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; }
-        .bento-card p strong { color: var(--text); }
-        .icon-edu { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
-        .icon-data { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-        .icon-project { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
-        .icon-skills { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
-        .icon-research { background: rgba(6, 182, 212, 0.15); color: #22d3ee; }
-
-        .bento-link {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s ease;
-            border-bottom: 1px solid rgba(99, 102, 241, 0.3);
-        }
-        .bento-link:hover {
-            color: var(--pink);
-            border-bottom-color: rgba(236, 72, 153, 0.4);
         }
 
         .bento-resume-grid {
@@ -451,6 +79,8 @@
             align-items: center;
             justify-content: center;
             min-height: 320px;
+            grid-column: span 2;
+            grid-row: span 2;
         }
         .bento-main-bg {
             position: absolute;
@@ -495,7 +125,7 @@
             letter-spacing: -0.01em;
         }
         .bento-main-major {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--text-secondary);
             font-weight: 500;
         }
@@ -522,6 +152,9 @@
             border: 1px solid rgba(99,102,241,0.2);
             color: var(--accent);
         }
+        .card-projects { grid-column: span 2; }
+        .card-research { grid-column: 3; }
+        .bento-skills-wide { grid-column: span 3; }
 
         .bento-stats {
             display: flex;
@@ -573,31 +206,9 @@
         .stat-bar-fill.animated {
             width: 100%;
         }
-
-        .bento-card-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
+        .stat-number-animated {
+            font-variant-numeric: tabular-nums;
         }
-        .bento-card-icon svg { width: 20px; height: 20px; }
-        .bento-card-title {
-            font-size: 1.1rem;
-            font-weight: 400;
-            margin-bottom: 10px;
-            color: var(--text);
-            letter-spacing: 0.05em;
-            font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive;
-        }
-        .bento-card-text {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-        .bento-card-text strong { color: var(--text); }
 
         .bento-skills-wide {
             background: linear-gradient(135deg, rgba(236,72,153,0.05), rgba(99,102,241,0.05));
@@ -619,8 +230,8 @@
             animation-play-state: paused;
         }
         @keyframes tickerScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
         }
         .skill-pill {
             padding: 8px 18px;
@@ -644,102 +255,52 @@
             .bento-resume-grid {
                 grid-template-columns: 1fr;
             }
-            .bento-card[style*="span"] {
+            .bento-main, .card-projects, .bento-skills-wide {
                 grid-column: span 1 !important;
                 grid-row: span 1 !important;
             }
+            .card-research { grid-column: span 1 !important; }
             .bento-main { min-height: 240px; }
         }
 
-        .skills-marquee-section {
-            padding: 80px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        .marquee-wrap {
-            overflow: hidden;
-            padding: 12px 0;
-            mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-            -webkit-mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-        }
-        .marquee-track {
-            display: flex;
-            gap: 12px;
-            width: max-content;
-        }
-        .marquee-track.forward { animation: marquee-left 30s linear infinite; }
-        .marquee-track.reverse { animation: marquee-right 30s linear infinite; }
-        @keyframes marquee-left {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        @keyframes marquee-right {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0); }
-        }
-        .marquee-tag {
-            padding: 8px 20px;
-            border-radius: 100px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            white-space: nowrap;
-            border: 1px solid var(--glass-border);
-            background: var(--glass);
-            color: var(--text-secondary);
-            transition: var(--transition);
-        }
-        .marquee-tag:hover {
-            background: var(--surface-hover);
-            color: var(--text);
-            border-color: var(--border-hover);
-        }
-
-        .videos-section {
-            padding: 80px 0;
-            position: relative;
-            background: linear-gradient(180deg, transparent 0%, rgba(99, 102, 241, 0.02) 50%, transparent 100%);
-        }
-        .video-category-section { margin-bottom: 80px; }
-        .video-category-section:last-of-type { margin-bottom: 40px; }
-
-        .video-gallery {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 32px;
-        }
-        .video-gallery-ads,
-        .video-gallery-game {
-            grid-template-columns: 1fr;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .video-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
+        .video-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
             border-radius: 24px;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            box-shadow: 
-                0 4px 20px rgba(99, 102, 241, 0.06),
-                0 2px 10px rgba(99, 102, 241, 0.04);
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.4), rgba(168,85,247,0.4), rgba(236,72,153,0.4), rgba(6,182,212,0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
         }
-        .video-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(99, 102, 241, 0.2);
-            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.1);
+        .video-card:hover::before {
+            opacity: 1;
         }
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: linear-gradient(110deg, #e8e8f0 30%, #f0f0f8 50%, #e8e8f0 70%);
-            background-size: 200% 100%;
-            overflow: hidden;
-            cursor: pointer;
+
+        .video-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(99,102,241,0.12), transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            pointer-events: none;
+            z-index: 0;
         }
+        .video-card:hover::after {
+            width: 300%;
+            height: 300%;
+        }
+
         .video-wrapper:has(video[data-loaded="false"]) {
             animation: loadingShimmer 1.5s ease-in-out infinite;
         }
@@ -747,101 +308,7 @@
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
-        .video-wrapper video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .video-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-        .video-card:hover .video-overlay { background: rgba(0, 0, 0, 0.25); }
-        .play-btn {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .play-btn svg { width: 20px; height: 20px; color: #6366f1; margin-left: 3px; }
-        .video-card:hover .play-btn {
-            background: var(--gradient-1);
-            border-color: transparent;
-            transform: scale(1.1);
-        }
-        .video-card:hover .play-btn svg { color: #fff; }
-        .video-info {
-            padding: 20px 24px;
-        }
-        .video-category-label {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 3px 12px;
-            border-radius: 100px;
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
-            margin-bottom: 8px;
-        }
-        .video-info h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-        .video-description { display: none; }
-        .video-card .video-description {
-            display: block;
-            border-top: 1px solid var(--glass-border);
-            padding-top: 16px;
-            margin-top: 8px;
-        }
-        .desc-item {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-        }
-        .desc-label {
-            color: var(--accent);
-            font-weight: 600;
-            white-space: nowrap;
-            min-width: 68px;
-        }
-        .desc-text { color: var(--text-secondary); }
 
-        .view-all { text-align: center; margin-top: 48px; }
-        .view-all-btn {
-            display: inline-block;
-            padding: 14px 40px;
-            border-radius: 100px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-        }
-        .view-all-btn:hover {
-            background: var(--surface-hover);
-            border-color: var(--accent);
-            box-shadow: 0 4px 24px var(--accent-glow);
-        }
-
-        .categories-section { padding: 80px 0; }
         .category-grid-bento {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -858,6 +325,23 @@
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(10px);
+        }
+        .category-card-bento::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--radius-lg);
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.2), rgba(236,72,153,0.2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .category-card-bento:hover::before {
+            opacity: 1;
         }
         .category-card-bento::after {
             content: '';
@@ -906,436 +390,11 @@
         }
         .category-card-bento:hover .cat-arrow { color: var(--text); transform: translateX(4px); }
 
-        .contact-section { padding: 80px 0 100px; }
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-bottom: 40px;
-        }
-        .contact-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 28px 24px;
-            text-decoration: none;
-            color: var(--text);
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-            position: relative;
-            display: block;
-        }
-        .contact-card:hover {
-            background: var(--surface-hover);
-            border-color: var(--border-hover);
-            transform: translateY(-2px);
-        }
-        .contact-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: var(--gradient-1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-            color: #818cf8;
-        }
-        .contact-icon svg { width: 22px; height: 22px; color: #fff; }
-        .contact-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
-        .contact-text { font-size: 0.9rem; color: var(--text-secondary); }
-        .contact-card-arrow {
-            position: absolute;
-            bottom: 28px;
-            right: 24px;
-            color: var(--text-muted);
-            transition: var(--transition);
-        }
-        .contact-card:hover .contact-card-arrow { color: var(--accent); transform: translateX(4px); }
-        .contact-cta { text-align: center; }
-        .contact-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 16px 48px;
-            border-radius: 100px;
-            background: var(--gradient-1);
-            color: #fff;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: var(--transition);
-            box-shadow: 0 4px 24px var(--accent-glow);
-        }
-        .contact-btn:hover {
-            box-shadow: 0 6px 40px rgba(99, 102, 241, 0.5);
-            transform: translateY(-2px);
-        }
-        .contact-btn svg { width: 20px; height: 20px; }
-
-        .footer {
-            border-top: 1px solid var(--border);
-            padding: 40px 0;
-        }
-        .footer-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-        .footer-info h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .footer-info p { font-size: 0.82rem; color: var(--text-muted); }
-        .footer-links { display: flex; gap: 24px; }
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: var(--transition);
-        }
-        .footer-links a:hover { color: var(--text); }
-        .footer-copyright p { font-size: 0.8rem; color: var(--text-muted); }
-
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hamburger { display: flex; }
-            .bento-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-            }
-            .bento-card.span-2 { grid-column: span 1; }
             .category-grid-bento { grid-template-columns: repeat(2, 1fr); }
-            .contact-grid { grid-template-columns: 1fr; }
-            .video-gallery-ads,
-            .video-gallery-game { grid-template-columns: 1fr; }
-            .footer-content { flex-direction: column; text-align: center; }
         }
-
         @media (max-width: 480px) {
             .category-grid-bento { grid-template-columns: 1fr; }
-            .hero-cta { flex-direction: column; align-items: center; }
-        }
-
-        .section-title {
-            position: relative;
-            overflow: hidden;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 60%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.15), transparent);
-            animation: titleShine 4s ease-in-out infinite;
-        }
-        @keyframes titleShine {
-            0%, 100% { left: -100%; }
-            50% { left: 150%; }
-        }
-
-        .video-card {
-            position: relative;
-        }
-        .video-card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 24px;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(99,102,241,0.4), rgba(168,85,247,0.4), rgba(236,72,153,0.4), rgba(6,182,212,0.3));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .video-card:hover::before {
-            opacity: 1;
-        }
-
-        .video-card::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(99,102,241,0.12), transparent 70%);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .video-card:hover::after {
-            width: 300%;
-            height: 300%;
-        }
-
-        .category-card-bento {
-            position: relative;
-        }
-        .category-card-bento::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: var(--radius-lg);
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.2), rgba(236,72,153,0.2));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-        .category-card-bento:hover::before {
-            opacity: 1;
-        }
-
-        .timeline-dot {
-            animation: dotPulse 2s ease-in-out infinite;
-        }
-        @keyframes dotPulse {
-            0%, 100% { box-shadow: 0 0 10px var(--accent-glow), 0 0 30px rgba(99,102,241,0.15); }
-            50% { box-shadow: 0 0 20px var(--accent-glow), 0 0 50px rgba(99,102,241,0.3); }
-        }
-
-        .marquee-tag {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-        }
-        .marquee-tag:hover {
-            background: var(--gradient-1);
-            color: #fff;
-            border-color: transparent;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(circle at 15% 25%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 85% 75%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.03) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .about-section, .videos-section, .categories-section, .contact-section, .skills-marquee-section, .footer {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            background: rgba(99, 102, 241, 0.08);
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            color: var(--accent);
-        }
-
-        .cta-primary {
-            box-shadow: 0 2px 12px rgba(99, 102, 241, 0.2);
-        }
-        .cta-primary:hover {
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25);
-        }
-
-        .cta-secondary {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            color: var(--text);
-        }
-        .cta-secondary:hover {
-            background: var(--surface-hover);
-            border-color: var(--accent);
-        }
-
-        .video-loading {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(245, 246, 250, 0.8);
-            z-index: 5;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .video-loading.active {
-            opacity: 1;
-        }
-        .video-loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--border);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .video-error {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(245, 246, 250, 0.9);
-            z-index: 5;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .video-error.active {
-            opacity: 1;
-        }
-
-        .section-divider {
-    position: relative;
-    height: 80px;
-    overflow: hidden;
-    pointer-events: none;
-}
-.section-divider svg {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-}
-
-.mouse-glow {
-    position: fixed;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-    transform: translate(-50%, -50%);
-    transition: left 0.15s ease-out, top 0.15s ease-out;
-}
-
-.about-section {
-    background:
-        linear-gradient(135deg, rgba(99, 102, 241, 0.04) 0%, rgba(168, 85, 247, 0.03) 40%, rgba(236, 72, 153, 0.03) 100%);
-}
-
-.timeline-line {
-    width: 4px;
-    box-shadow: 0 0 12px rgba(99, 102, 241, 0.2), 0 0 30px rgba(99, 102, 241, 0.1);
-}
-
-.timeline-dot {
-    width: 20px;
-    height: 20px;
-}
-.timeline-dot::after {
-    content: '';
-    position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    border: 2px solid rgba(99, 102, 241, 0.2);
-    animation: dotRingPulse 2s ease-in-out infinite;
-}
-@keyframes dotRingPulse {
-    0%, 100% { transform: scale(1); opacity: 0.5; }
-    50% { transform: scale(1.3); opacity: 0; }
-}
-.timeline-item.left .timeline-dot { right: -10px; }
-.timeline-item.right .timeline-dot { left: -10px; }
-
-.timeline-card {
-    border-left: 4px solid transparent;
-    position: relative;
-}
-.timeline-card.card-indigo { border-left-color: #6366f1; }
-.timeline-card.card-amber { border-left-color: #f59e0b; }
-.timeline-card.card-cyan { border-left-color: #06b6d4; }
-.timeline-card.card-pink { border-left-color: #ec4899; }
-.timeline-card:hover {
-    border-color: var(--border-hover);
-    transform: translateY(-4px);
-}
-.timeline-card:hover.card-indigo { border-left-color: #818cf8; box-shadow: -4px 0 20px rgba(99,102,241,0.2), 0 8px 32px rgba(99,102,241,0.12), inset 0 0 0 1px rgba(99,102,241,0.1); }
-.timeline-card:hover.card-amber { border-left-color: #fbbf24; box-shadow: -4px 0 20px rgba(245,158,11,0.2), 0 8px 32px rgba(245,158,11,0.12), inset 0 0 0 1px rgba(245,158,11,0.1); }
-.timeline-card:hover.card-cyan { border-left-color: #22d3ee; box-shadow: -4px 0 20px rgba(6,182,212,0.2), 0 8px 32px rgba(6,182,212,0.12), inset 0 0 0 1px rgba(6,182,212,0.1); }
-.timeline-card:hover.card-pink { border-left-color: #f472b6; box-shadow: -4px 0 20px rgba(236,72,153,0.2), 0 8px 32px rgba(236,72,153,0.12), inset 0 0 0 1px rgba(236,72,153,0.1); }
-
-.timeline-card .card-sequence {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #fff;
-    margin-right: 12px;
-    flex-shrink: 0;
-}
-.card-indigo .card-sequence { background: linear-gradient(135deg, #6366f1, #818cf8); }
-.card-amber .card-sequence { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-.card-cyan .card-sequence { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
-.card-pink .card-sequence { background: linear-gradient(135deg, #ec4899, #f472b6); }
-
-.timeline-year-badge {
-    display: inline-block;
-    padding: 4px 16px;
-    border-radius: 100px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 12px;
-    letter-spacing: 0.05em;
-}
-.card-indigo .timeline-year-badge { background: linear-gradient(135deg, #6366f1, #818cf8); }
-.card-amber .timeline-year-badge { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-.card-cyan .timeline-year-badge { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
-.card-pink .timeline-year-badge { background: linear-gradient(135deg, #ec4899, #f472b6); }
-
-.card-header-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-.stat-number-animated {
-    font-variant-numeric: tabular-nums;
-}
-        :root {
-            --cat-documentary: #6366f1;
-            --cat-ads: #06b6d4;
-            --cat-game: #f59e0b;
-            --cat-real: #ec4899;
-            --cat-documentary-bg: rgba(99, 102, 241, 0.06);
-            --cat-ads-bg: rgba(6, 182, 212, 0.06);
-            --cat-game-bg: rgba(245, 158, 11, 0.06);
-            --cat-real-bg: rgba(236, 72, 153, 0.06);
         }
 
         .category-header {
@@ -1354,7 +413,7 @@
         }
         .category-header:hover {
             transform: translateY(-4px);
-            box-shadow: 
+            box-shadow:
                 0 20px 50px rgba(99, 102, 241, 0.12),
                 0 8px 30px rgba(99, 102, 241, 0.08);
         }
@@ -1371,13 +430,11 @@
         .category-header.cat-ads::before { background: linear-gradient(90deg, #06b6d4, #22d3ee, #67e8f9, #a5f3fc); }
         .category-header.cat-game::before { background: linear-gradient(90deg, #f59e0b, #fbbf24, #fcd34d, #fde68a); }
         .category-header.cat-real::before { background: linear-gradient(90deg, #ec4899, #f472b6, #f9a8d4, #fbcfe8); }
-
         .category-header.cat-documentary { background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(129,140,248,0.05), var(--glass)); }
         .category-header.cat-ads { background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(34,211,238,0.05), var(--glass)); }
         .category-header.cat-game { background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(251,191,36,0.05), var(--glass)); }
         .category-header.cat-real { background: linear-gradient(135deg, rgba(236,72,153,0.1), rgba(244,114,182,0.05), var(--glass)); }
 
-        /* 分类标题新青年体字体样式 */
         .category-header h3 {
             font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive;
             font-size: clamp(1.8rem, 3vw, 2.2rem);
@@ -1411,7 +468,6 @@
             color: var(--accent);
         }
 
-        /* 分类标题入场动画 */
         @keyframes titleReveal {
             0% {
                 opacity: 0;
@@ -1507,7 +563,6 @@
         .category-separator.sep-game::after { background: #f59e0b; box-shadow: 0 0 10px rgba(245,158,11,0.4); }
         .category-separator.sep-real::after { background: #ec4899; box-shadow: 0 0 10px rgba(236,72,153,0.4); }
 
-        /* 卡片模糊背景样式 - 使用::after避免与::before冲突 */
         .card-education, .card-projects, .card-research {
             position: relative;
             z-index: 1;
@@ -1534,57 +589,51 @@
         .card-education:hover::after, .card-projects:hover::after, .card-research:hover::after {
             opacity: 0.35;
         }
-        .card-education::after { background-image: url('image%20copy.png'); }
-        .card-projects::after { background-image: url('image.png'); }
-        .card-research::after { background-image: url('image%20copy%202.png'); }
+        .card-education::after { background: radial-gradient(ellipse at 30% 50%, rgba(99,102,241,0.15) 0%, transparent 70%); }
+        .card-projects::after { background: radial-gradient(ellipse at 70% 50%, rgba(6,182,212,0.12) 0%, transparent 70%); }
+        .card-research::after { background: radial-gradient(ellipse at 50% 30%, rgba(168,85,247,0.12) 0%, transparent 70%); }
 
-        /* 进度条动画 */
-        .stat-bar-fill.animated {
-            width: 100% !important;
+        .timeline-dot {
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+        @keyframes dotPulse {
+            0%, 100% { box-shadow: 0 0 10px var(--accent-glow), 0 0 30px rgba(99,102,241,0.15); }
+            50% { box-shadow: 0 0 20px var(--accent-glow), 0 0 50px rgba(99,102,241,0.3); }
         }
 
-        .iframe-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #eef0f7 0%, #e8eaf5 50%, #eef0f7 100%);
-            background-size: 200% 100%;
-            animation: placeholderShimmer 2s ease-in-out infinite;
-            cursor: pointer;
-        }
-        .iframe-placeholder-icon {
-            width: 64px;
-            height: 64px;
+
+
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid var(--border);
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            cursor: pointer;
+            color: var(--text);
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease, background 0.3s ease;
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(16px);
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s, background var(--transition), border-color var(--transition);
         }
-        .iframe-placeholder-icon svg {
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            border-color: var(--accent);
+            background: var(--surface-hover);
             color: var(--accent);
-            margin-left: 4px;
-        }
-        .iframe-placeholder:hover .iframe-placeholder-icon {
-            transform: scale(1.1);
-            background: var(--accent);
-        }
-        .iframe-placeholder:hover .iframe-placeholder-icon svg {
-            color: #fff;
-        }
-        .iframe-placeholder.loaded {
-            display: none;
-        }
-        @keyframes placeholderShimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .iframe-placeholder { background: linear-gradient(135deg, #1a1a2e 0%, #15152a 50%, #1a1a2e 100%); }
         }
     </style>
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" defer></script>
@@ -1599,11 +648,15 @@
             <a href="#" class="logo">陈俊良</a>
             <div class="nav-links" id="navLinks">
                 <a href="#about" class="active" aria-label="跳转到个人概况">个人概况</a>
-                <a href="#documentary" aria-label="跳转到AI纪录片">AI纪录片</a>
-                <a href="#ads" aria-label="跳转到AI广告片">AI广告片</a>
-                <a href="#game" aria-label="跳转到长AI游戏视频">长AI游戏视频</a>
-                <a href="#real-documentary" aria-label="跳转到实拍纪录片">实拍纪录片</a>
+                <a href="#sec-documentary" aria-label="跳转到AI纪录片">AI纪录片</a>
+                <a href="#sec-ads" aria-label="跳转到AI广告片">AI广告片</a>
+                <a href="#sec-game" aria-label="跳转到长AI游戏视频">长AI游戏视频</a>
+                <a href="#sec-real-documentary" aria-label="跳转到实拍纪录片">实拍纪录片</a>
             </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="切换深色/浅色模式" title="切换深色/浅色模式">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
             <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
@@ -1614,18 +667,18 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="#about" data-nav aria-label="跳转到个人概况">个人概况</a>
-        <a href="#documentary" data-nav aria-label="跳转到AI纪录片">AI纪录片</a>
-        <a href="#ads" data-nav aria-label="跳转到AI广告片">AI广告片</a>
-        <a href="#game" data-nav aria-label="跳转到长AI游戏视频">长AI游戏视频</a>
-        <a href="#real-documentary" data-nav aria-label="跳转到实拍纪录片">实拍纪录片</a>
+        <a href="#sec-documentary" data-nav aria-label="跳转到AI纪录片">AI纪录片</a>
+        <a href="#sec-ads" data-nav aria-label="跳转到AI广告片">AI广告片</a>
+        <a href="#sec-game" data-nav aria-label="跳转到长AI游戏视频">长AI游戏视频</a>
+        <a href="#sec-real-documentary" data-nav aria-label="跳转到实拍纪录片">实拍纪录片</a>
     </div>
 
     <section class="hero" id="hero">
         <canvas id="orb-canvas"></canvas>
         <div class="hero-content">
             <div class="hero-badge animate-on-scroll">欢迎来到我的作品集</div>
-            <h1 class="hero-title animate-on-scroll" id="heroTitle">
-                <span id="typingText"></span><span class="cursor"></span>
+            <h1 class="hero-title animate-on-scroll">
+                <span class="gradient-text">陈俊良</span>
             </h1>
             <p class="hero-subtitle animate-on-scroll">中央民族大学 · 智能传播 · 硕士</p>
             <div class="hero-tags animate-on-scroll">
@@ -1652,11 +705,11 @@
                 <span class="reveal-span"><span class="title-number">01</span>关于我</span>
             </h2>
             <div class="bento-resume-grid">
-                <div class="bento-card bento-main" style="grid-column: span 2; grid-row: span 2;">
+                <div class="bento-card bento-main">
                     <div class="bento-main-bg"></div>
                     <div class="bento-main-content">
                         <div class="bento-avatar">
-                            <img src="证件照.jpg" alt="陈俊良" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; z-index: 2; position: relative;">
+                            <img src="证件照.jpg" alt="陈俊良">
                         </div>
                         <h3 class="bento-main-name">陈俊良</h3>
                         <p class="bento-main-major">中央民族大学 · 智能传播硕士</p>
@@ -1689,6 +742,7 @@
                 </div>
 
                 <div class="bento-card card-education">
+                    <div class="card-bg"></div>
                     <div class="bento-card-icon icon-edu">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
@@ -1699,7 +753,8 @@
                     <p class="bento-card-text">中央民族大学硕士研究生，主修智能传播专业，专注于人工智能与传播学的交叉研究。参与多项省部级科研项目，具备扎实的学术研究能力。研究方向涵盖AIGC内容生成、智能媒体传播、大数据舆情分析等前沿领域。</p>
                 </div>
 
-                <div class="bento-card card-projects" style="grid-column: span 2;">
+                <div class="bento-card card-projects">
+                    <div class="card-bg"></div>
                     <div class="bento-card-icon icon-project">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
@@ -1710,7 +765,8 @@
                     <p class="bento-card-text"><strong>商业化网站建设：</strong>为多家企业设计、开发商业化网站，涵盖电商平台、企业官网、在线教育等领域，具备完整的前后端开发能力，项目累计触达用户超50万+。<br><br><strong>AIGC视频创作：</strong>运营生成十余条AIGC原创广告片，作品涵盖品牌形象、产品推广、节日营销等多种类型，熟练掌握Runway、Pika、Kling、Sora等主流AI视频生成工具。<br><br><strong>纪录片导演：</strong>担任东兴电商纪录片总导演（部校共建项目），独立完成从策划、拍摄到后期制作的全流程工作。广西三月三纪录片荣获广西日报年度最佳宣传片，获广西自治区党委宣传部表彰。</p>
                 </div>
 
-                <div class="bento-card card-research" style="grid-column: 3;">
+                <div class="bento-card card-research">
+                    <div class="card-bg"></div>
                     <div class="bento-card-icon icon-research">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8"/>
@@ -1722,7 +778,7 @@
                     <p class="bento-card-text"><strong>社科基金项目：</strong>参与国家社会科学基金项目、北京市社会科学基金项目。<br><br><strong>AI模型应用与数据分析：</strong>运用Python调用AI进行NLP文本分析，使用BERT、LIWC、TextBlob、VADER、STM、LDA等多种模型，对用户舆情、偏好结构、性格画像进行精准建构。<br><br><strong>建构项目相关网站：</strong>结合AI生成HTML、CSS、js文件等，导入Github与Vercel生成联网商业网站（<a href="https://www.mumengmei.cn" target="_blank" class="bento-link">www.mumengmei.cn</a>）。<br><br><strong>学术研究成果：</strong>在《传媒》《新媒体与社会》等CSSCI核心期刊发表学术论文数篇，于IAMCR国际传播学会、AEJMC美国教育传播学年会、中国新闻史学会等国际国内顶会发言3次。</p>
                 </div>
 
-                <div class="bento-card bento-skills-wide" style="grid-column: span 3;">
+                <div class="bento-card bento-skills-wide">
                     <h4 class="bento-card-title">专业技能</h4>
                     <div class="bento-skills-cloud">
                         <div class="ticker-track">
@@ -1763,62 +819,6 @@
     </svg>
 </div>
 
-    <section class="skills-marquee-section">
-        <div class="container">
-            <h2 class="section-title animate-on-scroll reveal-title">
-                <span class="reveal-span"><span class="title-number">02</span>技术栈</span>
-            </h2>
-        </div>
-        <div class="marquee-wrap">
-            <div class="marquee-track forward" id="marquee1">
-                <span class="marquee-tag">HTML5</span>
-                <span class="marquee-tag">CSS3</span>
-                <span class="marquee-tag">JavaScript ES6+</span>
-                <span class="marquee-tag">Vue 3</span>
-                <span class="marquee-tag">React</span>
-                <span class="marquee-tag">Python</span>
-                <span class="marquee-tag">Node.js</span>
-                <span class="marquee-tag">AIGC</span>
-                <span class="marquee-tag">RAG</span>
-                <span class="marquee-tag">MySQL</span>
-                <span class="marquee-tag">MongoDB</span>
-                <span class="marquee-tag">Webpack</span>
-                <span class="marquee-tag">Vite</span>
-                <span class="marquee-tag">Runway</span>
-                <span class="marquee-tag">Kling</span>
-                <span class="marquee-tag">Sora</span>
-                <span class="marquee-tag">Pika Labs</span>
-                <span class="marquee-tag">Premiere</span>
-                <span class="marquee-tag">DaVinci Resolve</span>
-                <span class="marquee-tag">After Effects</span>
-            </div>
-        </div>
-        <div class="marquee-wrap" style="margin-top: 8px;">
-            <div class="marquee-track reverse" id="marquee2">
-                <span class="marquee-tag">Midjourney</span>
-                <span class="marquee-tag">Stable Diffusion</span>
-                <span class="marquee-tag">Prompt Engineering</span>
-                <span class="marquee-tag">大数据分析</span>
-                <span class="marquee-tag">数据可视化</span>
-                <span class="marquee-tag">RESTful API</span>
-                <span class="marquee-tag">响应式设计</span>
-                <span class="marquee-tag">Git</span>
-                <span class="marquee-tag">Linux</span>
-                <span class="marquee-tag">Docker</span>
-                <span class="marquee-tag">Figma</span>
-                <span class="marquee-tag">Tailwind CSS</span>
-                <span class="marquee-tag">TypeScript</span>
-                <span class="marquee-tag">Next.js</span>
-                <span class="marquee-tag">FastAPI</span>
-                <span class="marquee-tag">Flask</span>
-                <span class="marquee-tag">LangChain</span>
-                <span class="marquee-tag">Vector DB</span>
-                <span class="marquee-tag">Embedding</span>
-                <span class="marquee-tag">LLM</span>
-            </div>
-        </div>
-    </section>
-
 <div class="section-divider">
     <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
         <path d="M0,60 C480,0 960,80 1440,20 L1440,80 L0,80 Z" fill="rgba(168,85,247,0.03)"/>
@@ -1831,7 +831,7 @@
                 <span class="reveal-span"><span class="title-number">03</span>精选作品</span>
             </h2>
 
-            <div id="documentary" class="video-category-section animate-on-scroll">
+            <div id="sec-documentary" class="video-category-section animate-on-scroll">
                 <div class="category-header cat-documentary">
                     <h3 class="category-title">
                         <span class="category-icon">
@@ -1844,7 +844,7 @@
                     </h3>
                     <p class="category-desc">探讨AI时代人类与技术的共生关系，通过纪录片形式展现人工智能对现代社会的影响</p>
                 </div>
-                <div class="video-gallery">
+                <div class="video-gallery" style="grid-template-columns:1fr">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
                             <video src="视频合集/AI纪录片《何以为家》.mp4" preload="none" muted loop playsinline></video>
@@ -1854,33 +854,89 @@
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
+</div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
 <div class="video-error">视频加载失败，请稍后重试</div>
-</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-documentary">纪录片</span>
                             <h3>AI纪录片《何以为家》</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">深度探讨AI时代人类归属感与身份认同议题，通过纪实影像呈现科技洪流中个体命运的沉浮与抉择</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
-                                    <span class="desc-text">采用低色温暖调柔光营造人文关怀氛围，关键场景运用逆光剪影强化情感张力</span>
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">低色温暖调柔光营造人文关怀氛围，逆光剪影强化情感张力</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">以全景交代环境背景，中景呈现人物互动，特写捕捉情感细节，形成叙事节奏</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-label">镜头</span>
                                     <span class="desc-text">固定镜头为主保持纪实感，辅以缓慢推拉引导观众沉浸思考</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Runway Gen-2、Pika Labs、Midjourney</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">全景交代环境背景，中景呈现人物互动，特写捕捉情感细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">科技洪流中沉浮的个体与家庭</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">纪实人文风格，诗意叙事</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">沉稳舒缓的叙事节奏，留白引发思考</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-wrapper">
+                            <video src="视频合集/AI纪录片《沁园春·雪》.mp4" preload="none" muted loop playsinline></video>
+                            <div class="video-overlay">
+                                <button class="play-btn" aria-label="播放视频">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+</div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-category-label cat-label-documentary">纪录片</span>
+                            <h3>AI纪录片《沁园春·雪》</h3>
+                            <div class="video-description">
+                                <div class="desc-item">
+                                    <span class="desc-label">场景</span>
+                                    <span class="desc-text">以AI技术演绎毛泽东经典诗词《沁园春·雪》的壮阔意境，融合视觉艺术与文学之美</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">暖调光影营造历史厚重感，利用光影对比突显诗词中的豪迈气势</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">多视角切换，航拍与特写结合展现壮丽山河</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">远景展现宏大场面，近景捕捉细节情感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">AI生成人物形象，贴合诗词意境代入感强</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">写意与写实结合，东方美学与AI技术交织</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">张弛有度，随诗词韵律自然推进</span>
                                 </div>
                             </div>
                         </div>
@@ -1890,7 +946,7 @@
 
             <div class="category-separator sep-documentary"></div>
 
-            <div id="ads" class="video-category-section animate-on-scroll">
+            <div id="sec-ads" class="video-category-section animate-on-scroll">
                 <div class="category-header cat-ads">
                     <h3 class="category-title">
                         <span class="category-icon">
@@ -1906,125 +962,192 @@
                 <div class="video-gallery video-gallery-ads">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <div class="iframe-placeholder" data-src="//player.bilibili.com/player.html?bvid=BV1jYLq6gEFx&autoplay=0&high_quality=1&danmaku=0"><div class="iframe-placeholder-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+                            <video src="视频合集/广告片1.mp4" preload="none" muted loop playsinline></video>
+                            <div class="video-overlay">
+                                <button class="play-btn" aria-label="播放视频">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+</div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>爆炸盐，炸掉所有烦恼</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">科技感品牌形象广告，通过未来都市意象展现品牌创新精神与前沿定位</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-label">光影</span>
                                     <span class="desc-text">冷色调硬光打造科技质感，霓虹光效点缀营造赛博朋克氛围</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">大远景展示城市宏观，快速切换近景特写强化视觉冲击力</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-label">镜头</span>
                                     <span class="desc-text">快速推拉与动态跟拍结合，营造紧张刺激的节奏感</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Runway Gen-3、Kling</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">大远景展示城市宏观，快速切换近景特写强化视觉冲击力</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">未来都市中的消费者形象</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">赛博朋克科技风，未来感视觉语言</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">快速紧张的节奏，高频剪辑</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <div class="iframe-placeholder" data-src="//player.bilibili.com/player.html?bvid=BV1dYLq6uEw7&autoplay=0&high_quality=1&danmaku=0"><div class="iframe-placeholder-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+                            <video src="视频合集/广告片2.mp4" preload="none" muted loop playsinline></video>
+                            <div class="video-overlay">
+                                <button class="play-btn" aria-label="播放视频">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+</div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>沐萌美，油污跑光亮晶晶</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">生活方式类产品广告，以温馨家庭场景传递产品温度与人文关怀</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-label">光影</span>
                                     <span class="desc-text">自然柔光为主，侧光塑造立体感，黄金时段光线营造温暖氛围</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">中景为主展现生活场景，穿插近景特写捕捉情感瞬间</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-label">镜头</span>
                                     <span class="desc-text">平稳摇移镜头营造舒适感，固定镜头突出产品细节</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Sora、Pika Labs</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">中景为主展现生活场景，穿插近景特写捕捉情感瞬间</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">温馨家庭中的用户</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">温馨生活风，真实治愈</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">舒缓平和的节奏，自然流畅</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <div class="iframe-placeholder" data-src="//player.bilibili.com/player.html?bvid=BV1dYLq6uEgN&autoplay=0&high_quality=1&danmaku=0"><div class="iframe-placeholder-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+                            <video src="视频合集/广告片3.mp4" preload="none" muted loop playsinline></video>
+                            <div class="video-overlay">
+                                <button class="play-btn" aria-label="播放视频">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+</div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>一滴浓，一身净</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">运动品牌活力广告，通过动感画面传递青春能量与运动激情</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-label">光影</span>
                                     <span class="desc-text">高对比度硬光强化动感，逆光勾勒人物轮廓，营造力量美学</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">全景展示运动姿态，近景捕捉表情张力，特写强调产品细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-label">镜头</span>
                                     <span class="desc-text">快速跟拍与环绕镜头结合，手持感增强现场感与代入感</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Kling、Runway Gen-3</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">全景展示运动姿态，近景捕捉表情张力，特写强调产品细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">充满活力的运动者</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">运动活力风，力量美学</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">动感快速的节奏，强劲有力</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <div class="iframe-placeholder" data-src="//player.bilibili.com/player.html?bvid=BV1dYLq6gE23&autoplay=0&high_quality=1&danmaku=0"><div class="iframe-placeholder-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+                            <video src="视频合集/广告片4.mp4" preload="none" muted loop playsinline></video>
+                            <div class="video-overlay">
+                                <button class="play-btn" aria-label="播放视频">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+</div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>油污净，秒除污</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">奢侈品牌形象广告，运用极简主义美学呈现品牌格调，通过抽象视觉语言传递品牌哲学</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
-                                    <span class="desc-text">雕塑感硬光塑造产品质感，大面积阴影留白营造神秘高级感，局部高光引导视觉焦点</span>
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">柔光漫射营造梦幻氛围，高光点缀突出产品质感</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">超特写展现材质细节，中景展示产品全貌，远景构建意境空间</span>
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">慢动作展现产品流动感，微距拍摄突出材质细节</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
-                                    <span class="desc-text">缓慢的轨道移动营造仪式感，固定镜头强调画面构图美感</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">特写展示产品细节，中景呈现使用场景，近景捕捉情感表达</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Runway Gen-3、Pika Labs、Kling</span>
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">追求品质生活的消费者</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">极简美学风，抽象艺术表达</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">舒缓优雅的节奏，细腻流动</span>
                                 </div>
                             </div>
                         </div>
@@ -2038,33 +1161,41 @@
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
+</div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
 <div class="video-error">视频加载失败，请稍后重试</div>
-</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>AD钙，用心包裹儿时科幻梦</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">科技产品发布会风格广告，以未来感视觉语言展现产品创新功能与设计美学</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
-                                    <span class="desc-text">冷白基调光营造科技纯净感，动态光效追踪产品轮廓，营造未来科技氛围</span>
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">暖色灯光突出产品色泽，侧光强化立体层次感</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">特写突出产品设计细节，中景展示使用场景，大景强调空间沉浸感</span>
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">稳定推近镜头聚焦产品，慢镜头捕捉动态美感</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
-                                    <span class="desc-text">环绕三维展示产品全貌，微距镜头捕捉交互细节，节奏感剪辑配合音乐</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">微距特写展现产品细节，中景呈现使用氛围</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">豆包、Kling、Runway Gen-3</span>
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">充满好奇心的消费者</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">未来科技风，发布会质感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">明快轻松的节奏，富有韵律</span>
                                 </div>
                             </div>
                         </div>
@@ -2078,42 +1209,51 @@
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
+</div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
 <div class="video-error">视频加载失败，请稍后重试</div>
-</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>陪你酸酸甜甜，陪你可可爱爱</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">旅行品牌目的地广告，通过梦幻般的自然风光与人文体验激发用户的探索欲望</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-label">光影</span>
                                     <span class="desc-text">黄金时段暖色调为主，日出日落光线营造温暖浪漫氛围，逆光勾勒人物剪影</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">航拍大景展现壮丽自然，中景记录人文活动，近景捕捉真实情感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-label">镜头</span>
                                     <span class="desc-text">航拍俯视展现地理全貌，延时摄影呈现光影变化，平稳横移展示空间层次</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Runway Gen-2、Pika Labs、Midjourney</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">航拍大景展现壮丽自然，中景记录人文活动，近景捕捉真实情感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">探索世界的旅行者</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">梦幻旅行风，浪漫唯美</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">舒缓浪漫的节奏，沉浸式体验</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
 
             <div class="category-separator sep-ads"></div>
 
-            <div id="game" class="video-category-section animate-on-scroll">
+            <div id="sec-game" class="video-category-section animate-on-scroll">
                 <div class="category-header cat-game">
                     <h3 class="category-title">
                         <span class="category-icon">
@@ -2136,33 +1276,41 @@
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
+</div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
 <div class="video-error">视频加载失败，请稍后重试</div>
-</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——多元素引流</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">奇幻风格游戏场景展示，呈现魔法世界的宏大叙事与神秘氛围</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-label">光影</span>
                                     <span class="desc-text">神秘紫蓝色调为主，魔法光效点缀，营造奇幻梦境感</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">大远景展示世界全貌，中景呈现角色与环境互动，特写突出魔法细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-label">镜头</span>
                                     <span class="desc-text">缓慢航拍视角探索场景，推镜头引导观众发现隐藏细节</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Runway Gen-2、Stable Video Diffusion</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">大远景展示世界全貌，中景呈现角色与环境互动，特写突出魔法细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">魔法世界中的角色与生物</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">奇幻魔法风，宏大叙事</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">舒缓探索的节奏，渐入佳境</span>
                                 </div>
                             </div>
                         </div>
@@ -2176,33 +1324,41 @@
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
+</div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
 <div class="video-error">视频加载失败，请稍后重试</div>
-</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——冲突化引流</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">科幻机甲战斗场景，展现未来战争的紧张氛围与机械美学</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-label">光影</span>
                                     <span class="desc-text">金属质感冷光为主，爆炸火光形成强烈对比，强化战场氛围</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">远景呈现战场全貌，中景展示机甲对决，近景捕捉战斗细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
+                                    <span class="desc-label">镜头</span>
                                     <span class="desc-text">快速摇移与跟拍模拟战斗节奏，低角度仰拍强化机甲压迫感</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Pika、Kling</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">远景呈现战场全貌，中景展示机甲对决，近景捕捉战斗细节</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">战场中的机甲战士</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">科幻战斗风，机械美学</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">紧张激烈的节奏，压迫感强</span>
                                 </div>
                             </div>
                         </div>
@@ -2216,33 +1372,41 @@
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
+</div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
 <div class="video-error">视频加载失败，请稍后重试</div>
-</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——剧情化引流</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">暗黑奇幻风格场景展示，描绘被遗忘王国的幽暗秘境与失落文明的遗迹探索</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
-                                    <span class="desc-text">暗调冷色为主，烛光与魔法光芒形成明暗对比，营造压抑而神秘的氛围</span>
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">低饱和灰黄调营造末世氛围，火光与霓虹点缀形成视觉焦点</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">中景跟拍角色探索旅程，特写捕捉环境中诡异细节，远景呈现宏大地下世界</span>
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">摇晃手持镜头增强紧张感，航拍俯瞰展现废墟规模</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
-                                    <span class="desc-text">肩扛跟拍增强沉浸感，缓慢推拉引导视线，突发快速摇摄制造紧张感</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">大远景展现秘境全貌，中景呈现探索过程，近景捕捉生存细节</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Runway Gen-3、Pika Labs、Kling</span>
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">探索秘境的冒险者</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">暗黑奇幻风，神秘探索</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">紧张悬疑的节奏，层层递进</span>
                                 </div>
                             </div>
                         </div>
@@ -2256,33 +1420,41 @@
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
+</div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
 <div class="video-error">视频加载失败，请稍后重试</div>
-</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——洛克王国与三角洲的剧情化、冲突化叙事</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">开放世界沙盒场景展示，呈现广袤自然环境中玩家的自由探索与动态交互</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
-                                    <span class="desc-text">动态昼夜循环系统，清晨暖光与夜晚冷色自然过渡，体积光穿透树冠营造真实感</span>
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">自然光线变化丰富，营造真实世界昼夜交替的沉浸感</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">航拍大景展示地形全貌，全景呈现生态细节，中景记录角色与环境的实时互动</span>
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">自由视角探索，动态跟拍交互过程，全景展现环境广度</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
-                                    <span class="desc-text">自由视角漫游系统，跟随视角记录探索过程，定点延时展示环境变化</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">大全景展现自然环境，中景呈现探索与交互过程</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Sora、Runway Gen-2、Stable Video Diffusion</span>
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">开放世界中的玩家角色</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">开放世界风，自由探索</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">自由多变的节奏，张弛有度</span>
                                 </div>
                             </div>
                         </div>
@@ -2296,33 +1468,41 @@
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
+</div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
 <div class="video-error">视频加载失败，请稍后重试</div>
-</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——真人化仿真叙事</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">角色扮演战斗场景，展现华丽技能特效与策略性战斗系统的视觉冲击力</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
-                                    <span class="desc-text">技能光效色彩丰富，粒子特效绚烂，慢动作定格关键打击瞬间强化视觉张力</span>
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">霓虹紫蓝色调为主，高对比明暗反差营造标志性视觉风格</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">全景展示战斗场面，近景捕捉角色表情与动作细节，特写突出技能特效</span>
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">快速跟拍战斗过程，环绕镜头展示技能，快速闪切增强节奏感</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
-                                    <span class="desc-text">环绕镜头展示战斗全景，快速跟拍动作轨迹，慢动作放大关键打击瞬间</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">中景展示战斗动作，特写捕捉技能特效，大远景呈现战场格局</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Sora、Kling、Runway Gen-3</span>
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">角色扮演中的英雄角色</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">仿真角色扮演风，华丽炫技</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">紧张激烈的战斗节奏，快速切换</span>
                                 </div>
                             </div>
                         </div>
@@ -2337,33 +1517,41 @@
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
+</div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
 <div class="video-error">视频加载失败，请稍后重试</div>
-</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——生活化叙事引流</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">末日生存主题场景，呈现废土世界中幸存者的挣扎求生与荒凉美感</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
-                                    <span class="desc-text">灰暗冷色调为主，尘土飞扬的雾状光线，火焰暖光形成稀缺的希望象征</span>
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">低饱和灰黄色调营造末世氛围，自然日光与黄昏色调增添史诗感</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">大远景展示荒芜地貌，中景记录生存日常，近景捕捉人物情感与物资细节</span>
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">航拍视角俯瞰废土，跟拍生存过程，低角度拍摄增强压迫感</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
-                                    <span class="desc-text">手持晃动镜头增强纪实感，航拍俯瞰展现末日景观，变焦镜头强调空间纵深感</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">大远景展现废土地貌，中景呈现生存场景，特写捕捉环境细节</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Runway Gen-3、Kling、Midjourney</span>
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">废土中的幸存者</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">末日废土风，荒凉美学</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">压抑缓慢的节奏，沉重有力</span>
                                 </div>
                             </div>
                         </div>
@@ -2377,33 +1565,41 @@
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
+</div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
 <div class="video-error">视频加载失败，请稍后重试</div>
-</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>短剧化AI视频</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">武侠动作风格场景，展现东方武侠世界中的轻功对决与江湖意境之美</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
-                                    <span class="desc-text">水墨风格光影渲染，竹林透光与湖面反光营造东方诗意，动作残影增强动感</span>
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">低亮度冷色调为主，烛光与月光形成明暗对比，阴影塑造神秘氛围</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
-                                    <span class="desc-text">全景展示轻功飞跃姿态，中景记录兵器交锋，特写捕捉眼神交锋的张力</span>
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">缓慢推进镜头营造紧张感，快速切换动作场面，慢镜头捕捉招式细节</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
-                                    <span class="desc-text">快速横移跟拍追逐场景，升格慢镜展示轻功细节，俯拍营造俯瞰江湖的意境</span>
+                                    <span class="desc-label">景别</span>
+                                    <span class="desc-text">全景展现对决意境，中景展示武打动作，特写捕捉招式细节</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Sora、Kling、Pika Labs</span>
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">江湖中的侠客</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">东方武侠风，江湖意境</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">快慢交替的节奏，张弛有度</span>
                                 </div>
                             </div>
                         </div>
@@ -2413,7 +1609,7 @@
 
             <div class="category-separator sep-game"></div>
 
-            <div id="real-documentary" class="video-category-section animate-on-scroll">
+            <div id="sec-real-documentary" class="video-category-section animate-on-scroll">
                 <div class="category-header cat-real">
                     <h3 class="category-title">
                         <span class="category-icon">
@@ -2429,27 +1625,48 @@
                 <div class="video-gallery video-gallery-real">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <div class="iframe-placeholder" data-src="//player.bilibili.com/player.html?bvid=BV1MHL16SE87&autoplay=0&high_quality=1&danmaku=0"><div class="iframe-placeholder-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+                            <video src="视频合集/实拍纪录片——广西三月三.mp4" preload="none" muted loop playsinline></video>
+                            <div class="video-overlay">
+                                <button class="play-btn" aria-label="播放视频">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+</div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>实拍纪录片——广西三月三</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">广西三月三传统节日文化纪录片，展现壮族人民的节日庆典与文化传承</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-label">光影</span>
                                     <span class="desc-text">自然光为主，黄金时段拍摄，暖色调呈现节日氛围</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">航拍大景展现山水，跟拍记录人物活动，固定镜头记录仪式</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别</span>
                                     <span class="desc-text">远景展现山水风光，中景记录民俗活动，近景捕捉人物表情</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
-                                    <span class="desc-text">航拍大景、跟拍人物、固定镜头记录仪式</span>
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">壮族人民与节日参与者</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">纪实民族文化风，真实温暖</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">舒缓记录式节奏，自然流畅</span>
                                 </div>
                                 <div class="desc-item">
                                     <span class="desc-label">荣誉</span>
@@ -2460,58 +1677,96 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <div class="iframe-placeholder" data-src="//player.bilibili.com/player.html?bvid=BV1tHL16SE5j&autoplay=0&high_quality=1&danmaku=0"><div class="iframe-placeholder-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+                            <video src="视频合集/纪录片——东兴电商宣传.mp4" poster="image.png" preload="none" muted loop playsinline></video>
+                            <div class="video-overlay">
+                                <button class="play-btn" aria-label="播放视频">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+</div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>纪录片——东兴电商宣传</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">东兴市电商发展纪录片，记录边境城市电商产业的崛起与发展</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-label">光影</span>
                                     <span class="desc-text">自然光与室内灯光结合，冷暖色调对比展现城市活力</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">延时摄影展现城市变化，跟拍记录工作流程，稳定镜头拍摄访谈</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别</span>
                                     <span class="desc-text">全景展示城市面貌，中景记录工作场景，特写展示产品细节</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
-                                    <span class="desc-text">延时摄影展现城市变化，跟拍记录工作流程</span>
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">东兴电商从业者与创业者</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">项目性质</span>
-                                    <span class="desc-text">部校共建项目，本人担任总导演</span>
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">纪实城市发展风，真实记录</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">由缓到快的节奏，展现发展脉络</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <div class="iframe-placeholder" data-src="//player.bilibili.com/player.html?bvid=BV1unL16nEKc&autoplay=0&high_quality=1&danmaku=0"><div class="iframe-placeholder-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+                            <video src="视频合集/实拍纪录片——五四青年节.mp4" preload="none" muted loop playsinline></video>
+                            <div class="video-overlay">
+                                <button class="play-btn" aria-label="播放视频">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </button>
+</div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>实拍纪录片——五四青年节</h3>
                             <div class="video-description">
                                 <div class="desc-item">
-                                    <span class="desc-label">内容概述</span>
+                                    <span class="desc-label">场景</span>
                                     <span class="desc-text">五四青年节主题纪录片，展现新时代青年的精神风貌与奋斗故事</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">光影设计</span>
+                                    <span class="desc-label">光影</span>
                                     <span class="desc-text">高调摄影为主，明亮通透的画面风格</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">景别设计</span>
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">手持跟拍增加真实感，固定镜头记录访谈</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">景别</span>
                                     <span class="desc-text">中近景为主，突出人物形象与情感表达</span>
                                 </div>
                                 <div class="desc-item">
-                                    <span class="desc-label">镜头设计</span>
-                                    <span class="desc-text">手持跟拍增加真实感，固定镜头记录访谈</span>
+                                    <span class="desc-label">人物</span>
+                                    <span class="desc-text">新时代青年群体</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">纪实青春风，积极向上</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">明快向上的节奏，充满朝气</span>
                                 </div>
                             </div>
                         </div>
@@ -2660,6 +1915,10 @@
         </div>
     </footer>
 
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部" title="返回顶部">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
     <script>
         (function() {
             var canvas = document.getElementById('orb-canvas');
@@ -2791,31 +2050,6 @@
                 mouseY = e.clientY;
             });
 
-            var typingText = '陈俊良';
-            var typingEl = document.getElementById('typingText');
-            var charIndex = 0;
-            var isDeleting = false;
-
-            function typeEffect() {
-                if (!isDeleting && charIndex < typingText.length) {
-                    typingEl.textContent = typingText.substring(0, charIndex + 1);
-                    charIndex++;
-                    setTimeout(typeEffect, 150);
-                } else if (!isDeleting && charIndex >= typingText.length) {
-                    setTimeout(function() {
-                        isDeleting = true;
-                        typeEffect();
-                    }, 3000);
-                } else if (isDeleting && charIndex > 0) {
-                    charIndex--;
-                    typingEl.textContent = typingText.substring(0, charIndex);
-                    setTimeout(typeEffect, 80);
-                } else if (isDeleting && charIndex === 0) {
-                    isDeleting = false;
-                    setTimeout(typeEffect, 500);
-                }
-            }
-            typeEffect();
 
             var navbar = document.getElementById('navbar');
             var hamburger = document.getElementById('hamburger');
@@ -2870,89 +2104,83 @@
             });
 
             var videoObserverOptions = { rootMargin: '300px 0px', threshold: 0.1 };
-            var videoObserver = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        var video = entry.target.querySelector('video');
-                        if (video && video.dataset.loaded !== 'true') {
-                            video.preload = 'auto';
-                            video.load();
-                            video.dataset.loaded = 'true';
-                        }
-                        videoObserver.unobserve(entry.target);
-                    }
-                });
-            }, videoObserverOptions);
-
             document.querySelectorAll('.video-card').forEach(function(card) {
                 var video = card.querySelector('video');
                 var playBtn = card.querySelector('.play-btn');
                 var loadingEl = card.querySelector('.video-loading');
                 var errorEl = card.querySelector('.video-error');
-                if (video) video.dataset.loaded = 'false';
-                videoObserver.observe(card);
 
-                if (video) {
-                    video.addEventListener('canplay', function() {
-                        if (loadingEl) loadingEl.classList.remove('active');
-                        if (errorEl) errorEl.classList.remove('active');
-                    });
-                    video.addEventListener('error', function() {
-                        if (loadingEl) loadingEl.classList.remove('active');
-                        if (errorEl) errorEl.classList.add('active');
-                    });
-                }
+                if (!video) return;
 
-                card.addEventListener('mouseenter', function() {
-                    if (errorEl && errorEl.classList.contains('active')) return;
-                    if (video.readyState >= 3) {
-                        video.play().catch(function() {});
-                    } else {
-                        if (loadingEl) loadingEl.classList.add('active');
-                        video.preload = 'auto';
-                        video.load();
-                        var onCanPlay = function() {
-                            if (loadingEl) loadingEl.classList.remove('active');
-                            video.play().catch(function() {});
-                            video.removeEventListener('canplay', onCanPlay);
-                        };
-                        video.addEventListener('canplay', onCanPlay);
-                    }
+                video.preload = 'none';
+                video.dataset.loaded = 'false';
+
+                video.addEventListener('canplay', function() {
+                    if (loadingEl) loadingEl.classList.remove('active');
+                    if (errorEl) errorEl.classList.remove('active');
+                    video.dataset.loaded = 'true';
                 });
-
-                card.addEventListener('mouseleave', function() {
-                    video.pause();
-                    video.currentTime = 0;
+                video.addEventListener('error', function() {
+                    if (loadingEl) loadingEl.classList.remove('active');
+                    if (errorEl) errorEl.classList.add('active');
+                    video.dataset.loaded = 'false';
+                });
+                video.addEventListener('waiting', function() {
+                    if (loadingEl) loadingEl.classList.add('active');
+                });
+                video.addEventListener('playing', function() {
                     if (loadingEl) loadingEl.classList.remove('active');
                 });
 
-                playBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    if (video.readyState >= 3) {
-                        if (video.requestFullscreen) {
-                            video.requestFullscreen();
-                        } else if (video.webkitRequestFullscreen) {
-                            video.webkitRequestFullscreen();
-                        }
+                function loadAndPlay(fullscreen) {
+                    if (errorEl && errorEl.classList.contains('active')) return;
+                    if (loadingEl) loadingEl.classList.add('active');
+                    video.preload = 'auto';
+                    video.load();
+                    var onCanPlay = function() {
+                        if (loadingEl) loadingEl.classList.remove('active');
                         video.muted = false;
-                        video.play();
-                    } else {
-                        if (loadingEl) loadingEl.classList.add('active');
-                        video.preload = 'auto';
-                        video.load();
-                        var onCanPlay = function() {
-                            if (loadingEl) loadingEl.classList.remove('active');
+                        if (fullscreen) {
                             if (video.requestFullscreen) {
                                 video.requestFullscreen();
                             } else if (video.webkitRequestFullscreen) {
                                 video.webkitRequestFullscreen();
                             }
-                            video.muted = false;
-                            video.play();
-                            video.removeEventListener('canplay', onCanPlay);
-                        };
-                        video.addEventListener('canplay', onCanPlay);
+                        }
+                        video.play().catch(function() {
+                            if (errorEl) errorEl.classList.add('active');
+                            if (loadingEl) loadingEl.classList.remove('active');
+                        });
+                        video.removeEventListener('canplay', onCanPlay);
+                    };
+                    var onError = function() {
+                        if (loadingEl) loadingEl.classList.remove('active');
+                        if (errorEl) errorEl.classList.add('active');
+                        video.removeEventListener('error', onError);
+                    };
+                    video.addEventListener('canplay', onCanPlay);
+                    video.addEventListener('error', onError);
+                }
+
+                if (playBtn) {
+                    playBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        loadAndPlay(true);
+                    });
+                }
+
+                card.addEventListener('mouseenter', function() {
+                    if (loadingEl) loadingEl.classList.add('active');
+                    video.preload = 'auto';
+                    video.load();
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    if (!video.paused) {
+                        video.pause();
+                        video.currentTime = 0;
                     }
+                    if (loadingEl) loadingEl.classList.remove('active');
                 });
             });
 
@@ -3062,45 +2290,41 @@ if (mouseGlow) {
     });
 }
 
-            var iframeObserver = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        var placeholder = entry.target;
-                        var src = placeholder.getAttribute('data-src');
-                        if (src) {
-                            var iframe = document.createElement('iframe');
-                            iframe.src = src;
-                            iframe.setAttribute('scrolling', 'no');
-                            iframe.setAttribute('border', '0');
-                            iframe.setAttribute('frameborder', 'no');
-                            iframe.setAttribute('framespacing', '0');
-                            iframe.setAttribute('allowfullscreen', 'true');
-                            iframe.setAttribute('loading', 'lazy');
-                            iframe.className = 'bilibili-player';
-                            iframe.style.width = '100%';
-                            iframe.style.height = '100%';
-                            iframe.style.borderRadius = 'var(--radius-lg, 16px)';
-                            placeholder.parentNode.insertBefore(iframe, placeholder.nextSibling);
-                            placeholder.classList.add('loaded');
-                        }
-                        iframeObserver.unobserve(placeholder);
-                    }
+            var themeToggle = document.getElementById('themeToggle');
+            var htmlEl = document.documentElement;
+            var savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                htmlEl.setAttribute('data-theme', savedTheme);
+            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                htmlEl.setAttribute('data-theme', 'dark');
+            }
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    var current = htmlEl.getAttribute('data-theme');
+                    var next = (current === 'dark') ? 'light' : 'dark';
+                    htmlEl.setAttribute('data-theme', next);
+                    localStorage.setItem('theme', next);
                 });
-            }, { rootMargin: '200px 0px', threshold: 0.01 });
+            }
 
-            document.querySelectorAll('.iframe-placeholder').forEach(function(placeholder) {
-                iframeObserver.observe(placeholder);
-            });
+            var backToTop = document.getElementById('backToTop');
+            if (backToTop) {
+                var throttledScroll = throttle(function() {
+                    if (window.scrollY > 500) {
+                        backToTop.classList.add('visible');
+                    } else {
+                        backToTop.classList.remove('visible');
+                    }
+                }, 100);
+                window.addEventListener('scroll', throttledScroll);
+                backToTop.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+
         })();
     </script>
 
-    <div id="videoModal" class="video-modal">
-        <div class="video-modal-content">
-            <button class="video-modal-close" aria-label="关闭视频">&times;</button>
-            <div class="video-modal-player">
-                <iframe id="modalPlayer" src="" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
 </body>
 </html>

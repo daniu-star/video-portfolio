@@ -13,20 +13,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }.bind(this));
         });
+    });
 
-        video.addEventListener('error', function() {
-            var card = this.closest('.video-card') || this.closest('.video-item');
-            var errorEl = card ? card.querySelector('.video-error') : null;
-            if (errorEl) errorEl.classList.add('active');
+    var videoObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                var video = entry.target;
+                videoObserver.unobserve(video);
+                VideoLoadQueue.enqueue(video);
+            }
         });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-        video.addEventListener('canplay', function() {
-            var card = this.closest('.video-card') || this.closest('.video-item');
-            var loadingEl = card ? card.querySelector('.video-loading') : null;
-            var errorEl = card ? card.querySelector('.video-error') : null;
-            if (loadingEl) loadingEl.classList.remove('active');
-            if (errorEl) errorEl.classList.remove('active');
-        });
+    videos.forEach(function(video) {
+        videoObserver.observe(video);
     });
 
     var observerOptions = {
@@ -153,34 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.querySelectorAll('.video-click-overlay').forEach(function(overlay) {
-        overlay.addEventListener('click', function() {
-            var bvid = this.getAttribute('data-bvid');
-            openVideoModal(bvid);
-        });
-    });
-
-    var videoModal = document.getElementById('videoModal');
-    var videoModalClose = videoModal ? videoModal.querySelector('.video-modal-close') : null;
-
-    if (videoModalClose) {
-        videoModalClose.addEventListener('click', closeVideoModal);
-    }
-
-    if (videoModal) {
-        videoModal.addEventListener('click', function(e) {
-            if (e.target === videoModal) {
-                closeVideoModal();
-            }
-        });
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && videoModal && videoModal.classList.contains('show')) {
-            closeVideoModal();
-        }
-    });
-
     var magneticBtns = document.querySelectorAll('.cta-primary, .play-btn');
     var throttledMagneticMove = throttle(function(btn, e) {
         var rect = btn.getBoundingClientRect();
@@ -219,20 +191,40 @@ function throttle(func, limit) {
     };
 }
 
-function openVideoModal(bvid) {
-    var modal = document.getElementById('videoModal');
-    var player = document.getElementById('modalPlayer');
-    if (!modal || !player) return;
-    player.src = '//player.bilibili.com/player.html?bvid=' + bvid + '&autoplay=1&high_quality=1&danmaku=0';
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-}
+var VideoLoadQueue = {
+    queue: [],
+    maxConcurrent: 2,
+    activeCount: 0,
 
-function closeVideoModal() {
-    var modal = document.getElementById('videoModal');
-    var player = document.getElementById('modalPlayer');
-    if (!modal) return;
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-    if (player) player.src = '';
-}
+    enqueue: function(video) {
+        if (this.queue.indexOf(video) !== -1) return;
+        var self = this;
+        var card = video.closest('.video-card') || video.closest('.video-item');
+
+        video.addEventListener('canplay', function() {
+            var loadingEl = card ? card.querySelector('.video-loading') : null;
+            var errorEl = card ? card.querySelector('.video-error') : null;
+            if (loadingEl) loadingEl.classList.remove('active');
+            if (errorEl) errorEl.classList.remove('active');
+            self.activeCount--;
+            self.processNext();
+        }, { once: true });
+
+        video.addEventListener('error', function() {
+            var errorEl = card ? card.querySelector('.video-error') : null;
+            if (errorEl) errorEl.classList.add('active');
+            self.activeCount--;
+            self.processNext();
+        }, { once: true });
+
+        this.queue.push(video);
+        this.processNext();
+    },
+
+    processNext: function() {
+        if (this.activeCount >= this.maxConcurrent || this.queue.length === 0) return;
+        var video = this.queue.shift();
+        this.activeCount++;
+        video.load();
+    }
+};

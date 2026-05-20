@@ -1,0 +1,5 @@
+# 压缩缓存目录
+视频合集/compressed/
+# 操作系统文件
+Thumbs.db
+.DS_Store
