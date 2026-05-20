@@ -153,6 +153,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    document.querySelectorAll('.video-click-overlay').forEach(function(overlay) {
+        overlay.addEventListener('click', function() {
+            var bvid = this.getAttribute('data-bvid');
+            openVideoModal(bvid);
+        });
+    });
+
+    var videoModal = document.getElementById('videoModal');
+    var videoModalClose = videoModal ? videoModal.querySelector('.video-modal-close') : null;
+
+    if (videoModalClose) {
+        videoModalClose.addEventListener('click', closeVideoModal);
+    }
+
+    if (videoModal) {
+        videoModal.addEventListener('click', function(e) {
+            if (e.target === videoModal) {
+                closeVideoModal();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && videoModal && videoModal.classList.contains('show')) {
+            closeVideoModal();
+        }
+    });
+
     var magneticBtns = document.querySelectorAll('.cta-primary, .play-btn');
     var throttledMagneticMove = throttle(function(btn, e) {
         var rect = btn.getBoundingClientRect();
@@ -189,4 +217,22 @@ function throttle(func, limit) {
             }, limit);
         }
     };
+}
+
+function openVideoModal(bvid) {
+    var modal = document.getElementById('videoModal');
+    var player = document.getElementById('modalPlayer');
+    if (!modal || !player) return;
+    player.src = '//player.bilibili.com/player.html?bvid=' + bvid + '&autoplay=1&high_quality=1&danmaku=0';
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeVideoModal() {
+    var modal = document.getElementById('videoModal');
+    var player = document.getElementById('modalPlayer');
+    if (!modal) return;
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+    if (player) player.src = '';
 }
