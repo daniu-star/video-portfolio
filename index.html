@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -9,29 +9,29 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg: #0a0a0f;
-            --bg-secondary: #111118;
-            --surface: rgba(255, 255, 255, 0.03);
-            --surface-hover: rgba(255, 255, 255, 0.06);
-            --border: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(255, 255, 255, 0.12);
-            --text: #e8e8ed;
-            --text-secondary: #9d9db3;
-            --text-muted: #5e5e72;
+            --bg: #f5f6fa;
+            --bg-secondary: #ffffff;
+            --surface: rgba(99, 102, 241, 0.04);
+            --surface-hover: rgba(99, 102, 241, 0.08);
+            --border: rgba(99, 102, 241, 0.1);
+            --border-hover: rgba(99, 102, 241, 0.2);
+            --text: #1a1a2e;
+            --text-secondary: #3a3a5a;
+            --text-muted: #5a5a7a;
             --accent: #6366f1;
-            --accent-glow: rgba(99, 102, 241, 0.3);
+            --accent-glow: rgba(99, 102, 241, 0.25);
             --accent2: #8b5cf6;
             --accent3: #06b6d4;
             --green: #10b981;
             --orange: #f59e0b;
             --pink: #ec4899;
             --red: #ef4444;
-            --gradient-1: linear-gradient(135deg, #6366f1, #8b5cf6);
+            --gradient-1: linear-gradient(135deg, #6366f1, #a855f7);
             --gradient-2: linear-gradient(135deg, #06b6d4, #10b981);
             --gradient-3: linear-gradient(135deg, #f59e0b, #ef4444);
             --gradient-4: linear-gradient(135deg, #ec4899, #8b5cf6);
-            --glass: rgba(255, 255, 255, 0.04);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(99, 102, 241, 0.12);
             --radius: 16px;
             --radius-sm: 10px;
             --radius-lg: 24px;
@@ -41,28 +41,31 @@
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Microsoft YaHei', '微软雅黑', 'PingFang SC', sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.7;
+            line-height: 1.9;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
 
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.25); border-radius: 3px; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
         .section-title {
             font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 700;
+            font-weight: 400;
             display: flex;
             align-items: center;
             gap: 16px;
             margin-bottom: 48px;
-            letter-spacing: -0.02em;
+            letter-spacing: 0.05em;
+            font-family: 'KaiTi', 'STKaiti', '楷体', serif;
         }
         .title-number {
             font-family: 'JetBrains Mono', monospace;
@@ -95,10 +98,10 @@
             transition: var(--transition);
         }
         .navbar.scrolled {
-            background: rgba(10, 10, 15, 0.75);
+            background: rgba(245, 246, 250, 0.92);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--border);
             padding: 8px 24px;
         }
         .nav-container {
@@ -161,7 +164,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(10, 10, 15, 0.97);
+            background: rgba(245, 246, 250, 0.97);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             z-index: 999;
@@ -188,6 +191,7 @@
             justify-content: center;
             overflow: hidden;
             padding: 120px 24px 80px;
+            background: linear-gradient(180deg, #eeeef5 0%, var(--bg) 100%);
         }
         #orb-canvas {
             position: absolute;
@@ -215,12 +219,12 @@
             backdrop-filter: blur(10px);
         }
         .hero-title {
-            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 900;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
+            letter-spacing: 0.05em;
+            line-height: 1.2;
             margin-bottom: 16px;
-            font-family: 'JetBrains Mono', 'Noto Sans SC', monospace;
+            font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive;
         }
         .hero-title .char { position: relative; }
         .hero-title .cursor {
@@ -236,9 +240,10 @@
         .hero-subtitle {
             font-size: 1.15rem;
             color: var(--text-secondary);
-            font-weight: 300;
-            letter-spacing: 0.15em;
+            font-weight: 400;
+            letter-spacing: 0.05em;
             margin-bottom: 32px;
+            font-family: 'ZCOOL KuaiLe', 'ZCOOL QingKe HuangYou', cursive;
         }
         .hero-tags {
             display: flex;
@@ -350,7 +355,7 @@
             margin-bottom: 20px;
         }
         .bento-card .bento-icon svg { width: 22px; height: 22px; }
-        .bento-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
+        .bento-card h3 { font-size: 1.2rem; font-weight: 400; margin-bottom: 12px; letter-spacing: 0.05em; font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive; }
         .bento-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; }
         .bento-card p strong { color: var(--text); }
         .icon-edu { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
@@ -358,116 +363,214 @@
         .icon-project { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
         .icon-skills { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
 
-        .stats-grid {
+        .bento-card .bento-icon { background: none; }
+        .icon-edu { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+        .icon-data { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+        .icon-project { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+        .icon-skills { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
+        .icon-research { background: rgba(6, 182, 212, 0.15); color: #22d3ee; }
+
+        .bento-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        .bento-link:hover {
+            color: var(--pink);
+            border-bottom-color: rgba(236, 72, 153, 0.4);
+        }
+
+        .bento-resume-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .bento-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 36px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 24px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.35), rgba(168,85,247,0.35), rgba(236,72,153,0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .bento-card:hover::before {
+            opacity: 1;
+        }
+        .bento-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .bento-card:hover::after {
+            opacity: 1;
+        }
+        .bento-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(99, 102, 241, 0.35);
+            box-shadow: 
+                0 20px 50px rgba(99, 102, 241, 0.15),
+                0 8px 30px rgba(99, 102, 241, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+        }
+
+        .bento-main {
+            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 320px;
+        }
+        .bento-main-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 40%, rgba(99,102,241,0.1) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 60%, rgba(168,85,247,0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .bento-main-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            height: 100%;
-            justify-content: center;
+            align-items: center;
+            gap: 12px;
         }
-        .stat-item { text-align: center; }
-        .stat-number {
-            font-size: 2.2rem;
+        .bento-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            box-shadow: 0 8px 30px rgba(99,102,241,0.3);
+            overflow: hidden;
+            border: 3px solid rgba(99,102,241,0.3);
+        }
+        .bento-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .bento-main-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.01em;
+        }
+        .bento-main-major {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .bento-main-slogan {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 500;
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+        .bento-main-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 8px;
+        }
+        .bento-tag {
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            background: rgba(99,102,241,0.1);
+            border: 1px solid rgba(99,102,241,0.2);
+            color: var(--accent);
+        }
+
+        .bento-stats {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 24px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.06), rgba(99,102,241,0.04));
+        }
+        .bento-stats .stat-item {
+            text-align: center;
+        }
+        .bento-stats .stat-number {
+            font-size: 2.8rem;
             font-weight: 800;
             background: var(--gradient-2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             line-height: 1;
-        }
-        .stat-label { font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; }
-
-        .timeline {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 0;
-        }
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, transparent, var(--accent), var(--accent2), transparent);
-            transform: translateX(-50%);
-        }
-        .timeline-item {
-            position: relative;
-            width: 50%;
-            padding: 20px 0;
-        }
-        .timeline-item.left {
-            left: 0;
-            padding-right: 50px;
-            text-align: right;
-        }
-        .timeline-item.right {
-            left: 50%;
-            padding-left: 50px;
-        }
-        .timeline-dot {
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--gradient-1);
-            box-shadow: 0 0 20px var(--accent-glow), 0 0 60px rgba(99, 102, 241, 0.3);
-            top: 40px;
-            z-index: 2;
-        }
-        .timeline-item.left .timeline-dot { right: -8px; }
-        .timeline-item.right .timeline-dot { left: -8px; }
-        .timeline-card {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-lg);
-    padding: 28px 24px;
-    backdrop-filter: blur(10px);
-    transition: var(--transition);
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: overlay;
-}
-.timeline-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-}
-.timeline-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-lg);
-    background: linear-gradient(135deg, rgba(10,10,15,0.85) 0%, rgba(10,10,15,0.6) 100%);
-    z-index: 0;
-    pointer-events: none;
-}
-.timeline-card:hover {
-    border-color: var(--border-hover);
-    transform: translateY(-4px);
-}
-.timeline-card .timeline-year,
-.timeline-card .timeline-icon,
-.timeline-card h3,
-.timeline-card p {
-    position: relative;
-    z-index: 1;
-}
-        .timeline-year {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 8px;
-            letter-spacing: 0.05em;
         }
-        .timeline-card .timeline-icon {
+        .bento-stats .stat-suffix {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-left: 2px;
+        }
+        .bento-stats .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            display: block;
+        }
+        .stat-bar-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(99, 102, 241, 0.08);
+            border-radius: 4px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+        .stat-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 4px;
+            transition: width 1.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .stat-bar-fill.animated {
+            width: 100%;
+        }
+
+        .bento-card-icon {
             width: 40px;
             height: 40px;
             border-radius: 10px;
@@ -476,25 +579,72 @@
             justify-content: center;
             margin-bottom: 16px;
         }
-        .timeline-item.left .timeline-icon { margin-left: auto; }
-        .timeline-item.right .timeline-icon { margin-right: auto; }
-        .timeline-card .timeline-icon svg { width: 20px; height: 20px; }
-        .timeline-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
-        .timeline-card p { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.8; }
-        .timeline-card p strong { color: var(--text); }
-        .icon-edu { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
-        .icon-data { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-        .icon-project { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
-        .icon-skills { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
+        .bento-card-icon svg { width: 20px; height: 20px; }
+        .bento-card-title {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: var(--text);
+            letter-spacing: 0.05em;
+            font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive;
+        }
+        .bento-card-text {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .bento-card-text strong { color: var(--text); }
+
+        .bento-skills-wide {
+            background: linear-gradient(135deg, rgba(236,72,153,0.05), rgba(99,102,241,0.05));
+        }
+        .bento-skills-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 4px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker-track {
+            display: inline-flex;
+            gap: 10px;
+            animation: tickerScroll 28s linear infinite;
+        }
+        .bento-skills-wide:hover .ticker-track {
+            animation-play-state: paused;
+        }
+        @keyframes tickerScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .skill-pill {
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .skill-pill:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 6px 20px rgba(99,102,241,0.25);
+        }
 
         @media (max-width: 768px) {
-            .timeline-line { left: 20px; }
-            .timeline-item { width: 100%; padding-left: 50px !important; padding-right: 0 !important; text-align: left !important; }
-            .timeline-item.left { left: 0; }
-            .timeline-item.right { left: 0; }
-            .timeline-dot { left: 12px !important; right: auto !important; }
-            .timeline-item.left .timeline-icon { margin-left: 0; }
-            .timeline-card .timeline-icon { margin-bottom: 12px; }
+            .bento-resume-grid {
+                grid-template-columns: 1fr;
+            }
+            .bento-card[style*="span"] {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+            }
+            .bento-main { min-height: 240px; }
         }
 
         .skills-marquee-section {
@@ -543,52 +693,48 @@
         .videos-section {
             padding: 80px 0;
             position: relative;
+            background: linear-gradient(180deg, transparent 0%, rgba(99, 102, 241, 0.02) 50%, transparent 100%);
         }
         .video-category-section { margin-bottom: 80px; }
         .video-category-section:last-of-type { margin-bottom: 40px; }
-        .category-header {
-            margin-bottom: 32px;
-            padding-left: 20px;
-            border-left: 3px solid;
-            border-image: var(--gradient-1) 1;
-        }
-        .category-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-        }
-        .category-desc {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 4px;
-        }
+
         .video-gallery {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 24px;
+            gap: 32px;
         }
         .video-gallery-ads,
         .video-gallery-game {
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: 1fr;
+            max-width: 900px;
+            margin: 0 auto;
         }
         .video-card {
             background: var(--glass);
             border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
+            border-radius: 24px;
             overflow: hidden;
             backdrop-filter: blur(10px);
-            transition: var(--transition);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            box-shadow: 
+                0 4px 20px rgba(99, 102, 241, 0.06),
+                0 2px 10px rgba(99, 102, 241, 0.04);
         }
         .video-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(99, 102, 241, 0.35);
-            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 
+                0 25px 60px rgba(99, 102, 241, 0.15),
+                0 12px 35px rgba(99, 102, 241, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.2) inset;
         }
         .video-wrapper {
             position: relative;
             width: 100%;
             aspect-ratio: 16 / 9;
-            background: linear-gradient(110deg, #0a0a1a 30%, #141428 50%, #0a0a1a 70%);
+            background: linear-gradient(110deg, #e8e8f0 30%, #f0f0f8 50%, #e8e8f0 70%);
             background-size: 200% 100%;
             overflow: hidden;
             cursor: pointer;
@@ -608,32 +754,33 @@
         .video-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: var(--transition);
         }
-        .video-card:hover .video-overlay { background: rgba(0, 0, 0, 0.5); }
+        .video-card:hover .video-overlay { background: rgba(0, 0, 0, 0.25); }
         .play-btn {
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: var(--transition);
         }
-        .play-btn svg { width: 20px; height: 20px; color: #fff; margin-left: 3px; }
+        .play-btn svg { width: 20px; height: 20px; color: #6366f1; margin-left: 3px; }
         .video-card:hover .play-btn {
-            background: rgba(99, 102, 241, 0.7);
-            border-color: var(--accent);
+            background: var(--gradient-1);
+            border-color: transparent;
             transform: scale(1.1);
         }
+        .video-card:hover .play-btn svg { color: #fff; }
         .video-info {
             padding: 20px 24px;
         }
@@ -719,7 +866,7 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            opacity: 0.08;
+            opacity: 0.06;
             transition: var(--transition);
         }
         .category-card-bento:nth-child(1)::after { background: #6366f1; }
@@ -727,7 +874,7 @@
         .category-card-bento:nth-child(3)::after { background: #f59e0b; }
         .category-card-bento:nth-child(4)::after { background: #ec4899; }
         .category-card-bento:hover { transform: translateY(-4px); }
-        .category-card-bento:hover::after { opacity: 0.15; }
+        .category-card-bento:hover::after { opacity: 0.12; }
         .category-card-bento:nth-child(1):hover { border-color: rgba(99, 102, 241, 0.5); }
         .category-card-bento:nth-child(2):hover { border-color: rgba(6, 182, 212, 0.5); }
         .category-card-bento:nth-child(3):hover { border-color: rgba(245, 158, 11, 0.5); }
@@ -786,14 +933,14 @@
             width: 44px;
             height: 44px;
             border-radius: 12px;
-            background: rgba(99, 102, 241, 0.12);
+            background: var(--gradient-1);
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 16px;
             color: #818cf8;
         }
-        .contact-icon svg { width: 22px; height: 22px; }
+        .contact-icon svg { width: 22px; height: 22px; color: #fff; }
         .contact-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
         .contact-text { font-size: 0.9rem; color: var(--text-secondary); }
         .contact-card-arrow {
@@ -826,7 +973,7 @@
         .contact-btn svg { width: 20px; height: 20px; }
 
         .footer {
-            border-top: 1px solid var(--glass-border);
+            border-top: 1px solid var(--border);
             padding: 40px 0;
         }
         .footer-content {
@@ -874,18 +1021,542 @@
             .category-grid-bento { grid-template-columns: 1fr; }
             .hero-cta { flex-direction: column; align-items: center; }
         }
+
+        .section-title {
+            position: relative;
+            overflow: hidden;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.15), transparent);
+            animation: titleShine 4s ease-in-out infinite;
+        }
+        @keyframes titleShine {
+            0%, 100% { left: -100%; }
+            50% { left: 150%; }
+        }
+
+        .video-card {
+            position: relative;
+        }
+        .video-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 24px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.4), rgba(168,85,247,0.4), rgba(236,72,153,0.4), rgba(6,182,212,0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .video-card:hover::before {
+            opacity: 1;
+        }
+
+        .video-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(99,102,241,0.12), transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .video-card:hover::after {
+            width: 300%;
+            height: 300%;
+        }
+
+        .category-card-bento {
+            position: relative;
+        }
+        .category-card-bento::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--radius-lg);
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.2), rgba(236,72,153,0.2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .category-card-bento:hover::before {
+            opacity: 1;
+        }
+
+        .timeline-dot {
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+        @keyframes dotPulse {
+            0%, 100% { box-shadow: 0 0 10px var(--accent-glow), 0 0 30px rgba(99,102,241,0.15); }
+            50% { box-shadow: 0 0 20px var(--accent-glow), 0 0 50px rgba(99,102,241,0.3); }
+        }
+
+        .marquee-tag {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        .marquee-tag:hover {
+            background: var(--gradient-1);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 15% 25%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 85% 75%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .about-section, .videos-section, .categories-section, .contact-section, .skills-marquee-section, .footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            color: var(--accent);
+        }
+
+        .cta-primary {
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3), 0 0 40px rgba(99, 102, 241, 0.1);
+        }
+        .cta-primary:hover {
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4), 0 0 60px rgba(99, 102, 241, 0.15);
+        }
+
+        .cta-secondary {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+        .cta-secondary:hover {
+            background: var(--surface-hover);
+            border-color: var(--accent);
+        }
+
+        .video-loading {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 246, 250, 0.8);
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .video-loading.active {
+            opacity: 1;
+        }
+        .video-loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .video-error {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 246, 250, 0.9);
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .video-error.active {
+            opacity: 1;
+        }
+
+        .section-divider {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+    pointer-events: none;
+}
+.section-divider svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+}
+
+.mouse-glow {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    transition: left 0.15s ease-out, top 0.15s ease-out;
+}
+
+.about-section {
+    background:
+        linear-gradient(135deg, rgba(99, 102, 241, 0.04) 0%, rgba(168, 85, 247, 0.03) 40%, rgba(236, 72, 153, 0.03) 100%);
+}
+
+.timeline-line {
+    width: 4px;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.2), 0 0 30px rgba(99, 102, 241, 0.1);
+}
+
+.timeline-dot {
+    width: 20px;
+    height: 20px;
+}
+.timeline-dot::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(99, 102, 241, 0.2);
+    animation: dotRingPulse 2s ease-in-out infinite;
+}
+@keyframes dotRingPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.3); opacity: 0; }
+}
+.timeline-item.left .timeline-dot { right: -10px; }
+.timeline-item.right .timeline-dot { left: -10px; }
+
+.timeline-card {
+    border-left: 4px solid transparent;
+    position: relative;
+}
+.timeline-card.card-indigo { border-left-color: #6366f1; }
+.timeline-card.card-amber { border-left-color: #f59e0b; }
+.timeline-card.card-cyan { border-left-color: #06b6d4; }
+.timeline-card.card-pink { border-left-color: #ec4899; }
+.timeline-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-4px);
+}
+.timeline-card:hover.card-indigo { border-left-color: #818cf8; box-shadow: -4px 0 20px rgba(99,102,241,0.2), 0 8px 32px rgba(99,102,241,0.12), inset 0 0 0 1px rgba(99,102,241,0.1); }
+.timeline-card:hover.card-amber { border-left-color: #fbbf24; box-shadow: -4px 0 20px rgba(245,158,11,0.2), 0 8px 32px rgba(245,158,11,0.12), inset 0 0 0 1px rgba(245,158,11,0.1); }
+.timeline-card:hover.card-cyan { border-left-color: #22d3ee; box-shadow: -4px 0 20px rgba(6,182,212,0.2), 0 8px 32px rgba(6,182,212,0.12), inset 0 0 0 1px rgba(6,182,212,0.1); }
+.timeline-card:hover.card-pink { border-left-color: #f472b6; box-shadow: -4px 0 20px rgba(236,72,153,0.2), 0 8px 32px rgba(236,72,153,0.12), inset 0 0 0 1px rgba(236,72,153,0.1); }
+
+.timeline-card .card-sequence {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+.card-indigo .card-sequence { background: linear-gradient(135deg, #6366f1, #818cf8); }
+.card-amber .card-sequence { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+.card-cyan .card-sequence { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+.card-pink .card-sequence { background: linear-gradient(135deg, #ec4899, #f472b6); }
+
+.timeline-year-badge {
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+}
+.card-indigo .timeline-year-badge { background: linear-gradient(135deg, #6366f1, #818cf8); }
+.card-amber .timeline-year-badge { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+.card-cyan .timeline-year-badge { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+.card-pink .timeline-year-badge { background: linear-gradient(135deg, #ec4899, #f472b6); }
+
+.card-header-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.stat-number-animated {
+    font-variant-numeric: tabular-nums;
+}
+        :root {
+            --cat-documentary: #6366f1;
+            --cat-ads: #06b6d4;
+            --cat-game: #f59e0b;
+            --cat-real: #ec4899;
+            --cat-documentary-bg: rgba(99, 102, 241, 0.06);
+            --cat-ads-bg: rgba(6, 182, 212, 0.06);
+            --cat-game-bg: rgba(245, 158, 11, 0.06);
+            --cat-real-bg: rgba(236, 72, 153, 0.06);
+        }
+
+        .category-header {
+            padding: 32px 36px;
+            border-radius: 24px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            margin-bottom: 48px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .category-header:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 20px 50px rgba(99, 102, 241, 0.12),
+                0 8px 30px rgba(99, 102, 241, 0.08);
+        }
+        .category-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            border-radius: 24px 24px 0 0;
+        }
+        .category-header.cat-documentary::before { background: linear-gradient(90deg, #6366f1, #818cf8, #a5b4fc, #c7d2fe); }
+        .category-header.cat-ads::before { background: linear-gradient(90deg, #06b6d4, #22d3ee, #67e8f9, #a5f3fc); }
+        .category-header.cat-game::before { background: linear-gradient(90deg, #f59e0b, #fbbf24, #fcd34d, #fde68a); }
+        .category-header.cat-real::before { background: linear-gradient(90deg, #ec4899, #f472b6, #f9a8d4, #fbcfe8); }
+
+        .category-header.cat-documentary { background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(129,140,248,0.05), var(--glass)); }
+        .category-header.cat-ads { background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(34,211,238,0.05), var(--glass)); }
+        .category-header.cat-game { background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(251,191,36,0.05), var(--glass)); }
+        .category-header.cat-real { background: linear-gradient(135deg, rgba(236,72,153,0.1), rgba(244,114,182,0.05), var(--glass)); }
+
+        /* 分类标题新青年体字体样式 */
+        .category-header h3 {
+            font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive;
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            color: var(--text);
+            text-shadow: 1px 1px 2px rgba(99, 102, 241, 0.1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .category-header h3:hover {
+            transform: scale(1.02);
+            text-shadow: 3px 3px 8px rgba(99, 102, 241, 0.25);
+        }
+        .category-header h3 .category-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(99, 102, 241, 0.1);
+        }
+        .category-header h3 .category-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+        }
+
+        /* 分类标题入场动画 */
+        @keyframes titleReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+                filter: blur(4px);
+            }
+            100% {
+                opacity: 1 !important;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+        .category-header h3.title-animated {
+            animation: titleReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .category-title {
+            font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive;
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            letter-spacing: 0.06em;
+            font-weight: 400;
+        }
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+        }
+        .category-header:hover .category-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+        .category-icon svg { width: 24px; height: 24px; color: #fff; }
+        .cat-documentary .category-icon { background: linear-gradient(135deg, #6366f1, #818cf8); }
+        .cat-ads .category-icon { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+        .cat-game .category-icon { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .cat-real .category-icon { background: linear-gradient(135deg, #ec4899, #f472b6); }
+
+        .category-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 8px;
+            padding-left: 58px;
+            position: relative;
+        }
+        .category-desc::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 58px;
+            width: 60px;
+            height: 2px;
+            border-radius: 1px;
+        }
+        .cat-documentary .category-desc::after { background: linear-gradient(90deg, #6366f1, transparent); }
+        .cat-ads .category-desc::after { background: linear-gradient(90deg, #06b6d4, transparent); }
+        .cat-game .category-desc::after { background: linear-gradient(90deg, #f59e0b, transparent); }
+        .cat-real .category-desc::after { background: linear-gradient(90deg, #ec4899, transparent); }
+
+        .video-category-label.cat-label-documentary { background: rgba(99,102,241,0.12); color: #818cf8; }
+        .video-category-label.cat-label-ads { background: rgba(6,182,212,0.12); color: #22d3ee; }
+        .video-category-label.cat-label-game { background: rgba(245,158,11,0.12); color: #fbbf24; }
+        .video-category-label.cat-label-real { background: rgba(236,72,153,0.12); color: #f472b6; }
+
+        .category-separator {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 48px 0;
+            position: relative;
+        }
+        .category-separator::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .category-separator.sep-documentary::after { background: #6366f1; box-shadow: 0 0 10px rgba(99,102,241,0.4); }
+        .category-separator.sep-ads::after { background: #06b6d4; box-shadow: 0 0 10px rgba(6,182,212,0.4); }
+        .category-separator.sep-game::after { background: #f59e0b; box-shadow: 0 0 10px rgba(245,158,11,0.4); }
+        .category-separator.sep-real::after { background: #ec4899; box-shadow: 0 0 10px rgba(236,72,153,0.4); }
+
+        /* 卡片模糊背景样式 - 使用::after避免与::before冲突 */
+        .card-education, .card-projects, .card-research {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .card-education > *, .card-projects > *, .card-research > * {
+            position: relative;
+            z-index: 2;
+        }
+        .card-education::after, .card-projects::after, .card-research::after {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.2;
+            filter: blur(12px);
+            z-index: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            border-radius: inherit;
+        }
+        .card-education:hover::after, .card-projects:hover::after, .card-research:hover::after {
+            opacity: 0.35;
+        }
+        .card-education::after { background-image: url('image%20copy.png'); }
+        .card-projects::after { background-image: url('image.png'); }
+        .card-research::after { background-image: url('image%20copy%202.png'); }
+
+        /* 进度条动画 */
+        .stat-bar-fill.animated {
+            width: 100% !important;
+        }
     </style>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
+    <div class="mouse-glow" id="mouseGlow"></div>
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="logo">陈俊良</a>
             <div class="nav-links" id="navLinks">
-                <a href="#about" class="active">个人概况</a>
-                <a href="#documentary">AI纪录片</a>
-                <a href="#ads">AI广告片</a>
-                <a href="#game">长AI游戏视频</a>
-                <a href="#real-documentary">实拍纪录片</a>
+                <a href="#about" class="active" aria-label="跳转到个人概况">个人概况</a>
+                <a href="#documentary" aria-label="跳转到AI纪录片">AI纪录片</a>
+                <a href="#ads" aria-label="跳转到AI广告片">AI广告片</a>
+                <a href="#game" aria-label="跳转到长AI游戏视频">长AI游戏视频</a>
+                <a href="#real-documentary" aria-label="跳转到实拍纪录片">实拍纪录片</a>
             </div>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -896,11 +1567,11 @@
     </nav>
 
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#about" data-nav>个人概况</a>
-        <a href="#documentary" data-nav>AI纪录片</a>
-        <a href="#ads" data-nav>AI广告片</a>
-        <a href="#game" data-nav>长AI游戏视频</a>
-        <a href="#real-documentary" data-nav>实拍纪录片</a>
+        <a href="#about" data-nav aria-label="跳转到个人概况">个人概况</a>
+        <a href="#documentary" data-nav aria-label="跳转到AI纪录片">AI纪录片</a>
+        <a href="#ads" data-nav aria-label="跳转到AI广告片">AI广告片</a>
+        <a href="#game" data-nav aria-label="跳转到长AI游戏视频">长AI游戏视频</a>
+        <a href="#real-documentary" data-nav aria-label="跳转到实拍纪录片">实拍纪录片</a>
     </div>
 
     <section class="hero" id="hero">
@@ -931,82 +1602,125 @@
 
     <section id="about" class="about-section">
         <div class="container">
-            <h2 class="section-title animate-on-scroll">
-                <span class="title-number">01</span>
-                关于我
+            <h2 class="section-title animate-on-scroll reveal-title">
+                <span class="reveal-span"><span class="title-number">01</span>关于我</span>
             </h2>
-            <div class="timeline">
-                <div class="timeline-line"></div>
-                
-                <div class="timeline-item left animate-on-scroll">
-                <div class="timeline-dot"></div>
-                <div class="timeline-card" style="background-image: url('image%20copy.png');">
-                    <div class="timeline-year">2023</div>
-                        <div class="timeline-icon icon-edu">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                            </svg>
+            <div class="bento-resume-grid">
+                <div class="bento-card bento-main" style="grid-column: span 2; grid-row: span 2;">
+                    <div class="bento-main-bg"></div>
+                    <div class="bento-main-content">
+                        <div class="bento-avatar">
+                            <img src="证件照.jpg" alt="陈俊良" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; z-index: 2; position: relative;">
                         </div>
-                        <h3>教育背景</h3>
-                        <p>中央民族大学硕士研究生，主修智能传播专业，专注于人工智能与传播学的交叉研究。参与多项省部级科研项目，具备扎实的学术研究能力。研究方向涵盖AIGC内容生成、智能媒体传播、大数据舆情分析等前沿领域。</p>
+                        <h3 class="bento-main-name">陈俊良</h3>
+                        <p class="bento-main-major">中央民族大学 · 智能传播硕士</p>
+                        <p class="bento-main-slogan">用技术讲述故事，以AI重塑影像</p>
+                        <div class="bento-main-tags">
+                            <span class="bento-tag">AIGC创作者</span>
+                            <span class="bento-tag">全栈开发者</span>
+                            <span class="bento-tag">纪录片导演</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="timeline-item right animate-on-scroll">
-                <div class="timeline-dot"></div>
-                <div class="timeline-card" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80');">
-                    <div class="timeline-year">2024</div>
-                        <div class="timeline-icon icon-project">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                            </svg>
+                <div class="bento-card bento-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="17">0</span>
+                        <span class="stat-suffix">+</span>
+                        <span class="stat-label">项目经历</span>
+                        <div class="stat-bar-track">
+                            <div class="stat-bar-fill" data-progress="100"></div>
                         </div>
-                        <h3>项目经历</h3>
-                        <p><strong>商业化网站建设：</strong>为多家企业设计、开发商业化网站，涵盖电商平台、企业官网、在线教育等领域，具备完整的前后端开发能力，项目累计服务用户超10万+。<br><br><strong>AIGC视频创作：</strong>运营生成十余条AIGC原创广告片，作品涵盖品牌形象、产品推广、节日营销等多种类型，熟练掌握Runway、Pika、Kling、Sora等主流AI视频生成工具。<br><br><strong>纪录片导演：</strong>担任东兴电商纪录片总导演（部校共建项目），独立完成从策划、拍摄到后期制作的全流程工作。广西三月三纪录片荣获广西日报年度最佳宣传片，获广西自治区党委宣传部表彰。</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="500000">0</span>
+                        <span class="stat-suffix">+</span>
+                        <span class="stat-label">触达用户</span>
+                        <div class="stat-bar-track">
+                            <div class="stat-bar-fill" data-progress="100"></div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="timeline-item left animate-on-scroll">
-                <div class="timeline-dot"></div>
-                <div class="timeline-card" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80');">
-                    <div class="timeline-year">2025</div>
-                        <div class="timeline-icon icon-data">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="3" width="18" height="18" rx="2"/>
-                                <path d="M3 9h18M9 21V9"/>
-                            </svg>
-                        </div>
-                        <h3>数据概览</h3>
-                        <p><strong>15+</strong> 项目经历 · <strong>10+</strong> 获奖荣誉 · <strong>10万+</strong> 服务用户</p>
+                <div class="bento-card card-education">
+                    <div class="bento-card-icon icon-edu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                        </svg>
                     </div>
+                    <h4 class="bento-card-title">教育背景</h4>
+                    <p class="bento-card-text">中央民族大学硕士研究生，主修智能传播专业，专注于人工智能与传播学的交叉研究。参与多项省部级科研项目，具备扎实的学术研究能力。研究方向涵盖AIGC内容生成、智能媒体传播、大数据舆情分析等前沿领域。</p>
                 </div>
 
-                <div class="timeline-item right animate-on-scroll">
-                <div class="timeline-dot"></div>
-                <div class="timeline-card" style="background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80');">
-                    <div class="timeline-year">2026</div>
-                        <div class="timeline-icon icon-skills">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                                <polyline points="2 17 12 22 22 17"/>
-                                <polyline points="2 12 12 17 22 12"/>
-                            </svg>
+                <div class="bento-card card-projects" style="grid-column: span 2;">
+                    <div class="bento-card-icon icon-project">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                    </div>
+                    <h4 class="bento-card-title">项目经历</h4>
+                    <p class="bento-card-text"><strong>商业化网站建设：</strong>为多家企业设计、开发商业化网站，涵盖电商平台、企业官网、在线教育等领域，具备完整的前后端开发能力，项目累计触达用户超50万+。<br><br><strong>AIGC视频创作：</strong>运营生成十余条AIGC原创广告片，作品涵盖品牌形象、产品推广、节日营销等多种类型，熟练掌握Runway、Pika、Kling、Sora等主流AI视频生成工具。<br><br><strong>纪录片导演：</strong>担任东兴电商纪录片总导演（部校共建项目），独立完成从策划、拍摄到后期制作的全流程工作。广西三月三纪录片荣获广西日报年度最佳宣传片，获广西自治区党委宣传部表彰。</p>
+                </div>
+
+                <div class="bento-card card-research" style="grid-column: 3;">
+                    <div class="bento-card-icon icon-research">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </div>
+                    <h4 class="bento-card-title">智能传播项目</h4>
+                    <p class="bento-card-text"><strong>社科基金项目：</strong>参与国家社会科学基金项目、北京市社会科学基金项目。<br><br><strong>AI模型应用与数据分析：</strong>运用Python调用AI进行NLP文本分析，使用BERT、LIWC、TextBlob、VADER、STM、LDA等多种模型，对用户舆情、偏好结构、性格画像进行精准建构。<br><br><strong>建构项目相关网站：</strong>结合AI生成HTML、CSS、js文件等，导入Github与Vercel生成联网商业网站（<a href="https://www.mumengmei.cn" target="_blank" class="bento-link">www.mumengmei.cn</a>）。<br><br><strong>学术研究成果：</strong>在《传媒》《新媒体与社会》等CSSCI核心期刊发表学术论文数篇，于IAMCR国际传播学会、AEJMC美国教育传播学年会、中国新闻史学会等国际国内顶会发言3次。</p>
+                </div>
+
+                <div class="bento-card bento-skills-wide" style="grid-column: span 3;">
+                    <h4 class="bento-card-title">专业技能</h4>
+                    <div class="bento-skills-cloud">
+                        <div class="ticker-track">
+                            <span class="skill-pill">HTML5/CSS3</span>
+                            <span class="skill-pill">JavaScript ES6+</span>
+                            <span class="skill-pill">Vue 3 / React</span>
+                            <span class="skill-pill">Python / Node.js</span>
+                            <span class="skill-pill">MySQL / MongoDB</span>
+                            <span class="skill-pill">Webpack / Vite</span>
+                            <span class="skill-pill">AIGC 视频生成</span>
+                            <span class="skill-pill">RAG 系统开发</span>
+                            <span class="skill-pill">Prompt Engineering</span>
+                            <span class="skill-pill">大数据分析</span>
+                            <span class="skill-pill">Runway / Pika / Kling</span>
+                            <span class="skill-pill">纪录片全流程制作</span>
+                            <span class="skill-pill">HTML5/CSS3</span>
+                            <span class="skill-pill">JavaScript ES6+</span>
+                            <span class="skill-pill">Vue 3 / React</span>
+                            <span class="skill-pill">Python / Node.js</span>
+                            <span class="skill-pill">MySQL / MongoDB</span>
+                            <span class="skill-pill">Webpack / Vite</span>
+                            <span class="skill-pill">AIGC 视频生成</span>
+                            <span class="skill-pill">RAG 系统开发</span>
+                            <span class="skill-pill">Prompt Engineering</span>
+                            <span class="skill-pill">大数据分析</span>
+                            <span class="skill-pill">Runway / Pika / Kling</span>
+                            <span class="skill-pill">纪录片全流程制作</span>
                         </div>
-                        <h3>专业技能</h3>
-                        <p><strong>前端开发：</strong>精通HTML5/CSS3/JavaScript ES6+，熟练使用Vue3/React框架，具备响应式设计、跨浏览器兼容性处理、性能优化经验，熟悉Webpack/Vite构建工具。<br><br><strong>后端开发：</strong>熟练使用Python/Node.js进行服务端开发，具备RESTful API设计、数据库设计（MySQL/MongoDB）、服务器部署经验。<br><br><strong>AI能力：</strong>精通AIGC视频生成与图像生成，擅长RAG系统开发、Prompt Engineering、大数据分析与可视化。<br><br><strong>视频制作：</strong>具备实拍纪录片、AI视频生成、后期剪辑全流程能力，熟练使用Premiere、DaVinci Resolve、After Effects等专业软件。</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+<div class="section-divider">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,40 L1440,80 L0,80 Z" fill="rgba(99,102,241,0.03)"/>
+    </svg>
+</div>
+
     <section class="skills-marquee-section">
         <div class="container">
-            <h2 class="section-title animate-on-scroll">
-                <span class="title-number">02</span>
-                技术栈
+            <h2 class="section-title animate-on-scroll reveal-title">
+                <span class="reveal-span"><span class="title-number">02</span>技术栈</span>
             </h2>
         </div>
         <div class="marquee-wrap">
@@ -1059,32 +1773,47 @@
         </div>
     </section>
 
+<div class="section-divider">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,60 C480,0 960,80 1440,20 L1440,80 L0,80 Z" fill="rgba(168,85,247,0.03)"/>
+    </svg>
+</div>
+
     <section id="videos" class="videos-section">
-        <div class="container">
-            <h2 class="section-title animate-on-scroll">
-                <span class="title-number">03</span>
-                精选作品
+<div class="container">
+            <h2 class="section-title animate-on-scroll reveal-title">
+                <span class="reveal-span"><span class="title-number">03</span>精选作品</span>
             </h2>
 
             <div id="documentary" class="video-category-section animate-on-scroll">
-                <div class="category-header">
-                    <h3 class="category-title">01 AI纪录片</h3>
+                <div class="category-header cat-documentary">
+                    <h3 class="category-title">
+                        <span class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polygon points="10 8 16 12 10 16 10 8"/>
+                            </svg>
+                        </span>
+                        AI纪录片
+                    </h3>
                     <p class="category-desc">探讨AI时代人类与技术的共生关系，通过纪录片形式展现人工智能对现代社会的影响</p>
                 </div>
                 <div class="video-gallery">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/AI纪录片《何以为家》.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/AI纪录片《何以为家》.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">纪录片</span>
+                            <span class="video-category-label cat-label-documentary">纪录片</span>
                             <h3>AI纪录片《何以为家》</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -1113,26 +1842,38 @@
                 </div>
             </div>
 
+            <div class="category-separator sep-documentary"></div>
+
             <div id="ads" class="video-category-section animate-on-scroll">
-                <div class="category-header">
-                    <h3 class="category-title">02 AI广告片</h3>
+                <div class="category-header cat-ads">
+                    <h3 class="category-title">
+                        <span class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M9 9l6 6M15 9l-6 6"/>
+                            </svg>
+                        </span>
+                        AI广告片
+                    </h3>
                     <p class="category-desc">品牌商业广告创意视频，展示产品特性与品牌价值</p>
                 </div>
                 <div class="video-gallery video-gallery-ads">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片1.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片1.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 1</h3>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
+                            <h3>爆炸盐，炸掉所有烦恼</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1159,18 +1900,20 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片2.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片2.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 2</h3>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
+                            <h3>沐萌美，油污跑光亮晶晶</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1197,18 +1940,20 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片3.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片3.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 3</h3>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
+                            <h3>一滴浓，一身净</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1236,18 +1981,20 @@
                 </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片4.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片4.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 4</h3>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
+                            <h3>油污净，秒除污</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1274,18 +2021,20 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片5.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片5.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 5</h3>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
+                            <h3>AD钙，用心包裹儿时科幻梦</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1312,18 +2061,20 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片6.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片6.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 6</h3>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
+                            <h3>陪你酸酸甜甜，陪你可可爱爱</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1350,26 +2101,38 @@
                     </div>
             </div>
 
+            <div class="category-separator sep-ads"></div>
+
             <div id="game" class="video-category-section animate-on-scroll">
-                <div class="category-header">
-                    <h3 class="category-title">03 长AI游戏视频</h3>
+                <div class="category-header cat-game">
+                    <h3 class="category-title">
+                        <span class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="6" width="20" height="12" rx="2"/>
+                                <path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/>
+                            </svg>
+                        </span>
+                        长AI游戏视频
+                    </h3>
                     <p class="category-desc">AI生成的游戏场景与角色互动视频，展示游戏世界观</p>
                 </div>
                 <div class="video-gallery video-gallery-game">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频1.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频1.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 1</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>三角洲委托——多元素引流</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1396,18 +2159,20 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频2.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频2.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 2</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>三角洲委托——冲突化引流</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1434,18 +2199,20 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频3.mp4" poster="视频合集/长游戏AI视频生成记录3.png" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频3.mp4" poster="视频合集/长游戏AI视频生成记录3.png" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 3</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>三角洲委托——剧情化引流</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1472,18 +2239,20 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频4.mp4" poster="视频合集/长游戏AI视频生成记录4.png" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频4.mp4" poster="视频合集/长游戏AI视频生成记录4.png" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 4</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>三角洲委托——洛克王国与三角洲的剧情化、冲突化叙事</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1510,18 +2279,20 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频5.mp4" poster="视频合集/长游戏AI视频生成记录5.png" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频5.mp4" poster="视频合集/长游戏AI视频生成记录5.png" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 5</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>三角洲委托——真人化仿真叙事</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1541,25 +2312,28 @@
                                 </div>
                                 <div class="desc-item">
                                     <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Kling、Runway Gen-3、Pika Labs</span>
+                                    <span class="desc-text">Sora、Kling、Runway Gen-3</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频6.mp4" poster="视频合集/长游戏AI视频生成记录6.png" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频6.mp4" poster="视频合集/长游戏AI视频生成记录6.png" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 6</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>三角洲委托——生活化叙事引流</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1586,18 +2360,20 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频7.mp4" poster="视频合集/长游戏AI视频生成记录7.png" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频7.mp4" poster="视频合集/长游戏AI视频生成记录7.png" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 7</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>短剧化AI视频</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1617,7 +2393,7 @@
                                 </div>
                                 <div class="desc-item">
                                     <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Pika Labs、Runway Gen-3、Kling</span>
+                                    <span class="desc-text">Sora、Kling、Pika Labs</span>
                                 </div>
                             </div>
                         </div>
@@ -1625,25 +2401,37 @@
                 </div>
             </div>
 
+            <div class="category-separator sep-game"></div>
+
             <div id="real-documentary" class="video-category-section animate-on-scroll">
-                <div class="category-header">
-                    <h3 class="category-title">04 实拍纪录片</h3>
+                <div class="category-header cat-real">
+                    <h3 class="category-title">
+                        <span class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 7l-7 5 7 5V7z"/>
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                            </svg>
+                        </span>
+                        实拍纪录片
+                    </h3>
                     <p class="category-desc">实地拍摄纪录片作品，记录真实故事与文化传承</p>
                 </div>
-                <div class="video-gallery">
+                <div class="video-gallery video-gallery-real">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/实拍纪录片——广西三月三_压缩.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/实拍纪录片——广西三月三.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">实拍纪录片</span>
+                            <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>实拍纪录片——广西三月三</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -1671,17 +2459,19 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/纪录片——东兴电商宣传.mp4" poster="视频合集/image.png" preload="none" muted loop></video>
+                            <video src="视频合集/纪录片——东兴电商宣传.mp4" poster="视频合集/image.png" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">实拍纪录片</span>
+                            <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>纪录片——东兴电商宣传</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -1709,17 +2499,19 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/实拍纪录片——五四青年节_高压缩.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/实拍纪录片——五四青年节.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-                            </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+<div class="video-error">视频加载失败，请稍后重试</div>
+</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">实拍纪录片</span>
+                            <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>实拍纪录片——五四青年节</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -1750,11 +2542,16 @@
         </div>
     </section>
 
+<div class="section-divider">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,30 C360,70 720,10 1080,50 C1260,70 1380,40 1440,30 L1440,80 L0,80 Z" fill="rgba(236,72,153,0.03)"/>
+    </svg>
+</div>
+
     <section class="categories-section">
         <div class="container">
-            <h2 class="section-title animate-on-scroll">
-                <span class="title-number">04</span>
-                作品分类
+            <h2 class="section-title animate-on-scroll reveal-title">
+                <span class="reveal-span"><span class="title-number">04</span>作品分类</span>
             </h2>
             <div class="category-grid-bento">
                 <a href="video-collection.html" class="category-card-bento animate-on-scroll">
@@ -1805,11 +2602,16 @@
         </div>
     </section>
 
+<div class="section-divider">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,50 C480,10 960,70 1440,30 L1440,80 L0,80 Z" fill="rgba(6,182,212,0.03)"/>
+    </svg>
+</div>
+
     <section class="contact-section">
-        <div class="container">
-            <h2 class="section-title animate-on-scroll">
-                <span class="title-number">05</span>
-                联系方式
+<div class="container">
+            <h2 class="section-title animate-on-scroll reveal-title">
+                <span class="reveal-span"><span class="title-number">05</span>联系方式</span>
             </h2>
             <div class="contact-grid">
                 <a href="contact.html" class="contact-card animate-on-scroll">
@@ -1879,7 +2681,7 @@
         (function() {
             var canvas = document.getElementById('orb-canvas');
             var ctx = canvas.getContext('2d');
-            var orbs = [];
+            var particles = [];
             var animationId;
             var mouseX = -1000;
             var mouseY = -1000;
@@ -1889,104 +2691,116 @@
                 canvas.height = window.innerHeight;
             }
 
-            function Orb() {
+            function Particle() {
                 this.reset();
             }
 
-            Orb.prototype.reset = function() {
+            Particle.prototype.reset = function() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.radius = Math.random() * 180 + 80;
-                this.speedX = (Math.random() - 0.5) * 1.2;
-                this.speedY = (Math.random() - 0.5) * 1.2;
-                this.hue = Math.random() * 360;
-                this.hueSpeed = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.25 + 0.08;
-                this.pulseSpeed = Math.random() * 0.01 + 0.005;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 2.5 + 1.2;
+                this.opacity = Math.random() * 0.4 + 0.15;
+                this.pulseSpeed = Math.random() * 0.02 + 0.008;
                 this.pulseOffset = Math.random() * Math.PI * 2;
+                this.colorSet = Math.random() > 0.6 ? 'purple' : 'indigo';
             };
 
-            Orb.prototype.update = function(time) {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.hue += this.hueSpeed;
-                if (this.hue < 0) this.hue += 360;
-                if (this.hue > 360) this.hue -= 360;
+            Particle.prototype.update = function(time) {
+                this.x += this.vx;
+                this.y += this.vy;
 
                 var dx = this.x - mouseX;
                 var dy = this.y - mouseY;
                 var dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 300) {
-                    var force = (1 - dist / 300) * 0.8;
-                    this.x += (dx / dist) * force;
-                    this.y += (dy / dist) * force;
+                if (dist < 200) {
+                    var force = (1 - dist / 200) * 1.2;
+                    this.x += (dx / dist || 0) * force;
+                    this.y += (dy / dist || 0) * force;
                 }
 
-                if (this.x < -this.radius) this.x = canvas.width + this.radius;
-                if (this.x > canvas.width + this.radius) this.x = -this.radius;
-                if (this.y < -this.radius) this.y = canvas.height + this.radius;
-                if (this.y > canvas.height + this.radius) this.y = -this.radius;
+                if (this.x < -10) this.x = canvas.width + 10;
+                if (this.x > canvas.width + 10) this.x = -10;
+                if (this.y < -10) this.y = canvas.height + 10;
+                if (this.y > canvas.height + 10) this.y = -10;
             };
 
-            Orb.prototype.draw = function(time) {
+            Particle.prototype.draw = function(time) {
                 var pulse = Math.sin(time * this.pulseSpeed + this.pulseOffset) * 0.3 + 1;
                 var r = this.radius * pulse;
-                var grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r);
-                var alpha = this.opacity;
-                grad.addColorStop(0, 'hsla(' + this.hue + ', 70%, 60%, ' + alpha + ')');
-                grad.addColorStop(0.4, 'hsla(' + this.hue + ', 60%, 50%, ' + (alpha * 0.6) + ')');
-                grad.addColorStop(0.7, 'hsla(' + this.hue + ', 50%, 40%, ' + (alpha * 0.15) + ')');
-                grad.addColorStop(1, 'hsla(' + this.hue + ', 40%, 30%, 0)');
+                var color = this.colorSet === 'purple'
+                    ? 'rgba(168, 85, 247, ' + this.opacity + ')'
+                    : 'rgba(99, 102, 241, ' + this.opacity + ')';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
-                ctx.fillStyle = grad;
+                ctx.fillStyle = color;
                 ctx.fill();
             };
 
-            function initOrbs() {
-                orbs = [];
-                var count = Math.min(8, Math.floor((canvas.width * canvas.height) / 120000) + 3);
+            function initParticles() {
+                particles = [];
+                var count = Math.min(120, Math.floor((canvas.width * canvas.height) / 15000) + 40);
                 for (var i = 0; i < count; i++) {
-                    orbs.push(new Orb());
+                    particles.push(new Particle());
                 }
             }
 
-            function connectOrbs() {
-                for (var i = 0; i < orbs.length; i++) {
-                    for (var j = i + 1; j < orbs.length; j++) {
-                        var dx = orbs[i].x - orbs[j].x;
-                        var dy = orbs[i].y - orbs[j].y;
+            function drawConnections() {
+                for (var i = 0; i < particles.length; i++) {
+                    for (var j = i + 1; j < particles.length; j++) {
+                        var dx = particles[i].x - particles[j].x;
+                        var dy = particles[i].y - particles[j].y;
                         var distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < 350) {
-                            var opacity = (1 - distance / 350) * 0.06;
+                        var maxDist = 180;
+                        if (distance < maxDist) {
+                            var opacity = (1 - distance / maxDist) * 0.12;
                             ctx.beginPath();
-                            ctx.strokeStyle = 'rgba(255, 255, 255, ' + opacity + ')';
-                            ctx.lineWidth = 1;
-                            ctx.moveTo(orbs[i].x, orbs[i].y);
-                            ctx.lineTo(orbs[j].x, orbs[j].y);
+                            ctx.strokeStyle = 'rgba(99, 102, 241, ' + opacity + ')';
+                            ctx.lineWidth = 0.6;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
                             ctx.stroke();
                         }
                     }
                 }
             }
 
-            function animateOrbs(time) {
+            function drawAurora(time) {
+                var grad = ctx.createRadialGradient(canvas.width * 0.3, canvas.height * 0.6, 0, canvas.width * 0.3, canvas.height * 0.6, canvas.width * 0.7);
+                var wave1 = Math.sin(time * 0.0003) * 0.06;
+                var wave2 = Math.cos(time * 0.0005) * 0.04;
+                grad.addColorStop(0, 'rgba(99, 102, 241, ' + (0.03 + wave1) + ')');
+                grad.addColorStop(0.5, 'rgba(139, 92, 246, ' + (0.02 + wave2) + ')');
+                grad.addColorStop(1, 'rgba(99, 102, 241, 0)');
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                var grad2 = ctx.createRadialGradient(canvas.width * 0.7, canvas.height * 0.3, 0, canvas.width * 0.7, canvas.height * 0.3, canvas.width * 0.5);
+                grad2.addColorStop(0, 'rgba(168, 85, 247, ' + (0.02 + wave2) + ')');
+                grad2.addColorStop(1, 'rgba(168, 85, 247, 0)');
+                ctx.fillStyle = grad2;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+
+            function animate(time) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (var i = 0; i < orbs.length; i++) {
-                    orbs[i].update(time);
-                    orbs[i].draw(time);
+                drawAurora(time);
+                for (var i = 0; i < particles.length; i++) {
+                    particles[i].update(time);
+                    particles[i].draw(time);
                 }
-                connectOrbs();
-                animationId = requestAnimationFrame(animateOrbs);
+                drawConnections();
+                animationId = requestAnimationFrame(animate);
             }
 
             resizeCanvas();
-            initOrbs();
-            animationId = requestAnimationFrame(animateOrbs);
+            initParticles();
+            animationId = requestAnimationFrame(animate);
 
             window.addEventListener('resize', function() {
                 resizeCanvas();
-                initOrbs();
+                initParticles();
             });
 
             document.addEventListener('mousemove', function(e) {
@@ -2072,13 +2886,13 @@
                 });
             });
 
-            var videoObserverOptions = { rootMargin: '200px 0px' };
+            var videoObserverOptions = { rootMargin: '300px 0px', threshold: 0.1 };
             var videoObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         var video = entry.target.querySelector('video');
                         if (video && video.dataset.loaded !== 'true') {
-                            video.preload = 'metadata';
+                            video.preload = 'auto';
                             video.load();
                             video.dataset.loaded = 'true';
                         }
@@ -2089,48 +2903,110 @@
 
             document.querySelectorAll('.video-card').forEach(function(card) {
                 var video = card.querySelector('video');
+                var playBtn = card.querySelector('.play-btn');
+                var loadingEl = card.querySelector('.video-loading');
+                var errorEl = card.querySelector('.video-error');
                 if (video) video.dataset.loaded = 'false';
                 videoObserver.observe(card);
+
+                if (video) {
+                    video.addEventListener('canplay', function() {
+                        if (loadingEl) loadingEl.classList.remove('active');
+                        if (errorEl) errorEl.classList.remove('active');
+                    });
+                    video.addEventListener('error', function() {
+                        if (loadingEl) loadingEl.classList.remove('active');
+                        if (errorEl) errorEl.classList.add('active');
+                    });
+                }
+
+                card.addEventListener('mouseenter', function() {
+                    if (errorEl && errorEl.classList.contains('active')) return;
+                    if (video.readyState >= 3) {
+                        video.play().catch(function() {});
+                    } else {
+                        if (loadingEl) loadingEl.classList.add('active');
+                        video.preload = 'auto';
+                        video.load();
+                        var onCanPlay = function() {
+                            if (loadingEl) loadingEl.classList.remove('active');
+                            video.play().catch(function() {});
+                            video.removeEventListener('canplay', onCanPlay);
+                        };
+                        video.addEventListener('canplay', onCanPlay);
+                    }
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    video.pause();
+                    video.currentTime = 0;
+                    if (loadingEl) loadingEl.classList.remove('active');
+                });
+
+                playBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (video.readyState >= 3) {
+                        if (video.requestFullscreen) {
+                            video.requestFullscreen();
+                        } else if (video.webkitRequestFullscreen) {
+                            video.webkitRequestFullscreen();
+                        }
+                        video.muted = false;
+                        video.play();
+                    } else {
+                        if (loadingEl) loadingEl.classList.add('active');
+                        video.preload = 'auto';
+                        video.load();
+                        var onCanPlay = function() {
+                            if (loadingEl) loadingEl.classList.remove('active');
+                            if (video.requestFullscreen) {
+                                video.requestFullscreen();
+                            } else if (video.webkitRequestFullscreen) {
+                                video.webkitRequestFullscreen();
+                            }
+                            video.muted = false;
+                            video.play();
+                            video.removeEventListener('canplay', onCanPlay);
+                        };
+                        video.addEventListener('canplay', onCanPlay);
+                    }
+                });
             });
 
             var observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
             var observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry, index) {
                     if (entry.isIntersecting) {
-                        setTimeout(function() {
-                            entry.target.classList.add('visible');
-                        }, index * 100);
+                        var delay = index * 80;
+                        entry.target.style.transitionDelay = delay + 'ms';
+                        entry.target.classList.add('visible');
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
                     }
                 });
             }, observerOptions);
 
-            document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
+            document.querySelectorAll('.animate-on-scroll').forEach(function(el, i) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(40px) scale(0.95)';
+                el.style.transition = 'opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
                 observer.observe(el);
             });
 
-            document.querySelectorAll('.video-card').forEach(function(card) {
-                var video = card.querySelector('video');
-                var playBtn = card.querySelector('.play-btn');
-
-                card.addEventListener('mouseenter', function() {
-                    video.play().catch(function() {});
-                });
-
-                card.addEventListener('mouseleave', function() {
-                    video.pause();
-                    video.currentTime = 0;
-                });
-
-                playBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    if (video.requestFullscreen) {
-                        video.requestFullscreen();
-                    } else if (video.webkitRequestFullscreen) {
-                        video.webkitRequestFullscreen();
+            // 分类标题入场动画
+            var titleObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry, index) {
+                    if (entry.isIntersecting) {
+                        setTimeout(function() {
+                            entry.target.classList.add('title-animated');
+                            entry.target.style.opacity = '1';
+                        }, index * 150);
+                        titleObserver.unobserve(entry.target);
                     }
-                    video.muted = false;
-                    video.play();
                 });
+            }, { threshold: 0.3 });
+            document.querySelectorAll('.category-header h3').forEach(function(h3) {
+                titleObserver.observe(h3);
             });
 
             document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
@@ -2155,6 +3031,53 @@
                     marquee2.innerHTML = marquee2.innerHTML + marquee2.innerHTML;
                 }
             })();
+
+            // 数字计数器动画
+            (function initStatsCounter() {
+                var statsCard = document.querySelector('.bento-stats');
+                if (!statsCard) return;
+                
+                var statsObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            var numbers = entry.target.querySelectorAll('.stat-number');
+                            numbers.forEach(function(num) {
+                                var target = parseInt(num.getAttribute('data-target'));
+                                if (!target || num.dataset.animated === 'true') return;
+                                num.dataset.animated = 'true';
+                                var duration = 1800;
+                                var startTime = performance.now();
+                                function step(currentTime) {
+                                    var elapsed = currentTime - startTime;
+                                    var progress = Math.min(elapsed / duration, 1);
+                                    var eased = 1 - Math.pow(1 - progress, 3);
+                                    var current = Math.round(eased * target);
+                                    num.textContent = current.toLocaleString();
+                                    if (progress < 1) requestAnimationFrame(step);
+                                }
+                                requestAnimationFrame(step);
+                            });
+                            var bars = entry.target.querySelectorAll('.stat-bar-fill');
+                            bars.forEach(function(bar) {
+                                if (!bar.classList.contains('animated')) {
+                                    bar.classList.add('animated');
+                                }
+                            });
+                            statsObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.3 });
+                
+                statsObserver.observe(statsCard);
+            })();
+
+var mouseGlow = document.getElementById('mouseGlow');
+if (mouseGlow) {
+    document.addEventListener('mousemove', function(e) {
+        mouseGlow.style.left = e.clientX + 'px';
+        mouseGlow.style.top = e.clientY + 'px';
+    });
+}
         })();
     </script>
 </body>

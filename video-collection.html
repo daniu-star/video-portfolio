@@ -9,15 +9,15 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg: #0a0a0f;
-            --bg-secondary: #111118;
-            --surface: rgba(255, 255, 255, 0.03);
-            --surface-hover: rgba(255, 255, 255, 0.06);
-            --border: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(255, 255, 255, 0.12);
-            --text: #e8e8ed;
-            --text-secondary: #9d9db3;
-            --text-muted: #5e5e72;
+            --bg: #f5f6fa;
+            --bg-secondary: #ffffff;
+            --surface: rgba(99, 102, 241, 0.04);
+            --surface-hover: rgba(99, 102, 241, 0.08);
+            --border: rgba(99, 102, 241, 0.1);
+            --border-hover: rgba(99, 102, 241, 0.2);
+            --text: #1a1a2e;
+            --text-secondary: #3a3a5a;
+            --text-muted: #5a5a7a;
             --accent: #6366f1;
             --accent-glow: rgba(99, 102, 241, 0.3);
             --accent2: #8b5cf6;
@@ -30,8 +30,8 @@
             --gradient-2: linear-gradient(135deg, #06b6d4, #10b981);
             --gradient-3: linear-gradient(135deg, #f59e0b, #ef4444);
             --gradient-4: linear-gradient(135deg, #ec4899, #8b5cf6);
-            --glass: rgba(255, 255, 255, 0.04);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(99, 102, 241, 0.12);
             --radius: 16px;
             --radius-sm: 10px;
             --radius-lg: 24px;
@@ -41,17 +41,19 @@
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Microsoft YaHei', '微软雅黑', 'PingFang SC', sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.7;
+            line-height: 1.9;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
 
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.25); border-radius: 3px; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
@@ -93,16 +95,16 @@
             z-index: 1000;
             padding: 12px 24px;
             transition: var(--transition);
-            background: rgba(10, 10, 15, 0.6);
+            background: rgba(245, 246, 250, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
         }
         .navbar.scrolled {
-            background: rgba(10, 10, 15, 0.85);
+            background: rgba(245, 246, 250, 0.92);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
             padding: 8px 24px;
         }
         .nav-container {
@@ -136,7 +138,7 @@
         .nav-links a:hover,
         .nav-links a.active {
             color: var(--text);
-            background: var(--glass);
+            background: var(--surface);
         }
         .hamburger {
             display: none;
@@ -165,7 +167,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(10, 10, 15, 0.97);
+            background: rgba(245, 246, 250, 0.97);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             z-index: 999;
@@ -192,6 +194,7 @@
             justify-content: center;
             overflow: hidden;
             padding: 120px 24px 80px;
+            background: linear-gradient(180deg, #eef0ff 0%, #f5f6fa 50%, #ffffff 100%);
         }
         #orb-canvas {
             position: absolute;
@@ -210,11 +213,11 @@
         .hero-badge {
             display: inline-block;
             padding: 6px 20px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.15);
             border-radius: 100px;
             font-size: 0.85rem;
-            color: var(--text-secondary);
+            color: var(--accent);
             margin-bottom: 32px;
             backdrop-filter: blur(10px);
         }
@@ -291,39 +294,7 @@
         }
         .video-category-section { margin-bottom: 80px; }
         .video-category-section:last-of-type { margin-bottom: 40px; }
-        .category-header {
-            margin-bottom: 32px;
-            padding-left: 24px;
-            border-left: 4px solid;
-            border-image: var(--gradient-1) 1;
-            position: relative;
-        }
-        .category-header::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -4px;
-            width: 40px;
-            height: 4px;
-            background: var(--gradient-1);
-            border-radius: 2px;
-            opacity: 0;
-            transition: var(--transition);
-        }
-        .video-category-section:hover .category-header::after {
-            opacity: 1;
-            width: 80px;
-        }
-        .category-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-        }
-        .category-desc {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 4px;
-        }
+
         .video-gallery {
             display: grid;
             grid-template-columns: 1fr;
@@ -331,11 +302,13 @@
         }
         .video-gallery-ads,
         .video-gallery-game {
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: 1fr;
+            max-width: 900px;
+            margin: 0 auto;
         }
         .video-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             overflow: hidden;
             backdrop-filter: blur(12px);
@@ -343,40 +316,17 @@
             transition: var(--transition);
             position: relative;
         }
-        .video-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-        }
-        .video-card::after {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: var(--radius-lg);
-            background: var(--gradient-1);
-            opacity: 0;
-            z-index: -1;
-            transition: var(--transition);
-            filter: blur(8px);
-        }
         .video-card:hover {
             transform: translateY(-8px);
             border-color: rgba(99, 102, 241, 0.3);
             box-shadow: 0 16px 48px rgba(99, 102, 241, 0.2), 0 0 30px rgba(99, 102, 241, 0.08);
-            background: rgba(255, 255, 255, 0.06);
-        }
-        .video-card:hover::after {
-            opacity: 0.15;
+            background: var(--surface-hover);
         }
         .video-wrapper {
             position: relative;
             width: 100%;
             aspect-ratio: 16 / 9;
-            background: linear-gradient(110deg, #0a0a1a 30%, #141428 50%, #0a0a1a 70%);
+            background: linear-gradient(110deg, #e8e8f0 30%, #f0f0f8 50%, #e8e8f0 70%);
             background-size: 200% 100%;
             overflow: hidden;
             cursor: pointer;
@@ -396,19 +346,19 @@
         .video-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.35);
+            background: rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: var(--transition);
         }
-        .video-card:hover .video-overlay { background: rgba(0, 0, 0, 0.55); }
+        .video-card:hover .video-overlay { background: rgba(0, 0, 0, 0.25); }
         .play-btn {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: var(--gradient-1);
-            border: none;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -430,14 +380,18 @@
         .play-btn svg {
             width: 22px;
             height: 22px;
-            color: #fff;
+            color: #6366f1;
             margin-left: 4px;
             position: relative;
             z-index: 1;
         }
         .video-card:hover .play-btn {
             transform: scale(1.15);
+            background: var(--gradient-1);
             box-shadow: 0 6px 30px var(--accent-glow);
+        }
+        .video-card:hover .play-btn svg {
+            color: #fff;
         }
         .video-card:hover .play-btn::before {
             opacity: 0.5;
@@ -465,7 +419,7 @@
         .video-description { display: none; }
         .video-card .video-description {
             display: block;
-            border-top: 1px solid var(--glass-border);
+            border-top: 1px solid var(--border);
             padding-top: 16px;
             margin-top: 8px;
         }
@@ -489,7 +443,7 @@
         }
 
         .footer {
-            border-top: 1px solid var(--glass-border);
+            border-top: 1px solid var(--border);
             padding: 40px 0;
         }
         .footer-content {
@@ -530,9 +484,349 @@
             .hero-tags { gap: 6px; }
             .hero-tags span { font-size: 0.75rem; padding: 4px 12px; }
         }
+
+        .section-title {
+            position: relative;
+            overflow: hidden;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.15), transparent);
+            animation: titleShine 4s ease-in-out infinite;
+        }
+        @keyframes titleShine {
+            0%, 100% { left: -100%; }
+            50% { left: 150%; }
+        }
+
+        .video-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--radius-lg);
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(168,85,247,0.3), rgba(236,72,153,0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .video-card:hover::before {
+            opacity: 1;
+        }
+
+        .video-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .video-card:hover::after {
+            width: 300%;
+            height: 300%;
+        }
+
+        .category-card-bento::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--radius-lg);
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.2), rgba(236,72,153,0.2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .category-card-bento:hover::before {
+            opacity: 1;
+        }
+
+        .timeline-dot {
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+        @keyframes dotPulse {
+            0%, 100% { box-shadow: 0 0 10px var(--accent-glow), 0 0 30px rgba(99,102,241,0.15); }
+            50% { box-shadow: 0 0 20px var(--accent-glow), 0 0 50px rgba(99,102,241,0.3); }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 15% 25%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 85% 75%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .about-section, .videos-section, .categories-section, .contact-section, .skills-marquee-section, .footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            color: var(--accent);
+        }
+
+        .cta-primary {
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3), 0 0 40px rgba(99, 102, 241, 0.1);
+        }
+        .cta-primary:hover {
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4), 0 0 60px rgba(99, 102, 241, 0.15);
+        }
+
+        .video-loading {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 246, 250, 0.8);
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .video-loading.active {
+            opacity: 1;
+        }
+        .video-loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .video-error {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 246, 250, 0.9);
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .video-error.active {
+            opacity: 1;
+        }
+        .floating-shapes {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .floating-shape {
+            position: absolute;
+            opacity: 0.06;
+            animation: floatShape 20s ease-in-out infinite;
+        }
+        .floating-shape.circle {
+            border-radius: 50%;
+            background: var(--gradient-1);
+        }
+        .floating-shape.square {
+            border-radius: 4px;
+            background: var(--gradient-2);
+            transform: rotate(45deg);
+        }
+        .floating-shape.triangle {
+            width: 0 !important;
+            height: 0 !important;
+            background: none !important;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 45px solid rgba(99, 102, 241, 0.08);
+        }
+        .floating-shape:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; animation-duration: 22s; }
+        .floating-shape:nth-child(2) { top: 60%; right: 8%; animation-delay: -5s; animation-duration: 18s; }
+        .floating-shape:nth-child(3) { bottom: 15%; left: 15%; animation-delay: -10s; animation-duration: 25s; }
+        .floating-shape:nth-child(4) { top: 30%; right: 20%; animation-delay: -3s; animation-duration: 20s; }
+        .floating-shape:nth-child(5) { bottom: 40%; left: 40%; animation-delay: -8s; animation-duration: 24s; }
+        @keyframes floatShape {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-30px) rotate(5deg); }
+            50% { transform: translateY(-15px) rotate(-3deg); }
+            75% { transform: translateY(-25px) rotate(2deg); }
+        }
+        .floating-shape.square { animation-name: floatShapeSquare; }
+        @keyframes floatShapeSquare {
+            0%, 100% { transform: translateY(0) rotate(45deg); }
+            25% { transform: translateY(-25px) rotate(50deg); }
+            50% { transform: translateY(-10px) rotate(42deg); }
+            75% { transform: translateY(-20px) rotate(48deg); }
+        }
+
+        .section-divider {
+            position: relative;
+            height: 80px;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .section-divider svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+        }
+
+        .mouse-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: left 0.15s ease-out, top 0.15s ease-out;
+        }
+
+        :root {
+            --cat-documentary: #6366f1;
+            --cat-ads: #06b6d4;
+            --cat-game: #f59e0b;
+            --cat-real: #ec4899;
+        }
+
+        .category-header {
+            padding: 24px 28px;
+            border-radius: var(--radius-lg);
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .category-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 0 4px 4px 0;
+        }
+        .category-header.cat-documentary::after { background: linear-gradient(180deg, #6366f1, #818cf8); }
+        .category-header.cat-ads::after { background: linear-gradient(180deg, #06b6d4, #22d3ee); }
+        .category-header.cat-game::after { background: linear-gradient(180deg, #f59e0b, #fbbf24); }
+        .category-header.cat-real::after { background: linear-gradient(180deg, #ec4899, #f472b6); }
+
+        .category-header.cat-documentary { background: linear-gradient(135deg, rgba(99,102,241,0.06), var(--glass)); }
+        .category-header.cat-ads { background: linear-gradient(135deg, rgba(6,182,212,0.06), var(--glass)); }
+        .category-header.cat-game { background: linear-gradient(135deg, rgba(245,158,11,0.06), var(--glass)); }
+        .category-header.cat-real { background: linear-gradient(135deg, rgba(236,72,153,0.06), var(--glass)); }
+
+        .category-title {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            letter-spacing: -0.02em;
+        }
+        .category-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .category-icon svg { width: 22px; height: 22px; color: #fff; }
+        .cat-documentary .category-icon { background: linear-gradient(135deg, #6366f1, #818cf8); }
+        .cat-ads .category-icon { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+        .cat-game .category-icon { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .cat-real .category-icon { background: linear-gradient(135deg, #ec4899, #f472b6); }
+
+        .category-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 8px;
+            padding-left: 58px;
+            position: relative;
+        }
+        .category-desc::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 58px;
+            width: 60px;
+            height: 2px;
+            border-radius: 1px;
+        }
+        .cat-documentary .category-desc::after { background: linear-gradient(90deg, #6366f1, transparent); }
+        .cat-ads .category-desc::after { background: linear-gradient(90deg, #06b6d4, transparent); }
+        .cat-game .category-desc::after { background: linear-gradient(90deg, #f59e0b, transparent); }
+        .cat-real .category-desc::after { background: linear-gradient(90deg, #ec4899, transparent); }
+
+        .video-category-label.cat-label-documentary { background: rgba(99,102,241,0.12); color: #818cf8; }
+        .video-category-label.cat-label-ads { background: rgba(6,182,212,0.12); color: #22d3ee; }
+        .video-category-label.cat-label-game { background: rgba(245,158,11,0.12); color: #fbbf24; }
+        .video-category-label.cat-label-real { background: rgba(236,72,153,0.12); color: #f472b6; }
+
+        .category-separator {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 48px 0;
+            position: relative;
+        }
+        .category-separator::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .category-separator.sep-documentary::after { background: #6366f1; box-shadow: 0 0 10px rgba(99,102,241,0.4); }
+        .category-separator.sep-ads::after { background: #06b6d4; box-shadow: 0 0 10px rgba(6,182,212,0.4); }
+        .category-separator.sep-game::after { background: #f59e0b; box-shadow: 0 0 10px rgba(245,158,11,0.4); }
+        .category-separator.sep-real::after { background: #ec4899; box-shadow: 0 0 10px rgba(236,72,153,0.4); }
     </style>
 </head>
 <body>
+    <div class="mouse-glow" id="mouseGlow"></div>
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">陈俊良</a>
@@ -560,6 +854,11 @@
     </div>
 
     <section class="hero" id="hero">
+        <div class="floating-shapes">
+            <div class="floating-shape circle" style="width:45px;height:45px;"></div>
+            <div class="floating-shape square" style="width:30px;height:30px;"></div>
+            <div class="floating-shape triangle"></div>
+        </div>
         <canvas id="orb-canvas"></canvas>
         <div class="hero-content">
             <div class="hero-badge animate-on-scroll">全部视频作品</div>
@@ -582,17 +881,30 @@
     </section>
 
     <section class="videos-section">
+        <div class="floating-shapes">
+            <div class="floating-shape circle" style="width:45px;height:45px;"></div>
+            <div class="floating-shape square" style="width:30px;height:30px;"></div>
+            <div class="floating-shape triangle"></div>
+        </div>
         <div class="container">
 
             <div id="documentary" class="video-category-section animate-on-scroll">
-                <div class="category-header">
-                    <h3 class="category-title">01 AI纪录片</h3>
-                    <p class="category-desc">探讨AI时代人类与技术的共生关系，通过纪录片形式展现人工智能对现代社会的影响</p>
+                <div class="category-header cat-documentary">
+                    <h3 class="category-title">
+                        <span class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polygon points="10 8 16 12 10 16 10 8"/>
+                            </svg>
+                        </span>
+                        AI纪录片
+                    </h3>
+                    <p class="category-desc">探讨AI时代人类与技术的共生关系</p>
                 </div>
                 <div class="video-gallery">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/AI纪录片《何以为家》.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/AI纪录片《何以为家》.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -600,9 +912,11 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">纪录片</span>
+                            <span class="video-category-label cat-label-documentary">纪录片</span>
                             <h3>AI纪录片《何以为家》</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -631,15 +945,25 @@
                 </div>
             </div>
 
+            <div class="category-separator sep-documentary"></div>
+
             <div id="ads" class="video-category-section animate-on-scroll">
-                <div class="category-header">
-                    <h3 class="category-title">02 AI广告片</h3>
-                    <p class="category-desc">品牌商业广告创意视频，展示产品特性与品牌价值</p>
+                <div class="category-header cat-ads">
+                    <h3 class="category-title">
+                        <span class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M9 9l6 6M15 9l-6 6"/>
+                            </svg>
+                        </span>
+                        AI广告片
+                    </h3>
+                    <p class="category-desc">品牌商业广告创意视频</p>
                 </div>
                 <div class="video-gallery video-gallery-ads">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片1.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片1.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -647,10 +971,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 1</h3>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
+                            <h3>爆炸盐，炸掉所有烦恼</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -677,7 +1003,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片2.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片2.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -685,10 +1011,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 2</h3>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
+                            <h3>沐萌美，油污跑光亮晶晶</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -715,7 +1043,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片3.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片3.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -723,10 +1051,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 3</h3>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
+                            <h3>一滴浓，一身净</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -753,7 +1083,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片4.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片4.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -761,10 +1091,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 4</h3>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
+                            <h3>油污净，秒除污</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -791,7 +1123,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片5.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片5.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -799,10 +1131,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 5</h3>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
+                            <h3>AD钙，用心包裹儿时科幻梦</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -829,7 +1163,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片6.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片6.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -837,10 +1171,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
-                            <h3>广告片 6</h3>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
+                            <h3>陪你酸酸甜甜，陪你可可爱爱</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -867,7 +1203,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片7.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/广告片7.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -875,9 +1211,11 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">广告作品</span>
+                            <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>广告片 7</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -906,15 +1244,25 @@
                 </div>
             </div>
 
+            <div class="category-separator sep-ads"></div>
+
             <div id="game" class="video-category-section animate-on-scroll">
-                <div class="category-header">
-                    <h3 class="category-title">03 长AI游戏视频</h3>
-                    <p class="category-desc">AI生成的游戏场景与角色互动视频，展示游戏世界观</p>
+                <div class="category-header cat-game">
+                    <h3 class="category-title">
+                        <span class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="6" width="20" height="12" rx="2"/>
+                                <path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/>
+                            </svg>
+                        </span>
+                        长AI游戏视频
+                    </h3>
+                    <p class="category-desc">AI生成的游戏场景与角色互动视频</p>
                 </div>
                 <div class="video-gallery video-gallery-game">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频1.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频1.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -922,10 +1270,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 1</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>三角洲委托——多元素引流</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -952,7 +1302,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频2.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频2.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -960,10 +1310,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 2</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>三角洲委托——冲突化引流</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -990,7 +1342,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频3.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频3.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -998,10 +1350,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 3</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>三角洲委托——剧情化引流</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1028,7 +1382,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频4.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频4.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1036,10 +1390,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 4</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>三角洲委托——洛克王国与三角洲的剧情化、冲突化叙事</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1066,7 +1422,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频5.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频5.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1074,10 +1430,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 5</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>三角洲委托——真人化仿真叙事</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1097,14 +1455,15 @@
                                 </div>
                                 <div class="desc-item">
                                     <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Runway Gen-3、Pika Labs、Midjourney</span>
+                                    <span class="desc-text">Sora、Kling、Runway Gen-3</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频6.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频6.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1112,10 +1471,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 6</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>三角洲委托——生活化叙事引流</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1142,7 +1503,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频7.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/长游戏AI视频7.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1150,10 +1511,12 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">游戏AI</span>
-                            <h3>长游戏AI视频 7</h3>
+                            <span class="video-category-label cat-label-game">游戏AI</span>
+                            <h3>短剧化AI视频</h3>
                             <div class="video-description">
                                 <div class="desc-item">
                                     <span class="desc-label">内容概述</span>
@@ -1173,7 +1536,7 @@
                                 </div>
                                 <div class="desc-item">
                                     <span class="desc-label">AI工具</span>
-                                    <span class="desc-text">Kling、Pika Labs</span>
+                                    <span class="desc-text">Sora、Kling、Pika Labs</span>
                                 </div>
                             </div>
                         </div>
@@ -1181,15 +1544,25 @@
                 </div>
             </div>
 
+            <div class="category-separator sep-game"></div>
+
             <div id="real-documentary" class="video-category-section animate-on-scroll">
-                <div class="category-header">
-                    <h3 class="category-title">04 实拍纪录片</h3>
-                    <p class="category-desc">实地拍摄纪录片作品，记录真实故事与文化传承</p>
+                <div class="category-header cat-real">
+                    <h3 class="category-title">
+                        <span class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 7l-7 5 7 5V7z"/>
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                            </svg>
+                        </span>
+                        实拍纪录片
+                    </h3>
+                    <p class="category-desc">实地拍摄纪录片作品</p>
                 </div>
                 <div class="video-gallery">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/实拍纪录片——广西三月三_压缩.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/实拍纪录片——广西三月三_压缩.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1197,9 +1570,11 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">实拍纪录片</span>
+                            <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>实拍纪录片——广西三月三</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -1227,7 +1602,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/纪录片——东兴电商宣传.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/纪录片——东兴电商宣传.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1235,9 +1610,11 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">实拍纪录片</span>
+                            <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>纪录片——东兴电商宣传</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -1265,7 +1642,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/实拍纪录片——五四青年节_高压缩.mp4" preload="none" muted loop></video>
+                            <video src="视频合集/实拍纪录片——五四青年节_高压缩.mp4" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1273,9 +1650,11 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-error">视频加载失败，请稍后重试</div>
                         </div>
                         <div class="video-info">
-                            <span class="video-category-label">实拍纪录片</span>
+                            <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>实拍纪录片——五四青年节</h3>
                             <div class="video-description">
                                 <div class="desc-item">
@@ -1322,6 +1701,14 @@
     </footer>
 
     <script>
+        var mouseGlow = document.getElementById('mouseGlow');
+        if (mouseGlow) {
+            document.addEventListener('mousemove', function(e) {
+                mouseGlow.style.left = e.clientX + 'px';
+                mouseGlow.style.top = e.clientY + 'px';
+            });
+        }
+
         (function() {
             var canvas = document.getElementById('orb-canvas');
             var ctx = canvas.getContext('2d');
@@ -1406,7 +1793,7 @@
                         if (distance < 350) {
                             var opacity = (1 - distance / 350) * 0.06;
                             ctx.beginPath();
-                            ctx.strokeStyle = 'rgba(255, 255, 255, ' + opacity + ')';
+                            ctx.strokeStyle = 'rgba(99, 102, 241, ' + opacity + ')';
                             ctx.lineWidth = 1;
                             ctx.moveTo(orbs[i].x, orbs[i].y);
                             ctx.lineTo(orbs[j].x, orbs[j].y);
@@ -1498,7 +1885,7 @@
                     if (entry.isIntersecting) {
                         var video = entry.target.querySelector('video');
                         if (video && video.dataset.loaded !== 'true') {
-                            video.preload = 'metadata';
+                            video.preload = 'auto';
                             video.load();
                             video.dataset.loaded = 'true';
                         }
@@ -1509,7 +1896,26 @@
 
             document.querySelectorAll('.video-card').forEach(function(card) {
                 var video = card.querySelector('video');
-                if (video) video.dataset.loaded = 'false';
+                var loadingEl = card.querySelector('.video-loading');
+                var errorEl = card.querySelector('.video-error');
+                if (video) {
+                    video.dataset.loaded = 'false';
+                    video.addEventListener('canplay', function() {
+                        video.dataset.loaded = 'true';
+                        if (loadingEl) loadingEl.classList.remove('active');
+                    });
+                    video.addEventListener('error', function() {
+                        if (loadingEl) loadingEl.classList.remove('active');
+                        if (errorEl) errorEl.classList.add('active');
+                    });
+                    video.addEventListener('waiting', function() {
+                        if (loadingEl) loadingEl.classList.add('active');
+                    });
+                    video.addEventListener('playing', function() {
+                        if (loadingEl) loadingEl.classList.remove('active');
+                        if (errorEl) errorEl.classList.remove('active');
+                    });
+                }
                 videoObserver.observe(card);
             });
 
@@ -1531,25 +1937,49 @@
             document.querySelectorAll('.video-card').forEach(function(card) {
                 var video = card.querySelector('video');
                 var playBtn = card.querySelector('.play-btn');
+                var loadingEl = card.querySelector('.video-loading');
+                var errorEl = card.querySelector('.video-error');
 
                 card.addEventListener('mouseenter', function() {
-                    video.play().catch(function() {});
+                    if (video && video.readyState >= 3) {
+                        video.play().catch(function() {});
+                    } else if (video) {
+                        if (loadingEl) loadingEl.classList.add('active');
+                        video.addEventListener('canplay', function onCanPlay() {
+                            if (loadingEl) loadingEl.classList.remove('active');
+                            video.play().catch(function() {});
+                            video.removeEventListener('canplay', onCanPlay);
+                        });
+                    }
                 });
 
                 card.addEventListener('mouseleave', function() {
-                    video.pause();
-                    video.currentTime = 0;
+                    if (video) {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
                 });
 
                 playBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    if (video.requestFullscreen) {
-                        video.requestFullscreen();
-                    } else if (video.webkitRequestFullscreen) {
-                        video.webkitRequestFullscreen();
+                    if (video) {
+                        if (video.requestFullscreen) {
+                            video.requestFullscreen();
+                        } else if (video.webkitRequestFullscreen) {
+                            video.webkitRequestFullscreen();
+                        }
+                        video.muted = false;
+                        if (video.readyState >= 3) {
+                            video.play();
+                        } else {
+                            if (loadingEl) loadingEl.classList.add('active');
+                            video.addEventListener('canplay', function onCanPlay() {
+                                if (loadingEl) loadingEl.classList.remove('active');
+                                video.play();
+                                video.removeEventListener('canplay', onCanPlay);
+                            });
+                        }
                     }
-                    video.muted = false;
-                    video.play();
                 });
             });
 
