@@ -14,11 +14,6 @@
         })();
     </script>
     <style>
-        .contact-page-hero {
-            padding: 140px 0 60px;
-            text-align: center;
-            position: relative;
-        }
         .contact-page-hero::before {
             content: '';
             position: absolute;
@@ -29,397 +24,6 @@
             height: 500px;
             background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, transparent 70%);
             pointer-events: none;
-        }
-        .contact-page-title {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            margin-bottom: 16px;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .contact-page-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-            letter-spacing: 0.1em;
-        }
-
-        .contact-page-content {
-            padding: 40px 0 100px;
-        }
-        .contact-page-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 24px;
-            align-items: start;
-        }
-
-        .contact-info-panel,
-        .contact-form-panel {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        .contact-info-panel::before,
-        .contact-form-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.15), transparent);
-        }
-        .contact-info-panel:hover,
-        .contact-form-panel:hover {
-            transform: translateY(-6px);
-            border-color: rgba(99, 102, 241, 0.35);
-            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
-        }
-
-        .contact-info-panel h2,
-        .contact-form-panel h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            margin-bottom: 12px;
-        }
-        .contact-intro {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 32px;
-            line-height: 1.8;
-        }
-
-        .contact-info-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-        .contact-info-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 16px 20px;
-            background: rgba(99, 102, 241, 0.04);
-            border: 1px solid rgba(99, 102, 241, 0.08);
-            border-radius: var(--radius);
-            transition: var(--transition);
-        }
-        .contact-info-item:hover {
-            background: var(--surface-hover);
-            border-color: var(--border-hover);
-            transform: translateX(4px);
-        }
-        .contact-info-icon {
-            width: 44px;
-            height: 44px;
-            min-width: 44px;
-            border-radius: 12px;
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .contact-info-icon svg { width: 20px; height: 20px; }
-        .contact-info-content h3 {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 2px;
-        }
-        .contact-info-content p {
-            font-size: 0.95rem;
-            color: var(--text);
-            font-weight: 500;
-        }
-
-        .contact-social {
-            padding: 24px;
-            background: rgba(99, 102, 241, 0.04);
-            border: 1px solid rgba(99, 102, 241, 0.08);
-            border-radius: var(--radius);
-        }
-        .contact-social h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .contact-social p {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-
-        .contact-form { margin-bottom: 32px; }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-        .form-group .required { color: var(--pink); }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 18px;
-            background: rgba(99, 102, 241, 0.04);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-sm);
-            color: var(--text);
-            font-size: 0.95rem;
-            font-family: 'Noto Sans SC', sans-serif;
-            transition: var(--transition);
-            outline: none;
-        }
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            background: rgba(99, 102, 241, 0.06);
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-glow);
-        }
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: var(--text-muted);
-        }
-        .form-group select {
-            cursor: pointer;
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239d9db3' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            padding-right: 44px;
-        }
-        .form-group select option {
-            background: var(--bg-secondary);
-            color: var(--text);
-        }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 16px 32px;
-            border: none;
-            border-radius: 100px;
-            background: var(--gradient-1);
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 700;
-            font-family: 'Noto Sans SC', sans-serif;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 24px var(--accent-glow);
-        }
-        .submit-btn:hover {
-            box-shadow: 0 6px 36px rgba(99, 102, 241, 0.5);
-            transform: translateY(-2px);
-        }
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        .submit-btn svg { width: 18px; height: 18px; }
-
-        .direct-contact {
-            text-align: center;
-            padding: 20px;
-            background: rgba(99, 102, 241, 0.04);
-            border: 1px solid rgba(99, 102, 241, 0.08);
-            border-radius: var(--radius);
-        }
-        .direct-contact p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-        .direct-email-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 24px;
-            border-radius: 100px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-        .direct-email-btn:hover {
-            background: rgba(99, 102, 241, 0.1);
-            border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px var(--accent-glow);
-        }
-        .direct-email-btn svg { width: 16px; height: 16px; }
-
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-        }
-        .modal.show {
-            display: flex;
-        }
-        .modal-content {
-            background: rgba(245, 246, 250, 0.95);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 48px 40px;
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            animation: modalIn 0.3s ease;
-        }
-        @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        .modal-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-        }
-        .modal-icon svg { width: 32px; height: 32px; }
-        .modal-icon.success {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--green);
-        }
-        .modal-icon.error {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--red);
-        }
-        .modal-content h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .modal-content p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 24px;
-        }
-        .modal-close-btn {
-            padding: 12px 40px;
-            border: none;
-            border-radius: 100px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            font-family: 'Noto Sans SC', sans-serif;
-            cursor: pointer;
-            transition: var(--transition);
-            background: var(--gradient-1);
-            color: #fff;
-            box-shadow: 0 4px 24px var(--accent-glow);
-        }
-        .modal-close-btn:hover {
-            box-shadow: 0 6px 36px rgba(99, 102, 241, 0.5);
-            transform: translateY(-2px);
-        }
-        .modal-close-btn.error-btn {
-            background: var(--gradient-3);
-            box-shadow: 0 4px 24px rgba(239, 68, 68, 0.3);
-        }
-        .modal-close-btn.error-btn:hover {
-            box-shadow: 0 6px 36px rgba(239, 68, 68, 0.5);
-        }
-
-        @media (max-width: 768px) {
-            .contact-page-hero { padding: 120px 0 40px; }
-            .contact-page-grid {
-                grid-template-columns: 1fr;
-            }
-            .contact-info-panel,
-            .contact-form-panel {
-                padding: 28px 24px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .contact-info-panel,
-            .contact-form-panel {
-                padding: 24px 20px;
-            }
-            .contact-info-item {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .contact-info-icon {
-                margin-bottom: 8px;
-            }
-            .modal-content {
-                padding: 36px 24px;
-            }
-        }
-
-        .contact-page-hero,
-        .contact-page-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .contact-card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: var(--radius-lg);
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.2), rgba(236,72,153,0.2));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-        .contact-card:hover::before {
-            opacity: 1;
         }
     </style>
 </head>
@@ -433,7 +37,13 @@
                 <a href="index.html#ads">AI广告片</a>
                 <a href="index.html#game">长AI游戏视频</a>
                 <a href="index.html#real-documentary">实拍纪录片</a>
+                <a href="contact.html">联系我</a>
             </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="切换深色/浅色模式" title="切换深色/浅色模式">
+                <span class="theme-toggle-track">
+                    <span class="theme-toggle-thumb"></span>
+                </span>
+            </button>
             <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
@@ -448,6 +58,7 @@
         <a href="index.html#ads">AI广告片</a>
         <a href="index.html#game">长AI游戏视频</a>
         <a href="index.html#real-documentary">实拍纪录片</a>
+        <a href="contact.html">联系我</a>
     </div>
 
     <section class="contact-page-hero">
@@ -579,6 +190,7 @@
                 <div class="footer-links">
                     <a href="index.html">首页</a>
                     <a href="video-collection.html">视频合集</a>
+                    <a href="contact.html">联系我</a>
                 </div>
                 <div class="footer-copyright">
                     <p>&copy; 2026 陈俊良. All rights reserved.</p>
@@ -616,6 +228,9 @@
         </div>
     </div>
 
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部" title="返回顶部">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
     <script>
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
@@ -713,6 +328,37 @@
                 closeErrorModal();
             }
         });
+
+        var themeToggle = document.getElementById('themeToggle');
+        var htmlEl = document.documentElement;
+        var savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlEl.setAttribute('data-theme', savedTheme);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            htmlEl.setAttribute('data-theme', 'dark');
+        }
+        if (themeToggle) {
+            themeToggle.addEventListener('click', function() {
+                var current = htmlEl.getAttribute('data-theme');
+                var next = (current === 'dark') ? 'light' : 'dark';
+                htmlEl.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+            });
+        }
+
+        var backToTop = document.getElementById('backToTop');
+        if (backToTop) {
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 500) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
     </script>
 </body>
 </html>

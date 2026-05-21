@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
             var card = video.closest('.video-card') || video.closest('.video-item');
             var loadingEl = card ? card.querySelector('.video-loading') : null;
             var errorEl = card ? card.querySelector('.video-error') : null;
+            var progressBar = card ? card.querySelector('.video-loading-progress-bar') : null;
+            var percentEl = card ? card.querySelector('.video-loading-percent') : null;
 
             if (loadingEl) loadingEl.classList.add('active');
             if (errorEl) errorEl.classList.remove('active');
@@ -36,9 +38,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
             this.activeCount++;
 
+            function updateProgress() {
+                if (video.buffered.length > 0) {
+                    var buffered = video.buffered.end(video.buffered.length - 1);
+                    var pct = video.duration > 0 ? Math.round((buffered / video.duration) * 100) : 0;
+                    if (progressBar) progressBar.style.width = pct + '%';
+                    if (percentEl) percentEl.textContent = pct + '%';
+                }
+            }
+
+            var progressInterval = setInterval(updateProgress, 300);
+
             function onSuccess() {
                 cleanup();
-                if (loadingEl) loadingEl.classList.remove('active');
+                clearInterval(progressInterval);
+                if (progressBar) progressBar.style.width = '100%';
+                if (percentEl) percentEl.textContent = '100%';
+                setTimeout(function() {
+                    if (loadingEl) loadingEl.classList.remove('active');
+                }, 300);
                 if (errorEl) errorEl.classList.remove('active');
                 video.dataset.loaded = 'true';
                 self.activeCount = Math.max(0, self.activeCount - 1);
@@ -47,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             function onFailure() {
                 cleanup();
+                clearInterval(progressInterval);
                 if (loadingEl) loadingEl.classList.remove('active');
                 self.activeCount = Math.max(0, self.activeCount - 1);
                 if (self.retries[id] < self.maxRetries) {
@@ -106,6 +125,250 @@ document.addEventListener('DOMContentLoaded', function() {
         if (src) videoObserver.observe(video);
     });
 
+    var modalOverlay = null;
+    var modalVideo = null;
+    var currentSpeed = 1;
+    var speeds = [0.5, 0.75, 1, 1.25, 1.5, 2, 3];
+
+    function createModal() {
+        if (modalOverlay) return;
+        modalOverlay = document.createElement('div');
+        modalOverlay.className = 'video-modal-overlay';
+        modalOverlay.innerHTML =
+            '<div class="video-modal-container">' +
+                '<button class="video-modal-close" aria-label="关闭">✕</button>' +
+                '<video playsinline></video>' +
+                '<div class="video-modal-loading">' +
+                    '<div class="video-modal-loading-inner">' +
+                        '<div class="video-modal-loading-spinner"></div>' +
+                        '<div class="video-modal-loading-progress"><div class="video-modal-loading-bar"></div></div>' +
+                        '<div class="video-modal-loading-text">加载中...</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="video-modal-controls">' +
+                    '<div class="video-modal-progress">' +
+                        '<div class="video-modal-progress-buffered"></div>' +
+                        '<div class="video-modal-progress-played"></div>' +
+                        '<div class="video-modal-progress-thumb"></div>' +
+                    '</div>' +
+                    '<div class="video-modal-btns">' +
+                        '<button class="video-modal-btn video-modal-play-btn" aria-label="播放/暂停">' +
+                            '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>' +
+                        '</button>' +
+                        '<span class="video-modal-time">0:00 / 0:00</span>' +
+                        '<div class="video-modal-speed-group">' +
+                            '<button class="video-modal-speed" data-speed="0.5">0.5x</button>' +
+                            '<button class="video-modal-speed" data-speed="1">1x</button>' +
+                            '<button class="video-modal-speed" data-speed="1.5">1.5x</button>' +
+                            '<button class="video-modal-speed" data-speed="2">2x</button>' +
+                            '<button class="video-modal-speed" data-speed="3">3x</button>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+        document.body.appendChild(modalOverlay);
+        modalVideo = modalOverlay.querySelector('video');
+
+        modalOverlay.querySelector('.video-modal-close').addEventListener('click', closeModal);
+
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        var playBtn = modalOverlay.querySelector('.video-modal-play-btn');
+        playBtn.addEventListener('click', function() {
+            if (modalVideo.paused) {
+                modalVideo.play();
+            } else {
+                modalVideo.pause();
+            }
+        });
+
+        modalVideo.addEventListener('click', function() {
+            if (modalVideo.paused) {
+                modalVideo.play();
+            } else {
+                modalVideo.pause();
+            }
+        });
+
+        modalVideo.addEventListener('play', function() {
+            playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+        });
+
+        modalVideo.addEventListener('pause', function() {
+            playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+        });
+
+        var progressBar = modalOverlay.querySelector('.video-modal-progress');
+        var progressPlayed = modalOverlay.querySelector('.video-modal-progress-played');
+        var progressBuffered = modalOverlay.querySelector('.video-modal-progress-buffered');
+        var progressThumb = modalOverlay.querySelector('.video-modal-progress-thumb');
+        var timeDisplay = modalOverlay.querySelector('.video-modal-time');
+
+        modalVideo.addEventListener('timeupdate', function() {
+            if (modalVideo.duration) {
+                var pct = (modalVideo.currentTime / modalVideo.duration) * 100;
+                progressPlayed.style.width = pct + '%';
+                progressThumb.style.left = pct + '%';
+                timeDisplay.textContent = formatTime(modalVideo.currentTime) + ' / ' + formatTime(modalVideo.duration);
+            }
+        });
+
+        modalVideo.addEventListener('progress', function() {
+            if (modalVideo.buffered.length > 0 && modalVideo.duration) {
+                var bufferedEnd = modalVideo.buffered.end(modalVideo.buffered.length - 1);
+                progressBuffered.style.width = (bufferedEnd / modalVideo.duration) * 100 + '%';
+            }
+        });
+
+        var isSeeking = false;
+        progressBar.addEventListener('mousedown', function(e) {
+            isSeeking = true;
+            seekTo(e);
+        });
+        document.addEventListener('mousemove', function(e) {
+            if (isSeeking) seekTo(e);
+        });
+        document.addEventListener('mouseup', function() {
+            isSeeking = false;
+        });
+
+        progressBar.addEventListener('touchstart', function(e) {
+            isSeeking = true;
+            seekTo(e.touches[0]);
+        }, { passive: true });
+        progressBar.addEventListener('touchmove', function(e) {
+            if (isSeeking) seekTo(e.touches[0]);
+        }, { passive: true });
+        progressBar.addEventListener('touchend', function() {
+            isSeeking = false;
+        });
+
+        function seekTo(e) {
+            var rect = progressBar.getBoundingClientRect();
+            var x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+            var pct = x / rect.width;
+            if (modalVideo.duration) {
+                modalVideo.currentTime = pct * modalVideo.duration;
+            }
+        }
+
+        var modalLoading = modalOverlay.querySelector('.video-modal-loading');
+        var modalLoadingBar = modalOverlay.querySelector('.video-modal-loading-bar');
+        var modalLoadingText = modalOverlay.querySelector('.video-modal-loading-text');
+
+        modalVideo.addEventListener('waiting', function() {
+            modalLoading.classList.add('active');
+        });
+        modalVideo.addEventListener('playing', function() {
+            modalLoading.classList.remove('active');
+        });
+        modalVideo.addEventListener('canplay', function() {
+            modalLoading.classList.remove('active');
+        });
+
+        var loadingProgressInterval = null;
+        modalVideo.addEventListener('loadstart', function() {
+            modalLoading.classList.add('active');
+            modalLoadingBar.style.width = '0%';
+            modalLoadingText.textContent = '加载中...';
+            clearInterval(loadingProgressInterval);
+            loadingProgressInterval = setInterval(function() {
+                if (modalVideo.buffered.length > 0 && modalVideo.duration) {
+                    var bufferedEnd = modalVideo.buffered.end(modalVideo.buffered.length - 1);
+                    var pct = Math.round((bufferedEnd / modalVideo.duration) * 100);
+                    modalLoadingBar.style.width = pct + '%';
+                    modalLoadingText.textContent = '加载中 ' + pct + '%';
+                }
+            }, 200);
+        });
+        modalVideo.addEventListener('canplaythrough', function() {
+            clearInterval(loadingProgressInterval);
+            modalLoadingBar.style.width = '100%';
+            modalLoadingText.textContent = '加载完成';
+            setTimeout(function() {
+                modalLoading.classList.remove('active');
+            }, 300);
+        });
+
+        var speedBtns = modalOverlay.querySelectorAll('.video-modal-speed');
+        speedBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var speed = parseFloat(this.getAttribute('data-speed'));
+                modalVideo.playbackRate = speed;
+                currentSpeed = speed;
+                speedBtns.forEach(function(b) { b.classList.remove('active-speed'); });
+                this.classList.add('active-speed');
+            });
+        });
+
+        document.addEventListener('keydown', handleModalKeydown);
+    }
+
+    function handleModalKeydown(e) {
+        if (!modalOverlay || !modalOverlay.classList.contains('active')) return;
+        if (e.key === 'Escape') {
+            closeModal();
+            return;
+        }
+        if (!modalVideo) return;
+
+        if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            modalVideo.currentTime = Math.min(modalVideo.duration || 0, modalVideo.currentTime + 5);
+        } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            modalVideo.currentTime = Math.max(0, modalVideo.currentTime - 5);
+        } else if (e.key === ' ') {
+            e.preventDefault();
+            if (modalVideo.paused) {
+                modalVideo.play();
+            } else {
+                modalVideo.pause();
+            }
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            modalVideo.volume = Math.min(1, modalVideo.volume + 0.1);
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            modalVideo.volume = Math.max(0, modalVideo.volume - 0.1);
+        }
+    }
+
+    function openModal(src, poster) {
+        createModal();
+        modalVideo.src = src;
+        if (poster) modalVideo.setAttribute('poster', poster);
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        var defaultSpeedBtn = modalOverlay.querySelector('.video-modal-speed[data-speed="1"]');
+        modalOverlay.querySelectorAll('.video-modal-speed').forEach(function(b) { b.classList.remove('active-speed'); });
+        if (defaultSpeedBtn) defaultSpeedBtn.classList.add('active-speed');
+        modalVideo.playbackRate = 1;
+
+        modalVideo.play().catch(function() {
+            modalVideo.muted = true;
+            modalVideo.play().catch(function() {});
+        });
+    }
+
+    function closeModal() {
+        if (!modalOverlay) return;
+        modalVideo.pause();
+        modalVideo.src = '';
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function formatTime(seconds) {
+        if (!seconds || isNaN(seconds)) return '0:00';
+        var m = Math.floor(seconds / 60);
+        var s = Math.floor(seconds % 60);
+        return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
     function setupVideoCard(card) {
         var video = card.querySelector('video');
         var playBtn = card.querySelector('.play-btn');
@@ -120,64 +383,39 @@ document.addEventListener('DOMContentLoaded', function() {
             if (loadingEl) loadingEl.classList.remove('active');
         });
 
-        function loadAndPlay() {
+        function openVideoModal() {
+            var src = video.getAttribute('src');
+            var poster = video.getAttribute('poster');
+            if (!src) return;
+
             if (errorEl && errorEl.classList.contains('active')) {
-                var src = video.getAttribute('src');
-                if (src) {
-                    video.removeAttribute('src');
-                    video.setAttribute('src', src);
-                    video.dataset.loaded = 'false';
-                    VideoLoader.retries[VideoLoader.getVideoId(video)] = 0;
-                    VideoLoader.enqueue(video);
-                }
+                video.removeAttribute('src');
+                video.setAttribute('src', src);
+                video.dataset.loaded = 'false';
+                VideoLoader.retries[VideoLoader.getVideoId(video)] = 0;
+                VideoLoader.enqueue(video);
                 return;
             }
-            if (loadingEl) loadingEl.classList.add('active');
-            video.preload = 'auto';
-            video.load();
-            var onReady = function() {
-                if (loadingEl) loadingEl.classList.remove('active');
-                video.muted = false;
-                video.play().catch(function() {
-                    video.muted = true;
-                    video.play().catch(function() {
-                        if (errorEl) errorEl.classList.add('active');
-                        if (loadingEl) loadingEl.classList.remove('active');
-                    });
-                });
-                video.removeEventListener('canplay', onReady);
-                video.removeEventListener('canplaythrough', onReady);
-            };
-            var onErr = function() {
-                if (loadingEl) loadingEl.classList.remove('active');
-                if (errorEl) errorEl.classList.add('active');
-                video.removeEventListener('error', onErr);
-            };
-            video.addEventListener('canplay', onReady, { once: true });
-            video.addEventListener('canplaythrough', onReady, { once: true });
-            video.addEventListener('error', onErr, { once: true });
+
+            openModal(src, poster);
         }
 
         if (playBtn) {
             playBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
-                loadAndPlay();
+                openVideoModal();
             });
             playBtn.addEventListener('touchend', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
-                loadAndPlay();
+                openVideoModal();
             });
         }
 
         card.addEventListener('click', function(e) {
             if (e.target.closest('.play-btn')) return;
-            if (video.paused) {
-                loadAndPlay();
-            } else {
-                video.pause();
-            }
+            openVideoModal();
         });
 
         var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;

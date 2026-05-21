@@ -46,7 +46,33 @@
                 <a href="#ads">AI广告片</a>
                 <a href="#game">长AI游戏视频</a>
                 <a href="#real-documentary">实拍纪录片</a>
+                <a href="contact.html">联系我</a>
             </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="切换深色/浅色模式" title="切换深色/浅色模式">
+                <span class="theme-toggle-track">
+                    <span class="theme-toggle-icons">
+                        <svg class="theme-toggle-icon theme-toggle-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="theme-toggle-icon theme-toggle-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </span>
+                    <span class="theme-toggle-stars">
+                        <span class="theme-toggle-star" style="top:8px;left:12px"></span>
+                        <span class="theme-toggle-star" style="top:18px;left:22px"></span>
+                        <span class="theme-toggle-star" style="top:6px;left:30px"></span>
+                        <span class="theme-toggle-star" style="top:22px;left:14px"></span>
+                        <span class="theme-toggle-star" style="top:14px;left:40px"></span>
+                    </span>
+                    <span class="theme-toggle-thumb"></span>
+                </span>
+            </button>
+            <button class="theme-toggle" id="themeToggle" aria-label="切换深色/浅色模式" title="切换深色/浅色模式">
+                <span class="theme-toggle-track">
+                    <span class="theme-toggle-thumb"></span>
+                </span>
+            </button>
             <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
@@ -61,6 +87,7 @@
         <a href="#ads" data-nav>AI广告片</a>
         <a href="#game" data-nav>长AI游戏视频</a>
         <a href="#real-documentary" data-nav>实拍纪录片</a>
+        <a href="contact.html" data-nav>联系我</a>
     </div>
 
     <section class="hero" id="hero">
@@ -116,13 +143,13 @@
                         <div class="video-wrapper">
                             <video src="视频合集/AI纪录片《何以为家》.mp4" poster="视频合集/posters/AI纪录片《何以为家》.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -168,7 +195,7 @@
                                     </svg>
                                 </button>
 </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
 <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -233,7 +260,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -279,7 +306,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -325,7 +352,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -371,7 +398,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -411,13 +438,13 @@
                         <div class="video-wrapper">
                             <video src="视频合集/广告片5.mp4" poster="视频合集/posters/广告片5.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -457,13 +484,13 @@
                         <div class="video-wrapper">
                             <video src="视频合集/广告片6.mp4" poster="视频合集/posters/广告片6.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -509,7 +536,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -526,35 +553,23 @@
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>广告片 7</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">时尚品牌春季系列广告，融合东方美学与现代时尚，展现传统文化元素在当代设计中的新生</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">柔光漫射营造梦幻氛围，彩色滤光片创造艺术感光影，水波纹反射增添灵动</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">慢动作捕捉飘逸动感，推镜头聚焦设计亮点，鱼眼镜头营造视觉张力</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">全景展现服装整体造型，中景展示搭配细节，近景捕捉面料质感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">时尚模特与品牌形象</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">东方时尚风，融合美学</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">优雅灵动的节奏，富有艺术感</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">柔光漫射营造梦幻氛围，彩色滤光片创造艺术感光影，水波纹反射增添灵动质感</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">慢动作捕捉飘逸动感，推镜头聚焦设计亮点，全景展现造型→中景展示搭配→近景捕捉面料质感</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">东方时尚风，融合美学，以飘逸视觉语言传递品牌艺术调性</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">优雅灵动，场景流转如丝般顺滑，艺术感与商业感平衡推进</span>
+    </div>
+</div>
                         </div>
                     </div>
                 </div>
@@ -586,7 +601,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -632,7 +647,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -678,7 +693,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -724,7 +739,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -770,7 +785,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -817,7 +832,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -863,7 +878,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -928,7 +943,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -978,7 +993,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1024,7 +1039,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="video-loading"><div class="video-loading-spinner"></div></div>
+                            <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
     <div class="video-error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1076,6 +1091,7 @@
                 <div class="footer-links">
                     <a href="index.html">首页</a>
                     <a href="video-collection.html">视频合集</a>
+                    <a href="contact.html">联系我</a>
                 </div>
                 <div class="footer-copyright">
                     <p>&copy; 2026 陈俊良. All rights reserved.</p>
@@ -1083,6 +1099,14 @@
             </div>
         </div>
     </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部" title="返回顶部">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部" title="返回顶部">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
 
     <script>
         (function() {
@@ -1281,6 +1305,37 @@
                     }
                 });
             });
+
+            var themeToggle = document.getElementById('themeToggle');
+            var htmlEl = document.documentElement;
+            var savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                htmlEl.setAttribute('data-theme', savedTheme);
+            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                htmlEl.setAttribute('data-theme', 'dark');
+            }
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    var current = htmlEl.getAttribute('data-theme');
+                    var next = (current === 'dark') ? 'light' : 'dark';
+                    htmlEl.setAttribute('data-theme', next);
+                    localStorage.setItem('theme', next);
+                });
+            }
+
+            var backToTop = document.getElementById('backToTop');
+            if (backToTop) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 500) {
+                        backToTop.classList.add('visible');
+                    } else {
+                        backToTop.classList.remove('visible');
+                    }
+                });
+                backToTop.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
 
         })();
     </script>
