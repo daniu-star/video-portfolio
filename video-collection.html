@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>视频合集 - 陈俊良 | 个人作品集</title>
+    <title>视频合集 | 陈俊良作品集</title>
+    <meta name="description" content="陈俊良的视频作品合集，展示AI纪录片、AI广告片、游戏视频和实拍纪录片作品">
+    <meta name="keywords" content="陈俊良,视频合集,AI视频,纪录片,广告片">
     <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="script.js" as="script">
     <style>
-        .hero {
-            min-height: 60vh;
-        }
-
         #orb-canvas {
             position: absolute;
             top: 0;
@@ -19,34 +18,255 @@
             z-index: 0;
         }
 
-        .video-card::after {
+        .video-card::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(99,102,241,0.08), transparent 70%);
+            inset: -1px;
+            border-radius: 24px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.4), rgba(168,85,247,0.4), rgba(236,72,153,0.4), rgba(6,182,212,0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
             opacity: 0;
             transition: opacity 0.4s ease;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
+        }
+        .video-card:hover::before {
+            opacity: 1;
         }
 
+        .video-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
         .video-card:hover::after {
             opacity: 1;
         }
 
+        .category-header {
+            padding: 32px 36px;
+            border-radius: 24px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            margin-bottom: 48px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .category-header:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 20px 50px rgba(99, 102, 241, 0.12),
+                0 8px 30px rgba(99, 102, 241, 0.08);
+        }
+        .category-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            border-radius: 24px 24px 0 0;
+        }
+        .category-header.cat-documentary::before { background: linear-gradient(90deg, #6366f1, #818cf8, #a5b4fc, #c7d2fe); }
+        .category-header.cat-ads::before { background: linear-gradient(90deg, #06b6d4, #22d3ee, #67e8f9, #a5f3fc); }
+        .category-header.cat-game::before { background: linear-gradient(90deg, #f59e0b, #fbbf24, #fcd34d, #fde68a); }
+        .category-header.cat-real::before { background: linear-gradient(90deg, #ec4899, #f472b6, #f9a8d4, #fbcfe8); }
+        .category-header.cat-documentary { background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(129,140,248,0.05), var(--glass)); }
+        .category-header.cat-ads { background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(34,211,238,0.05), var(--glass)); }
+        .category-header.cat-game { background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(251,191,36,0.05), var(--glass)); }
+        .category-header.cat-real { background: linear-gradient(135deg, rgba(236,72,153,0.1), rgba(244,114,182,0.05), var(--glass)); }
+
+        .category-header h3 {
+            font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive;
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            color: var(--text);
+            text-shadow: 1px 1px 2px rgba(99, 102, 241, 0.1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .category-header h3:hover {
+            transform: scale(1.02);
+            text-shadow: 3px 3px 8px rgba(99, 102, 241, 0.25);
+        }
+        .category-header h3 .category-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(99, 102, 241, 0.1);
+        }
+        .category-header h3 .category-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+        }
+
+        @keyframes titleReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+                filter: blur(4px);
+            }
+            100% {
+                opacity: 1 !important;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+        .category-header h3.title-animated {
+            animation: titleReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .category-title {
+            font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive;
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            letter-spacing: 0.06em;
+            font-weight: 400;
+        }
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+        }
+        .category-header:hover .category-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+        .category-icon svg { width: 24px; height: 24px; color: #fff; }
+        .cat-documentary .category-icon { background: linear-gradient(135deg, #6366f1, #818cf8); }
+        .cat-ads .category-icon { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+        .cat-game .category-icon { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .cat-real .category-icon { background: linear-gradient(135deg, #ec4899, #f472b6); }
+
+        .category-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 8px;
+            padding-left: 58px;
+            position: relative;
+        }
+        .category-desc::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 58px;
+            width: 60px;
+            height: 2px;
+            border-radius: 1px;
+        }
+        .cat-documentary .category-desc::after { background: linear-gradient(90deg, #6366f1, transparent); }
+        .cat-ads .category-desc::after { background: linear-gradient(90deg, #06b6d4, transparent); }
+        .cat-game .category-desc::after { background: linear-gradient(90deg, #f59e0b, transparent); }
+        .cat-real .category-desc::after { background: linear-gradient(90deg, #ec4899, transparent); }
+
+        .video-category-label.cat-label-documentary { background: rgba(99,102,241,0.12); color: #818cf8; }
+        .video-category-label.cat-label-ads { background: rgba(6,182,212,0.12); color: #22d3ee; }
+        .video-category-label.cat-label-game { background: rgba(245,158,11,0.12); color: #fbbf24; }
+        .video-category-label.cat-label-real { background: rgba(236,72,153,0.12); color: #f472b6; }
+
+        .category-separator {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 48px 0;
+            position: relative;
+        }
+        .category-separator::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .category-separator.sep-documentary::after { background: #6366f1; box-shadow: 0 0 10px rgba(99,102,241,0.4); }
+        .category-separator.sep-ads::after { background: #06b6d4; box-shadow: 0 0 10px rgba(6,182,212,0.4); }
+        .category-separator.sep-game::after { background: #f59e0b; box-shadow: 0 0 10px rgba(245,158,11,0.4); }
+        .category-separator.sep-real::after { background: #ec4899; box-shadow: 0 0 10px rgba(236,72,153,0.4); }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            cursor: pointer;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(16px);
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s, background var(--transition), border-color var(--transition);
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            border-color: var(--accent);
+            background: var(--surface-hover);
+            color: var(--accent);
+        }
     </style>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" defer></script>
+
+    <script src="script.js" defer></script>
 </head>
 <body>
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">陈俊良</a>
             <div class="nav-links" id="navLinks">
-                <a href="index.html">首页</a>
-                <a href="#documentary" class="active">AI纪录片</a>
-                <a href="#ads">AI广告片</a>
-                <a href="#game">长AI游戏视频</a>
-                <a href="#real-documentary">实拍纪录片</a>
-                <a href="contact.html">联系我</a>
+                <a href="index.html" aria-label="返回首页">首页</a>
+                <a href="#documentary" class="active" aria-label="跳转到AI纪录片">AI纪录片</a>
+                <a href="#ads" aria-label="跳转到AI广告片">AI广告片</a>
+                <a href="#game" aria-label="跳转到长AI游戏视频">长AI游戏视频</a>
+                <a href="#real-documentary" aria-label="跳转到实拍纪录片">实拍纪录片</a>
             </div>
             <button class="theme-toggle" id="themeToggle" aria-label="切换深色/浅色模式" title="切换深色/浅色模式">
                 <span class="theme-toggle-track">
@@ -58,18 +278,6 @@
                             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                         </svg>
                     </span>
-                    <span class="theme-toggle-stars">
-                        <span class="theme-toggle-star" style="top:8px;left:12px"></span>
-                        <span class="theme-toggle-star" style="top:18px;left:22px"></span>
-                        <span class="theme-toggle-star" style="top:6px;left:30px"></span>
-                        <span class="theme-toggle-star" style="top:22px;left:14px"></span>
-                        <span class="theme-toggle-star" style="top:14px;left:40px"></span>
-                    </span>
-                    <span class="theme-toggle-thumb"></span>
-                </span>
-            </button>
-            <button class="theme-toggle" id="themeToggle" aria-label="切换深色/浅色模式" title="切换深色/浅色模式">
-                <span class="theme-toggle-track">
                     <span class="theme-toggle-thumb"></span>
                 </span>
             </button>
@@ -82,34 +290,32 @@
     </nav>
 
     <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html" data-nav>首页</a>
-        <a href="#documentary" data-nav>AI纪录片</a>
-        <a href="#ads" data-nav>AI广告片</a>
-        <a href="#game" data-nav>长AI游戏视频</a>
-        <a href="#real-documentary" data-nav>实拍纪录片</a>
-        <a href="contact.html" data-nav>联系我</a>
+        <a href="index.html" data-nav aria-label="返回首页">首页</a>
+        <a href="#documentary" data-nav aria-label="跳转到AI纪录片">AI纪录片</a>
+        <a href="#ads" data-nav aria-label="跳转到AI广告片">AI广告片</a>
+        <a href="#game" data-nav aria-label="跳转到长AI游戏视频">长AI游戏视频</a>
+        <a href="#real-documentary" data-nav aria-label="跳转到实拍纪录片">实拍纪录片</a>
     </div>
 
     <section class="hero" id="hero">
-        <div class="floating-shapes">
-            <div class="floating-shape circle" style="width:45px;height:45px;"></div>
-            <div class="floating-shape square" style="width:30px;height:30px;"></div>
-            <div class="floating-shape triangle"></div>
-        </div>
         <canvas id="orb-canvas"></canvas>
         <div class="hero-content">
-            <div class="hero-badge animate-on-scroll">全部视频作品</div>
+            <div class="hero-badge animate-on-scroll">视频作品合集</div>
             <h1 class="hero-title animate-on-scroll">
                 <span class="gradient-text">视频合集</span>
             </h1>
-            <p class="hero-subtitle animate-on-scroll">中央民族大学 · 智能传播 · 硕士</p>
+            <p class="hero-subtitle animate-on-scroll">AI纪录片 · AI广告片 · 游戏视频 · 实拍纪录片</p>
             <div class="hero-tags animate-on-scroll">
                 <span class="tag-aigc">AIGC</span>
-                <span class="tag-fullstack">全栈开发</span>
-                <span class="tag-rag">RAG</span>
-                <span class="tag-data">大数据分析</span>
+                <span class="tag-fullstack">创意视频</span>
+                <span class="tag-rag">纪录片</span>
+                <span class="tag-data">广告片</span>
             </div>
-            <p class="hero-desc animate-on-scroll">汇集全部AI生成视频与实拍纪录片作品，展示多元创作能力</p>
+            <p class="hero-desc animate-on-scroll">探索AI生成视频与创意内容的无限可能</p>
+            <div class="hero-cta animate-on-scroll">
+                <a href="#documentary" class="cta-primary">浏览作品</a>
+                <a href="index.html" class="cta-secondary">返回首页</a>
+            </div>
         </div>
         <div class="scroll-indicator">
             <span>向下滚动</span>
@@ -117,12 +323,7 @@
         </div>
     </section>
 
-    <section class="videos-section">
-        <div class="floating-shapes">
-            <div class="floating-shape circle" style="width:45px;height:45px;"></div>
-            <div class="floating-shape square" style="width:30px;height:30px;"></div>
-            <div class="floating-shape triangle"></div>
-        </div>
+    <section id="videos" class="videos-section">
         <div class="container">
 
             <div id="documentary" class="video-category-section animate-on-scroll">
@@ -136,7 +337,7 @@
                         </span>
                         AI纪录片
                     </h3>
-                    <p class="category-desc">探讨AI时代人类与技术的共生关系</p>
+                    <p class="category-desc">探讨AI时代人类与技术的共生关系，通过纪录片形式展现人工智能对现代社会的影响</p>
                 </div>
                 <div class="video-gallery" style="grid-template-columns:1fr">
                     <div class="video-card animate-on-scroll">
@@ -151,38 +352,38 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-documentary">纪录片</span>
                             <h3>AI纪录片《何以为家》</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">低色温暖调柔光为主，逆光剪影强化身份迷失的视觉隐喻，局部硬光打亮面部制造明暗割裂</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">固定长镜头保持纪实凝视感，缓慢推拉引导沉浸，全景→中景→特写递进构建情感压迫</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">纪实人文风，诗意留白叙事，弱化旁白依赖视觉情绪传递</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">沉稳舒缓，留白与沉默交替推进，情绪在压抑与释放间缓慢蓄力</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">低色温暖调柔光为主，逆光剪影强化身份迷失的视觉隐喻，局部硬光打亮面部制造明暗割裂</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">固定长镜头保持纪实凝视感，缓慢推拉引导沉浸，全景→中景→特写递进构建情感压迫</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">纪实人文风，诗意留白叙事，弱化旁白依赖视觉情绪传递</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">沉稳舒缓，留白与沉默交替推进，情绪在压抑与释放间缓慢蓄力</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
@@ -194,41 +395,41 @@
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
                                 </button>
-</div>
+                            </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
-<div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                            <div class="video-error">
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-documentary">纪录片</span>
                             <h3>AI纪录片《沁园春·雪》</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">高色温冷调漫射光营造雪域苍茫，侧逆光勾勒山脊轮廓，晨昏金光穿插制造冷暖转折</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">航拍大全景开篇建立山河格局，缓慢横移展现纵深，景别递进对应诗词起承转合</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">史诗诗意风，东方写意美学，视觉节奏对仗诗词韵律</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">宏大舒缓，气势铺陈与意境留白交替，长镜头延展空间感</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">高色温冷调漫射光营造雪域苍茫，侧逆光勾勒山脊轮廓，晨昏金光穿插制造冷暖转折</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">航拍大全景开篇建立山河格局，缓慢横移展现纵深，景别递进对应诗词起承转合</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">史诗诗意风，东方写意美学，视觉节奏对仗诗词韵律</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">宏大舒缓，气势铺陈与意境留白交替，长镜头延展空间感</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -247,7 +448,7 @@
                         </span>
                         AI广告片
                     </h3>
-                    <p class="category-desc">品牌商业广告创意视频</p>
+                    <p class="category-desc">品牌商业广告创意视频，展示产品特性与品牌价值</p>
                 </div>
                 <div class="video-gallery video-gallery-ads">
                     <div class="video-card animate-on-scroll">
@@ -262,38 +463,38 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>爆炸盐，炸掉所有烦恼</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">高对比硬光制造爆破质感，瞬间强闪光效模拟爆炸冲击，冷白主光+暗部压深强化科技冷峻感</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">快速推拉+微距特写捕捉颗粒飞溅，全景与极近特写间跳切，以视觉震荡传递"炸裂"概念</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">科技爆破风，以爆炸视觉隐喻情绪释放，高饱和冷色调构建品牌科技感</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">爆裂快切，毫秒级闪帧制造冲击峰值，静→爆→静三段式节奏强化记忆点</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">高对比硬光制造爆破质感，瞬间强闪光效模拟爆炸冲击，冷白主光+暗部压深强化科技冷峻感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">快速推拉+微距特写捕捉颗粒飞溅，全景与极近特写间跳切，以视觉震荡传递"炸裂"概念</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">科技爆破风，以爆炸视觉隐喻情绪释放，高饱和冷色调构建品牌科技感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">爆裂快切，毫秒级闪帧制造冲击峰值，静→爆→静三段式节奏强化记忆点</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
@@ -308,38 +509,38 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>沐萌美，油污跑光亮晶晶</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">高调柔光营造清透质感，自然侧光勾勒产品光泽，过曝高光区暗示洁净效果</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">中景生活场景→特写产品细节递进，旋转环绕展示去污过程，浅景深聚焦清洁瞬间</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">清新生活风，明快视觉调性，以干净画面语言呼应产品功能诉求</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">轻快律动，问题→解决短促切换，结尾定格亮洁画面强化品牌印象</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">高调柔光营造清透质感，自然侧光勾勒产品光泽，过曝高光区暗示洁净效果</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">中景生活场景→特写产品细节递进，旋转环绕展示去污过程，浅景深聚焦清洁瞬间</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">清新生活风，明快视觉调性，以干净画面语言呼应产品功能诉求</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">轻快律动，问题→解决短促切换，结尾定格亮洁画面强化品牌印象</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
@@ -354,38 +555,38 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>一滴浓，一身净</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">动态侧光勾勒运动肌肉线条，逆光轮廓光强化身体张力，冷暖光交替映射状态转换</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">跟拍捕捉运动轨迹，升格慢动作放大力量瞬间，全身→局部快速切换传递活力</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">运动活力风，力量美学，高对比高饱和视觉强化品牌能量感</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">快慢交替，慢动作蓄力→正常速度释放，爆发节奏驱动情绪攀升</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">动态侧光勾勒运动肌肉线条，逆光轮廓光强化身体张力，冷暖光交替映射状态转换</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">跟拍捕捉运动轨迹，升格慢动作放大力量瞬间，全身→局部快速切换传递活力</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">运动活力风，力量美学，高对比高饱和视觉强化品牌能量感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">快慢交替，慢动作蓄力→正常速度释放，爆发节奏驱动情绪攀升</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
@@ -400,38 +601,38 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>油污净，秒除污</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">去污前冷灰低调→去污后暖白高调，色温转换直映清洁效果，侧光打亮洁净表面</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">微距特写污渍细节→中景展示清洁过程，对比构图左右分屏或前后跳切</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">功能演示风，视觉对比为核心策略，干净利落画面语言呼应"秒除"诉求</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">干脆利落，问题→解决两拍式快切，零冗余节奏传递高效去污产品力</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">去污前冷灰低调→去污后暖白高调，色温转换直映清洁效果，侧光打亮洁净表面</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">微距特写污渍细节→中景展示清洁过程，对比构图左右分屏或前后跳切</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">功能演示风，视觉对比为核心策略，干净利落画面语言呼应"秒除"诉求</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">干脆利落，问题→解决两拍式快切，零冗余节奏传递高效去污产品力</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
@@ -446,38 +647,38 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>AD钙，用心包裹儿时科幻梦</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">霓虹冷光与暖调柔光交织营造科幻梦境质感，光晕漫射柔化边缘，低角度光打亮产品制造童话光环</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">仰拍广角营造儿童仰望视角，微距捕捉产品细节，奇幻大场景与产品特写间跳跃</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">童趣科幻风，梦幻视觉包裹产品，以想象力叙事替代功能说教</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">奇幻跳跃，场景快速切换模拟儿童注意力节奏，惊喜感持续输出</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">霓虹冷光与暖调柔光交织营造科幻梦境质感，光晕漫射柔化边缘，低角度光打亮产品制造童话光环</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">仰拍广角营造儿童仰望视角，微距捕捉产品细节，奇幻大场景与产品特写间跳跃</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">童趣科幻风，梦幻视觉包裹产品，以想象力叙事替代功能说教</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">奇幻跳跃，场景快速切换模拟儿童注意力节奏，惊喜感持续输出</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
@@ -492,45 +693,45 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>陪你酸酸甜甜，陪你可可爱爱</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">暖调逆光营造柔美轮廓，柔焦光晕包裹画面，自然散射光制造温馨氛围，高光微过曝传递甜蜜感</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">浅景深特写聚焦表情与产品，缓慢摇移跟随情感流动，中近景为主保持亲密感</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">温馨治愈风，柔美视觉调性，以陪伴感叙事替代产品推销</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">温柔舒缓，情感递进如呼吸般自然，甜蜜与可爱情绪交替流淌</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">暖调逆光营造柔美轮廓，柔焦光晕包裹画面，自然散射光制造温馨氛围，高光微过曝传递甜蜜感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">浅景深特写聚焦表情与产品，缓慢摇移跟随情感流动，中近景为主保持亲密感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">温馨治愈风，柔美视觉调性，以陪伴感叙事替代产品推销</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">温柔舒缓，情感递进如呼吸般自然，甜蜜与可爱情绪交替流淌</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
                             <video src="视频合集/广告片7.mp4" poster="视频合集/posters/广告片7.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
@@ -538,38 +739,38 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
-                            <h3>广告片 7</h3>
+                            <h3>东方美学，飘逸灵动</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">柔光漫射营造梦幻氛围，彩色滤光片创造艺术感光影，水波纹反射增添灵动质感</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">慢动作捕捉飘逸动感，推镜头聚焦设计亮点，全景展现造型→中景展示搭配→近景捕捉面料质感</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">东方时尚风，融合美学，以飘逸视觉语言传递品牌艺术调性</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">优雅灵动，场景流转如丝般顺滑，艺术感与商业感平衡推进</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">柔光漫射营造梦幻氛围，彩色滤光片创造艺术感光影，水波纹反射增添灵动质感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">慢动作捕捉飘逸动感，推镜头聚焦设计亮点，全景展现造型→中景展示搭配→近景捕捉面料质感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">东方时尚风，融合美学，以飘逸视觉语言传递品牌艺术调性</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">优雅灵动，场景流转如丝般顺滑，艺术感与商业感平衡推进</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -588,14 +789,14 @@
                         </span>
                         长AI游戏视频
                     </h3>
-                    <p class="category-desc">AI生成的游戏场景与角色互动视频</p>
+                    <p class="category-desc">AI生成的游戏场景与角色互动视频，展示游戏世界观</p>
                 </div>
                 <div class="video-gallery video-gallery-game">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频1.mp4" poster="视频合集/posters/长游戏AI视频1.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
@@ -603,45 +804,45 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——多元素引流</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">多光源混合打光，冷暖交替营造奇幻层次感，体积光穿透雾气制造空间纵深</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">航拍→跟拍→特写多视角快速切换，景别跳变串联多元游戏元素，横移展现场景广度</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">奇幻混搭风，多元视觉元素密集输出，以丰富度吸引不同玩家群体</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">快慢交错，元素轮番呈现保持新鲜感，信息密度高但不杂乱</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">多光源混合打光，冷暖交替营造奇幻层次感，体积光穿透雾气制造空间纵深</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">航拍→跟拍→特写多视角快速切换，景别跳变串联多元游戏元素，横移展现场景广度</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">奇幻混搭风，多元视觉元素密集输出，以丰富度吸引不同玩家群体</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">快慢交错，元素轮番呈现保持新鲜感，信息密度高但不杂乱</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频2.mp4" poster="视频合集/posters/长游戏AI视频2.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
@@ -649,45 +850,45 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——冲突化引流</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">高对比硬光强化金属质感，频闪光效模拟战场爆炸，冷蓝主调+橙红爆炸光制造冲突色温对撞</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">手持晃动制造临场冲击，快速推拉捕捉战斗瞬间，远景战场与近景机甲间急速切换</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">硬核科幻风，冲突美学，以对抗张力驱动观看欲</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">急促快切，战斗节奏持续高压，爆炸闪帧制造视觉峰值</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">高对比硬光强化金属质感，频闪光效模拟战场爆炸，冷蓝主调+橙红爆炸光制造冲突色温对撞</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">手持晃动制造临场冲击，快速推拉捕捉战斗瞬间，远景战场与近景机甲间急速切换</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">硬核科幻风，冲突美学，以对抗张力驱动观看欲</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">急促快切，战斗节奏持续高压，爆炸闪帧制造视觉峰值</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频3.mp4" poster="视频合集/posters/长游戏AI视频3.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
@@ -695,45 +896,45 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——剧情化引流</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">低调暗调为主，侧光勾勒暗黑轮廓，局部点光源制造悬疑明暗，深色压暗留出恐惧想象空间</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">缓慢推近制造压迫逼近感，景深虚化隐藏威胁，中景→特写收缩视野引发好奇与不安</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">暗黑叙事风，哥特美学，以悬念与未知驱动持续观看</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">压抑缓起，悬念递进如暗流涌动，在窒息感中蓄积爆发</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">低调暗调为主，侧光勾勒暗黑轮廓，局部点光源制造悬疑明暗，深色压暗留出恐惧想象空间</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">缓慢推近制造压迫逼近感，景深虚化隐藏威胁，中景→特写收缩视野引发好奇与不安</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">暗黑叙事风，哥特美学，以悬念与未知驱动持续观看</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">压抑缓起，悬念递进如暗流涌动，在窒息感中蓄积爆发</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频4.mp4" poster="视频合集/posters/长游戏AI视频4.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
@@ -741,45 +942,45 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——洛克王国与三角洲的剧情化、冲突化叙事</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">自然光为基底，魔幻光效点缀超现实感，冷暖光随叙事情绪转换，体积光营造史诗空间纵深</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">大全景建立世界观，横移展现场景广度，叙事段中景推进剧情，冲突段快速切换制造对抗</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">开放世界风，史诗叙事，双IP碰撞制造跨世界观奇观</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">叙事与冲突交替，张弛有度，剧情铺垫→冲突爆发→悬念收尾三段式推进</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">自然光为基底，魔幻光效点缀超现实感，冷暖光随叙事情绪转换，体积光营造史诗空间纵深</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">大全景建立世界观，横移展现场景广度，叙事段中景推进剧情，冲突段快速切换制造对抗</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">开放世界风，史诗叙事，双IP碰撞制造跨世界观奇观</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">叙事与冲突交替，张弛有度，剧情铺垫→冲突爆发→悬念收尾三段式推进</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频5.mp4" poster="视频合集/posters/长游戏AI视频5.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
@@ -787,46 +988,45 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——真人化仿真叙事</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">仿真自然光为主，环境光反射模拟真实光感，避免人工补光痕迹，以纪实光效消解AI生成感</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">肩扛跟拍制造呼吸感，纪实视角保持临场真实，中近景为主贴近人物，偶发晃动增强仿真可信度</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">伪纪实风，仿真叙事，以真实感消解虚拟边界，模糊AI与实拍界限</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">纪实节奏，沉浸推进，去戏剧化处理保持生活流质感</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">仿真自然光为主，环境光反射模拟真实光感，避免人工补光痕迹，以纪实光效消解AI生成感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">肩扛跟拍制造呼吸感，纪实视角保持临场真实，中近景为主贴近人物，偶发晃动增强仿真可信度</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">伪纪实风，仿真叙事，以真实感消解虚拟边界，模糊AI与实拍界限</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">纪实节奏，沉浸推进，去戏剧化处理保持生活流质感</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频6.mp4" poster="视频合集/posters/长游戏AI视频6.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
@@ -834,45 +1034,45 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——生活化叙事引流</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">灰调漫射光营造废墟阴郁，低色温微暖光暗示生存希望，阴天散射光消除硬影传递末日氛围</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">固定镜头凝视荒芜环境，缓慢横移展现生存空间，中景记录日常动作，克制运镜反衬生存沉重</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">末日写实风，荒凉美学，以生活化细节消解末日奇观化</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">缓慢沉重，生存压迫感持续低频，偶发危机瞬间打破日常</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">灰调漫射光营造废墟阴郁，低色温微暖光暗示生存希望，阴天散射光消除硬影传递末日氛围</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">固定镜头凝视荒芜环境，缓慢横移展现生存空间，中景记录日常动作，克制运镜反衬生存沉重</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">末日写实风，荒凉美学，以生活化细节消解末日奇观化</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">缓慢沉重，生存压迫感持续低频，偶发危机瞬间打破日常</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频7.mp4" poster="视频合集/posters/长游戏AI视频7.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
-                                <button class="play-btn">
+                                <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <polygon points="5 3 19 12 5 21 5 3"/>
                                     </svg>
@@ -880,38 +1080,38 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>短剧化AI视频</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">侧逆光勾勒武侠人物轮廓，明暗对比强化招式力量感，暖黄烛光与冷月光的色温对立营造江湖氛围</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">升格慢动作放大招式瞬间，快速切换捕捉对攻节奏，全景→特写定格关键帧强化武术美感</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">武侠动作风，东方暴力美学，以短剧叙事框架承载武打奇观</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">动静交替，招式蓄力慢放→交锋快切，武侠韵律驱动叙事推进</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">侧逆光勾勒武侠人物轮廓，明暗对比强化招式力量感，暖黄烛光与冷月光的色温对立营造江湖氛围</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">升格慢动作放大招式瞬间，快速切换捕捉对攻节奏，全景→特写定格关键帧强化武术美感</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">武侠动作风，东方暴力美学，以短剧叙事框架承载武打奇观</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">动静交替，招式蓄力慢放→交锋快切，武侠韵律驱动叙事推进</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -930,9 +1130,9 @@
                         </span>
                         实拍纪录片
                     </h3>
-                    <p class="category-desc">实地拍摄纪录片作品</p>
+                    <p class="category-desc">实地拍摄纪录片作品，记录真实故事与文化传承</p>
                 </div>
-                <div class="video-gallery">
+                <div class="video-gallery video-gallery-real">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
                             <video src="视频合集/实拍纪录片——广西三月三.mp4" poster="视频合集/posters/实拍纪录片——广西三月三.jpg" preload="none" muted loop playsinline></video>
@@ -945,42 +1145,42 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>实拍纪录片——广西三月三</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">自然日光为主，暖调环境光还原节日热烈，逆光拍摄歌舞剪影强化仪式感，室内烛光补充人文温度</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">纪实跟拍捕捉民俗自然感，仪式段落固定镜头保持庄重，全景→中景→特写传递文化厚度</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">民族纪实风，人文关怀视角，以真实记录替代奇观化呈现</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">节庆律动，仪式庄重与生活欢快交织，情绪在传统与现代间自然流转</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">荣誉</span>
-        <span class="desc-text">广西日报年度最佳宣传片、广西自治区党委宣传部表彰</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">自然日光为主，暖调环境光还原节日热烈，逆光拍摄歌舞剪影强化仪式感，室内烛光补充人文温度</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">纪实跟拍捕捉民俗自然感，仪式段落固定镜头保持庄重，全景→中景→特写传递文化厚度</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">民族纪实风，人文关怀视角，以真实记录替代奇观化呈现</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">节庆律动，仪式庄重与生活欢快交织，情绪在传统与现代间自然流转</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">荣誉</span>
+                                    <span class="desc-text">广西日报年度最佳宣传片、广西自治区党委宣传部表彰</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
@@ -995,38 +1195,38 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>纪录片——东兴电商宣传</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">混合光源，室内暖光营造电商工作温度，室外自然光展现物流实景，补光均匀保持画面通透</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">采访固定镜头保持叙事稳定，跟拍展现物流动态，中景叙事→特写捕捉人物情绪</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">现代纪实风，发展叙事，以人物故事承载产业变迁</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">稳健推进，数据呈现与人物故事交织，理性与感性双线并行</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">混合光源，室内暖光营造电商工作温度，室外自然光展现物流实景，补光均匀保持画面通透</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">采访固定镜头保持叙事稳定，跟拍展现物流动态，中景叙事→特写捕捉人物情绪</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">现代纪实风，发展叙事，以人物故事承载产业变迁</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">稳健推进，数据呈现与人物故事交织，理性与感性双线并行</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
@@ -1041,38 +1241,38 @@
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div><div class="video-loading-text">加载中...</div><div class="video-loading-progress"><div class="video-loading-progress-bar"></div></div><div class="video-loading-percent">0%</div></div>
                             <div class="video-error">
-    <div class="video-error-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <span>视频加载失败</span>
-    <span class="video-error-retry">点击重试</span>
-</div>
+                                <div class="video-error-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="8" x2="12" y2="12"/>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                </div>
+                                <span>视频加载失败</span>
+                                <span class="video-error-retry">点击重试</span>
+                            </div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>实拍纪录片——五四青年节</h3>
                             <div class="video-description">
-    <div class="desc-item">
-        <span class="desc-label">光影</span>
-        <span class="desc-text">明亮自然光为主，高调画面传递青春朝气，侧光勾勒青年轮廓，逆光光晕营造理想主义氛围</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">镜头</span>
-        <span class="desc-text">动态跟拍捕捉青年活力，升格慢动作定格奋斗瞬间，中近景为主保持情感亲近</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">风格</span>
-        <span class="desc-text">青春纪实风，朝气视觉调性，以真实力量替代口号式表达</span>
-    </div>
-    <div class="desc-item">
-        <span class="desc-label">节奏</span>
-        <span class="desc-text">明快昂扬，激情递进，从个体奋斗到群体共鸣逐步升温</span>
-    </div>
-</div>
+                                <div class="desc-item">
+                                    <span class="desc-label">光影</span>
+                                    <span class="desc-text">明亮自然光为主，高调画面传递青春朝气，侧光勾勒青年轮廓，逆光光晕营造理想主义氛围</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">镜头</span>
+                                    <span class="desc-text">动态跟拍捕捉青年活力，升格慢动作定格奋斗瞬间，中近景为主保持情感亲近</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">风格</span>
+                                    <span class="desc-text">青春纪实风，朝气视觉调性，以真实力量替代口号式表达</span>
+                                </div>
+                                <div class="desc-item">
+                                    <span class="desc-label">节奏</span>
+                                    <span class="desc-text">明快昂扬，激情递进，从个体奋斗到群体共鸣逐步升温</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1091,7 +1291,6 @@
                 <div class="footer-links">
                     <a href="index.html">首页</a>
                     <a href="video-collection.html">视频合集</a>
-                    <a href="contact.html">联系我</a>
                 </div>
                 <div class="footer-copyright">
                     <p>&copy; 2026 陈俊良. All rights reserved.</p>
@@ -1104,15 +1303,11 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><polyline points="18 15 12 9 6 15"/></svg>
     </button>
 
-    <button class="back-to-top" id="backToTop" aria-label="返回顶部" title="返回顶部">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><polyline points="18 15 12 9 6 15"/></svg>
-    </button>
-
     <script>
         (function() {
             var canvas = document.getElementById('orb-canvas');
             var ctx = canvas.getContext('2d');
-            var orbs = [];
+            var particles = [];
             var animationId;
             var mouseX = -1000;
             var mouseY = -1000;
@@ -1122,104 +1317,116 @@
                 canvas.height = window.innerHeight;
             }
 
-            function Orb() {
+            function Particle() {
                 this.reset();
             }
 
-            Orb.prototype.reset = function() {
+            Particle.prototype.reset = function() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.radius = Math.random() * 180 + 80;
-                this.speedX = (Math.random() - 0.5) * 1.2;
-                this.speedY = (Math.random() - 0.5) * 1.2;
-                this.hue = Math.random() * 360;
-                this.hueSpeed = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.25 + 0.08;
-                this.pulseSpeed = Math.random() * 0.01 + 0.005;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 2.5 + 1.2;
+                this.opacity = Math.random() * 0.4 + 0.15;
+                this.pulseSpeed = Math.random() * 0.02 + 0.008;
                 this.pulseOffset = Math.random() * Math.PI * 2;
+                this.colorSet = Math.random() > 0.6 ? 'purple' : 'indigo';
             };
 
-            Orb.prototype.update = function(time) {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.hue += this.hueSpeed;
-                if (this.hue < 0) this.hue += 360;
-                if (this.hue > 360) this.hue -= 360;
+            Particle.prototype.update = function(time) {
+                this.x += this.vx;
+                this.y += this.vy;
 
                 var dx = this.x - mouseX;
                 var dy = this.y - mouseY;
                 var dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 300) {
-                    var force = (1 - dist / 300) * 0.8;
-                    this.x += (dx / dist) * force;
-                    this.y += (dy / dist) * force;
+                if (dist < 200) {
+                    var force = (1 - dist / 200) * 1.2;
+                    this.x += (dx / dist || 0) * force;
+                    this.y += (dy / dist || 0) * force;
                 }
 
-                if (this.x < -this.radius) this.x = canvas.width + this.radius;
-                if (this.x > canvas.width + this.radius) this.x = -this.radius;
-                if (this.y < -this.radius) this.y = canvas.height + this.radius;
-                if (this.y > canvas.height + this.radius) this.y = -this.radius;
+                if (this.x < -10) this.x = canvas.width + 10;
+                if (this.x > canvas.width + 10) this.x = -10;
+                if (this.y < -10) this.y = canvas.height + 10;
+                if (this.y > canvas.height + 10) this.y = -10;
             };
 
-            Orb.prototype.draw = function(time) {
+            Particle.prototype.draw = function(time) {
                 var pulse = Math.sin(time * this.pulseSpeed + this.pulseOffset) * 0.3 + 1;
                 var r = this.radius * pulse;
-                var grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r);
-                var alpha = this.opacity;
-                grad.addColorStop(0, 'hsla(' + this.hue + ', 70%, 60%, ' + alpha + ')');
-                grad.addColorStop(0.4, 'hsla(' + this.hue + ', 60%, 50%, ' + (alpha * 0.6) + ')');
-                grad.addColorStop(0.7, 'hsla(' + this.hue + ', 50%, 40%, ' + (alpha * 0.15) + ')');
-                grad.addColorStop(1, 'hsla(' + this.hue + ', 40%, 30%, 0)');
+                var color = this.colorSet === 'purple'
+                    ? 'rgba(168, 85, 247, ' + this.opacity + ')'
+                    : 'rgba(99, 102, 241, ' + this.opacity + ')';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
-                ctx.fillStyle = grad;
+                ctx.fillStyle = color;
                 ctx.fill();
             };
 
-            function initOrbs() {
-                orbs = [];
-                var count = Math.min(8, Math.floor((canvas.width * canvas.height) / 120000) + 3);
+            function initParticles() {
+                particles = [];
+                var count = Math.min(120, Math.floor((canvas.width * canvas.height) / 15000) + 40);
                 for (var i = 0; i < count; i++) {
-                    orbs.push(new Orb());
+                    particles.push(new Particle());
                 }
             }
 
-            function connectOrbs() {
-                for (var i = 0; i < orbs.length; i++) {
-                    for (var j = i + 1; j < orbs.length; j++) {
-                        var dx = orbs[i].x - orbs[j].x;
-                        var dy = orbs[i].y - orbs[j].y;
+            function drawConnections() {
+                for (var i = 0; i < particles.length; i++) {
+                    for (var j = i + 1; j < particles.length; j++) {
+                        var dx = particles[i].x - particles[j].x;
+                        var dy = particles[i].y - particles[j].y;
                         var distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < 350) {
-                            var opacity = (1 - distance / 350) * 0.06;
+                        var maxDist = 180;
+                        if (distance < maxDist) {
+                            var opacity = (1 - distance / maxDist) * 0.12;
                             ctx.beginPath();
                             ctx.strokeStyle = 'rgba(99, 102, 241, ' + opacity + ')';
-                            ctx.lineWidth = 1;
-                            ctx.moveTo(orbs[i].x, orbs[i].y);
-                            ctx.lineTo(orbs[j].x, orbs[j].y);
+                            ctx.lineWidth = 0.6;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
                             ctx.stroke();
                         }
                     }
                 }
             }
 
-            function animateOrbs(time) {
+            function drawAurora(time) {
+                var grad = ctx.createRadialGradient(canvas.width * 0.3, canvas.height * 0.6, 0, canvas.width * 0.3, canvas.height * 0.6, canvas.width * 0.7);
+                var wave1 = Math.sin(time * 0.0003) * 0.06;
+                var wave2 = Math.cos(time * 0.0005) * 0.04;
+                grad.addColorStop(0, 'rgba(99, 102, 241, ' + (0.03 + wave1) + ')');
+                grad.addColorStop(0.5, 'rgba(139, 92, 246, ' + (0.02 + wave2) + ')');
+                grad.addColorStop(1, 'rgba(99, 102, 241, 0)');
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                var grad2 = ctx.createRadialGradient(canvas.width * 0.7, canvas.height * 0.3, 0, canvas.width * 0.7, canvas.height * 0.3, canvas.width * 0.5);
+                grad2.addColorStop(0, 'rgba(168, 85, 247, ' + (0.02 + wave2) + ')');
+                grad2.addColorStop(1, 'rgba(168, 85, 247, 0)');
+                ctx.fillStyle = grad2;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+
+            function animate(time) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (var i = 0; i < orbs.length; i++) {
-                    orbs[i].update(time);
-                    orbs[i].draw(time);
+                drawAurora(time);
+                for (var i = 0; i < particles.length; i++) {
+                    particles[i].update(time);
+                    particles[i].draw(time);
                 }
-                connectOrbs();
-                animationId = requestAnimationFrame(animateOrbs);
+                drawConnections();
+                animationId = requestAnimationFrame(animate);
             }
 
             resizeCanvas();
-            initOrbs();
-            animationId = requestAnimationFrame(animateOrbs);
+            initParticles();
+            animationId = requestAnimationFrame(animate);
 
             window.addEventListener('resize', function() {
                 resizeCanvas();
-                initOrbs();
+                initParticles();
             });
 
             document.addEventListener('mousemove', function(e) {
@@ -1280,18 +1487,38 @@
             });
 
             var observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-            var scrollObserver = new IntersectionObserver(function(entries) {
+            var observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry, index) {
                     if (entry.isIntersecting) {
-                        setTimeout(function() {
-                            entry.target.classList.add('visible');
-                        }, index * 100);
-                        scrollObserver.unobserve(entry.target);
+                        var delay = index * 80;
+                        entry.target.style.transitionDelay = delay + 'ms';
+                        entry.target.classList.add('visible');
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
                     }
                 });
             }, observerOptions);
-            document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
-                scrollObserver.observe(el);
+
+            document.querySelectorAll('.animate-on-scroll').forEach(function(el, i) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(40px) scale(0.95)';
+                el.style.transition = 'opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                observer.observe(el);
+            });
+
+            var titleObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry, index) {
+                    if (entry.isIntersecting) {
+                        setTimeout(function() {
+                            entry.target.classList.add('title-animated');
+                            entry.target.style.opacity = '1';
+                        }, index * 150);
+                        titleObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            document.querySelectorAll('.category-header h3').forEach(function(h3) {
+                titleObserver.observe(h3);
             });
 
             document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
@@ -1325,13 +1552,24 @@
 
             var backToTop = document.getElementById('backToTop');
             if (backToTop) {
-                window.addEventListener('scroll', function() {
+                function throttleScroll(fn, wait) {
+                    var last = 0;
+                    return function() {
+                        var now = Date.now();
+                        if (now - last >= wait) {
+                            last = now;
+                            fn.apply(this, arguments);
+                        }
+                    };
+                }
+                var throttledScroll = throttleScroll(function() {
                     if (window.scrollY > 500) {
                         backToTop.classList.add('visible');
                     } else {
                         backToTop.classList.remove('visible');
                     }
-                });
+                }, 100);
+                window.addEventListener('scroll', throttledScroll);
                 backToTop.addEventListener('click', function() {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
@@ -1339,7 +1577,6 @@
 
         })();
     </script>
-    <script src="script.js" defer></script>
 
 </body>
 </html>

@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     if (errorEl) errorEl.classList.add('active');
                     video.dataset.loaded = 'error';
+                    self.loading.delete(video);
                     self.processNext();
                 }
             }
@@ -127,8 +128,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var modalOverlay = null;
     var modalVideo = null;
-    var currentSpeed = 1;
-    var speeds = [0.5, 0.75, 1, 1.25, 1.5, 2, 3];
+    var controlsEl = null;
+    var controlsTimeout = null;
+    var loadingProgressInterval = null;
+    var modalLoadingEl = null;
+    var modalLoadingBarEl = null;
+    var modalLoadingTextEl = null;
+    var volumeSlider = null;
 
     function createModal() {
         if (modalOverlay) return;
@@ -156,6 +162,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>' +
                         '</button>' +
                         '<span class="video-modal-time">0:00 / 0:00</span>' +
+                        '<button class="modal-btn modal-mute-btn" aria-label="静音切换" title="静音">' +
+                            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>' +
+                        '</button>' +
+                        '<input type="range" class="modal-volume-slider" min="0" max="100" value="80" aria-label="音量">' +
+                        '<button class="modal-btn modal-speed-btn" aria-label="播放速度" title="1x">1x</button>' +
+                        '<button class="modal-btn modal-pip-btn" aria-label="画中画" title="画中画">' +
+                            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><rect x="12" y="9" width="8" height="6" rx="1" fill="currentColor" opacity="0.3"/></svg>' +
+                        '</button>' +
                         '<div class="video-modal-speed-group">' +
                             '<button class="video-modal-speed" data-speed="0.5">0.5x</button>' +
                             '<button class="video-modal-speed" data-speed="1">1x</button>' +
@@ -168,12 +182,27 @@ document.addEventListener('DOMContentLoaded', function() {
             '</div>';
         document.body.appendChild(modalOverlay);
         modalVideo = modalOverlay.querySelector('video');
+        modalLoadingEl = modalOverlay.querySelector('.video-modal-loading');
+        modalLoadingBarEl = modalOverlay.querySelector('.video-modal-loading-bar');
+        modalLoadingTextEl = modalOverlay.querySelector('.video-modal-loading-text');
 
         modalOverlay.querySelector('.video-modal-close').addEventListener('click', closeModal);
 
         modalOverlay.addEventListener('click', function(e) {
             if (e.target === modalOverlay) closeModal();
         });
+
+        controlsEl = modalOverlay.querySelector('.video-modal-controls');
+        function showControls() {
+            if (controlsEl) controlsEl.classList.add('force-show');
+            clearTimeout(controlsTimeout);
+            controlsTimeout = setTimeout(function() {
+                if (controlsEl) controlsEl.classList.remove('force-show');
+            }, 3000);
+        }
+        modalOverlay.addEventListener('mousemove', showControls);
+        modalOverlay.addEventListener('touchstart', showControls, { passive: true });
+        showControls();
 
         var playBtn = modalOverlay.querySelector('.video-modal-play-btn');
         playBtn.addEventListener('click', function() {
@@ -254,41 +283,37 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        var modalLoading = modalOverlay.querySelector('.video-modal-loading');
-        var modalLoadingBar = modalOverlay.querySelector('.video-modal-loading-bar');
-        var modalLoadingText = modalOverlay.querySelector('.video-modal-loading-text');
-
         modalVideo.addEventListener('waiting', function() {
-            modalLoading.classList.add('active');
+            if (modalLoadingEl) modalLoadingEl.classList.add('active');
         });
         modalVideo.addEventListener('playing', function() {
-            modalLoading.classList.remove('active');
+            if (modalLoadingEl) modalLoadingEl.classList.remove('active');
         });
         modalVideo.addEventListener('canplay', function() {
-            modalLoading.classList.remove('active');
+            if (modalLoadingEl) modalLoadingEl.classList.remove('active');
         });
 
-        var loadingProgressInterval = null;
         modalVideo.addEventListener('loadstart', function() {
-            modalLoading.classList.add('active');
-            modalLoadingBar.style.width = '0%';
-            modalLoadingText.textContent = '加载中...';
+            if (modalLoadingEl) modalLoadingEl.classList.add('active');
+            if (modalLoadingBarEl) modalLoadingBarEl.style.width = '0%';
+            if (modalLoadingTextEl) modalLoadingTextEl.textContent = '加载中...';
             clearInterval(loadingProgressInterval);
             loadingProgressInterval = setInterval(function() {
                 if (modalVideo.buffered.length > 0 && modalVideo.duration) {
                     var bufferedEnd = modalVideo.buffered.end(modalVideo.buffered.length - 1);
                     var pct = Math.round((bufferedEnd / modalVideo.duration) * 100);
-                    modalLoadingBar.style.width = pct + '%';
-                    modalLoadingText.textContent = '加载中 ' + pct + '%';
+                    if (modalLoadingBarEl) modalLoadingBarEl.style.width = pct + '%';
+                    if (modalLoadingTextEl) modalLoadingTextEl.textContent = '加载中 ' + pct + '%';
                 }
             }, 200);
         });
         modalVideo.addEventListener('canplaythrough', function() {
             clearInterval(loadingProgressInterval);
-            modalLoadingBar.style.width = '100%';
-            modalLoadingText.textContent = '加载完成';
+            loadingProgressInterval = null;
+            if (modalLoadingBarEl) modalLoadingBarEl.style.width = '100%';
+            if (modalLoadingTextEl) modalLoadingTextEl.textContent = '加载完成';
             setTimeout(function() {
-                modalLoading.classList.remove('active');
+                if (modalLoadingEl) modalLoadingEl.classList.remove('active');
             }, 300);
         });
 
@@ -297,10 +322,54 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.addEventListener('click', function() {
                 var speed = parseFloat(this.getAttribute('data-speed'));
                 modalVideo.playbackRate = speed;
-                currentSpeed = speed;
                 speedBtns.forEach(function(b) { b.classList.remove('active-speed'); });
                 this.classList.add('active-speed');
             });
+        });
+
+        var muteBtn = modalOverlay.querySelector('.modal-mute-btn');
+        volumeSlider = modalOverlay.querySelector('.modal-volume-slider');
+        if (muteBtn && volumeSlider && modalVideo) {
+            modalVideo.volume = 0.8;
+            muteBtn.addEventListener('click', function() {
+                modalVideo.muted = !modalVideo.muted;
+                muteBtn.classList.toggle('muted', modalVideo.muted);
+            });
+            volumeSlider.addEventListener('input', function() {
+                modalVideo.volume = this.value / 100;
+                modalVideo.muted = false;
+                muteBtn.classList.remove('muted');
+            });
+        }
+
+        var speedBtn = modalOverlay.querySelector('.modal-speed-btn');
+        var speeds = [0.5, 1, 1.5, 2];
+        var currentSpeedIdx = 1;
+        if (speedBtn && modalVideo) {
+            speedBtn.addEventListener('click', function() {
+                currentSpeedIdx = (currentSpeedIdx + 1) % speeds.length;
+                modalVideo.playbackRate = speeds[currentSpeedIdx];
+                speedBtn.textContent = speeds[currentSpeedIdx] + 'x';
+                speedBtn.title = speeds[currentSpeedIdx] + 'x';
+                speedBtns.forEach(function(b) { b.classList.remove('active-speed'); });
+            });
+        }
+
+        var pipBtn = modalOverlay.querySelector('.modal-pip-btn');
+        if (pipBtn && modalVideo) {
+            pipBtn.addEventListener('click', function() {
+                if (document.pictureInPictureElement) {
+                    document.exitPictureInPicture();
+                } else if (modalVideo.requestPictureInPicture) {
+                    modalVideo.requestPictureInPicture().catch(function() {});
+                }
+            });
+        }
+
+        modalVideo.addEventListener('timeupdate', function() {
+            if (modalVideo.src && modalVideo.currentTime > 0) {
+                localStorage.setItem('video-progress-' + modalVideo.src, modalVideo.currentTime.toString());
+            }
         });
 
         document.addEventListener('keydown', handleModalKeydown);
@@ -330,16 +399,29 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (e.key === 'ArrowUp') {
             e.preventDefault();
             modalVideo.volume = Math.min(1, modalVideo.volume + 0.1);
+            if (volumeSlider) volumeSlider.value = Math.round(modalVideo.volume * 100);
         } else if (e.key === 'ArrowDown') {
             e.preventDefault();
             modalVideo.volume = Math.max(0, modalVideo.volume - 0.1);
+            if (volumeSlider) volumeSlider.value = Math.round(modalVideo.volume * 100);
         }
     }
 
     function openModal(src, poster) {
         createModal();
+        modalVideo.muted = false;
         modalVideo.src = src;
         if (poster) modalVideo.setAttribute('poster', poster);
+
+        var savedTime = localStorage.getItem('video-progress-' + src);
+        if (savedTime && !isNaN(parseFloat(savedTime))) {
+            modalVideo.addEventListener('loadedmetadata', function() {
+                modalVideo.currentTime = parseFloat(savedTime);
+            }, { once: true });
+        }
+
+        if (volumeSlider) volumeSlider.value = Math.round(modalVideo.volume * 100);
+
         modalOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
 
@@ -356,10 +438,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function closeModal() {
         if (!modalOverlay) return;
+        if (modalVideo.src && modalVideo.currentTime > 0) {
+            localStorage.setItem('video-progress-' + modalVideo.src, modalVideo.currentTime.toString());
+        }
         modalVideo.pause();
-        modalVideo.src = '';
+        clearInterval(loadingProgressInterval);
+        loadingProgressInterval = null;
+        modalVideo.removeAttribute('src');
+        modalVideo.load();
         modalOverlay.classList.remove('active');
         document.body.style.overflow = '';
+        clearTimeout(controlsTimeout);
+        if (controlsEl) controlsEl.classList.remove('force-show');
+        if (modalLoadingEl) modalLoadingEl.classList.remove('active');
     }
 
     function formatTime(seconds) {
@@ -393,6 +484,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 video.setAttribute('src', src);
                 video.dataset.loaded = 'false';
                 VideoLoader.retries[VideoLoader.getVideoId(video)] = 0;
+                VideoLoader.loading.delete(video);
                 VideoLoader.enqueue(video);
                 return;
             }
@@ -437,106 +529,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     document.querySelectorAll('.video-card').forEach(setupVideoCard);
-
-    var observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    var scrollObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                if (entry.target.classList.contains('reveal-title')) {
-                    var spans = entry.target.querySelectorAll('.reveal-span');
-                    spans.forEach(function(span, i) {
-                        setTimeout(function() {
-                            span.style.transform = 'translateY(0)';
-                        }, i * 80);
-                    });
-                    entry.target.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)';
-                }
-                scrollObserver.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.animate-on-scroll, .video-card, .video-item, .category-card, .bento-card').forEach(function(el) {
-        scrollObserver.observe(el);
-    });
-
-    var statsObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                var numbers = entry.target.querySelectorAll('.stat-number');
-                numbers.forEach(function(num) {
-                    var target = parseInt(num.getAttribute('data-target'));
-                    if (!target || num.dataset.animated === 'true') return;
-                    num.dataset.animated = 'true';
-                    var duration = 1800;
-                    var startTime = performance.now();
-                    function step(currentTime) {
-                        var elapsed = currentTime - startTime;
-                        var progress = Math.min(elapsed / duration, 1);
-                        var eased = 1 - Math.pow(1 - progress, 3);
-                        var current = Math.round(eased * target);
-                        num.textContent = current.toLocaleString();
-                        if (progress < 1) requestAnimationFrame(step);
-                    }
-                    requestAnimationFrame(step);
-                });
-                var bars = entry.target.querySelectorAll('.stat-bar-fill');
-                bars.forEach(function(bar) {
-                    if (!bar.classList.contains('animated')) {
-                        bar.classList.add('animated');
-                    }
-                });
-                statsObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-
-    var statsCard = document.querySelector('.bento-stats');
-    if (statsCard) statsObserver.observe(statsCard);
-
-    var navbar = document.querySelector('.navbar');
-    var navbarObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (!entry.isIntersecting) {
-                navbar.style.boxShadow = '0 2px 20px rgba(99, 102, 241, 0.08)';
-            } else {
-                navbar.style.boxShadow = '0 2px 10px rgba(99, 102, 241, 0.04)';
-            }
-        });
-    }, { threshold: 0, rootMargin: '-100px 0px 0px 0px' });
-
-    var heroSection = document.querySelector('.hero, .hero-section');
-    if (heroSection) navbarObserver.observe(heroSection);
-
-    if (typeof Lenis !== 'undefined') {
-        var lenis = new Lenis({
-            duration: 1.2,
-            easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-            orientation: 'vertical',
-            smoothWheel: true,
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                var target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    lenis.scrollTo(target, { offset: -80, duration: 1.2 });
-                }
-            });
-        });
-    }
 
     var spotlightCards = document.querySelectorAll('.bento-card, .video-card');
     var throttledMouseMove = throttle(function(card, e) {
@@ -594,6 +586,95 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('mousemove', function(e) {
             mouseGlow.style.left = e.clientX + 'px';
             mouseGlow.style.top = e.clientY + 'px';
+        });
+    }
+
+    var navLinks = document.querySelectorAll('.nav-links a');
+    var navSections = document.querySelectorAll('#about, #sec-documentary, #sec-ads, #sec-game, #sec-real-documentary');
+    var navObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                var id = entry.target.id;
+                navLinks.forEach(function(link) {
+                    link.classList.remove('active');
+                    var href = link.getAttribute('href');
+                    if (href && (href === '#' + id || href.includes(id))) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, { threshold: 0.2, rootMargin: '-72px 0px -50% 0px' });
+
+    navSections.forEach(function(section) {
+        navObserver.observe(section);
+    });
+
+    var progressBar = document.getElementById('scroll-progress');
+    if (progressBar) {
+        var progressFill = progressBar.querySelector('.scroll-progress-fill');
+        window.addEventListener('scroll', function() {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            if (progressFill) progressFill.style.width = progress + '%';
+        }, { passive: true });
+    }
+
+    var searchInput = document.getElementById('video-search');
+    var filterBtns = document.querySelectorAll('.video-filter-btn');
+    var currentFilter = 'all';
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            filterVideos();
+        });
+    }
+
+    filterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            filterBtns.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            currentFilter = btn.getAttribute('data-filter');
+            filterVideos();
+        });
+    });
+
+    function filterVideos() {
+        var keyword = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        var cards = document.querySelectorAll('.video-card');
+        cards.forEach(function(card) {
+            var category = (card.getAttribute('data-category') || '').toLowerCase();
+            var title = (card.querySelector('h3') || {}).textContent || '';
+            var desc = (card.querySelector('.video-description') || {}).textContent || '';
+            var matchCategory = currentFilter === 'all' || category === currentFilter;
+            var matchKeyword = !keyword || title.toLowerCase().includes(keyword) || desc.toLowerCase().includes(keyword);
+            if (matchCategory && matchKeyword) {
+                card.classList.remove('hidden-by-filter');
+            } else {
+                card.classList.add('hidden-by-filter');
+            }
+        });
+    }
+
+    var themeToggle = document.querySelector('.theme-toggle');
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+    }
+    var savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    }
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            var newTheme = isDark ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
         });
     }
 });

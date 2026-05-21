@@ -266,6 +266,45 @@
             observer.observe(el);
         });
 
+        var nameField = document.getElementById('name');
+        var emailField = document.getElementById('email');
+        var messageField = document.getElementById('message');
+
+        function validateField(field, rules) {
+            var value = field.value.trim();
+            var errorEl = field.parentElement.querySelector('.field-error');
+            if (!errorEl) {
+                errorEl = document.createElement('span');
+                errorEl.className = 'field-error';
+                field.parentElement.appendChild(errorEl);
+            }
+            var errorMsg = '';
+            if (rules.required && !value) {
+                errorMsg = rules.requiredMsg || '此字段为必填项';
+            } else if (rules.email && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                errorMsg = '请输入有效的邮箱地址';
+            }
+            errorEl.textContent = errorMsg;
+            field.classList.toggle('field-invalid', !!errorMsg);
+            return !errorMsg;
+        }
+
+        if (nameField) {
+            nameField.addEventListener('blur', function() {
+                validateField(nameField, { required: true, requiredMsg: '请输入您的姓名' });
+            });
+        }
+        if (emailField) {
+            emailField.addEventListener('blur', function() {
+                validateField(emailField, { required: true, requiredMsg: '请输入邮箱地址', email: true });
+            });
+        }
+        if (messageField) {
+            messageField.addEventListener('blur', function() {
+                validateField(messageField, { required: true, requiredMsg: '请输入留言内容' });
+            });
+        }
+
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
 

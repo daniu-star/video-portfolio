@@ -23,55 +23,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
-        .bento-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 36px;
-            backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .bento-card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: var(--radius-lg);
-            padding: 1px;
-            background: rgba(99,102,241,0.3);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-            z-index: 3;
-        }
-        .bento-card:hover::before {
-            opacity: 1;
-        }
-        .bento-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.04), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 2;
-        }
-        .bento-card:hover::after {
-            opacity: 1;
-        }
-        .bento-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(99, 102, 241, 0.25);
-            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.08);
-        }
+
 
         .bento-main {
             background: rgba(99, 102, 241, 0.04);
@@ -263,41 +215,6 @@
             .bento-main { min-height: 240px; }
         }
 
-        .video-card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 24px;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(99,102,241,0.4), rgba(168,85,247,0.4), rgba(236,72,153,0.4), rgba(6,182,212,0.3));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .video-card:hover::before {
-            opacity: 1;
-        }
-
-        .video-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.06), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 2;
-        }
-        .video-card:hover::after {
-            opacity: 1;
-        }
 
 
         .category-grid-bento {
@@ -388,76 +305,6 @@
             .category-grid-bento { grid-template-columns: 1fr; }
         }
 
-        .category-header {
-            padding: 32px 36px;
-            border-radius: 24px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            margin-bottom: 48px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .category-header:hover {
-            transform: translateY(-4px);
-            box-shadow:
-                0 20px 50px rgba(99, 102, 241, 0.12),
-                0 8px 30px rgba(99, 102, 241, 0.08);
-        }
-        .category-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            border-radius: 24px 24px 0 0;
-        }
-        .category-header.cat-documentary::before { background: linear-gradient(90deg, #6366f1, #818cf8, #a5b4fc, #c7d2fe); }
-        .category-header.cat-ads::before { background: linear-gradient(90deg, #06b6d4, #22d3ee, #67e8f9, #a5f3fc); }
-        .category-header.cat-game::before { background: linear-gradient(90deg, #f59e0b, #fbbf24, #fcd34d, #fde68a); }
-        .category-header.cat-real::before { background: linear-gradient(90deg, #ec4899, #f472b6, #f9a8d4, #fbcfe8); }
-        .category-header.cat-documentary { background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(129,140,248,0.05), var(--glass)); }
-        .category-header.cat-ads { background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(34,211,238,0.05), var(--glass)); }
-        .category-header.cat-game { background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(251,191,36,0.05), var(--glass)); }
-        .category-header.cat-real { background: linear-gradient(135deg, rgba(236,72,153,0.1), rgba(244,114,182,0.05), var(--glass)); }
-
-        .category-header h3 {
-            font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive;
-            font-size: clamp(1.8rem, 3vw, 2.2rem);
-            font-weight: 400;
-            letter-spacing: 0.06em;
-            color: var(--text);
-            text-shadow: 1px 1px 2px rgba(99, 102, 241, 0.1);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        .category-header h3:hover {
-            transform: scale(1.02);
-            text-shadow: 3px 3px 8px rgba(99, 102, 241, 0.25);
-        }
-        .category-header h3 .category-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: rgba(99, 102, 241, 0.1);
-        }
-        .category-header h3 .category-icon svg {
-            width: 20px;
-            height: 20px;
-            color: var(--accent);
-        }
 
         @keyframes titleReveal {
             0% {
@@ -476,57 +323,6 @@
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
-
-        .category-title {
-            font-family: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', cursive;
-            font-size: clamp(1.8rem, 3vw, 2.2rem);
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            letter-spacing: 0.06em;
-            font-weight: 400;
-        }
-        .category-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
-        }
-        .category-header:hover .category-icon {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
-        }
-        .category-icon svg { width: 24px; height: 24px; color: #fff; }
-        .cat-documentary .category-icon { background: linear-gradient(135deg, #6366f1, #818cf8); }
-        .cat-ads .category-icon { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
-        .cat-game .category-icon { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-        .cat-real .category-icon { background: linear-gradient(135deg, #ec4899, #f472b6); }
-
-        .category-desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-top: 8px;
-            padding-left: 58px;
-            position: relative;
-        }
-        .category-desc::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 58px;
-            width: 60px;
-            height: 2px;
-            border-radius: 1px;
-        }
-        .cat-documentary .category-desc::after { background: linear-gradient(90deg, #6366f1, transparent); }
-        .cat-ads .category-desc::after { background: linear-gradient(90deg, #06b6d4, transparent); }
-        .cat-game .category-desc::after { background: linear-gradient(90deg, #f59e0b, transparent); }
-        .cat-real .category-desc::after { background: linear-gradient(90deg, #ec4899, transparent); }
 
         .video-category-label.cat-label-documentary { background: rgba(99,102,241,0.12); color: #818cf8; }
         .video-category-label.cat-label-ads { background: rgba(6,182,212,0.12); color: #22d3ee; }
@@ -573,10 +369,10 @@
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            border: 1px solid var(--border);
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            border: none;
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
             cursor: pointer;
             color: var(--text);
             display: flex;
@@ -586,7 +382,8 @@
             opacity: 0;
             visibility: hidden;
             transform: translateY(16px);
-            transition: opacity 0.3s, visibility 0.3s, transform 0.3s, background var(--transition), border-color var(--transition);
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            padding: 0;
         }
         .back-to-top.visible {
             opacity: 1;
@@ -594,9 +391,21 @@
             transform: translateY(0);
         }
         .back-to-top:hover {
-            border-color: var(--accent);
-            background: var(--surface-hover);
             color: var(--accent);
+        }
+        .back-to-top-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 48px;
+            height: 48px;
+        }
+        .progress-ring-fill {
+            transition: stroke-dashoffset 0.15s ease;
+        }
+        .back-to-top-icon {
+            position: relative;
+            z-index: 1;
         }
     </style>
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" defer></script>
@@ -604,6 +413,7 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+    <div class="scroll-progress-bar" id="scroll-progress"><div class="scroll-progress-fill"></div></div>
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="logo">陈俊良</a>
@@ -623,13 +433,6 @@
                         <svg class="theme-toggle-icon theme-toggle-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                         </svg>
-                    </span>
-                    <span class="theme-toggle-stars">
-                        <span class="theme-toggle-star" style="top:8px;left:12px"></span>
-                        <span class="theme-toggle-star" style="top:18px;left:22px"></span>
-                        <span class="theme-toggle-star" style="top:6px;left:30px"></span>
-                        <span class="theme-toggle-star" style="top:22px;left:14px"></span>
-                        <span class="theme-toggle-star" style="top:14px;left:40px"></span>
                     </span>
                     <span class="theme-toggle-thumb"></span>
                 </span>
@@ -808,6 +611,20 @@
                 <span class="reveal-span"><span class="title-number">03</span>精选作品</span>
             </h2>
 
+            <div class="video-filter-bar">
+                <div class="video-search-wrapper">
+                    <svg class="video-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <input type="text" id="video-search" class="video-search-input" placeholder="搜索视频...">
+                </div>
+                <div class="video-filter-buttons">
+                    <button class="video-filter-btn active" data-filter="all">全部</button>
+                    <button class="video-filter-btn" data-filter="documentary">AI纪录片</button>
+                    <button class="video-filter-btn" data-filter="ads">AI广告片</button>
+                    <button class="video-filter-btn" data-filter="game">游戏视频</button>
+                    <button class="video-filter-btn" data-filter="real">实拍纪录片</button>
+                </div>
+            </div>
+
             <div id="sec-documentary" class="video-category-section animate-on-scroll">
                 <div class="category-header cat-documentary">
                     <h3 class="category-title">
@@ -822,9 +639,10 @@
                     <p class="category-desc">探讨AI时代人类与技术的共生关系，通过纪录片形式展现人工智能对现代社会的影响</p>
                 </div>
                 <div class="video-gallery" style="grid-template-columns:1fr">
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="documentary">
                         <div class="video-wrapper">
                             <video src="视频合集/AI纪录片《何以为家》.mp4" poster="视频合集/posters/AI纪录片《何以为家》.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -868,9 +686,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="documentary">
                         <div class="video-wrapper">
                             <video src="视频合集/AI纪录片《沁园春·雪》.mp4" poster="视频合集/posters/AI纪录片《沁园春·雪》.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -933,9 +752,10 @@
                     <p class="category-desc">品牌商业广告创意视频，展示产品特性与品牌价值</p>
                 </div>
                 <div class="video-gallery video-gallery-ads">
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="ads">
                         <div class="video-wrapper">
                             <video src="视频合集/广告片1.mp4" poster="视频合集/posters/广告片1.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -979,9 +799,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="ads">
                         <div class="video-wrapper">
                             <video src="视频合集/广告片2.mp4" poster="视频合集/posters/广告片2.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1025,9 +846,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="ads">
                         <div class="video-wrapper">
                             <video src="视频合集/广告片3.mp4" poster="视频合集/posters/广告片3.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1071,9 +893,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="ads">
                         <div class="video-wrapper">
                             <video src="视频合集/广告片4.mp4" poster="视频合集/posters/广告片4.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1117,9 +940,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="ads">
                         <div class="video-wrapper">
                             <video src="视频合集/广告片5.mp4" poster="视频合集/posters/广告片5.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1163,9 +987,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="ads">
                         <div class="video-wrapper">
                             <video src="视频合集/广告片6.mp4" poster="视频合集/posters/广告片6.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1209,9 +1034,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="ads">
                         <div class="video-wrapper">
                             <video src="视频合集/广告片7.mp4" poster="视频合集/posters/广告片7.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1274,9 +1100,10 @@
                     <p class="category-desc">AI生成的游戏场景与角色互动视频，展示游戏世界观</p>
                 </div>
                 <div class="video-gallery video-gallery-game">
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="game">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频1.mp4" poster="视频合集/posters/长游戏AI视频1.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1320,9 +1147,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="game">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频2.mp4" poster="视频合集/posters/长游戏AI视频2.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1366,9 +1194,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="game">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频3.mp4" poster="视频合集/posters/长游戏AI视频3.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1412,9 +1241,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="game">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频4.mp4" poster="视频合集/posters/长游戏AI视频4.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1458,9 +1288,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="game">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频5.mp4" poster="视频合集/posters/长游戏AI视频5.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1505,9 +1336,10 @@
                         </div>
                     </div>
 
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="game">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频6.mp4" poster="视频合集/posters/长游戏AI视频6.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1551,9 +1383,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="game">
                         <div class="video-wrapper">
                             <video src="视频合集/长游戏AI视频7.mp4" poster="视频合集/posters/长游戏AI视频7.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1616,9 +1449,10 @@
                     <p class="category-desc">实地拍摄纪录片作品，记录真实故事与文化传承</p>
                 </div>
                 <div class="video-gallery video-gallery-real">
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="real">
                         <div class="video-wrapper">
                             <video src="视频合集/实拍纪录片——广西三月三.mp4" poster="视频合集/posters/实拍纪录片——广西三月三.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1666,9 +1500,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="real">
                         <div class="video-wrapper">
                             <video src="视频合集/纪录片——东兴电商宣传.mp4" poster="视频合集/posters/纪录片——东兴电商宣传.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1712,9 +1547,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="video-card animate-on-scroll">
+                    <div class="video-card animate-on-scroll" data-category="real">
                         <div class="video-wrapper">
                             <video src="视频合集/实拍纪录片——五四青年节.mp4" poster="视频合集/posters/实拍纪录片——五四青年节.jpg" preload="none" muted loop playsinline></video>
+                            <span class="video-duration"></span>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1890,6 +1726,15 @@
                 <div class="footer-info">
                     <h3>陈俊良</h3>
                     <p>中央民族大学 · 智能传播</p>
+                    <p class="footer-slogan">以AI为笔，以光影为墨</p>
+                    <div class="footer-social">
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="footer-social-link">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        </a>
+                        <a href="mailto:chenjunliang@example.com" aria-label="邮箱" class="footer-social-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+                        </a>
+                    </div>
                 </div>
                 <div class="footer-links">
                     <a href="#">首页</a>
@@ -1903,7 +1748,12 @@
     </footer>
 
     <button class="back-to-top" id="backToTop" aria-label="返回顶部" title="返回顶部">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><polyline points="18 15 12 9 6 15"/></svg>
+        <svg class="back-to-top-progress" viewBox="0 0 48 48" width="48" height="48">
+            <circle class="progress-ring-bg" cx="24" cy="24" r="22" fill="none" stroke="rgba(99,102,241,0.1)" stroke-width="2"/>
+            <circle class="progress-ring-fill" cx="24" cy="24" r="22" fill="none" stroke="url(#progressGradient)" stroke-width="2" stroke-linecap="round" stroke-dasharray="138.23" stroke-dashoffset="138.23" transform="rotate(-90 24 24)"/>
+            <defs><linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs>
+        </svg>
+        <svg class="back-to-top-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="18 15 12 9 6 15"/></svg>
     </button>
 
     <script>
@@ -2234,6 +2084,39 @@
 
 
         })();
+
+        (function() {
+            var progressFill = document.querySelector('.progress-ring-fill');
+            if (!progressFill) return;
+            var circumference = 2 * Math.PI * 22;
+            progressFill.style.strokeDasharray = circumference;
+            progressFill.style.strokeDashoffset = circumference;
+            function updateProgress() {
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                var progress = docHeight > 0 ? scrollTop / docHeight : 0;
+                progressFill.style.strokeDashoffset = circumference * (1 - progress);
+            }
+            window.addEventListener('scroll', updateProgress, { passive: true });
+            updateProgress();
+        })();
+
+        document.querySelectorAll('.video-card video').forEach(function(video) {
+            var durationSpan = video.closest('.video-wrapper').querySelector('.video-duration');
+            if (!durationSpan) return;
+            function formatDuration(d) {
+                if (!d || !isFinite(d)) return '';
+                var m = Math.floor(d / 60);
+                var s = Math.floor(d % 60);
+                return m + ':' + (s < 10 ? '0' : '') + s;
+            }
+            video.addEventListener('loadedmetadata', function() {
+                durationSpan.textContent = formatDuration(video.duration);
+            });
+            if (video.readyState >= 1) {
+                durationSpan.textContent = formatDuration(video.duration);
+            }
+        });
     </script>
 
 </body>
