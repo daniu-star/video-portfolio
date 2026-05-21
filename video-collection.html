@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -19,49 +19,24 @@
             z-index: 0;
         }
 
-        .video-wrapper:has(video[data-loaded="false"]) {
-            animation: loadingShimmer 1.5s ease-in-out infinite;
-        }
-
-        @keyframes loadingShimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
         .video-card::after {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(99,102,241,0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
             pointer-events: none;
             z-index: 0;
         }
 
         .video-card:hover::after {
-            width: 300%;
-            height: 300%;
+            opacity: 1;
         }
-
-        .timeline-dot {
-            animation: dotPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes dotPulse {
-            0%, 100% { box-shadow: 0 0 10px var(--accent-glow), 0 0 30px rgba(99,102,241,0.15); }
-            50% { box-shadow: 0 0 20px var(--accent-glow), 0 0 50px rgba(99,102,241,0.3); }
-        }
-
 
     </style>
 </head>
 <body>
-    <div class="mouse-glow" id="mouseGlow"></div>
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">陈俊良</a>
@@ -139,7 +114,7 @@
                 <div class="video-gallery" style="grid-template-columns:1fr">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/AI纪录片《何以为家》.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/AI纪录片《何以为家》.mp4" poster="视频合集/posters/AI纪录片《何以为家》.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -148,46 +123,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-documentary">纪录片</span>
                             <h3>AI纪录片《何以为家》</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">深度探讨AI时代人类归属感与身份认同议题，通过纪实影像呈现科技洪流中个体命运的沉浮与抉择</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">采用低色温暖调柔光营造人文关怀氛围，关键场景运用逆光剪影强化情感张力</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">固定镜头为主保持纪实感，辅以缓慢推拉引导观众沉浸思考</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">以全景交代环境背景，中景呈现人物互动，特写捕捉情感细节，形成叙事节奏</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">科技洪流中沉浮的个体与家庭</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">纪实人文风格，诗意叙事</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">沉稳舒缓的叙事节奏，留白引发思考</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">低色温暖调柔光为主，逆光剪影强化身份迷失的视觉隐喻，局部硬光打亮面部制造明暗割裂</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">固定长镜头保持纪实凝视感，缓慢推拉引导沉浸，全景→中景→特写递进构建情感压迫</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">纪实人文风，诗意留白叙事，弱化旁白依赖视觉情绪传递</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">沉稳舒缓，留白与沉默交替推进，情绪在压抑与释放间缓慢蓄力</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/AI纪录片《沁园春·雪》.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/AI纪录片《沁园春·雪》.mp4" poster="视频合集/posters/AI纪录片《沁园春·雪》.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -196,41 +169,39 @@
                                 </button>
 </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-<div class="video-error">视频加载失败，请稍后重试</div>
+<div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-documentary">纪录片</span>
                             <h3>AI纪录片《沁园春·雪》</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">以AI技术演绎毛泽东经典诗词《沁园春·雪》的壮阔意境，融合视觉艺术与文学之美</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">暖调光影营造历史厚重感，利用光影对比突显诗词中的豪迈气势</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">多视角切换，航拍与特写结合展现壮丽山河</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">远景展现宏大场面，近景捕捉细节情感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">AI生成人物形象，贴合诗词意境代入感强</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">写意与写实结合，东方美学与AI技术交织</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">张弛有度，随诗词韵律自然推进</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">高色温冷调漫射光营造雪域苍茫，侧逆光勾勒山脊轮廓，晨昏金光穿插制造冷暖转折</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">航拍大全景开篇建立山河格局，缓慢横移展现纵深，景别递进对应诗词起承转合</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">史诗诗意风，东方写意美学，视觉节奏对仗诗词韵律</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">宏大舒缓，气势铺陈与意境留白交替，长镜头延展空间感</span>
+    </div>
+</div>
                         </div>
                     </div>
                 </div>
@@ -254,7 +225,7 @@
                 <div class="video-gallery video-gallery-ads">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片1.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/广告片1.mp4" poster="视频合集/posters/广告片1.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -263,46 +234,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>爆炸盐，炸掉所有烦恼</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">科技感品牌形象广告，通过未来都市意象展现品牌创新精神与前沿定位</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">冷色调硬光打造科技质感，霓虹光效点缀营造赛博朋克氛围</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">快速推拉与动态跟拍结合，营造紧张刺激的节奏感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">大远景展示城市宏观，快速切换近景特写强化视觉冲击力</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">未来都市中的消费者形象</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">赛博朋克科技风，未来感视觉语言</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">快速紧张的节奏，高频剪辑</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">高对比硬光制造爆破质感，瞬间强闪光效模拟爆炸冲击，冷白主光+暗部压深强化科技冷峻感</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">快速推拉+微距特写捕捉颗粒飞溅，全景与极近特写间跳切，以视觉震荡传递"炸裂"概念</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">科技爆破风，以爆炸视觉隐喻情绪释放，高饱和冷色调构建品牌科技感</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">爆裂快切，毫秒级闪帧制造冲击峰值，静→爆→静三段式节奏强化记忆点</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片2.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/广告片2.mp4" poster="视频合集/posters/广告片2.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -311,46 +280,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>沐萌美，油污跑光亮晶晶</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">生活方式类产品广告，以温馨家庭场景传递产品温度与人文关怀</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">自然柔光为主，侧光塑造立体感，黄金时段光线营造温暖氛围</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">平稳摇移镜头营造舒适感，固定镜头突出产品细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">中景为主展现生活场景，穿插近景特写捕捉情感瞬间</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">温馨家庭中的用户</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">温馨生活风，真实治愈</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">舒缓平和的节奏，自然流畅</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">高调柔光营造清透质感，自然侧光勾勒产品光泽，过曝高光区暗示洁净效果</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">中景生活场景→特写产品细节递进，旋转环绕展示去污过程，浅景深聚焦清洁瞬间</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">清新生活风，明快视觉调性，以干净画面语言呼应产品功能诉求</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">轻快律动，问题→解决短促切换，结尾定格亮洁画面强化品牌印象</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片3.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/广告片3.mp4" poster="视频合集/posters/广告片3.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -359,46 +326,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>一滴浓，一身净</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">运动品牌活力广告，通过动感画面传递青春能量与运动激情</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">高对比度硬光强化动感，逆光勾勒人物轮廓，营造力量美学</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">快速跟拍与环绕镜头结合，手持感增强现场感与代入感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">全景展示运动姿态，近景捕捉表情张力，特写强调产品细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">充满活力的运动者</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">运动活力风，力量美学</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">动感快速的节奏，强劲有力</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">动态侧光勾勒运动肌肉线条，逆光轮廓光强化身体张力，冷暖光交替映射状态转换</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">跟拍捕捉运动轨迹，升格慢动作放大力量瞬间，全身→局部快速切换传递活力</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">运动活力风，力量美学，高对比高饱和视觉强化品牌能量感</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">快慢交替，慢动作蓄力→正常速度释放，爆发节奏驱动情绪攀升</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片4.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/广告片4.mp4" poster="视频合集/posters/广告片4.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -407,46 +372,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>油污净，秒除污</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">美妆品牌产品广告，通过精致画面展现产品质感与美学理念</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">柔光漫射营造梦幻氛围，高光点缀突出产品质感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">慢动作展现产品流动感，微距拍摄突出材质细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">特写展示产品细节，中景呈现使用场景，近景捕捉情感表达</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">追求品质生活的消费者</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">极简美学风，抽象艺术表达</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">舒缓优雅的节奏，细腻流动</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">去污前冷灰低调→去污后暖白高调，色温转换直映清洁效果，侧光打亮洁净表面</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">微距特写污渍细节→中景展示清洁过程，对比构图左右分屏或前后跳切</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">功能演示风，视觉对比为核心策略，干净利落画面语言呼应"秒除"诉求</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">干脆利落，问题→解决两拍式快切，零冗余节奏传递高效去污产品力</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片5.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/广告片5.mp4" poster="视频合集/posters/广告片5.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -455,46 +418,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>AD钙，用心包裹儿时科幻梦</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">食品品牌创意广告，通过诱人的视觉呈现激发食欲与购买欲望</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">暖色灯光突出食物色泽，侧光强化立体层次感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">稳定推近镜头聚焦美食，慢镜头捕捉食材动态</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">微距特写展现食材细节，中景呈现用餐氛围</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">享受美食的消费者</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">美食诱人风，精致食欲感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">明快轻松的节奏，富有韵律</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">霓虹冷光与暖调柔光交织营造科幻梦境质感，光晕漫射柔化边缘，低角度光打亮产品制造童话光环</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">仰拍广角营造儿童仰望视角，微距捕捉产品细节，奇幻大场景与产品特写间跳跃</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">童趣科幻风，梦幻视觉包裹产品，以想象力叙事替代功能说教</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">奇幻跳跃，场景快速切换模拟儿童注意力节奏，惊喜感持续输出</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片6.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/广告片6.mp4" poster="视频合集/posters/广告片6.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -503,46 +464,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
                             <h3>陪你酸酸甜甜，陪你可可爱爱</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">旅行品牌目的地广告，通过梦幻般的自然风光与人文体验激发用户的探索欲望</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">黄金时段暖色调为主，日出日落光线营造温暖浪漫氛围，逆光勾勒人物剪影</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">航拍俯视展现地理全貌，延时摄影呈现光影变化，平稳横移展示空间层次</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">航拍大景展现壮丽自然，中景记录人文活动，近景捕捉真实情感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">探索世界的旅行者</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">梦幻旅行风，浪漫唯美</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">舒缓浪漫的节奏，沉浸式体验</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">暖调逆光营造柔美轮廓，柔焦光晕包裹画面，自然散射光制造温馨氛围，高光微过曝传递甜蜜感</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">浅景深特写聚焦表情与产品，缓慢摇移跟随情感流动，中近景为主保持亲密感</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">温馨治愈风，柔美视觉调性，以陪伴感叙事替代产品推销</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">温柔舒缓，情感递进如呼吸般自然，甜蜜与可爱情绪交替流淌</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片7.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/广告片7.mp4" poster="视频合集/posters/广告片7.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -551,7 +510,17 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-ads">广告作品</span>
@@ -609,7 +578,7 @@
                 <div class="video-gallery video-gallery-game">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频1.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/长游戏AI视频1.mp4" poster="视频合集/posters/长游戏AI视频1.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -618,46 +587,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——多元素引流</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">奇幻风格游戏场景展示，呈现魔法世界的宏大叙事与神秘氛围</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">神秘紫蓝色调为主，魔法光效点缀，营造奇幻梦境感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">缓慢航拍视角探索场景，推镜头引导观众发现隐藏细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">大远景展示世界全貌，中景呈现角色与环境互动，特写突出魔法细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">魔法世界中的角色与生物</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">奇幻魔法风，宏大叙事</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">舒缓探索的节奏，渐入佳境</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">多光源混合打光，冷暖交替营造奇幻层次感，体积光穿透雾气制造空间纵深</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">航拍→跟拍→特写多视角快速切换，景别跳变串联多元游戏元素，横移展现场景广度</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">奇幻混搭风，多元视觉元素密集输出，以丰富度吸引不同玩家群体</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">快慢交错，元素轮番呈现保持新鲜感，信息密度高但不杂乱</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频2.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/长游戏AI视频2.mp4" poster="视频合集/posters/长游戏AI视频2.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -666,46 +633,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——冲突化引流</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">科幻机甲战斗场景，展现未来战争的紧张氛围与机械美学</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">金属质感冷光为主，爆炸火光形成强烈对比，强化战场氛围</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">快速摇移与跟拍模拟战斗节奏，低角度仰拍强化机甲压迫感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">远景呈现战场全貌，中景展示机甲对决，近景捕捉战斗细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">战场中的机甲战士</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">科幻战斗风，机械美学</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">紧张激烈的节奏，压迫感强</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">高对比硬光强化金属质感，频闪光效模拟战场爆炸，冷蓝主调+橙红爆炸光制造冲突色温对撞</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">手持晃动制造临场冲击，快速推拉捕捉战斗瞬间，远景战场与近景机甲间急速切换</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">硬核科幻风，冲突美学，以对抗张力驱动观看欲</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">急促快切，战斗节奏持续高压，爆炸闪帧制造视觉峰值</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频3.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/长游戏AI视频3.mp4" poster="视频合集/posters/长游戏AI视频3.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -714,46 +679,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——剧情化引流</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">末日废土风格游戏场景，展现荒凉世界中的生存挣扎与人性光辉</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">低饱和灰黄调营造末世氛围，火光与霓虹点缀形成视觉焦点</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">摇晃手持镜头增强紧张感，航拍俯瞰展现废墟规模</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">大远景展现废土全貌，中景呈现人物探索，近景捕捉生存细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">废土中的幸存者与探索者</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">末日废土风，荒凉美学</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">紧张压抑的节奏，层层递进</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">低调暗调为主，侧光勾勒暗黑轮廓，局部点光源制造悬疑明暗，深色压暗留出恐惧想象空间</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">缓慢推近制造压迫逼近感，景深虚化隐藏威胁，中景→特写收缩视野引发好奇与不安</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">暗黑叙事风，哥特美学，以悬念与未知驱动持续观看</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">压抑缓起，悬念递进如暗流涌动，在窒息感中蓄积爆发</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频4.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/长游戏AI视频4.mp4" poster="视频合集/posters/长游戏AI视频4.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -762,46 +725,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——洛克王国与三角洲的剧情化、冲突化叙事</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">东方玄幻风格游戏场景，以水墨画风融合仙侠意境展现独特东方美学</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">水墨渐变光影过渡，留白手法营造空灵感，霞光点缀增添神秘色彩</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">画卷式横移展现风景，缓慢推拉营造沉浸式体验</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">全景展现山水意境，中景呈现修行场景，特写捕捉法术光影</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">仙侠世界中的修行者</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">东方玄幻风，水墨意境</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">舒缓悠远的节奏，沉浸写意</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">自然光为基底，魔幻光效点缀超现实感，冷暖光随叙事情绪转换，体积光营造史诗空间纵深</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">大全景建立世界观，横移展现场景广度，叙事段中景推进剧情，冲突段快速切换制造对抗</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">开放世界风，史诗叙事，双IP碰撞制造跨世界观奇观</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">叙事与冲突交替，张弛有度，剧情铺垫→冲突爆发→悬念收尾三段式推进</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频5.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/长游戏AI视频5.mp4" poster="视频合集/posters/长游戏AI视频5.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -810,47 +771,45 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——真人化仿真叙事</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">赛博朋克风格城市夜景，展现霓虹闪烁的未来都市与底层市井生活</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">霓虹紫蓝色调为主，高对比明暗反差营造赛博朋克标志性视觉风格</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">缓慢推轨穿行街巷，俯拍展现城市布局，快速闪切增强节奏感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">大远景呈现城市天际线，中景展示街头生态，特写捕捉霓虹细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">未来都市中的各色人群</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">赛博朋克风，霓虹美学</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">快慢交织的节奏，富有张力</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">仿真自然光为主，环境光反射模拟真实光感，避免人工补光痕迹，以纪实光效消解AI生成感</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">肩扛跟拍制造呼吸感，纪实视角保持临场真实，中近景为主贴近人物，偶发晃动增强仿真可信度</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">伪纪实风，仿真叙事，以真实感消解虚拟边界，模糊AI与实拍界限</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">纪实节奏，沉浸推进，去戏剧化处理保持生活流质感</span>
+    </div>
+</div>
                         </div>
                     </div>
 
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频6.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/长游戏AI视频6.mp4" poster="视频合集/posters/长游戏AI视频6.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -859,46 +818,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>三角洲委托——生活化叙事引流</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">史前奇幻世界场景，展现恐龙与原始自然的壮阔生态与生存法则</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">自然日光为主，丛林斑驳光影营造原始氛围，黄昏色调增添史诗感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">航拍视角俯瞰丛林，跟拍生物迁徙，低角度拍摄增强生物压迫感</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">大远景展现史前地貌，中景呈现生物互动，特写捕捉生物特征</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">史前生物与原始自然</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">史前自然风，壮阔史诗</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">恢弘大气的节奏，自然律动</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">灰调漫射光营造废墟阴郁，低色温微暖光暗示生存希望，阴天散射光消除硬影传递末日氛围</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">固定镜头凝视荒芜环境，缓慢横移展现生存空间，中景记录日常动作，克制运镜反衬生存沉重</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">末日写实风，荒凉美学，以生活化细节消解末日奇观化</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">缓慢沉重，生存压迫感持续低频，偶发危机瞬间打破日常</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频7.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/长游戏AI视频7.mp4" poster="视频合集/posters/长游戏AI视频7.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -907,41 +864,39 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-game">游戏AI</span>
                             <h3>短剧化AI视频</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">暗黑哥特风格场景，展现阴森古堡与超自然力量交织的恐惧美学</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">低亮度冷色调为主，烛光与月光形成明暗对比，阴影塑造神秘氛围</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">缓慢推进镜头营造紧张感，主观视角增强代入，快速摇移制造惊悚效果</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">全景展现古堡宏大规模，中景呈现角色探索，特写捕捉诡异细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">古堡中的探索者与超自然存在</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">暗黑哥特风，恐惧美学</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">紧张悬疑的节奏，步步惊心</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">侧逆光勾勒武侠人物轮廓，明暗对比强化招式力量感，暖黄烛光与冷月光的色温对立营造江湖氛围</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">升格慢动作放大招式瞬间，快速切换捕捉对攻节奏，全景→特写定格关键帧强化武术美感</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">武侠动作风，东方暴力美学，以短剧叙事框架承载武打奇观</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">动静交替，招式蓄力慢放→交锋快切，武侠韵律驱动叙事推进</span>
+    </div>
+</div>
                         </div>
                     </div>
                 </div>
@@ -965,7 +920,7 @@
                 <div class="video-gallery">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/实拍纪录片——广西三月三.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/实拍纪录片——广西三月三.mp4" poster="视频合集/posters/实拍纪录片——广西三月三.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -974,50 +929,48 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>实拍纪录片——广西三月三</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">广西三月三传统节日文化纪录片，展现壮族人民的节日庆典与文化传承</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">自然光为主，黄金时段拍摄，暖色调呈现节日氛围</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">航拍大景、跟拍人物、固定镜头记录仪式</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">远景展现山水风光，中景记录民俗活动，近景捕捉人物表情</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">壮族人民与节日参与者</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">纪实民族文化风，真实温暖</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">舒缓记录式节奏，自然流畅</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">荣誉</span>
-                                    <span class="desc-text">广西日报年度最佳宣传片、广西自治区党委宣传部表彰</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">自然日光为主，暖调环境光还原节日热烈，逆光拍摄歌舞剪影强化仪式感，室内烛光补充人文温度</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">纪实跟拍捕捉民俗自然感，仪式段落固定镜头保持庄重，全景→中景→特写传递文化厚度</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">民族纪实风，人文关怀视角，以真实记录替代奇观化呈现</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">节庆律动，仪式庄重与生活欢快交织，情绪在传统与现代间自然流转</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">荣誉</span>
+        <span class="desc-text">广西日报年度最佳宣传片、广西自治区党委宣传部表彰</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/纪录片——东兴电商宣传.mp4" poster="image.png" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/纪录片——东兴电商宣传.mp4" poster="视频合集/posters/纪录片——东兴电商宣传.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1026,46 +979,44 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>纪录片——东兴电商宣传</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">东兴市电商发展纪录片，记录边境城市电商产业的崛起与发展</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">自然光与室内灯光结合，冷暖色调对比展现城市活力</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">延时摄影展现城市变化，跟拍记录工作流程</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">全景展示城市面貌，中景记录工作场景，特写展示产品细节</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">东兴电商从业者与创业者</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">纪实城市发展风，真实记录</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">由缓到快的节奏，展现发展脉络</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">混合光源，室内暖光营造电商工作温度，室外自然光展现物流实景，补光均匀保持画面通透</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">采访固定镜头保持叙事稳定，跟拍展现物流动态，中景叙事→特写捕捉人物情绪</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">现代纪实风，发展叙事，以人物故事承载产业变迁</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">稳健推进，数据呈现与人物故事交织，理性与感性双线并行</span>
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/实拍纪录片——五四青年节.mp4" preload="none" muted loop playsinline></video>
+                            <video src="视频合集/实拍纪录片——五四青年节.mp4" poster="视频合集/posters/实拍纪录片——五四青年节.jpg" preload="none" muted loop playsinline></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1074,41 +1025,39 @@
                                 </button>
                             </div>
                             <div class="video-loading"><div class="video-loading-spinner"></div></div>
-                            <div class="video-error">视频加载失败，请稍后重试</div>
+                            <div class="video-error">
+    <div class="video-error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+    </div>
+    <span>视频加载失败</span>
+    <span class="video-error-retry">点击重试</span>
+</div>
                         </div>
                         <div class="video-info">
                             <span class="video-category-label cat-label-real">实拍纪录片</span>
                             <h3>实拍纪录片——五四青年节</h3>
                             <div class="video-description">
-                                <div class="desc-item">
-                                    <span class="desc-label">场景</span>
-                                    <span class="desc-text">五四青年节主题纪录片，展现新时代青年的精神风貌与奋斗故事</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">光影</span>
-                                    <span class="desc-text">高调摄影为主，明亮通透的画面风格</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">镜头</span>
-                                    <span class="desc-text">手持跟拍增加真实感，固定镜头记录访谈</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">景别</span>
-                                    <span class="desc-text">中近景为主，突出人物形象与情感表达</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">人物</span>
-                                    <span class="desc-text">新时代青年群体</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">风格</span>
-                                    <span class="desc-text">纪实青春风，积极向上</span>
-                                </div>
-                                <div class="desc-item">
-                                    <span class="desc-label">节奏</span>
-                                    <span class="desc-text">明快向上的节奏，充满朝气</span>
-                                </div>
-                            </div>
+    <div class="desc-item">
+        <span class="desc-label">光影</span>
+        <span class="desc-text">明亮自然光为主，高调画面传递青春朝气，侧光勾勒青年轮廓，逆光光晕营造理想主义氛围</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">镜头</span>
+        <span class="desc-text">动态跟拍捕捉青年活力，升格慢动作定格奋斗瞬间，中近景为主保持情感亲近</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">风格</span>
+        <span class="desc-text">青春纪实风，朝气视觉调性，以真实力量替代口号式表达</span>
+    </div>
+    <div class="desc-item">
+        <span class="desc-label">节奏</span>
+        <span class="desc-text">明快昂扬，激情递进，从个体奋斗到群体共鸣逐步升温</span>
+    </div>
+</div>
                         </div>
                     </div>
                 </div>
@@ -1136,14 +1085,6 @@
     </footer>
 
     <script>
-        var mouseGlow = document.getElementById('mouseGlow');
-        if (mouseGlow) {
-            document.addEventListener('mousemove', function(e) {
-                mouseGlow.style.left = e.clientX + 'px';
-                mouseGlow.style.top = e.clientY + 'px';
-            });
-        }
-
         (function() {
             var canvas = document.getElementById('orb-canvas');
             var ctx = canvas.getContext('2d');
@@ -1314,86 +1255,6 @@
                 });
             });
 
-            document.querySelectorAll('.video-card').forEach(function(card) {
-                var video = card.querySelector('video');
-                var playBtn = card.querySelector('.play-btn');
-                var loadingEl = card.querySelector('.video-loading');
-                var errorEl = card.querySelector('.video-error');
-
-                if (!video) return;
-
-                video.preload = 'none';
-                video.dataset.loaded = 'false';
-
-                video.addEventListener('canplay', function() {
-                    if (loadingEl) loadingEl.classList.remove('active');
-                    if (errorEl) errorEl.classList.remove('active');
-                    video.dataset.loaded = 'true';
-                });
-                video.addEventListener('error', function() {
-                    if (loadingEl) loadingEl.classList.remove('active');
-                    if (errorEl) errorEl.classList.add('active');
-                    video.dataset.loaded = 'false';
-                });
-                video.addEventListener('waiting', function() {
-                    if (loadingEl) loadingEl.classList.add('active');
-                });
-                video.addEventListener('playing', function() {
-                    if (loadingEl) loadingEl.classList.remove('active');
-                });
-
-                function loadAndPlay(fullscreen) {
-                    if (errorEl && errorEl.classList.contains('active')) return;
-                    if (loadingEl) loadingEl.classList.add('active');
-                    video.preload = 'auto';
-                    video.load();
-                    var onCanPlay = function() {
-                        if (loadingEl) loadingEl.classList.remove('active');
-                        video.muted = false;
-                        if (fullscreen) {
-                            if (video.requestFullscreen) {
-                                video.requestFullscreen();
-                            } else if (video.webkitRequestFullscreen) {
-                                video.webkitRequestFullscreen();
-                            }
-                        }
-                        video.play().catch(function() {
-                            if (errorEl) errorEl.classList.add('active');
-                            if (loadingEl) loadingEl.classList.remove('active');
-                        });
-                        video.removeEventListener('canplay', onCanPlay);
-                    };
-                    var onError = function() {
-                        if (loadingEl) loadingEl.classList.remove('active');
-                        if (errorEl) errorEl.classList.add('active');
-                        video.removeEventListener('error', onError);
-                    };
-                    video.addEventListener('canplay', onCanPlay);
-                    video.addEventListener('error', onError);
-                }
-
-                if (playBtn) {
-                    playBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        loadAndPlay(true);
-                    });
-                }
-
-                card.addEventListener('mouseenter', function() {
-                    if (loadingEl) loadingEl.classList.add('active');
-                    video.preload = 'auto';
-                    video.load();
-                });
-
-                card.addEventListener('mouseleave', function() {
-                    if (!video.paused) {
-                        video.pause();
-                        video.currentTime = 0;
-                    }
-                    if (loadingEl) loadingEl.classList.remove('active');
-                });
-            });
-
             var observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
             var scrollObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry, index) {
@@ -1423,6 +1284,7 @@
 
         })();
     </script>
+    <script src="script.js" defer></script>
 
 </body>
 </html>

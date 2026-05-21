@@ -1,33 +1,204 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var videos = document.querySelectorAll('video');
-    
-    videos.forEach(function(video) {
-        video.addEventListener('loadeddata', function() {
-            this.classList.add('loaded');
-        });
-        
-        video.addEventListener('play', function() {
-            videos.forEach(function(v) {
-                if (v !== this && !v.paused) {
-                    v.pause();
+    var VideoLoader = {
+        queue: [],
+        activeCount: 0,
+        maxConcurrent: 2,
+        timeouts: {},
+        retries: {},
+        maxRetries: 2,
+        loadTimeout: 25000,
+        loading: new WeakSet(),
+
+        enqueue: function(video) {
+            var src = video.getAttribute('src');
+            if (!src || this.loading.has(video)) return;
+            if (this.queue.indexOf(video) !== -1) return;
+
+            this.loading.add(video);
+            var id = this.getVideoId(video);
+            this.retries[id] = 0;
+            this.queue.push(video);
+            this.processNext();
+        },
+
+        processNext: function() {
+            if (this.activeCount >= this.maxConcurrent || this.queue.length === 0) return;
+            var video = this.queue.shift();
+            var self = this;
+            var id = this.getVideoId(video);
+            var card = video.closest('.video-card') || video.closest('.video-item');
+            var loadingEl = card ? card.querySelector('.video-loading') : null;
+            var errorEl = card ? card.querySelector('.video-error') : null;
+
+            if (loadingEl) loadingEl.classList.add('active');
+            if (errorEl) errorEl.classList.remove('active');
+            video.dataset.loaded = 'loading';
+
+            this.activeCount++;
+
+            function onSuccess() {
+                cleanup();
+                if (loadingEl) loadingEl.classList.remove('active');
+                if (errorEl) errorEl.classList.remove('active');
+                video.dataset.loaded = 'true';
+                self.activeCount = Math.max(0, self.activeCount - 1);
+                self.processNext();
+            }
+
+            function onFailure() {
+                cleanup();
+                if (loadingEl) loadingEl.classList.remove('active');
+                self.activeCount = Math.max(0, self.activeCount - 1);
+                if (self.retries[id] < self.maxRetries) {
+                    self.retries[id]++;
+                    video.removeAttribute('src');
+                    video.setAttribute('src', src || video.getAttribute('src'));
+                    self.queue.unshift(video);
+                    self.processNext();
+                } else {
+                    if (errorEl) errorEl.classList.add('active');
+                    video.dataset.loaded = 'error';
+                    self.processNext();
                 }
-            }.bind(this));
-        });
-    });
+            }
+
+            function onTimeout() {
+                video.pause();
+                onFailure();
+            }
+
+            function cleanup() {
+                clearTimeout(self.timeouts[id]);
+                delete self.timeouts[id];
+                video.removeEventListener('canplay', onSuccess);
+                video.removeEventListener('canplaythrough', onSuccess);
+                video.removeEventListener('error', onFailure);
+            }
+
+            video.addEventListener('canplay', onSuccess, { once: true });
+            video.addEventListener('canplaythrough', onSuccess, { once: true });
+            video.addEventListener('error', onFailure, { once: true });
+
+            self.timeouts[id] = setTimeout(onTimeout, self.loadTimeout);
+
+            video.preload = 'auto';
+            video.load();
+        },
+
+        getVideoId: function(video) {
+            if (!video._vlId) video._vlId = Math.random().toString(36).substr(2, 9);
+            return video._vlId;
+        }
+    };
 
     var videoObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
             if (entry.isIntersecting) {
                 var video = entry.target;
                 videoObserver.unobserve(video);
-                VideoLoadQueue.enqueue(video);
+                VideoLoader.enqueue(video);
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0.05, rootMargin: '300px 0px 300px 0px' });
 
-    videos.forEach(function(video) {
-        videoObserver.observe(video);
+    document.querySelectorAll('video').forEach(function(video) {
+        var src = video.getAttribute('src');
+        if (src) videoObserver.observe(video);
     });
+
+    function setupVideoCard(card) {
+        var video = card.querySelector('video');
+        var playBtn = card.querySelector('.play-btn');
+        var loadingEl = card.querySelector('.video-loading');
+        var errorEl = card.querySelector('.video-error');
+        if (!video) return;
+
+        video.addEventListener('waiting', function() {
+            if (loadingEl) loadingEl.classList.add('active');
+        });
+        video.addEventListener('playing', function() {
+            if (loadingEl) loadingEl.classList.remove('active');
+        });
+
+        function loadAndPlay() {
+            if (errorEl && errorEl.classList.contains('active')) {
+                var src = video.getAttribute('src');
+                if (src) {
+                    video.removeAttribute('src');
+                    video.setAttribute('src', src);
+                    video.dataset.loaded = 'false';
+                    VideoLoader.retries[VideoLoader.getVideoId(video)] = 0;
+                    VideoLoader.enqueue(video);
+                }
+                return;
+            }
+            if (loadingEl) loadingEl.classList.add('active');
+            video.preload = 'auto';
+            video.load();
+            var onReady = function() {
+                if (loadingEl) loadingEl.classList.remove('active');
+                video.muted = false;
+                video.play().catch(function() {
+                    video.muted = true;
+                    video.play().catch(function() {
+                        if (errorEl) errorEl.classList.add('active');
+                        if (loadingEl) loadingEl.classList.remove('active');
+                    });
+                });
+                video.removeEventListener('canplay', onReady);
+                video.removeEventListener('canplaythrough', onReady);
+            };
+            var onErr = function() {
+                if (loadingEl) loadingEl.classList.remove('active');
+                if (errorEl) errorEl.classList.add('active');
+                video.removeEventListener('error', onErr);
+            };
+            video.addEventListener('canplay', onReady, { once: true });
+            video.addEventListener('canplaythrough', onReady, { once: true });
+            video.addEventListener('error', onErr, { once: true });
+        }
+
+        if (playBtn) {
+            playBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                loadAndPlay();
+            });
+            playBtn.addEventListener('touchend', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                loadAndPlay();
+            });
+        }
+
+        card.addEventListener('click', function(e) {
+            if (e.target.closest('.play-btn')) return;
+            if (video.paused) {
+                loadAndPlay();
+            } else {
+                video.pause();
+            }
+        });
+
+        var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (!isTouchDevice) {
+            card.addEventListener('mouseenter', function() {
+                if (video.dataset.loaded === 'true' && video.readyState >= 2) {
+                    video.muted = true;
+                    video.play().catch(function() {});
+                }
+            });
+            card.addEventListener('mouseleave', function() {
+                if (!video.paused) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+                if (loadingEl) loadingEl.classList.remove('active');
+            });
+        }
+    }
+
+    document.querySelectorAll('.video-card').forEach(setupVideoCard);
 
     var observerOptions = {
         threshold: 0.1,
@@ -76,16 +247,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     requestAnimationFrame(step);
                 });
+                var bars = entry.target.querySelectorAll('.stat-bar-fill');
+                bars.forEach(function(bar) {
+                    if (!bar.classList.contains('animated')) {
+                        bar.classList.add('animated');
+                    }
+                });
                 statsObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.3 });
-    
+
     var statsCard = document.querySelector('.bento-stats');
     if (statsCard) statsObserver.observe(statsCard);
 
     var navbar = document.querySelector('.navbar');
-    
     var navbarObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
             if (!entry.isIntersecting) {
@@ -174,6 +350,14 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transition = 'transform 0.15s ease-out';
         });
     });
+
+    var mouseGlow = document.getElementById('mouseGlow');
+    if (mouseGlow) {
+        document.addEventListener('mousemove', function(e) {
+            mouseGlow.style.left = e.clientX + 'px';
+            mouseGlow.style.top = e.clientY + 'px';
+        });
+    }
 });
 
 function throttle(func, limit) {
@@ -190,41 +374,3 @@ function throttle(func, limit) {
         }
     };
 }
-
-var VideoLoadQueue = {
-    queue: [],
-    maxConcurrent: 2,
-    activeCount: 0,
-
-    enqueue: function(video) {
-        if (this.queue.indexOf(video) !== -1) return;
-        var self = this;
-        var card = video.closest('.video-card') || video.closest('.video-item');
-
-        video.addEventListener('canplay', function() {
-            var loadingEl = card ? card.querySelector('.video-loading') : null;
-            var errorEl = card ? card.querySelector('.video-error') : null;
-            if (loadingEl) loadingEl.classList.remove('active');
-            if (errorEl) errorEl.classList.remove('active');
-            self.activeCount--;
-            self.processNext();
-        }, { once: true });
-
-        video.addEventListener('error', function() {
-            var errorEl = card ? card.querySelector('.video-error') : null;
-            if (errorEl) errorEl.classList.add('active');
-            self.activeCount--;
-            self.processNext();
-        }, { once: true });
-
-        this.queue.push(video);
-        this.processNext();
-    },
-
-    processNext: function() {
-        if (this.activeCount >= this.maxConcurrent || this.queue.length === 0) return;
-        var video = this.queue.shift();
-        this.activeCount++;
-        video.load();
-    }
-};
