@@ -1191,6 +1191,11 @@ textarea:focus-visible {
 .video-category.cat-label-game { background: rgba(245,158,11,0.12); color: #fbbf24; }
 .video-category.cat-label-real { background: rgba(236,72,153,0.12); color: #f472b6; }
 
+.video-category-label.cat-label-documentary { background: rgba(99,102,241,0.12); color: #818cf8; }
+.video-category-label.cat-label-ads { background: rgba(6,182,212,0.12); color: #22d3ee; }
+.video-category-label.cat-label-game { background: rgba(245,158,11,0.12); color: #fbbf24; }
+.video-category-label.cat-label-real { background: rgba(236,72,153,0.12); color: #f472b6; }
+
 .video-info h3 {
     font-size: 1.15rem;
     margin-bottom: var(--space-sm);
@@ -1832,8 +1837,9 @@ textarea:focus-visible {
 }
 
 .form-group select option {
-    background: var(--text-1);
-    color: var(--text-primary);
+    background: var(--bg-elevated);
+    color: var(--text);
+    padding: 8px 12px;
 }
 
 .form-group textarea {

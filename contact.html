@@ -5,14 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>联系我 | 陈俊良作品集</title>
     <link rel="stylesheet" href="style.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            emailjs.init({
-                publicKey: "YOUR_PUBLIC_KEY",
-            });
-        })();
-    </script>
     <style>
         .contact-page-hero::before {
             content: '';
@@ -284,29 +276,38 @@
             submitBtn.disabled = true;
             btnText.textContent = '发送中...';
 
-            const templateParams = {
-                from_name: document.getElementById('name').value,
-                from_email: document.getElementById('email').value,
+            var formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value || '未填写',
                 subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value,
-                to_email: '1306737663@qq.com'
+                message: document.getElementById('message').value
             };
 
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    document.getElementById('success-modal').classList.add('show');
-                    document.getElementById('contact-form').reset();
-                })
-                .catch(function(error) {
-                    console.log('FAILED...', error);
-                    document.getElementById('error-modal').classList.add('show');
-                })
-                .finally(function() {
-                    submitBtn.disabled = false;
-                    btnText.textContent = originalText;
-                });
+            fetch('https://formsubmit.co/ajax/1306737663@qq.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(function(response) {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(function(data) {
+                document.getElementById('success-modal').classList.add('show');
+                document.getElementById('contact-form').reset();
+            })
+            .catch(function(error) {
+                console.log('FAILED...', error);
+                document.getElementById('error-modal').classList.add('show');
+            })
+            .finally(function() {
+                submitBtn.disabled = false;
+                btnText.textContent = originalText;
+            });
         });
 
         function closeModal() {
