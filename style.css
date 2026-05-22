@@ -1,38 +1,38 @@
-﻿@font-face {
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
     font-family: 'MaShanZheng';
     src: url('fonts/MaShanZheng-Regular.ttf') format('truetype');
     font-weight: 400;
-    font-display: optional;
+    font-display: swap;
 }
 @font-face {
     font-family: 'ZhiMangXing';
     src: url('fonts/ZhiMangXing-Regular.ttf') format('truetype');
     font-weight: 400;
-    font-display: optional;
+    font-display: swap;
 }
 @font-face {
     font-family: 'LongCang';
     src: url('fonts/LongCang-Regular.ttf') format('truetype');
     font-weight: 400;
-    font-display: optional;
+    font-display: swap;
 }
 @font-face {
-    font-family: 'ZCOOLXiaoWei';
-    src: url('fonts/ZCOOLXiaoWei-Regular.ttf') format('truetype');
+    font-family: 'LiuJianMaoCao';
+    src: url('fonts/LiuJianMaoCao-Regular.ttf') format('truetype');
     font-weight: 400;
-    font-display: optional;
+    font-display: swap;
 }
 @font-face {
     font-family: 'LXGWWenKai';
     src: url('fonts/LXGWWenKai-Regular.ttf') format('truetype');
     font-weight: 400;
-    font-display: optional;
+    font-display: swap;
 }
 @font-face {
     font-family: 'NotoSerifSC';
     src: url('fonts/NotoSerifSC-Variable.ttf') format('truetype');
     font-weight: 400 900;
-    font-display: optional;
+    font-display: swap;
 }
 
 * {
@@ -46,7 +46,7 @@
     --font-title-alt: 'ZhiMangXing', 'LongCang', serif;
     --font-serif: 'NotoSerifSC', serif;
     --font-body: 'LXGWWenKai', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
-    --font-brush: 'ZhiMangXing', 'MaShanZheng', serif;
+    --font-brush: 'LiuJianMaoCao', 'ZhiMangXing', serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
     --bg-dark: #0a0a0f;
     --bg-player: #0a0a0f;
@@ -115,6 +115,7 @@ button:focus-visible {
     transform: scale(0.96);
     transition: opacity var(--transition-layer), visibility var(--transition-layer), transform var(--transition-layer);
     z-index: 1;
+    contain: layout style paint;
 }
 
 .page-layer.active {
@@ -143,41 +144,42 @@ button:focus-visible {
 .landing-bg {
     position: absolute;
     inset: 0;
-    background: url('image.png') center/cover no-repeat;
+    background: url('image.jpg') center/cover no-repeat;
+    filter: brightness(0.65) saturate(0.85);
+}
+
+.landing-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.08);
     animation: bgFlicker 8s ease-in-out infinite;
+    will-change: opacity;
 }
 
 @keyframes bgFlicker {
-    0%, 100% { filter: brightness(0.65) saturate(0.85); }
-    30% { filter: brightness(0.6) saturate(0.8); }
-    50% { filter: brightness(0.7) saturate(0.9); }
-    70% { filter: brightness(0.62) saturate(0.82); }
+    0%, 100% { opacity: 0; }
+    30% { opacity: 0.3; }
+    50% { opacity: 0; }
+    70% { opacity: 0.2; }
 }
 
 .landing-grain {
     position: absolute;
-    inset: -50%;
-    width: 200%;
-    height: 200%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
     opacity: 0.04;
     pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    animation: grainShift 0.5s steps(10) infinite;
+    will-change: opacity;
+    animation: grainBreathe 8s ease-in-out infinite;
 }
 
-@keyframes grainShift {
-    0% { transform: translate(0, 0); }
-    10% { transform: translate(-5%, -10%); }
-    20% { transform: translate(-15%, 5%); }
-    30% { transform: translate(7%, -25%); }
-    40% { transform: translate(-5%, 25%); }
-    50% { transform: translate(-15%, 10%); }
-    60% { transform: translate(15%, 0%); }
-    70% { transform: translate(0%, 15%); }
-    80% { transform: translate(3%, 35%); }
-    90% { transform: translate(-10%, 10%); }
-    100% { transform: translate(0, 0); }
+@keyframes grainBreathe {
+    0%, 100% { opacity: 0.03; }
+    50% { opacity: 0.05; }
 }
 
 .landing-overlay {
@@ -307,6 +309,7 @@ button:focus-visible {
     cursor: pointer;
     animation: breathe 4s ease-in-out infinite;
     transition: opacity var(--transition);
+    will-change: opacity;
 }
 
 .landing-enter:hover {
@@ -384,6 +387,7 @@ button:focus-visible {
     pointer-events: none;
     z-index: 2;
     filter: blur(40px);
+    will-change: transform;
 }
 
 .landing-orb-1 {
@@ -459,22 +463,21 @@ button:focus-visible {
     inset: 0;
     background: url('hub-bg.jpg') center/cover no-repeat;
     filter: brightness(0.45) saturate(0.8);
+}
+
+.hub-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.05);
     animation: hubBgShift 20s ease-in-out infinite;
+    will-change: opacity;
 }
 
 @keyframes hubBgShift {
-    0%, 100% { 
-        filter: brightness(0.45) saturate(0.8);
-        transform: scale(1);
-    }
-    33% { 
-        filter: brightness(0.5) saturate(0.85);
-        transform: scale(1.02);
-    }
-    66% { 
-        filter: brightness(0.42) saturate(0.75);
-        transform: scale(1.01);
-    }
+    0%, 100% { opacity: 0; }
+    33% { opacity: 0.4; }
+    66% { opacity: 0.15; }
 }
 
 .hub-overlay {
@@ -506,6 +509,7 @@ button:focus-visible {
     border-radius: 50%;
     background: var(--text-white);
     animation: particleFloat var(--dur, 8s) var(--delay, 0s) ease-in-out infinite;
+    will-change: transform;
 }
 
 @keyframes particleFloat {
@@ -1014,6 +1018,7 @@ button:focus-visible {
         radial-gradient(ellipse at 30% 40%, rgba(180, 140, 80, 0.04) 0%, transparent 50%),
         radial-gradient(ellipse at 70% 60%, rgba(100, 140, 180, 0.03) 0%, transparent 50%);
     animation: profileGlow 15s ease-in-out infinite;
+    will-change: opacity;
 }
 
 @keyframes profileGlow {
