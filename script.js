@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     var videoData = {
         documentary: [
-            { src: '视频合集/AI纪录片《何以为家》.mp4', poster: 'posters/documentary-1.jpg', title: 'AI纪录片《何以为家》', desc: { 光影: '低色温暖调柔光为主，逆光剪影强化身份迷失的视觉隐喻，局部硬光打亮面部制造明暗割裂', 镜头: '固定长镜头保持纪实凝视感，缓慢推拉引导沉浸，全景→中景→特写递进构建情感压迫', 风格: '纪实人文风，诗意留白叙事，弱化旁白依赖视觉情绪传递', 节奏: '沉稳舒缓，留白与沉默交替推进，情绪在压抑与释放间缓慢蓄力' } },
+            { src: '视频合集/AI纪录片《何以为家》.mp4', poster: '65510df2ff3dcba1c3b5dd2419f86e97.jpg', title: 'AI纪录片《何以为家》', desc: { 光影: '低色温暖调柔光为主，逆光剪影强化身份迷失的视觉隐喻，局部硬光打亮面部制造明暗割裂', 镜头: '固定长镜头保持纪实凝视感，缓慢推拉引导沉浸，全景→中景→特写递进构建情感压迫', 风格: '纪实人文风，诗意留白叙事，弱化旁白依赖视觉情绪传递', 节奏: '沉稳舒缓，留白与沉默交替推进，情绪在压抑与释放间缓慢蓄力' } },
             { src: '视频合集/AI纪录片《沁园春·雪》.mp4', poster: 'posters/documentary-2.jpg', title: 'AI纪录片《沁园春·雪》', desc: { 光影: '高色温冷调漫射光营造雪域苍茫，侧逆光勾勒山脊轮廓，晨昏金光穿插制造冷暖转折', 镜头: '航拍大全景开篇建立山河格局，缓慢横移展现纵深，景别递进对应诗词起承转合', 风格: '史诗诗意风，东方写意美学，视觉节奏对仗诗词韵律', 节奏: '宏大舒缓，气势铺陈与意境留白交替，长镜头延展空间感' } }
         ],
         ads: [
@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
             { src: '视频合集/长游戏AI视频7.mp4', poster: 'posters/game-7.jpg', title: '短剧化AI视频', desc: { 光影: '侧逆光勾勒武侠人物轮廓，明暗对比强化招式力量感，暖黄烛光与冷月光的色温对立营造江湖氛围', 镜头: '升格慢动作放大招式瞬间，快速切换捕捉对攻节奏，全景→特写定格关键帧强化武术美感', 风格: '武侠动作风，东方暴力美学，以短剧叙事框架承载武打奇观', 节奏: '动静交替，招式蓄力慢放→交锋快切，武侠韵律驱动叙事推进' } }
         ],
         real: [
-            { src: '视频合集/实拍纪录片——广西三月三.mp4', poster: 'posters/real-1.jpg', title: '实拍纪录片——广西三月三', desc: { 光影: '自然日光为主，暖调环境光还原节日热烈，逆光拍摄歌舞剪影强化仪式感，室内烛光补充人文温度', 镜头: '纪实跟拍捕捉民俗自然感，仪式段落固定镜头保持庄重，全景→中景→特写传递文化厚度', 风格: '民族纪实风，人文关怀视角，以真实记录替代奇观化呈现', 节奏: '节庆律动，仪式庄重与生活欢快交织，情绪在传统与现代间自然流转', 荣誉: '广西日报年度最佳宣传片、广西自治区党委宣传部表彰' } },
             { src: '视频合集/纪录片——东兴电商宣传.mp4', poster: 'posters/real-2.jpg', title: '纪录片——东兴电商宣传', desc: { 光影: '混合光源，室内暖光营造电商工作温度，室外自然光展现物流实景，补光均匀保持画面通透', 镜头: '采访固定镜头保持叙事稳定，跟拍展现物流动态，中景叙事→特写捕捉人物情绪', 风格: '现代纪实风，发展叙事，以人物故事承载产业变迁', 节奏: '稳健推进，数据呈现与人物故事交织，理性与感性双线并行' } },
-            { src: '视频合集/实拍纪录片——五四青年节.mp4', poster: 'posters/real-3.jpg', title: '实拍纪录片——五四青年节', desc: { 光影: '明亮自然光为主，高调画面传递青春朝气，侧光勾勒青年轮廓，逆光光晕营造理想主义氛围', 镜头: '动态跟拍捕捉青年活力，升格慢动作定格奋斗瞬间，中近景为主保持情感亲近', 风格: '青春纪实风，朝气视觉调性，以真实力量替代口号式表达', 节奏: '明快昂扬，激情递进，从个体奋斗到群体共鸣逐步升温' } }
+            { src: '视频合集/实拍纪录片——五四青年节.mp4', poster: 'posters/real-3.jpg', title: '实拍纪录片——五四青年节', desc: { 光影: '明亮自然光为主，高调画面传递青春朝气，侧光勾勒青年轮廓，逆光光晕营造理想主义氛围', 镜头: '动态跟拍捕捉青年活力，升格慢动作定格奋斗瞬间，中近景为主保持情感亲近', 风格: '青春纪实风，朝气视觉调性，以真实力量替代口号式表达', 节奏: '明快昂扬，激情递进，从个体奋斗到群体共鸣逐步升温' } },
+            { src: '视频合集/实拍纪录片——广西三月三.mp4', poster: 'posters/real-1.jpg', title: '实拍纪录片——广西三月三', desc: { 光影: '自然日光为主，暖调环境光还原节日热烈，逆光拍摄歌舞剪影强化仪式感，室内烛光补充人文温度', 镜头: '纪实跟拍捕捉民俗自然感，仪式段落固定镜头保持庄重，全景→中景→特写传递文化厚度', 风格: '民族纪实风，人文关怀视角，以真实记录替代奇观化呈现', 节奏: '节庆律动，仪式庄重与生活欢快交织，情绪在传统与现代间自然流转', 荣誉: '广西日报年度最佳宣传片、广西自治区党委宣传部表彰' } }
         ]
     };
 
@@ -42,7 +42,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById(id).classList.add('active');
     }
 
-    document.getElementById('enter-portfolio').addEventListener('click', function() {
+    var enterPortfolioEl = document.getElementById('enter-portfolio');
+    if (enterPortfolioEl) enterPortfolioEl.addEventListener('click', function() {
         var landing = document.getElementById('layer-landing');
         var hub = document.getElementById('layer-hub');
 
@@ -86,7 +87,86 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 2500);
     });
 
-    document.getElementById('hub-back').addEventListener('click', function() {
+    var enterProfileEl = document.getElementById('enter-profile');
+    if (enterProfileEl) enterProfileEl.addEventListener('click', function() {
+        var landing = document.getElementById('layer-landing');
+        var profile = document.getElementById('layer-profile');
+
+        var enterAudio = new Audio('sounds/click-documentary.wav');
+        enterAudio.volume = 0.35;
+        enterAudio.play().catch(function() {});
+
+        landing.classList.add('leaving');
+
+        setTimeout(function() {
+            profile.classList.add('active');
+            profile.style.transform = 'scale(0.95)';
+            profile.style.opacity = '0';
+            profile.style.transition = 'none';
+
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    profile.style.transition = 'opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    profile.style.opacity = '1';
+                    profile.style.transform = 'scale(1)';
+                });
+            });
+
+            var sections = document.querySelectorAll('.profile-section');
+            sections.forEach(function(sec, i) {
+                sec.classList.remove('visible');
+                setTimeout(function() {
+                    sec.classList.add('visible');
+                }, 600 + i * 300);
+            });
+        }, 800);
+
+        setTimeout(function() {
+            landing.classList.remove('active', 'leaving');
+            profile.style.transition = '';
+            profile.style.transform = '';
+            profile.style.opacity = '';
+        }, 2500);
+    });
+
+    var profileBackEl = document.getElementById('profile-back');
+    if (profileBackEl) profileBackEl.addEventListener('click', function() {
+        var landing = document.getElementById('layer-landing');
+        var profile = document.getElementById('layer-profile');
+
+        profile.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        profile.style.opacity = '0';
+        profile.style.transform = 'scale(0.95)';
+
+        setTimeout(function() {
+            landing.classList.remove('leaving');
+            landing.style.filter = '';
+            landing.classList.add('active');
+            landing.style.opacity = '0';
+            landing.style.transform = 'scale(1.05)';
+
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    landing.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    landing.style.opacity = '1';
+                    landing.style.transform = 'scale(1)';
+                });
+            });
+        }, 400);
+
+        setTimeout(function() {
+            profile.classList.remove('active');
+            profile.style.transition = '';
+            profile.style.opacity = '';
+            profile.style.transform = '';
+            landing.style.transition = '';
+            landing.style.opacity = '';
+            landing.style.transform = '';
+        }, 1500);
+    });
+
+    var hubBackEl = document.getElementById('hub-back');
+    if (hubBackEl) hubBackEl.addEventListener('click', function() {
         var landing = document.getElementById('layer-landing');
         var hub = document.getElementById('layer-hub');
 
@@ -178,7 +258,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.getElementById('btn-back-hub').addEventListener('click', function() {
+    var btnBackHubEl = document.getElementById('btn-back-hub');
+    if (btnBackHubEl) btnBackHubEl.addEventListener('click', function() {
         if (playerVideo) { playerVideo.pause(); playerVideo.removeAttribute('src'); playerVideo.load(); }
         isPlaying = false;
         isCurtainOpen = false;
@@ -291,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(animateCurtainClose);
     }
 
-    playerVideo.addEventListener('click', function(e) {
+    if (playerVideo) playerVideo.addEventListener('click', function(e) {
         if (isCurtainOpen && isPlaying) {
             playerVideo.pause();
             isPlaying = false;
@@ -354,7 +435,8 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(animateCurtain);
     }
 
-    document.getElementById('curtain-trigger').addEventListener('click', function() {
+    var curtainTriggerEl = document.getElementById('curtain-trigger');
+    if (curtainTriggerEl) curtainTriggerEl.addEventListener('click', function() {
         var trigger = this;
         var loading = document.getElementById('player-loading');
 
@@ -381,12 +463,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.getElementById('btn-prev').addEventListener('click', function() {
+    var btnPrevEl = document.getElementById('btn-prev');
+    if (btnPrevEl) btnPrevEl.addEventListener('click', function() {
         var videos = videoData[currentCategory];
         currentIndex = (currentIndex - 1 + videos.length) % videos.length;
         loadVideo();
     });
-    document.getElementById('btn-next').addEventListener('click', function() {
+    var btnNextEl = document.getElementById('btn-next');
+    if (btnNextEl) btnNextEl.addEventListener('click', function() {
         var videos = videoData[currentCategory];
         currentIndex = (currentIndex + 1) % videos.length;
         loadVideo();
@@ -394,13 +478,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var speeds = [0.5, 1, 1.5, 2];
     var speedIdx = 1;
-    document.getElementById('ctrl-speed').addEventListener('click', function() {
+    var ctrlSpeedEl = document.getElementById('ctrl-speed');
+    if (ctrlSpeedEl) ctrlSpeedEl.addEventListener('click', function() {
         speedIdx = (speedIdx + 1) % speeds.length;
         playerVideo.playbackRate = speeds[speedIdx];
         this.textContent = speeds[speedIdx] + 'x';
     });
 
-    document.getElementById('ctrl-pip').addEventListener('click', function() {
+    var ctrlPipEl = document.getElementById('ctrl-pip');
+    if (ctrlPipEl) ctrlPipEl.addEventListener('click', function() {
         if (document.pictureInPictureElement) {
             document.exitPictureInPicture();
         } else if (playerVideo.requestPictureInPicture) {
@@ -408,7 +494,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    playerVideo.addEventListener('timeupdate', function() {
+    if (playerVideo) playerVideo.addEventListener('timeupdate', function() {
         if (playerVideo.duration > 0) {
             var pct = (playerVideo.currentTime / playerVideo.duration) * 100;
             document.getElementById('ctrl-progress-bar').style.width = pct + '%';
@@ -416,7 +502,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.getElementById('ctrl-progress').addEventListener('click', function(e) {
+    var ctrlProgressEl = document.getElementById('ctrl-progress');
+    if (ctrlProgressEl) ctrlProgressEl.addEventListener('click', function(e) {
         if (playerVideo.duration) {
             var rect = this.getBoundingClientRect();
             var pct = (e.clientX - rect.left) / rect.width;

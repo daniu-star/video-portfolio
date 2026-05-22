@@ -6,8 +6,16 @@
     <title>陈俊良 | 个人作品集</title>
     <meta name="description" content="陈俊良的个人作品集，展示AI纪录片、AI广告片、游戏视频和实拍纪录片作品">
     <meta name="keywords" content="陈俊良,作品集,AI视频,纪录片,广告片">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>" type="image/svg+xml">
+    <meta property="og:title" content="陈俊良 | 个人作品集">
+    <meta property="og:description" content="陈俊良的个人作品集，展示AI纪录片、AI广告片、游戏视频和实拍纪录片作品">
+    <meta property="og:url" content="https://www.chenjunliang.top">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="style.css">
     <link rel="preload" href="script.js" as="script">
+    <link rel="preload" href="fonts/MaShanZheng-Regular.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="fonts/ZhiMangXing-Regular.ttf" as="font" type="font/ttf" crossorigin>
 </head>
 <body>
     <div id="layer-landing" class="page-layer active">
@@ -22,7 +30,7 @@
             <div class="landing-orb landing-orb-1"></div>
             <div class="landing-orb landing-orb-2"></div>
             <div class="landing-orb landing-orb-3"></div>
-            <div class="landing-top-left">
+            <div class="landing-top-left" id="enter-profile" role="button" tabindex="0" aria-label="查看个人信息">
                 <div class="landing-name-vertical">
                     <span>陈</span><span>俊</span><span>良</span>
                 </div>
@@ -33,6 +41,7 @@
                     <div class="landing-name-en-detail">纪录片 / 广告片 / 游戏视频 / 实拍影像</div>
                     <div class="landing-name-en-detail">以AI为笔，以光影为墨</div>
                     <div class="landing-name-en-detail">Weaving light and shadow with algorithms</div>
+                    <div class="landing-name-hint">点击查看我的个人信息</div>
                 </div>
             </div>
             <div class="landing-center">
@@ -142,6 +151,107 @@
                     <div class="ctrl-progress-bar" id="ctrl-progress-bar"></div>
                 </div>
                 <span class="ctrl-time" id="ctrl-time">0:00 / 0:00</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="layer-profile" class="page-layer">
+        <div class="profile-bg"></div>
+        <div class="profile-overlay"></div>
+        <div class="profile-content">
+            <button class="profile-back" id="profile-back" aria-label="返回首页">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <div class="profile-layout">
+                <div class="profile-photo-area">
+                    <div class="profile-photo-frame">
+                        <div class="film-perf film-perf-top"></div>
+                        <div class="film-perf film-perf-bottom"></div>
+                        <img src="604449114e8d7e45e461091c5b0c6714.jpg" alt="陈俊良" class="profile-photo">
+                    </div>
+                    <div class="profile-photo-caption">CHEN JUNLIANG</div>
+                </div>
+                <div class="profile-info-area">
+                    <div class="profile-section" data-delay="0">
+                        <div class="profile-section-label">IDENTITY</div>
+                        <h2 class="profile-name">陈俊良</h2>
+                        <div class="profile-subtitle">AI Creator · Visual Storyteller · Academic Researcher</div>
+                        <div class="profile-tagline">新闻传播学（智能传播方向）</div>
+                    </div>
+                    <div class="profile-section" data-delay="1">
+                        <div class="profile-section-label">HIGHLIGHTS</div>
+                        <div class="profile-highlights">
+                            <div class="highlight-item"><span class="highlight-num">国家奖学金</span><span class="highlight-desc">最高学业荣誉</span></div>
+                            <div class="highlight-item"><span class="highlight-num">8次</span><span class="highlight-desc">国际顶会发言</span></div>
+                            <div class="highlight-item"><span class="highlight-num">100万+</span><span class="highlight-desc">视频点击量</span></div>
+                            <div class="highlight-item"><span class="highlight-num">CSSCI</span><span class="highlight-desc">核心期刊论文</span></div>
+                        </div>
+                    </div>
+                    <div class="profile-section" data-delay="2">
+                        <div class="profile-section-label">PROJECTS</div>
+                        <div class="profile-projects">
+                            <div class="project-item">
+                                <div class="project-role">AI技术顾问</div>
+                                <div class="project-title">国家社科基金项目</div>
+                                <div class="project-desc">Python+BERT/LIWC/STM/LDA进行NLP文本分析，搭建"中华民族共同体传播实验室"技术架构，助力产出7篇高水平论文</div>
+                            </div>
+                            <div class="project-item">
+                                <div class="project-role">核心主创</div>
+                                <div class="project-title">西部计划·AIGC剧情短片</div>
+                                <div class="project-desc">主导图生视频环节，解决长视频闪烁/变形难题，制作10分钟现实主义AI剧情片</div>
+                            </div>
+                            <div class="project-item">
+                                <div class="project-role">纪录片导演</div>
+                                <div class="project-title">东兴市融媒体中心《斩浪衔环》</div>
+                                <div class="project-desc">独立执导15分钟纪录片，全流程策划拍摄后期，多平台分发获广西云转发</div>
+                            </div>
+                            <div class="project-item">
+                                <div class="project-role">AI技术顾问</div>
+                                <div class="project-title">沐萌美公司</div>
+                                <div class="project-desc">搭建公司网站，7条AIGC视频10万+点击，7部游戏视频100万+点击，BERT用户数据分析</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-section" data-delay="3">
+                        <div class="profile-section-label">SKILLS</div>
+                        <div class="profile-skills">
+                            <div class="skill-group">
+                                <div class="skill-group-label">AI / ML</div>
+                                <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">BERT</span><span class="skill-tag">LIWC</span><span class="skill-tag">LDA</span><span class="skill-tag">STM</span><span class="skill-tag">Prompt Engineering</span></div>
+                            </div>
+                            <div class="skill-group">
+                                <div class="skill-group-label">Visual</div>
+                                <div class="skill-tags"><span class="skill-tag">AIGC视频</span><span class="skill-tag">纪录片导演</span><span class="skill-tag">运镜构图</span><span class="skill-tag">剪辑后期</span></div>
+                            </div>
+                            <div class="skill-group">
+                                <div class="skill-group-label">Web / Data</div>
+                                <div class="skill-tags"><span class="skill-tag">HTML/CSS/JS</span><span class="skill-tag">Claude Code</span><span class="skill-tag">MCP</span><span class="skill-tag">爬虫</span><span class="skill-tag">数据分析</span></div>
+                            </div>
+                            <div class="skill-group">
+                                <div class="skill-group-label">Academic</div>
+                                <div class="skill-tags"><span class="skill-tag">CSSCI论文</span><span class="skill-tag">国际顶会</span><span class="skill-tag">NLP文本分析</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-section" data-delay="4">
+                        <div class="profile-section-label">HONORS</div>
+                        <div class="profile-timeline">
+                            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">国家奖学金</div></div>
+                            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">国家励志奖学金</div></div>
+                            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">广西壮族自治区人民政府奖学金</div></div>
+                            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">广西优秀毕业生</div></div>
+                            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">广西日报月度TOP10</div></div>
+                            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">广西党委宣传部嘉奖</div></div>
+                        </div>
+                    </div>
+                    <div class="profile-section" data-delay="5">
+                        <div class="profile-section-label">CONTACT</div>
+                        <div class="profile-contact">
+                            <div class="contact-item">www.chenjunliang.top</div>
+                            <div class="contact-item">1306737664@qq.com</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
