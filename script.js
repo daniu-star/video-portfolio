@@ -1,695 +1,460 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var VideoLoader = {
-        queue: [],
-        activeCount: 0,
-        maxConcurrent: 2,
-        timeouts: {},
-        retries: {},
-        maxRetries: 2,
-        loadTimeout: 25000,
-        loading: new WeakSet(),
-
-        enqueue: function(video) {
-            var src = video.getAttribute('src');
-            if (!src || this.loading.has(video)) return;
-            if (this.queue.indexOf(video) !== -1) return;
-
-            this.loading.add(video);
-            var id = this.getVideoId(video);
-            this.retries[id] = 0;
-            this.queue.push(video);
-            this.processNext();
-        },
-
-        processNext: function() {
-            if (this.activeCount >= this.maxConcurrent || this.queue.length === 0) return;
-            var video = this.queue.shift();
-            var self = this;
-            var id = this.getVideoId(video);
-            var card = video.closest('.video-card') || video.closest('.video-item');
-            var loadingEl = card ? card.querySelector('.video-loading') : null;
-            var errorEl = card ? card.querySelector('.video-error') : null;
-            var progressBar = card ? card.querySelector('.video-loading-progress-bar') : null;
-            var percentEl = card ? card.querySelector('.video-loading-percent') : null;
-
-            if (loadingEl) loadingEl.classList.add('active');
-            if (errorEl) errorEl.classList.remove('active');
-            video.dataset.loaded = 'loading';
-
-            this.activeCount++;
-
-            function updateProgress() {
-                if (video.buffered.length > 0) {
-                    var buffered = video.buffered.end(video.buffered.length - 1);
-                    var pct = video.duration > 0 ? Math.round((buffered / video.duration) * 100) : 0;
-                    if (progressBar) progressBar.style.width = pct + '%';
-                    if (percentEl) percentEl.textContent = pct + '%';
-                }
-            }
-
-            var progressInterval = setInterval(updateProgress, 300);
-
-            function onSuccess() {
-                cleanup();
-                clearInterval(progressInterval);
-                if (progressBar) progressBar.style.width = '100%';
-                if (percentEl) percentEl.textContent = '100%';
-                setTimeout(function() {
-                    if (loadingEl) loadingEl.classList.remove('active');
-                }, 300);
-                if (errorEl) errorEl.classList.remove('active');
-                video.dataset.loaded = 'true';
-                self.activeCount = Math.max(0, self.activeCount - 1);
-                self.processNext();
-            }
-
-            function onFailure() {
-                cleanup();
-                clearInterval(progressInterval);
-                if (loadingEl) loadingEl.classList.remove('active');
-                self.activeCount = Math.max(0, self.activeCount - 1);
-                if (self.retries[id] < self.maxRetries) {
-                    self.retries[id]++;
-                    video.removeAttribute('src');
-                    video.setAttribute('src', src || video.getAttribute('src'));
-                    self.queue.unshift(video);
-                    self.processNext();
-                } else {
-                    if (errorEl) errorEl.classList.add('active');
-                    video.dataset.loaded = 'error';
-                    self.loading.delete(video);
-                    self.processNext();
-                }
-            }
-
-            function onTimeout() {
-                video.pause();
-                onFailure();
-            }
-
-            function cleanup() {
-                clearTimeout(self.timeouts[id]);
-                delete self.timeouts[id];
-                video.removeEventListener('canplay', onSuccess);
-                video.removeEventListener('canplaythrough', onSuccess);
-                video.removeEventListener('error', onFailure);
-            }
-
-            video.addEventListener('canplay', onSuccess, { once: true });
-            video.addEventListener('canplaythrough', onSuccess, { once: true });
-            video.addEventListener('error', onFailure, { once: true });
-
-            self.timeouts[id] = setTimeout(onTimeout, self.loadTimeout);
-
-            video.preload = 'auto';
-            video.load();
-        },
-
-        getVideoId: function(video) {
-            if (!video._vlId) video._vlId = Math.random().toString(36).substr(2, 9);
-            return video._vlId;
-        }
+    var videoData = {
+        documentary: [
+            { src: '视频合集/AI纪录片《何以为家》.mp4', poster: 'posters/documentary-1.jpg', title: 'AI纪录片《何以为家》', desc: { 光影: '低色温暖调柔光为主，逆光剪影强化身份迷失的视觉隐喻，局部硬光打亮面部制造明暗割裂', 镜头: '固定长镜头保持纪实凝视感，缓慢推拉引导沉浸，全景→中景→特写递进构建情感压迫', 风格: '纪实人文风，诗意留白叙事，弱化旁白依赖视觉情绪传递', 节奏: '沉稳舒缓，留白与沉默交替推进，情绪在压抑与释放间缓慢蓄力' } },
+            { src: '视频合集/AI纪录片《沁园春·雪》.mp4', poster: 'posters/documentary-2.jpg', title: 'AI纪录片《沁园春·雪》', desc: { 光影: '高色温冷调漫射光营造雪域苍茫，侧逆光勾勒山脊轮廓，晨昏金光穿插制造冷暖转折', 镜头: '航拍大全景开篇建立山河格局，缓慢横移展现纵深，景别递进对应诗词起承转合', 风格: '史诗诗意风，东方写意美学，视觉节奏对仗诗词韵律', 节奏: '宏大舒缓，气势铺陈与意境留白交替，长镜头延展空间感' } }
+        ],
+        ads: [
+            { src: '视频合集/广告片1.mp4', poster: 'posters/ads-1.jpg', title: '爆炸盐，炸掉所有烦恼', desc: { 光影: '高对比硬光制造爆破质感，瞬间强闪光效模拟爆炸冲击，冷白主光+暗部压深强化科技冷峻感', 镜头: '快速推拉+微距特写捕捉颗粒飞溅，全景与极近特写间跳切，以视觉震荡传递"炸裂"概念', 风格: '科技爆破风，以爆炸视觉隐喻情绪释放，高饱和冷色调构建品牌科技感', 节奏: '爆裂快切，毫秒级闪帧制造冲击峰值，静→爆→静三段式节奏强化记忆点' } },
+            { src: '视频合集/广告片2.mp4', poster: 'posters/ads-2.jpg', title: '沐萌美，油污跑光亮晶晶', desc: { 光影: '高调柔光营造清透质感，自然侧光勾勒产品光泽，过曝高光区暗示洁净效果', 镜头: '中景生活场景→特写产品细节递进，旋转环绕展示去污过程，浅景深聚焦清洁瞬间', 风格: '清新生活风，明快视觉调性，以干净画面语言呼应产品功能诉求', 节奏: '轻快律动，问题→解决短促切换，结尾定格亮洁画面强化品牌印象' } },
+            { src: '视频合集/广告片3.mp4', poster: 'posters/ads-3.jpg', title: '一滴浓，一身净', desc: { 光影: '动态侧光勾勒运动肌肉线条，逆光轮廓光强化身体张力，冷暖光交替映射状态转换', 镜头: '跟拍捕捉运动轨迹，升格慢动作放大力量瞬间，全身→局部快速切换传递活力', 风格: '运动活力风，力量美学，高对比高饱和视觉强化品牌能量感', 节奏: '快慢交替，慢动作蓄力→正常速度释放，爆发节奏驱动情绪攀升' } },
+            { src: '视频合集/广告片4.mp4', poster: 'posters/ads-4.jpg', title: '油污净，秒除污', desc: { 光影: '去污前冷灰低调→去污后暖白高调，色温转换直映清洁效果，侧光打亮洁净表面', 镜头: '微距特写污渍细节→中景展示清洁过程，对比构图左右分屏或前后跳切', 风格: '功能演示风，视觉对比为核心策略，干净利落画面语言呼应"秒除"诉求', 节奏: '干脆利落，问题→解决两拍式快切，零冗余节奏传递高效去污产品力' } },
+            { src: '视频合集/广告片5.mp4', poster: 'posters/ads-5.jpg', title: 'AD钙，用心包裹儿时科幻梦', desc: { 光影: '霓虹冷光与暖调柔光交织营造科幻梦境质感，光晕漫射柔化边缘，低角度光打亮产品制造童话光环', 镜头: '仰拍广角营造儿童仰望视角，微距捕捉产品细节，奇幻大场景与产品特写间跳跃', 风格: '童趣科幻风，梦幻视觉包裹产品，以想象力叙事替代功能说教', 节奏: '奇幻跳跃，场景快速切换模拟儿童注意力节奏，惊喜感持续输出' } },
+            { src: '视频合集/广告片6.mp4', poster: 'posters/ads-6.jpg', title: '陪你酸酸甜甜，陪你可可爱爱', desc: { 光影: '暖调逆光营造柔美轮廓，柔焦光晕包裹画面，自然散射光制造温馨氛围，高光微过曝传递甜蜜感', 镜头: '浅景深特写聚焦表情与产品，缓慢摇移跟随情感流动，中近景为主保持亲密感', 风格: '温馨治愈风，柔美视觉调性，以陪伴感叙事替代产品推销', 节奏: '温柔舒缓，情感递进如呼吸般自然，甜蜜与可爱情绪交替流淌' } },
+            { src: '视频合集/广告片7.mp4', poster: 'posters/ads-7.jpg', title: '东方美学，飘逸灵动', desc: { 光影: '柔光漫射营造梦幻氛围，彩色滤光片创造艺术感光影，水波纹反射增添灵动质感', 镜头: '慢动作捕捉飘逸动感，推镜头聚焦设计亮点，全景展现造型→中景展示搭配→近景捕捉面料质感', 风格: '东方时尚风，融合美学，以飘逸视觉语言传递品牌艺术调性', 节奏: '优雅灵动，场景流转如丝般顺滑，艺术感与商业感平衡推进' } }
+        ],
+        game: [
+            { src: '视频合集/长游戏AI视频1.mp4', poster: 'posters/game-1.jpg', title: '三角洲委托——多元素引流', desc: { 光影: '多光源混合打光，冷暖交替营造奇幻层次感，体积光穿透雾气制造空间纵深', 镜头: '航拍→跟拍→特写多视角快速切换，景别跳变串联多元游戏元素，横移展现场景广度', 风格: '奇幻混搭风，多元视觉元素密集输出，以丰富度吸引不同玩家群体', 节奏: '快慢交错，元素轮番呈现保持新鲜感，信息密度高但不杂乱' } },
+            { src: '视频合集/长游戏AI视频2.mp4', poster: 'posters/game-2.jpg', title: '三角洲委托——冲突化引流', desc: { 光影: '高对比硬光强化金属质感，频闪光效模拟战场爆炸，冷蓝主调+橙红爆炸光制造冲突色温对撞', 镜头: '手持晃动制造临场冲击，快速推拉捕捉战斗瞬间，远景战场与近景机甲间急速切换', 风格: '硬核科幻风，冲突美学，以对抗张力驱动观看欲', 节奏: '急促快切，战斗节奏持续高压，爆炸闪帧制造视觉峰值' } },
+            { src: '视频合集/长游戏AI视频3.mp4', poster: 'posters/game-3.jpg', title: '三角洲委托——剧情化引流', desc: { 光影: '低调暗调为主，侧光勾勒暗黑轮廓，局部点光源制造悬疑明暗，深色压暗留出恐惧想象空间', 镜头: '缓慢推近制造压迫逼近感，景深虚化隐藏威胁，中景→特写收缩视野引发好奇与不安', 风格: '暗黑叙事风，哥特美学，以悬念与未知驱动持续观看', 节奏: '压抑缓起，悬念递进如暗流涌动，在窒息感中蓄积爆发' } },
+            { src: '视频合集/长游戏AI视频4.mp4', poster: 'posters/game-4.jpg', title: '三角洲委托——洛克王国与三角洲的剧情化、冲突化叙事', desc: { 光影: '自然光为基底，魔幻光效点缀超现实感，冷暖光随叙事情绪转换，体积光营造史诗空间纵深', 镜头: '大全景建立世界观，横移展现场景广度，叙事段中景推进剧情，冲突段快速切换制造对抗', 风格: '开放世界风，史诗叙事，双IP碰撞制造跨世界观奇观', 节奏: '叙事与冲突交替，张弛有度，剧情铺垫→冲突爆发→悬念收尾三段式推进' } },
+            { src: '视频合集/长游戏AI视频5.mp4', poster: 'posters/game-5.jpg', title: '三角洲委托——真人化仿真叙事', desc: { 光影: '仿真自然光为主，环境光反射模拟真实光感，避免人工补光痕迹，以纪实光效消解AI生成感', 镜头: '肩扛跟拍制造呼吸感，纪实视角保持临场真实，中近景为主贴近人物，偶发晃动增强仿真可信度', 风格: '伪纪实风，仿真叙事，以真实感消解虚拟边界，模糊AI与实拍界限', 节奏: '纪实节奏，沉浸推进，去戏剧化处理保持生活流质感' } },
+            { src: '视频合集/长游戏AI视频6.mp4', poster: 'posters/game-6.jpg', title: '三角洲委托——生活化叙事引流', desc: { 光影: '灰调漫射光营造废墟阴郁，低色温微暖光暗示生存希望，阴天散射光消除硬影传递末日氛围', 镜头: '固定镜头凝视荒芜环境，缓慢横移展现生存空间，中景记录日常动作，克制运镜反衬生存沉重', 风格: '末日写实风，荒凉美学，以生活化细节消解末日奇观化', 节奏: '缓慢沉重，生存压迫感持续低频，偶发危机瞬间打破日常' } },
+            { src: '视频合集/长游戏AI视频7.mp4', poster: 'posters/game-7.jpg', title: '短剧化AI视频', desc: { 光影: '侧逆光勾勒武侠人物轮廓，明暗对比强化招式力量感，暖黄烛光与冷月光的色温对立营造江湖氛围', 镜头: '升格慢动作放大招式瞬间，快速切换捕捉对攻节奏，全景→特写定格关键帧强化武术美感', 风格: '武侠动作风，东方暴力美学，以短剧叙事框架承载武打奇观', 节奏: '动静交替，招式蓄力慢放→交锋快切，武侠韵律驱动叙事推进' } }
+        ],
+        real: [
+            { src: '视频合集/实拍纪录片——广西三月三.mp4', poster: 'posters/real-1.jpg', title: '实拍纪录片——广西三月三', desc: { 光影: '自然日光为主，暖调环境光还原节日热烈，逆光拍摄歌舞剪影强化仪式感，室内烛光补充人文温度', 镜头: '纪实跟拍捕捉民俗自然感，仪式段落固定镜头保持庄重，全景→中景→特写传递文化厚度', 风格: '民族纪实风，人文关怀视角，以真实记录替代奇观化呈现', 节奏: '节庆律动，仪式庄重与生活欢快交织，情绪在传统与现代间自然流转', 荣誉: '广西日报年度最佳宣传片、广西自治区党委宣传部表彰' } },
+            { src: '视频合集/纪录片——东兴电商宣传.mp4', poster: 'posters/real-2.jpg', title: '纪录片——东兴电商宣传', desc: { 光影: '混合光源，室内暖光营造电商工作温度，室外自然光展现物流实景，补光均匀保持画面通透', 镜头: '采访固定镜头保持叙事稳定，跟拍展现物流动态，中景叙事→特写捕捉人物情绪', 风格: '现代纪实风，发展叙事，以人物故事承载产业变迁', 节奏: '稳健推进，数据呈现与人物故事交织，理性与感性双线并行' } },
+            { src: '视频合集/实拍纪录片——五四青年节.mp4', poster: 'posters/real-3.jpg', title: '实拍纪录片——五四青年节', desc: { 光影: '明亮自然光为主，高调画面传递青春朝气，侧光勾勒青年轮廓，逆光光晕营造理想主义氛围', 镜头: '动态跟拍捕捉青年活力，升格慢动作定格奋斗瞬间，中近景为主保持情感亲近', 风格: '青春纪实风，朝气视觉调性，以真实力量替代口号式表达', 节奏: '明快昂扬，激情递进，从个体奋斗到群体共鸣逐步升温' } }
+        ]
     };
 
-    var videoObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                var video = entry.target;
-                videoObserver.unobserve(video);
-                VideoLoader.enqueue(video);
-            }
+    var currentCategory = '';
+    var currentIndex = 0;
+    var playerVideo = document.getElementById('player-video');
+    var isPlaying = false;
+    var isCurtainOpen = false;
+
+    function showLayer(id) {
+        document.querySelectorAll('.page-layer').forEach(function(layer) {
+            layer.classList.remove('active');
         });
-    }, { threshold: 0.05, rootMargin: '300px 0px 300px 0px' });
-
-    document.querySelectorAll('video').forEach(function(video) {
-        var src = video.getAttribute('src');
-        if (src) videoObserver.observe(video);
-    });
-
-    var modalOverlay = null;
-    var modalVideo = null;
-    var controlsEl = null;
-    var controlsTimeout = null;
-    var loadingProgressInterval = null;
-    var modalLoadingEl = null;
-    var modalLoadingBarEl = null;
-    var modalLoadingTextEl = null;
-    var volumeSlider = null;
-
-    function createModal() {
-        if (modalOverlay) return;
-        modalOverlay = document.createElement('div');
-        modalOverlay.className = 'video-modal-overlay';
-        modalOverlay.innerHTML =
-            '<div class="video-modal-container">' +
-                '<button class="video-modal-close" aria-label="关闭">✕</button>' +
-                '<video playsinline></video>' +
-                '<div class="video-modal-loading">' +
-                    '<div class="video-modal-loading-inner">' +
-                        '<div class="video-modal-loading-spinner"></div>' +
-                        '<div class="video-modal-loading-progress"><div class="video-modal-loading-bar"></div></div>' +
-                        '<div class="video-modal-loading-text">加载中...</div>' +
-                    '</div>' +
-                '</div>' +
-                '<div class="video-modal-controls">' +
-                    '<div class="video-modal-progress">' +
-                        '<div class="video-modal-progress-buffered"></div>' +
-                        '<div class="video-modal-progress-played"></div>' +
-                        '<div class="video-modal-progress-thumb"></div>' +
-                    '</div>' +
-                    '<div class="video-modal-btns">' +
-                        '<button class="video-modal-btn video-modal-play-btn" aria-label="播放/暂停">' +
-                            '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>' +
-                        '</button>' +
-                        '<span class="video-modal-time">0:00 / 0:00</span>' +
-                        '<button class="modal-btn modal-mute-btn" aria-label="静音切换" title="静音">' +
-                            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>' +
-                        '</button>' +
-                        '<input type="range" class="modal-volume-slider" min="0" max="100" value="80" aria-label="音量">' +
-                        '<button class="modal-btn modal-speed-btn" aria-label="播放速度" title="1x">1x</button>' +
-                        '<button class="modal-btn modal-pip-btn" aria-label="画中画" title="画中画">' +
-                            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><rect x="12" y="9" width="8" height="6" rx="1" fill="currentColor" opacity="0.3"/></svg>' +
-                        '</button>' +
-                        '<div class="video-modal-speed-group">' +
-                            '<button class="video-modal-speed" data-speed="0.5">0.5x</button>' +
-                            '<button class="video-modal-speed" data-speed="1">1x</button>' +
-                            '<button class="video-modal-speed" data-speed="1.5">1.5x</button>' +
-                            '<button class="video-modal-speed" data-speed="2">2x</button>' +
-                            '<button class="video-modal-speed" data-speed="3">3x</button>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>' +
-            '</div>';
-        document.body.appendChild(modalOverlay);
-        modalVideo = modalOverlay.querySelector('video');
-        modalLoadingEl = modalOverlay.querySelector('.video-modal-loading');
-        modalLoadingBarEl = modalOverlay.querySelector('.video-modal-loading-bar');
-        modalLoadingTextEl = modalOverlay.querySelector('.video-modal-loading-text');
-
-        modalOverlay.querySelector('.video-modal-close').addEventListener('click', closeModal);
-
-        modalOverlay.addEventListener('click', function(e) {
-            if (e.target === modalOverlay) closeModal();
-        });
-
-        controlsEl = modalOverlay.querySelector('.video-modal-controls');
-        function showControls() {
-            if (controlsEl) controlsEl.classList.add('force-show');
-            clearTimeout(controlsTimeout);
-            controlsTimeout = setTimeout(function() {
-                if (controlsEl) controlsEl.classList.remove('force-show');
-            }, 3000);
-        }
-        modalOverlay.addEventListener('mousemove', showControls);
-        modalOverlay.addEventListener('touchstart', showControls, { passive: true });
-        showControls();
-
-        var playBtn = modalOverlay.querySelector('.video-modal-play-btn');
-        playBtn.addEventListener('click', function() {
-            if (modalVideo.paused) {
-                modalVideo.play();
-            } else {
-                modalVideo.pause();
-            }
-        });
-
-        modalVideo.addEventListener('click', function() {
-            if (modalVideo.paused) {
-                modalVideo.play();
-            } else {
-                modalVideo.pause();
-            }
-        });
-
-        modalVideo.addEventListener('play', function() {
-            playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
-        });
-
-        modalVideo.addEventListener('pause', function() {
-            playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
-        });
-
-        var progressBar = modalOverlay.querySelector('.video-modal-progress');
-        var progressPlayed = modalOverlay.querySelector('.video-modal-progress-played');
-        var progressBuffered = modalOverlay.querySelector('.video-modal-progress-buffered');
-        var progressThumb = modalOverlay.querySelector('.video-modal-progress-thumb');
-        var timeDisplay = modalOverlay.querySelector('.video-modal-time');
-
-        modalVideo.addEventListener('timeupdate', function() {
-            if (modalVideo.duration) {
-                var pct = (modalVideo.currentTime / modalVideo.duration) * 100;
-                progressPlayed.style.width = pct + '%';
-                progressThumb.style.left = pct + '%';
-                timeDisplay.textContent = formatTime(modalVideo.currentTime) + ' / ' + formatTime(modalVideo.duration);
-            }
-        });
-
-        modalVideo.addEventListener('progress', function() {
-            if (modalVideo.buffered.length > 0 && modalVideo.duration) {
-                var bufferedEnd = modalVideo.buffered.end(modalVideo.buffered.length - 1);
-                progressBuffered.style.width = (bufferedEnd / modalVideo.duration) * 100 + '%';
-            }
-        });
-
-        var isSeeking = false;
-        progressBar.addEventListener('mousedown', function(e) {
-            isSeeking = true;
-            seekTo(e);
-        });
-        document.addEventListener('mousemove', function(e) {
-            if (isSeeking) seekTo(e);
-        });
-        document.addEventListener('mouseup', function() {
-            isSeeking = false;
-        });
-
-        progressBar.addEventListener('touchstart', function(e) {
-            isSeeking = true;
-            seekTo(e.touches[0]);
-        }, { passive: true });
-        progressBar.addEventListener('touchmove', function(e) {
-            if (isSeeking) seekTo(e.touches[0]);
-        }, { passive: true });
-        progressBar.addEventListener('touchend', function() {
-            isSeeking = false;
-        });
-
-        function seekTo(e) {
-            var rect = progressBar.getBoundingClientRect();
-            var x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-            var pct = x / rect.width;
-            if (modalVideo.duration) {
-                modalVideo.currentTime = pct * modalVideo.duration;
-            }
-        }
-
-        modalVideo.addEventListener('waiting', function() {
-            if (modalLoadingEl) modalLoadingEl.classList.add('active');
-        });
-        modalVideo.addEventListener('playing', function() {
-            if (modalLoadingEl) modalLoadingEl.classList.remove('active');
-        });
-        modalVideo.addEventListener('canplay', function() {
-            if (modalLoadingEl) modalLoadingEl.classList.remove('active');
-        });
-
-        modalVideo.addEventListener('loadstart', function() {
-            if (modalLoadingEl) modalLoadingEl.classList.add('active');
-            if (modalLoadingBarEl) modalLoadingBarEl.style.width = '0%';
-            if (modalLoadingTextEl) modalLoadingTextEl.textContent = '加载中...';
-            clearInterval(loadingProgressInterval);
-            loadingProgressInterval = setInterval(function() {
-                if (modalVideo.buffered.length > 0 && modalVideo.duration) {
-                    var bufferedEnd = modalVideo.buffered.end(modalVideo.buffered.length - 1);
-                    var pct = Math.round((bufferedEnd / modalVideo.duration) * 100);
-                    if (modalLoadingBarEl) modalLoadingBarEl.style.width = pct + '%';
-                    if (modalLoadingTextEl) modalLoadingTextEl.textContent = '加载中 ' + pct + '%';
-                }
-            }, 200);
-        });
-        modalVideo.addEventListener('canplaythrough', function() {
-            clearInterval(loadingProgressInterval);
-            loadingProgressInterval = null;
-            if (modalLoadingBarEl) modalLoadingBarEl.style.width = '100%';
-            if (modalLoadingTextEl) modalLoadingTextEl.textContent = '加载完成';
-            setTimeout(function() {
-                if (modalLoadingEl) modalLoadingEl.classList.remove('active');
-            }, 300);
-        });
-
-        var speedBtns = modalOverlay.querySelectorAll('.video-modal-speed');
-        speedBtns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var speed = parseFloat(this.getAttribute('data-speed'));
-                modalVideo.playbackRate = speed;
-                speedBtns.forEach(function(b) { b.classList.remove('active-speed'); });
-                this.classList.add('active-speed');
-            });
-        });
-
-        var muteBtn = modalOverlay.querySelector('.modal-mute-btn');
-        volumeSlider = modalOverlay.querySelector('.modal-volume-slider');
-        if (muteBtn && volumeSlider && modalVideo) {
-            modalVideo.volume = 0.8;
-            muteBtn.addEventListener('click', function() {
-                modalVideo.muted = !modalVideo.muted;
-                muteBtn.classList.toggle('muted', modalVideo.muted);
-            });
-            volumeSlider.addEventListener('input', function() {
-                modalVideo.volume = this.value / 100;
-                modalVideo.muted = false;
-                muteBtn.classList.remove('muted');
-            });
-        }
-
-        var speedBtn = modalOverlay.querySelector('.modal-speed-btn');
-        var speeds = [0.5, 1, 1.5, 2];
-        var currentSpeedIdx = 1;
-        if (speedBtn && modalVideo) {
-            speedBtn.addEventListener('click', function() {
-                currentSpeedIdx = (currentSpeedIdx + 1) % speeds.length;
-                modalVideo.playbackRate = speeds[currentSpeedIdx];
-                speedBtn.textContent = speeds[currentSpeedIdx] + 'x';
-                speedBtn.title = speeds[currentSpeedIdx] + 'x';
-                speedBtns.forEach(function(b) { b.classList.remove('active-speed'); });
-            });
-        }
-
-        var pipBtn = modalOverlay.querySelector('.modal-pip-btn');
-        if (pipBtn && modalVideo) {
-            pipBtn.addEventListener('click', function() {
-                if (document.pictureInPictureElement) {
-                    document.exitPictureInPicture();
-                } else if (modalVideo.requestPictureInPicture) {
-                    modalVideo.requestPictureInPicture().catch(function() {});
-                }
-            });
-        }
-
-        modalVideo.addEventListener('timeupdate', function() {
-            if (modalVideo.src && modalVideo.currentTime > 0) {
-                localStorage.setItem('video-progress-' + modalVideo.src, modalVideo.currentTime.toString());
-            }
-        });
-
-        document.addEventListener('keydown', handleModalKeydown);
+        document.getElementById(id).classList.add('active');
     }
 
-    function handleModalKeydown(e) {
-        if (!modalOverlay || !modalOverlay.classList.contains('active')) return;
-        if (e.key === 'Escape') {
-            closeModal();
-            return;
-        }
-        if (!modalVideo) return;
+    document.getElementById('enter-portfolio').addEventListener('click', function() {
+        var landing = document.getElementById('layer-landing');
+        var hub = document.getElementById('layer-hub');
 
-        if (e.key === 'ArrowRight') {
+        var enterAudio = new Audio('sounds/click-documentary.wav');
+        enterAudio.volume = 0.35;
+        enterAudio.play().catch(function() {});
+
+        landing.classList.add('leaving');
+
+        setTimeout(function() {
+            hub.classList.add('active');
+            hub.style.transform = 'scale(0.95)';
+            hub.style.opacity = '0';
+            hub.style.transition = 'none';
+
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    hub.style.transition = 'opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    hub.style.opacity = '1';
+                    hub.style.transform = 'scale(1)';
+                });
+            });
+
+            var chars = document.querySelectorAll('.hub-title-char');
+            chars.forEach(function(c) { c.classList.remove('written'); });
+            setTimeout(function() {
+                chars.forEach(function(c, i) {
+                    setTimeout(function() {
+                        c.classList.add('written');
+                    }, i * 400);
+                });
+            }, 300);
+        }, 800);
+
+        setTimeout(function() {
+            landing.classList.remove('active', 'leaving');
+            landing.style.clipPath = '';
+            hub.style.transition = '';
+            hub.style.transform = '';
+            hub.style.opacity = '';
+        }, 2500);
+    });
+
+    document.getElementById('hub-back').addEventListener('click', function() {
+        var landing = document.getElementById('layer-landing');
+        var hub = document.getElementById('layer-hub');
+
+        hub.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        hub.style.opacity = '0';
+        hub.style.transform = 'scale(0.95)';
+
+        setTimeout(function() {
+            landing.classList.remove('leaving');
+            landing.style.filter = '';
+            landing.classList.add('active');
+            landing.style.opacity = '0';
+            landing.style.transform = 'scale(1.05)';
+
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    landing.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    landing.style.opacity = '1';
+                    landing.style.transform = 'scale(1)';
+                });
+            });
+        }, 400);
+
+        setTimeout(function() {
+            hub.classList.remove('active');
+            hub.style.transition = '';
+            hub.style.opacity = '';
+            hub.style.transform = '';
+            landing.style.transition = '';
+            landing.style.opacity = '';
+            landing.style.transform = '';
+        }, 1500);
+    });
+
+    var soundMap = {
+        documentary: 'sounds/click-documentary.wav',
+        ads: 'sounds/click-ads.wav',
+        game: 'sounds/click-game.wav',
+        real: 'sounds/click-real.wav'
+    };
+
+    document.querySelectorAll('.hub-category').forEach(function(cat) {
+        cat.addEventListener('click', function(e) {
             e.preventDefault();
-            modalVideo.currentTime = Math.min(modalVideo.duration || 0, modalVideo.currentTime + 5);
-        } else if (e.key === 'ArrowLeft') {
+            currentCategory = this.getAttribute('data-category');
+
+            var soundFile = soundMap[currentCategory];
+            if (soundFile) {
+                var audio = new Audio(soundFile);
+                audio.volume = 0.3;
+                audio.play().catch(function() {});
+            }
+
+            currentIndex = 0;
+            loadVideo();
+
+            var hub = document.getElementById('layer-hub');
+            var player = document.getElementById('layer-player');
+
+            player.classList.add('active');
+            player.style.opacity = '0';
+            player.style.transform = 'scale(1.05)';
+            player.style.transition = 'none';
+            player.style.zIndex = '5';
+            hub.style.zIndex = '10';
+
+            player.offsetHeight;
+
+            hub.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            hub.style.opacity = '0';
+            hub.style.transform = 'scale(0.95)';
+
+            setTimeout(function() {
+                player.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                player.style.opacity = '1';
+                player.style.transform = 'scale(1)';
+            }, 300);
+
+            setTimeout(function() {
+                hub.classList.remove('active');
+                hub.style.transition = '';
+                hub.style.opacity = '';
+                hub.style.transform = '';
+                hub.style.zIndex = '';
+                player.style.transition = '';
+                player.style.transform = '';
+                player.style.zIndex = '';
+            }, 1000);
+        });
+    });
+
+    document.getElementById('btn-back-hub').addEventListener('click', function() {
+        if (playerVideo) { playerVideo.pause(); playerVideo.removeAttribute('src'); playerVideo.load(); }
+        isPlaying = false;
+        isCurtainOpen = false;
+        showLayer('layer-hub');
+    });
+
+    function loadVideo() {
+        var videos = videoData[currentCategory];
+        if (!videos || !videos[currentIndex]) return;
+        var v = videos[currentIndex];
+
+        document.getElementById('player-cat-label').textContent = getCategoryName(currentCategory);
+        document.getElementById('player-title').textContent = v.title;
+
+        var posterUrl = v.poster;
+        var curtainLeft = document.getElementById('poster-curtain-left');
+        var curtainRight = document.getElementById('poster-curtain-right');
+        curtainLeft.style.backgroundImage = 'url(' + posterUrl + ')';
+        curtainRight.style.backgroundImage = 'url(' + posterUrl + ')';
+        curtainLeft.style.backgroundSize = '200% 100%';
+        curtainRight.style.backgroundSize = '200% 100%';
+        curtainLeft.style.backgroundPosition = 'left center';
+        curtainRight.style.backgroundPosition = 'right center';
+
+        curtainLeft.style.clipPath = 'polygon(0 0, 50% 0, 50% 100%, 0 100%)';
+        curtainRight.style.clipPath = 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)';
+        document.getElementById('poster-curtain-seam').classList.remove('hidden');
+        document.getElementById('curtain-trigger').classList.remove('hidden');
+        isCurtainOpen = false;
+
+        if (playerVideo) {
+            playerVideo.removeAttribute('src');
+            playerVideo.load();
+        }
+        isPlaying = false;
+
+        var infoEl = document.getElementById('player-info');
+        infoEl.innerHTML = '';
+        if (v.desc) {
+            Object.keys(v.desc).forEach(function(key) {
+                var item = document.createElement('div');
+                item.className = 'desc-item';
+                item.innerHTML = '<span class="desc-label">' + key + '</span><span class="desc-text">' + v.desc[key] + '</span>';
+                infoEl.appendChild(item);
+            });
+        }
+
+        var progressBar = document.getElementById('ctrl-progress-bar');
+        if (progressBar) progressBar.style.width = '0%';
+        var timeEl = document.getElementById('ctrl-time');
+        if (timeEl) timeEl.textContent = '0:00 / 0:00';
+    }
+
+    function getCategoryName(cat) {
+        var names = { documentary: 'AI纪录片', ads: 'AI广告片', game: '长AI游戏视频', real: '实拍纪录片' };
+        return names[cat] || '';
+    }
+
+    function closeCurtainWithWave() {
+        isCurtainOpen = false;
+        var curtainLeft = document.getElementById('poster-curtain-left');
+        var curtainRight = document.getElementById('poster-curtain-right');
+        var seam = document.getElementById('poster-curtain-seam');
+        var trigger = document.getElementById('curtain-trigger');
+
+        var duration = 1800;
+        var start = null;
+
+        function animateCurtainClose(timestamp) {
+            if (!start) start = timestamp;
+            var progress = Math.min((timestamp - start) / duration, 1);
+
+            var t = progress < 0.5
+                ? 4 * progress * progress * progress
+                : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+            var waveAmp = 30 * t * (1 - t);
+            var edge = t * 50;
+
+            var leftClip = 'polygon(0 0, ' + edge + '% 0';
+            for (var i = 0; i <= 10; i++) {
+                var y = i * 10;
+                var waveOffset = Math.sin(y * 0.3 + (1 - progress) * 6) * waveAmp;
+                leftClip += ', ' + (edge + waveOffset * 0.1) + '% ' + y + '%';
+            }
+            leftClip += ', 0 100%)';
+
+            var rightEdge = 100 - edge;
+            var rightClip = 'polygon(' + rightEdge + '% 0';
+            for (var j = 0; j <= 10; j++) {
+                var y2 = j * 10;
+                var waveOffset2 = Math.sin(y2 * 0.3 + (1 - progress) * 6) * waveAmp;
+                rightClip += ', ' + (rightEdge - waveOffset2 * 0.1) + '% ' + y2 + '%';
+            }
+            rightClip += ', 100% 100%, 100% 0%)';
+
+            curtainLeft.style.clipPath = leftClip;
+            curtainRight.style.clipPath = rightClip;
+
+            if (progress < 1) {
+                requestAnimationFrame(animateCurtainClose);
+            } else {
+                curtainLeft.style.clipPath = 'polygon(0 0, 50% 0, 50% 100%, 0 100%)';
+                curtainRight.style.clipPath = 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)';
+                seam.classList.remove('hidden');
+                trigger.classList.remove('hidden');
+            }
+        }
+
+        requestAnimationFrame(animateCurtainClose);
+    }
+
+    playerVideo.addEventListener('click', function(e) {
+        if (isCurtainOpen && isPlaying) {
+            playerVideo.pause();
+            isPlaying = false;
+            closeCurtainWithWave();
+        }
+    });
+
+    function openCurtainWithWave() {
+        var curtainLeft = document.getElementById('poster-curtain-left');
+        var curtainRight = document.getElementById('poster-curtain-right');
+        var seam = document.getElementById('poster-curtain-seam');
+        var trigger = document.getElementById('curtain-trigger');
+
+        trigger.classList.add('hidden');
+        seam.classList.add('hidden');
+        isCurtainOpen = true;
+
+        var duration = 1800;
+        var start = null;
+
+        function animateCurtain(timestamp) {
+            if (!start) start = timestamp;
+            var progress = Math.min((timestamp - start) / duration, 1);
+
+            var t = progress < 0.5
+                ? 4 * progress * progress * progress
+                : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+            var waveAmp = 30 * (1 - t * t);
+            var edge = 50 - t * 50;
+
+            var leftClip = 'polygon(0 0, ' + edge + '% 0';
+            for (var i = 0; i <= 10; i++) {
+                var y = i * 10;
+                var waveOffset = Math.sin(y * 0.3 + progress * 6) * waveAmp;
+                leftClip += ', ' + (edge + waveOffset * 0.1) + '% ' + y + '%';
+            }
+            leftClip += ', 0 100%)';
+
+            var rightEdge = 100 - edge;
+            var rightClip = 'polygon(' + rightEdge + '% 0';
+            for (var j = 0; j <= 10; j++) {
+                var y2 = j * 10;
+                var waveOffset2 = Math.sin(y2 * 0.3 + progress * 6) * waveAmp;
+                rightClip += ', ' + (rightEdge - waveOffset2 * 0.1) + '% ' + y2 + '%';
+            }
+            rightClip += ', 100% 100%, 100% 0%)';
+
+            curtainLeft.style.clipPath = leftClip;
+            curtainRight.style.clipPath = rightClip;
+
+            if (progress < 1) {
+                requestAnimationFrame(animateCurtain);
+            } else {
+                curtainLeft.style.clipPath = 'polygon(0 0, 0 0, 0 100%, 0 100%)';
+                curtainRight.style.clipPath = 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)';
+            }
+        }
+
+        requestAnimationFrame(animateCurtain);
+    }
+
+    document.getElementById('curtain-trigger').addEventListener('click', function() {
+        var trigger = this;
+        var loading = document.getElementById('player-loading');
+
+        openCurtainWithWave();
+
+        if (!playerVideo.src || playerVideo.src === window.location.href) {
+            var v = videoData[currentCategory][currentIndex];
+            if (!v) return;
+            playerVideo.src = v.src;
+            playerVideo.load();
+            loading.classList.add('active');
+
+            playerVideo.addEventListener('canplay', function onCanPlay() {
+                playerVideo.removeEventListener('canplay', onCanPlay);
+                loading.classList.remove('active');
+                playerVideo.play();
+                isPlaying = true;
+            }, { once: true });
+        } else {
+            setTimeout(function() {
+                playerVideo.play();
+                isPlaying = true;
+            }, 1800);
+        }
+    });
+
+    document.getElementById('btn-prev').addEventListener('click', function() {
+        var videos = videoData[currentCategory];
+        currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+        loadVideo();
+    });
+    document.getElementById('btn-next').addEventListener('click', function() {
+        var videos = videoData[currentCategory];
+        currentIndex = (currentIndex + 1) % videos.length;
+        loadVideo();
+    });
+
+    var speeds = [0.5, 1, 1.5, 2];
+    var speedIdx = 1;
+    document.getElementById('ctrl-speed').addEventListener('click', function() {
+        speedIdx = (speedIdx + 1) % speeds.length;
+        playerVideo.playbackRate = speeds[speedIdx];
+        this.textContent = speeds[speedIdx] + 'x';
+    });
+
+    document.getElementById('ctrl-pip').addEventListener('click', function() {
+        if (document.pictureInPictureElement) {
+            document.exitPictureInPicture();
+        } else if (playerVideo.requestPictureInPicture) {
+            playerVideo.requestPictureInPicture().catch(function() {});
+        }
+    });
+
+    playerVideo.addEventListener('timeupdate', function() {
+        if (playerVideo.duration > 0) {
+            var pct = (playerVideo.currentTime / playerVideo.duration) * 100;
+            document.getElementById('ctrl-progress-bar').style.width = pct + '%';
+            document.getElementById('ctrl-time').textContent = formatTime(playerVideo.currentTime) + ' / ' + formatTime(playerVideo.duration);
+        }
+    });
+
+    document.getElementById('ctrl-progress').addEventListener('click', function(e) {
+        if (playerVideo.duration) {
+            var rect = this.getBoundingClientRect();
+            var pct = (e.clientX - rect.left) / rect.width;
+            playerVideo.currentTime = pct * playerVideo.duration;
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (!document.getElementById('layer-player').classList.contains('active')) return;
+        if (e.key === 'ArrowLeft') {
             e.preventDefault();
-            modalVideo.currentTime = Math.max(0, modalVideo.currentTime - 5);
+            playerVideo.currentTime = Math.max(0, playerVideo.currentTime - 5);
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            playerVideo.currentTime = Math.min(playerVideo.duration || 0, playerVideo.currentTime + 5);
         } else if (e.key === ' ') {
             e.preventDefault();
-            if (modalVideo.paused) {
-                modalVideo.play();
-            } else {
-                modalVideo.pause();
-            }
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            modalVideo.volume = Math.min(1, modalVideo.volume + 0.1);
-            if (volumeSlider) volumeSlider.value = Math.round(modalVideo.volume * 100);
-        } else if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            modalVideo.volume = Math.max(0, modalVideo.volume - 0.1);
-            if (volumeSlider) volumeSlider.value = Math.round(modalVideo.volume * 100);
-        }
-    }
-
-    function openModal(src, poster) {
-        createModal();
-        modalVideo.muted = false;
-        modalVideo.src = src;
-        if (poster) modalVideo.setAttribute('poster', poster);
-
-        var savedTime = localStorage.getItem('video-progress-' + src);
-        if (savedTime && !isNaN(parseFloat(savedTime))) {
-            modalVideo.addEventListener('loadedmetadata', function() {
-                modalVideo.currentTime = parseFloat(savedTime);
-            }, { once: true });
-        }
-
-        if (volumeSlider) volumeSlider.value = Math.round(modalVideo.volume * 100);
-
-        modalOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-
-        var defaultSpeedBtn = modalOverlay.querySelector('.video-modal-speed[data-speed="1"]');
-        modalOverlay.querySelectorAll('.video-modal-speed').forEach(function(b) { b.classList.remove('active-speed'); });
-        if (defaultSpeedBtn) defaultSpeedBtn.classList.add('active-speed');
-        modalVideo.playbackRate = 1;
-
-        modalVideo.play().catch(function() {
-            modalVideo.muted = true;
-            modalVideo.play().catch(function() {});
-        });
-    }
-
-    function closeModal() {
-        if (!modalOverlay) return;
-        if (modalVideo.src && modalVideo.currentTime > 0) {
-            localStorage.setItem('video-progress-' + modalVideo.src, modalVideo.currentTime.toString());
-        }
-        modalVideo.pause();
-        clearInterval(loadingProgressInterval);
-        loadingProgressInterval = null;
-        modalVideo.removeAttribute('src');
-        modalVideo.load();
-        modalOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-        clearTimeout(controlsTimeout);
-        if (controlsEl) controlsEl.classList.remove('force-show');
-        if (modalLoadingEl) modalLoadingEl.classList.remove('active');
-    }
-
-    function formatTime(seconds) {
-        if (!seconds || isNaN(seconds)) return '0:00';
-        var m = Math.floor(seconds / 60);
-        var s = Math.floor(seconds % 60);
-        return m + ':' + (s < 10 ? '0' : '') + s;
-    }
-
-    function setupVideoCard(card) {
-        var video = card.querySelector('video');
-        var playBtn = card.querySelector('.play-btn');
-        var loadingEl = card.querySelector('.video-loading');
-        var errorEl = card.querySelector('.video-error');
-        if (!video) return;
-
-        video.addEventListener('waiting', function() {
-            if (loadingEl) loadingEl.classList.add('active');
-        });
-        video.addEventListener('playing', function() {
-            if (loadingEl) loadingEl.classList.remove('active');
-        });
-
-        function openVideoModal() {
-            var src = video.getAttribute('src');
-            var poster = video.getAttribute('poster');
-            if (!src) return;
-
-            if (errorEl && errorEl.classList.contains('active')) {
-                video.removeAttribute('src');
-                video.setAttribute('src', src);
-                video.dataset.loaded = 'false';
-                VideoLoader.retries[VideoLoader.getVideoId(video)] = 0;
-                VideoLoader.loading.delete(video);
-                VideoLoader.enqueue(video);
-                return;
-            }
-
-            openModal(src, poster);
-        }
-
-        if (playBtn) {
-            playBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                openVideoModal();
-            });
-            playBtn.addEventListener('touchend', function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                openVideoModal();
-            });
-        }
-
-        card.addEventListener('click', function(e) {
-            if (e.target.closest('.play-btn')) return;
-            openVideoModal();
-        });
-
-        var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        if (!isTouchDevice) {
-            card.addEventListener('mouseenter', function() {
-                if (video.dataset.loaded === 'true' && video.readyState >= 2) {
-                    video.muted = true;
-                    video.play().catch(function() {});
+            if (playerVideo.paused) {
+                if (!isCurtainOpen) {
+                    document.getElementById('curtain-trigger').click();
+                } else {
+                    playerVideo.play();
+                    isPlaying = true;
                 }
-            });
-            card.addEventListener('mouseleave', function() {
-                if (!video.paused) {
-                    video.pause();
-                    video.currentTime = 0;
-                }
-                if (loadingEl) loadingEl.classList.remove('active');
-            });
-        }
-    }
-
-    document.querySelectorAll('.video-card').forEach(setupVideoCard);
-
-    var spotlightCards = document.querySelectorAll('.bento-card, .video-card');
-    var throttledMouseMove = throttle(function(card, e) {
-        var rect = card.getBoundingClientRect();
-        var x = ((e.clientX - rect.left) / rect.width) * 100;
-        var y = ((e.clientY - rect.top) / rect.height) * 100;
-        card.style.setProperty('--mouse-x', x + '%');
-        card.style.setProperty('--mouse-y', y + '%');
-        if (card.classList.contains('bento-card')) {
-            var centerX = (e.clientX - rect.left) / rect.width - 0.5;
-            var centerY = (e.clientY - rect.top) / rect.height - 0.5;
-            card.style.setProperty('--tilt-x', (centerY * -6) + 'deg');
-            card.style.setProperty('--tilt-y', (centerX * 6) + 'deg');
-        }
-    }, 16);
-
-    spotlightCards.forEach(function(card) {
-        card.addEventListener('mousemove', function(e) {
-            throttledMouseMove(this, e);
-        });
-        card.addEventListener('mouseleave', function() {
-            this.style.setProperty('--mouse-x', '50%');
-            this.style.setProperty('--mouse-y', '50%');
-            if (this.classList.contains('bento-card')) {
-                this.style.setProperty('--tilt-x', '0deg');
-                this.style.setProperty('--tilt-y', '0deg');
-            }
-        });
-    });
-
-    var magneticBtns = document.querySelectorAll('.cta-primary, .play-btn');
-    var throttledMagneticMove = throttle(function(btn, e) {
-        var rect = btn.getBoundingClientRect();
-        var x = e.clientX - rect.left - rect.width / 2;
-        var y = e.clientY - rect.top - rect.height / 2;
-        var strength = 12;
-        btn.style.transform = 'translate3d(' + (x / rect.width) * strength + 'px, ' + (y / rect.height) * strength + 'px, 0)';
-    }, 16);
-
-    magneticBtns.forEach(function(btn) {
-        btn.addEventListener('mousemove', function(e) {
-            throttledMagneticMove(this, e);
-        });
-        btn.addEventListener('mouseleave', function() {
-            this.style.transform = 'translate3d(0, 0, 0)';
-            this.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        });
-        btn.addEventListener('mouseenter', function() {
-            this.style.transition = 'transform 0.15s ease-out';
-        });
-    });
-
-    var mouseGlow = document.getElementById('mouseGlow');
-    if (mouseGlow) {
-        document.addEventListener('mousemove', function(e) {
-            mouseGlow.style.left = e.clientX + 'px';
-            mouseGlow.style.top = e.clientY + 'px';
-        });
-    }
-
-    var navLinks = document.querySelectorAll('.nav-links a');
-    var navSections = document.querySelectorAll('#about, #sec-documentary, #sec-ads, #sec-game, #sec-real-documentary');
-    var navObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                var id = entry.target.id;
-                navLinks.forEach(function(link) {
-                    link.classList.remove('active');
-                    var href = link.getAttribute('href');
-                    if (href && (href === '#' + id || href.includes(id))) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
-    }, { threshold: 0.2, rootMargin: '-72px 0px -50% 0px' });
-
-    navSections.forEach(function(section) {
-        navObserver.observe(section);
-    });
-
-    var progressBar = document.getElementById('scroll-progress');
-    if (progressBar) {
-        var progressFill = progressBar.querySelector('.scroll-progress-fill');
-        window.addEventListener('scroll', function() {
-            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            if (progressFill) progressFill.style.width = progress + '%';
-        }, { passive: true });
-    }
-
-    var searchInput = document.getElementById('video-search');
-    var filterBtns = document.querySelectorAll('.video-filter-btn');
-    var currentFilter = 'all';
-
-    if (searchInput) {
-        searchInput.addEventListener('input', function() {
-            filterVideos();
-        });
-    }
-
-    filterBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            filterBtns.forEach(function(b) { b.classList.remove('active'); });
-            btn.classList.add('active');
-            currentFilter = btn.getAttribute('data-filter');
-            filterVideos();
-        });
-    });
-
-    function filterVideos() {
-        var keyword = searchInput ? searchInput.value.toLowerCase().trim() : '';
-        var cards = document.querySelectorAll('.video-card');
-        cards.forEach(function(card) {
-            var category = (card.getAttribute('data-category') || '').toLowerCase();
-            var title = (card.querySelector('h3') || {}).textContent || '';
-            var desc = (card.querySelector('.video-description') || {}).textContent || '';
-            var matchCategory = currentFilter === 'all' || category === currentFilter;
-            var matchKeyword = !keyword || title.toLowerCase().includes(keyword) || desc.toLowerCase().includes(keyword);
-            if (matchCategory && matchKeyword) {
-                card.classList.remove('hidden-by-filter');
             } else {
-                card.classList.add('hidden-by-filter');
+                playerVideo.pause();
+                isPlaying = false;
+                closeCurtainWithWave();
             }
-        });
+        } else if (e.key === 'Escape') {
+            document.getElementById('btn-back-hub').click();
+        }
+    });
+
+    function formatTime(s) {
+        var m = Math.floor(s / 60);
+        var sec = Math.floor(s % 60);
+        return m + ':' + (sec < 10 ? '0' : '') + sec;
     }
 
-    var themeToggle = document.querySelector('.theme-toggle');
-    function applyTheme(theme) {
-        if (theme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
-            document.documentElement.removeAttribute('data-theme');
-        }
-    }
-    var savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        applyTheme(savedTheme);
-    }
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-            var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            var newTheme = isDark ? 'light' : 'dark';
-            applyTheme(newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
-    }
 });
-
-function throttle(func, limit) {
-    var inThrottle;
-    return function() {
-        var args = arguments;
-        var context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(function() {
-                inThrottle = false;
-            }, limit);
-        }
-    };
-}

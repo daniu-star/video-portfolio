@@ -1,0 +1,107 @@
+[
+  {
+    "severity": "INFO",
+    "issue": "Landing bg filter: brightness(0.672658) saturate(0.872658)",
+    "element": ".landing-bg"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Name position: top=86.390625 left=153.59375 w=80 h=312",
+    "element": ".landing-name-vertical"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Enter button: top=504.5 left=814.390625 w=291.203125 h=71",
+    "element": "#enter-portfolio"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Enter button font-size: 13.3333px",
+    "element": "#enter-portfolio"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Curtain transition element exists",
+    "element": ".curtain-transition"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Hub bg image: url(\"http://localhost:8080/hub-bg.jpg\")",
+    "element": ".hub-bg"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Found 4 category buttons",
+    "element": ".hub-category"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Category \"AI纪录片\": font=LiuJianMaoCao, ZhiMangXing, se size=51.2px color=rgba(255, 255, 255, 0.85)",
+    "element": ".hub-category[0]"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Category \"AI广告片\": font=LiuJianMaoCao, ZhiMangXing, se size=51.2px color=rgba(255, 255, 255, 0.85)",
+    "element": ".hub-category[1]"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Category \"长AI游戏视频\": font=LiuJianMaoCao, ZhiMangXing, se size=51.2px color=rgba(255, 255, 255, 0.85)",
+    "element": ".hub-category[2]"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Category \"实拍纪录片\": font=LiuJianMaoCao, ZhiMangXing, se size=51.2px color=rgba(255, 255, 255, 0.85)",
+    "element": ".hub-category[3]"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Found 3 title chars",
+    "element": ".hub-title-char"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Title char \"作\": opacity=1 transform=matrix(1, 0, 0, 1, 0, 0) visible=true",
+    "element": ".hub-title-char[0]"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Title char \"品\": opacity=1 transform=matrix(1, 0, 0, 1, 0, 0) visible=true",
+    "element": ".hub-title-char[1]"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Title char \"集\": opacity=0.977066 transform=matrix(1, 0, 0, 1, -0.688035, 0) visible=true",
+    "element": ".hub-title-char[2]"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Video element exists, src=none",
+    "element": "#player-video"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Poster curtain left bg: url(\"http://localhost:8080/posters/documentary-1.j",
+    "element": "#poster-curtain-left"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Curtain trigger visible=true",
+    "element": "#curtain-trigger"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Video title: \"AI纪录片《何以为家》\"",
+    "element": "#player-title"
+  },
+  {
+    "severity": "INFO",
+    "issue": "Mobile name writing-mode=horizontal-tb",
+    "element": ".landing-name-vertical"
+  },
+  {
+    "severity": "HIGH",
+    "issue": "Mobile enter button too small (128.140625x39)",
+    "element": "#enter-portfolio"
+  }
+]

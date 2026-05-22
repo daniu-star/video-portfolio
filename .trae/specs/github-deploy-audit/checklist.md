@@ -1,0 +1,6 @@
+- [ ] 所有已修改文件（index.html, script.js, style.css, generate_sounds.py）已推送到 GitHub
+- [ ] 所有新增文件（sounds/, posters/, fonts/ 等）已推送到 GitHub
+- [ ] GitHub 远程仓库 main 分支与本地一致
+- [ ] 自动化浏览覆盖了首页、分类中心、播放器、视频合集页
+- [ ] 诊断清单以 Markdown 格式输出，包含分类、问题描述、严重程度、优化建议
+- [ ] 诊断清单文件已保存到项目目录
