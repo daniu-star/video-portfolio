@@ -112,6 +112,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
 
+            var photoArea = document.querySelector('.profile-photo-area');
+            if (photoArea) {
+                photoArea.style.opacity = '0';
+                photoArea.style.transform = 'translateY(20px)';
+                photoArea.style.transition = 'none';
+                setTimeout(function() {
+                    photoArea.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    photoArea.style.opacity = '1';
+                    photoArea.style.transform = 'translateY(0)';
+                }, 400);
+            }
+
             var sections = document.querySelectorAll('.profile-section');
             sections.forEach(function(sec, i) {
                 sec.classList.remove('visible');
@@ -270,6 +282,13 @@ document.addEventListener('DOMContentLoaded', function() {
         var videos = videoData[currentCategory];
         if (!videos || !videos[currentIndex]) return;
         var v = videos[currentIndex];
+
+        clearVideoLoadTimeout();
+        videoRetryCount = 0;
+
+        var wrapper = document.getElementById('player-video-wrapper');
+        var errEl = wrapper.querySelector('.video-load-error');
+        if (errEl) errEl.parentNode.removeChild(errEl);
 
         document.getElementById('player-cat-label').textContent = getCategoryName(currentCategory);
         document.getElementById('player-title').textContent = v.title;
@@ -435,6 +454,81 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(animateCurtain);
     }
 
+    var videoLoadTimeout = null;
+    var videoRetryCount = 0;
+    var MAX_VIDEO_RETRIES = 3;
+
+    function clearVideoLoadTimeout() {
+        if (videoLoadTimeout) {
+            clearTimeout(videoLoadTimeout);
+            videoLoadTimeout = null;
+        }
+    }
+
+    function showVideoError() {
+        var loading = document.getElementById('player-loading');
+        if (loading) loading.classList.remove('active');
+        var wrapper = document.getElementById('player-video-wrapper');
+        var existing = wrapper.querySelector('.video-load-error');
+        if (!existing) {
+            var errDiv = document.createElement('div');
+            errDiv.className = 'video-load-error';
+            errDiv.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;text-align:center;color:rgba(255,255,255,0.6);font-family:var(--font-body);';
+            errDiv.innerHTML = '<div style="font-size:1.2rem;margin-bottom:12px;">视频加载失败</div><button style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);padding:8px 20px;cursor:pointer;border-radius:2px;font-family:var(--font-body);letter-spacing:0.1em;" id="retry-video-btn">点击重试</button>';
+            wrapper.appendChild(errDiv);
+            var retryBtn = document.getElementById('retry-video-btn');
+            if (retryBtn) retryBtn.addEventListener('click', function() {
+                if (errDiv.parentNode) errDiv.parentNode.removeChild(errDiv);
+                retryVideoLoad();
+            });
+        }
+    }
+
+    function retryVideoLoad() {
+        var v = videoData[currentCategory][currentIndex];
+        if (!v) return;
+        var loading = document.getElementById('player-loading');
+        if (playerVideo) {
+            playerVideo.removeAttribute('src');
+            playerVideo.load();
+        }
+        playerVideo.src = v.src;
+        playerVideo.load();
+        if (loading) loading.classList.add('active');
+
+        clearVideoLoadTimeout();
+        videoLoadTimeout = setTimeout(function() {
+            if (!isPlaying) {
+                videoRetryCount++;
+                if (videoRetryCount < MAX_VIDEO_RETRIES) {
+                    retryVideoLoad();
+                } else {
+                    showVideoError();
+                }
+            }
+        }, 30000);
+
+        playerVideo.addEventListener('canplay', function onCanPlay() {
+            playerVideo.removeEventListener('canplay', onCanPlay);
+            clearVideoLoadTimeout();
+            videoRetryCount = 0;
+            if (loading) loading.classList.remove('active');
+            playerVideo.play().catch(function() {});
+            isPlaying = true;
+        }, { once: true });
+
+        playerVideo.addEventListener('error', function onError() {
+            playerVideo.removeEventListener('error', onError);
+            clearVideoLoadTimeout();
+            videoRetryCount++;
+            if (videoRetryCount < MAX_VIDEO_RETRIES) {
+                retryVideoLoad();
+            } else {
+                showVideoError();
+            }
+        }, { once: true });
+    }
+
     var curtainTriggerEl = document.getElementById('curtain-trigger');
     if (curtainTriggerEl) curtainTriggerEl.addEventListener('click', function() {
         var trigger = this;
@@ -443,21 +537,47 @@ document.addEventListener('DOMContentLoaded', function() {
         openCurtainWithWave();
 
         if (!playerVideo.src || playerVideo.src === window.location.href) {
+            videoRetryCount = 0;
             var v = videoData[currentCategory][currentIndex];
             if (!v) return;
             playerVideo.src = v.src;
             playerVideo.load();
             loading.classList.add('active');
 
+            clearVideoLoadTimeout();
+            videoLoadTimeout = setTimeout(function() {
+                if (!isPlaying) {
+                    videoRetryCount++;
+                    if (videoRetryCount < MAX_VIDEO_RETRIES) {
+                        retryVideoLoad();
+                    } else {
+                        showVideoError();
+                    }
+                }
+            }, 30000);
+
             playerVideo.addEventListener('canplay', function onCanPlay() {
                 playerVideo.removeEventListener('canplay', onCanPlay);
+                clearVideoLoadTimeout();
+                videoRetryCount = 0;
                 loading.classList.remove('active');
-                playerVideo.play();
+                playerVideo.play().catch(function() {});
                 isPlaying = true;
+            }, { once: true });
+
+            playerVideo.addEventListener('error', function onError() {
+                playerVideo.removeEventListener('error', onError);
+                clearVideoLoadTimeout();
+                videoRetryCount++;
+                if (videoRetryCount < MAX_VIDEO_RETRIES) {
+                    retryVideoLoad();
+                } else {
+                    showVideoError();
+                }
             }, { once: true });
         } else {
             setTimeout(function() {
-                playerVideo.play();
+                playerVideo.play().catch(function() {});
                 isPlaying = true;
             }, 1800);
         }
