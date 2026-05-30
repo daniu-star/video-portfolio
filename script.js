@@ -221,110 +221,75 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     var catInfo = {
-        documentary: { title: 'AI纪录片', en: 'AI Documentary', color: 'var(--cat-documentary)' },
-        ads: { title: 'AI广告片', en: 'AI Commercial', color: 'var(--cat-ads)' },
-        game: { title: '长AI游戏视频', en: 'AI Game Video', color: 'var(--cat-game)' },
-        real: { title: '实拍纪录片', en: 'Documentary', color: 'var(--cat-real)' }
+        documentary: { title: 'AI纪录片', en: 'AI Documentary' },
+        ads: { title: 'AI广告片', en: 'AI Commercial' },
+        game: { title: '长AI游戏视频', en: 'AI Game Video' },
+        real: { title: '实拍纪录片', en: 'Documentary' }
     };
 
-    var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    var showcaseVideo = document.getElementById('showcase-video');
+    var showcaseInfo = document.getElementById('showcase-info');
 
-    function pauseAllCardVideos() {
-        document.querySelectorAll('.grid-card-thumb video').forEach(function(v) {
-            v.pause();
-            v.style.opacity = '0';
-        });
-    }
+    function loadShowcaseVideo() {
+        var videos = videoData[currentCategory];
+        if (!videos || !videos[currentIndex]) return;
+        var v = videos[currentIndex];
+        var info = catInfo[currentCategory] || {};
 
-    function populateGrid(cat) {
-        var videos = videoData[cat];
-        if (!videos) return;
-        var info = catInfo[cat] || {};
+        showcaseInfo.classList.remove('active');
 
-        document.getElementById('grid-cat-label').textContent = 'CATEGORY';
-        document.getElementById('grid-cat-title').textContent = info.title || '';
-        document.getElementById('grid-cat-subtitle').textContent = info.en || '';
+        setTimeout(function() {
+            if (showcaseVideo) {
+                showcaseVideo.src = v.src;
+                showcaseVideo.play().catch(function() {});
+            }
 
-        var cardsContainer = document.getElementById('grid-cards');
-        cardsContainer.innerHTML = '';
+            document.getElementById('showcase-cat').textContent = info.title || '';
+            document.getElementById('showcase-title').textContent = v.title;
+            document.getElementById('showcase-subtitle').textContent = info.en || '';
+            document.getElementById('showcase-meta').textContent = info.title + ' | ' + (v.title || '');
 
-        videos.forEach(function(v, idx) {
-            var card = document.createElement('div');
-            card.className = 'grid-video-card';
-            card.setAttribute('data-index', idx);
-
-            var tagHtml = '';
+            var descEl = document.getElementById('showcase-desc');
+            descEl.innerHTML = '';
             if (v.desc) {
-                var tagKeys = Object.keys(v.desc).slice(0, 3);
-                tagHtml = tagKeys.map(function(k) {
-                    return '<span class="grid-card-tag">' + k + '</span>';
-                }).join('');
-            }
-
-            var badgeHtml = idx === 0 ? '<div class="grid-card-featured-badge">精选</div>' : '';
-
-            card.innerHTML =
-                '<div class="grid-card-thumb">' +
-                    '<img src="' + v.poster + '" alt="' + v.title + '" loading="lazy" onerror="this.style.display=\'none\'">' +
-                    '<video preload="none" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>' +
-                    '<div class="grid-card-gradient"></div>' +
-                    badgeHtml +
-                    '<div class="grid-card-info">' +
-                        '<div class="grid-card-title">' + v.title + '</div>' +
-                        (tagHtml ? '<div class="grid-card-tags">' + tagHtml + '</div>' : '') +
-                    '</div>' +
-                    '<div class="grid-card-play">' +
-                        '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="8,5 20,12 8,19"/></svg>' +
-                    '</div>' +
-                '</div>';
-
-            var videoEl = card.querySelector('video');
-
-            if (!isTouchDevice) {
-                card.addEventListener('mouseenter', function() {
-                    if (!videoEl.src) {
-                        videoEl.src = v.src;
-                    }
-                    videoEl.style.opacity = '0.6';
-                    videoEl.play().catch(function() {});
-                });
-
-                card.addEventListener('mouseleave', function() {
-                    videoEl.pause();
-                    videoEl.style.opacity = '0';
+                Object.keys(v.desc).forEach(function(key) {
+                    var item = document.createElement('div');
+                    item.className = 'showcase-desc-item';
+                    item.innerHTML = '<div class="showcase-desc-label">' + key + '</div><div class="showcase-desc-text">' + v.desc[key] + '</div>';
+                    descEl.appendChild(item);
                 });
             }
 
-            card.addEventListener('click', function() {
-                currentIndex = idx;
-                loadVideo();
-                transitionGridToPlayer();
+            var prevBtn = document.getElementById('showcase-prev');
+            var nextBtn = document.getElementById('showcase-next');
+            if (prevBtn) prevBtn.style.display = currentIndex > 0 ? '' : 'none';
+            if (nextBtn) nextBtn.style.display = currentIndex < videos.length - 1 ? '' : 'none';
+
+            requestAnimationFrame(function() {
+                showcaseInfo.classList.add('active');
             });
-
-            cardsContainer.appendChild(card);
-        });
+        }, 300);
     }
 
-    function transitionHubToGrid(cat) {
+    function transitionHubToShowcase(cat) {
         var hub = document.getElementById('layer-hub');
         var grid = document.getElementById('layer-grid');
 
-        populateGrid(cat);
+        currentCategory = cat;
+        currentIndex = 0;
+        loadShowcaseVideo();
 
         grid.classList.add('active');
         grid.style.opacity = '0';
-        grid.style.transform = 'scale(1.03)';
         grid.style.transition = 'none';
 
-        hub.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        hub.style.transition = 'opacity 0.6s ease';
         hub.style.opacity = '0';
-        hub.style.transform = 'scale(0.96)';
 
         requestAnimationFrame(function() {
             requestAnimationFrame(function() {
-                grid.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                grid.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                 grid.style.opacity = '1';
-                grid.style.transform = 'scale(1)';
             });
         });
 
@@ -332,32 +297,27 @@ document.addEventListener('DOMContentLoaded', function() {
             hub.classList.remove('active');
             hub.style.transition = '';
             hub.style.opacity = '';
-            hub.style.transform = '';
             grid.style.transition = '';
-            grid.style.transform = '';
             grid.style.opacity = '';
         }, 1200);
     }
 
-    function transitionGridToPlayer() {
-        pauseAllCardVideos();
+    function transitionShowcaseToPlayer() {
+        if (showcaseVideo) showcaseVideo.pause();
         var grid = document.getElementById('layer-grid');
         var player = document.getElementById('layer-player');
 
         player.classList.add('active');
         player.style.opacity = '0';
-        player.style.transform = 'scale(1.03)';
         player.style.transition = 'none';
 
-        grid.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        grid.style.transition = 'opacity 0.5s ease';
         grid.style.opacity = '0';
-        grid.style.transform = 'scale(0.96)';
 
         requestAnimationFrame(function() {
             requestAnimationFrame(function() {
-                player.style.transition = 'opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                player.style.transition = 'opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                 player.style.opacity = '1';
-                player.style.transform = 'scale(1)';
             });
         });
 
@@ -365,9 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
             grid.classList.remove('active');
             grid.style.transition = '';
             grid.style.opacity = '';
-            grid.style.transform = '';
             player.style.transition = '';
-            player.style.transform = '';
             player.style.opacity = '';
         }, 1000);
     }
@@ -375,40 +333,59 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.hub-category').forEach(function(cat) {
         cat.addEventListener('click', function(e) {
             e.preventDefault();
-            currentCategory = this.getAttribute('data-category');
+            var catKey = this.getAttribute('data-category');
 
-            var soundFile = soundMap[currentCategory];
+            var soundFile = soundMap[catKey];
             if (soundFile) {
                 var audio = new Audio(soundFile);
                 audio.volume = 0.3;
                 audio.play().catch(function() {});
             }
 
-            currentIndex = 0;
-            transitionHubToGrid(currentCategory);
+            transitionHubToShowcase(catKey);
         });
     });
 
-    var gridBackEl = document.getElementById('grid-back');
-    if (gridBackEl) gridBackEl.addEventListener('click', function() {
-        pauseAllCardVideos();
+    var showcaseLeftEl = document.getElementById('showcase-left');
+    if (showcaseLeftEl) showcaseLeftEl.addEventListener('click', function() {
+        loadVideo();
+        transitionShowcaseToPlayer();
+    });
+
+    var showcasePrevEl = document.getElementById('showcase-prev');
+    if (showcasePrevEl) showcasePrevEl.addEventListener('click', function() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            loadShowcaseVideo();
+        }
+    });
+
+    var showcaseNextEl = document.getElementById('showcase-next');
+    if (showcaseNextEl) showcaseNextEl.addEventListener('click', function() {
+        var videos = videoData[currentCategory];
+        if (videos && currentIndex < videos.length - 1) {
+            currentIndex++;
+            loadShowcaseVideo();
+        }
+    });
+
+    var showcaseBackEl = document.getElementById('showcase-back');
+    if (showcaseBackEl) showcaseBackEl.addEventListener('click', function() {
+        if (showcaseVideo) showcaseVideo.pause();
         var grid = document.getElementById('layer-grid');
         var hub = document.getElementById('layer-hub');
 
-        grid.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        grid.style.transition = 'opacity 0.6s ease';
         grid.style.opacity = '0';
-        grid.style.transform = 'scale(0.96)';
 
         hub.classList.add('active');
         hub.style.opacity = '0';
-        hub.style.transform = 'scale(1.03)';
         hub.style.transition = 'none';
 
         requestAnimationFrame(function() {
             requestAnimationFrame(function() {
-                hub.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                hub.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                 hub.style.opacity = '1';
-                hub.style.transform = 'scale(1)';
             });
         });
 
@@ -416,10 +393,8 @@ document.addEventListener('DOMContentLoaded', function() {
             grid.classList.remove('active');
             grid.style.transition = '';
             grid.style.opacity = '';
-            grid.style.transform = '';
             hub.style.transition = '';
             hub.style.opacity = '';
-            hub.style.transform = '';
         }, 1200);
     });
 
@@ -432,22 +407,19 @@ document.addEventListener('DOMContentLoaded', function() {
         var player = document.getElementById('layer-player');
         var grid = document.getElementById('layer-grid');
 
-        populateGrid(currentCategory);
+        loadShowcaseVideo();
 
         grid.classList.add('active');
         grid.style.opacity = '0';
-        grid.style.transform = 'scale(1.03)';
         grid.style.transition = 'none';
 
-        player.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        player.style.transition = 'opacity 0.5s ease';
         player.style.opacity = '0';
-        player.style.transform = 'scale(0.96)';
 
         requestAnimationFrame(function() {
             requestAnimationFrame(function() {
-                grid.style.transition = 'opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                grid.style.transition = 'opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                 grid.style.opacity = '1';
-                grid.style.transform = 'scale(1)';
             });
         });
 
@@ -455,10 +427,8 @@ document.addEventListener('DOMContentLoaded', function() {
             player.classList.remove('active');
             player.style.transition = '';
             player.style.opacity = '';
-            player.style.transform = '';
             grid.style.transition = '';
             grid.style.opacity = '';
-            grid.style.transform = '';
         }, 1000);
     });
 

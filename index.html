@@ -101,19 +101,38 @@
     </div>
 
     <div id="layer-grid" class="page-layer">
-        <div class="grid-bg"></div>
-        <div class="grid-overlay"></div>
-        <div class="grid-content">
-            <button class="grid-back" id="grid-back" aria-label="返回分类">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            </button>
-            <div class="grid-header" id="grid-header">
-                <span class="grid-cat-label" id="grid-cat-label"></span>
-                <h2 class="grid-cat-title" id="grid-cat-title"></h2>
-                <p class="grid-cat-subtitle" id="grid-cat-subtitle"></p>
+        <div class="showcase-bg" id="showcase-bg"></div>
+        <div class="showcase-gradient"></div>
+        <div class="showcase-content">
+            <div class="showcase-left" id="showcase-left">
+                <video class="showcase-video" id="showcase-video" autoplay muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" preload="metadata"></video>
+                <div class="showcase-play-hint" id="showcase-play-hint">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><polygon points="8,5 20,12 8,19"/></svg>
+                </div>
             </div>
-
-            <div class="grid-cards" id="grid-cards"></div>
+            <div class="showcase-right" id="showcase-right">
+                <div class="showcase-info" id="showcase-info">
+                    <span class="showcase-cat" id="showcase-cat"></span>
+                    <h2 class="showcase-title" id="showcase-title"></h2>
+                    <p class="showcase-subtitle" id="showcase-subtitle"></p>
+                    <div class="showcase-meta" id="showcase-meta"></div>
+                    <div class="showcase-desc" id="showcase-desc"></div>
+                </div>
+                <div class="showcase-nav" id="showcase-nav">
+                    <button class="showcase-nav-btn" id="showcase-prev">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                        <span>上一条</span>
+                    </button>
+                    <button class="showcase-nav-btn" id="showcase-next">
+                        <span>下一条</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                    <button class="showcase-nav-btn showcase-back-btn" id="showcase-back">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                        <span>返回作品集</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
