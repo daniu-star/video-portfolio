@@ -227,7 +227,14 @@ document.addEventListener('DOMContentLoaded', function() {
         real: { title: '实拍纪录片', en: 'Documentary', color: 'var(--cat-real)' }
     };
 
-    var featuredVideoEl = null;
+    var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+    function pauseAllCardVideos() {
+        document.querySelectorAll('.grid-card-thumb video').forEach(function(v) {
+            v.pause();
+            v.style.opacity = '0';
+        });
+    }
 
     function populateGrid(cat) {
         var videos = videoData[cat];
@@ -238,47 +245,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('grid-cat-title').textContent = info.title || '';
         document.getElementById('grid-cat-subtitle').textContent = info.en || '';
 
-        var featuredBg = document.getElementById('grid-featured-bg');
-        var featuredInfo = document.getElementById('grid-featured-info');
-        var firstVideo = videos[0];
-
-        if (featuredVideoEl) {
-            featuredVideoEl.pause();
-            featuredVideoEl.removeAttribute('src');
-            featuredVideoEl.load();
-            if (featuredVideoEl.parentNode) featuredVideoEl.parentNode.removeChild(featuredVideoEl);
-            featuredVideoEl = null;
-        }
-
-        featuredBg.innerHTML = '';
-        featuredBg.style.backgroundImage = '';
-
-        if (firstVideo) {
-            featuredBg.style.backgroundImage = 'url(' + firstVideo.poster + ')';
-            featuredBg.style.backgroundSize = 'cover';
-            featuredBg.style.backgroundPosition = 'center';
-
-            var previewVideo = document.createElement('video');
-            previewVideo.src = firstVideo.src;
-            previewVideo.muted = true;
-            previewVideo.loop = true;
-            previewVideo.playsInline = true;
-            previewVideo.setAttribute('webkit-playsinline', '');
-            previewVideo.setAttribute('x5-playsinline', '');
-            previewVideo.setAttribute('x5-video-player-type', 'h5');
-            previewVideo.preload = 'metadata';
-            previewVideo.style.cssText = 'width:100%;height:100%;object-fit:cover;opacity:0.5;position:absolute;inset:0;';
-            featuredBg.appendChild(previewVideo);
-            featuredVideoEl = previewVideo;
-
-            previewVideo.play().catch(function() {});
-
-            document.getElementById('grid-featured-title').textContent = firstVideo.title;
-            var descKeys = firstVideo.desc ? Object.keys(firstVideo.desc) : [];
-            var shortDesc = descKeys.length > 0 ? firstVideo.desc[descKeys[0]].substring(0, 60) + '...' : '';
-            document.getElementById('grid-featured-desc').textContent = shortDesc;
-        }
-
         var cardsContainer = document.getElementById('grid-cards');
         cardsContainer.innerHTML = '';
 
@@ -286,12 +252,6 @@ document.addEventListener('DOMContentLoaded', function() {
             var card = document.createElement('div');
             card.className = 'grid-video-card';
             card.setAttribute('data-index', idx);
-
-            var descText = '';
-            if (v.desc) {
-                var keys = Object.keys(v.desc);
-                if (keys.length > 0) descText = v.desc[keys[0]].substring(0, 50) + '...';
-            }
 
             var tagHtml = '';
             if (v.desc) {
@@ -301,20 +261,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 }).join('');
             }
 
+            var badgeHtml = idx === 0 ? '<div class="grid-card-featured-badge">精选</div>' : '';
+
             card.innerHTML =
                 '<div class="grid-card-thumb">' +
                     '<img src="' + v.poster + '" alt="' + v.title + '" loading="lazy" onerror="this.style.display=\'none\'">' +
-                    '<div class="grid-card-overlay">' +
-                        '<div class="grid-card-play">' +
-                            '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="8,5 20,12 8,19"/></svg>' +
-                        '</div>' +
+                    '<video preload="none" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>' +
+                    '<div class="grid-card-gradient"></div>' +
+                    badgeHtml +
+                    '<div class="grid-card-info">' +
+                        '<div class="grid-card-title">' + v.title + '</div>' +
+                        (tagHtml ? '<div class="grid-card-tags">' + tagHtml + '</div>' : '') +
                     '</div>' +
-                '</div>' +
-                '<div class="grid-card-info">' +
-                    '<div class="grid-card-title">' + v.title + '</div>' +
-                    (descText ? '<div class="grid-card-desc">' + descText + '</div>' : '') +
-                    (tagHtml ? '<div class="grid-card-tags">' + tagHtml + '</div>' : '') +
+                    '<div class="grid-card-play">' +
+                        '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="8,5 20,12 8,19"/></svg>' +
+                    '</div>' +
                 '</div>';
+
+            var videoEl = card.querySelector('video');
+
+            if (!isTouchDevice) {
+                card.addEventListener('mouseenter', function() {
+                    if (!videoEl.src) {
+                        videoEl.src = v.src;
+                    }
+                    videoEl.style.opacity = '0.6';
+                    videoEl.play().catch(function() {});
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    videoEl.pause();
+                    videoEl.style.opacity = '0';
+                });
+            }
 
             card.addEventListener('click', function() {
                 currentIndex = idx;
@@ -361,12 +340,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function transitionGridToPlayer() {
+        pauseAllCardVideos();
         var grid = document.getElementById('layer-grid');
         var player = document.getElementById('layer-player');
-
-        if (featuredVideoEl) {
-            featuredVideoEl.pause();
-        }
 
         player.classList.add('active');
         player.style.opacity = '0';
@@ -415,9 +391,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var gridBackEl = document.getElementById('grid-back');
     if (gridBackEl) gridBackEl.addEventListener('click', function() {
-        if (featuredVideoEl) {
-            featuredVideoEl.pause();
-        }
+        pauseAllCardVideos();
         var grid = document.getElementById('layer-grid');
         var hub = document.getElementById('layer-hub');
 
@@ -447,21 +421,6 @@ document.addEventListener('DOMContentLoaded', function() {
             hub.style.opacity = '';
             hub.style.transform = '';
         }, 1200);
-    });
-
-    var featuredPlayEl = document.getElementById('grid-featured-play');
-    if (featuredPlayEl) featuredPlayEl.addEventListener('click', function(e) {
-        e.stopPropagation();
-        currentIndex = 0;
-        loadVideo();
-        transitionGridToPlayer();
-    });
-
-    var featuredEl = document.getElementById('grid-featured');
-    if (featuredEl) featuredEl.addEventListener('click', function() {
-        currentIndex = 0;
-        loadVideo();
-        transitionGridToPlayer();
     });
 
     var btnBackHubEl = document.getElementById('btn-back-hub');
