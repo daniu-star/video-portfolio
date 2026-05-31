@@ -346,8 +346,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    var showcaseLeftEl = document.getElementById('showcase-left');
-    if (showcaseLeftEl) showcaseLeftEl.addEventListener('click', function() {
+    var showcaseLayerEl = document.getElementById('layer-grid');
+    if (showcaseLayerEl) showcaseLayerEl.addEventListener('click', function(e) {
+        if (e.target.closest('.showcase-right')) return;
         loadVideo();
         transitionShowcaseToPlayer();
     });
