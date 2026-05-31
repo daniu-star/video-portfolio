@@ -1,8 +1,6 @@
 {
   "framework": "nextjs",
-  "buildCommand": "cd .. && cd frontend && npm install && npm run build",
-  "outputDirectory": ".next",
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://pm-brainstorm-api.onrender.com"
+    "NEXT_PUBLIC_API_URL": "https://daniu-star-pm-brainstorm-workbench.hf.space"
   }
 }

@@ -1,6 +1,6 @@
 import { getUserHeaders } from "./user";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://pm-brainstorm-api.onrender.com";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 
 export async function api<T>(path: string, options?: RequestInit): Promise<T> {
   let res: Response;
@@ -15,7 +15,7 @@ export async function api<T>(path: string, options?: RequestInit): Promise<T> {
     });
   } catch (err) {
     if (err instanceof TypeError && (err.message.includes("Failed to fetch") || err.message.includes("NetworkError"))) {
-      throw new Error("无法连接到服务器，请确认后端服务已启动（http://localhost:8000）");
+      throw new Error("无法连接到服务器，请确认后端服务已启动");
     }
     throw err;
   }

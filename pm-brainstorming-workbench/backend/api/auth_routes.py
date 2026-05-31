@@ -1,0 +1,112 @@
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+
+from core.auth import create_jwt_token, send_sms_code, verify_sms_code
+from db.user_store import user_store
+
+router = APIRouter(prefix="/api/auth", tags=["auth"])
+
+
+class SmsSendRequest(BaseModel):
+    phone: str
+
+
+class SmsVerifyRequest(BaseModel):
+    phone: str
+    code: str
+
+
+class WechatAuthRequest(BaseModel):
+    code: str
+
+
+class QQAuthRequest(BaseModel):
+    code: str
+
+
+@router.post("/sms/send")
+async def sms_send(req: SmsSendRequest):
+    if not req.phone:
+        raise HTTPException(status_code=400, detail="手机号不能为空")
+    code = send_sms_code(req.phone)
+    return {"success": True, "hint": f"dev code: {code}"}
+
+
+@router.post("/sms/verify")
+async def sms_verify(req: SmsVerifyRequest):
+    if not verify_sms_code(req.phone, req.code):
+        raise HTTPException(status_code=400, detail="验证码错误或已过期")
+    user = user_store.get_user_by_phone(req.phone)
+    if user is None:
+        nickname = f"用户{req.phone[-4:]}"
+        user = user_store.create_user_with_phone(req.phone, nickname)
+    token = create_jwt_token(user["user_token"])
+    return {
+        "token": token,
+        "user": {
+            "user_token": user["user_token"],
+            "nickname": user.get("nickname", ""),
+            "phone": user.get("phone", ""),
+        },
+    }
+
+
+@router.post("/wechat")
+async def wechat_auth(req: WechatAuthRequest):
+    openid = f"wechat_{req.code}"
+    user = user_store.get_user_by_wechat(openid)
+    if user is None:
+        nickname = f"微信用户{req.code[:4]}"
+        user = user_store.create_user_with_wechat(openid, nickname)
+    token = create_jwt_token(user["user_token"])
+    return {
+        "token": token,
+        "user": {
+            "user_token": user["user_token"],
+            "nickname": user.get("nickname", ""),
+            "phone": user.get("phone", ""),
+        },
+    }
+
+
+@router.post("/qq")
+async def qq_auth(req: QQAuthRequest):
+    openid = f"qq_{req.code}"
+    user = user_store.get_user_by_qq(openid)
+    if user is None:
+        nickname = f"QQ用户{req.code[:4]}"
+        user = user_store.create_user_with_qq(openid, nickname)
+    token = create_jwt_token(user["user_token"])
+    return {
+        "token": token,
+        "user": {
+            "user_token": user["user_token"],
+            "nickname": user.get("nickname", ""),
+            "phone": user.get("phone", ""),
+        },
+    }
+
+
+@router.get("/me")
+async def get_me(authorization: str = ""):
+    if not authorization:
+        raise HTTPException(status_code=401, detail="缺少 Authorization Header")
+    parts = authorization.split(" ")
+    if len(parts) == 2 and parts[0].lower() == "bearer":
+        token = parts[1]
+    else:
+        token = authorization
+    from core.auth import verify_jwt_token
+    payload = verify_jwt_token(token)
+    if payload is None:
+        raise HTTPException(status_code=401, detail="Token 无效或已过期")
+    user_id = payload.get("sub")
+    if user_id is None:
+        raise HTTPException(status_code=401, detail="Token 缺少用户信息")
+    user = user_store.get_or_create_user(user_id)
+    return {
+        "user_token": user["user_token"],
+        "nickname": user.get("nickname", ""),
+        "phone": user.get("phone", ""),
+        "avatar": user.get("avatar", ""),
+    }
