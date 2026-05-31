@@ -238,14 +238,16 @@ document.addEventListener('DOMContentLoaded', function() {
         documentary: 'sounds/click-documentary.wav',
         ads: 'sounds/click-ads.wav',
         game: 'sounds/click-game.wav',
-        real: 'sounds/click-real.wav'
+        real: 'sounds/click-real.wav',
+        agent: 'sounds/click-documentary.wav'
     };
 
     var catInfo = {
         documentary: { title: 'AI纪录片', en: 'AI Documentary' },
         ads: { title: 'AI广告片', en: 'AI Commercial' },
         game: { title: '长AI游戏视频', en: 'AI Game Video' },
-        real: { title: '实拍纪录片', en: 'Documentary' }
+        real: { title: '实拍纪录片', en: 'Documentary' },
+        agent: { title: 'Agent项目', en: 'AI Agent Project' }
     };
 
     var showcaseVideo = document.getElementById('showcase-video');
@@ -360,10 +362,81 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     }
 
+    function transitionHubToAgent() {
+        var hub = document.getElementById('layer-hub');
+        var agent = document.getElementById('layer-agent');
+        var hubBgVideo = document.getElementById('hub-bg-video');
+
+        if (hubBgVideo) hubBgVideo.pause();
+
+        agent.classList.add('active');
+        agent.style.opacity = '0';
+        agent.style.transition = 'none';
+
+        hub.style.transition = 'opacity 0.6s ease';
+        hub.style.opacity = '0';
+
+        requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+                agent.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                agent.style.opacity = '1';
+            });
+        });
+
+        setTimeout(function() {
+            hub.classList.remove('active');
+            hub.style.transition = '';
+            hub.style.opacity = '';
+            agent.style.transition = '';
+            agent.style.opacity = '';
+        }, 1200);
+    }
+
+    function transitionAgentToHub() {
+        var agent = document.getElementById('layer-agent');
+        var hub = document.getElementById('layer-hub');
+        var hubBgVideo = document.getElementById('hub-bg-video');
+
+        agent.style.transition = 'opacity 0.6s ease';
+        agent.style.opacity = '0';
+
+        hub.classList.add('active');
+        hub.style.opacity = '0';
+        hub.style.transition = 'none';
+
+        if (hubBgVideo) hubBgVideo.play().catch(function() {});
+
+        requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+                hub.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                hub.style.opacity = '1';
+            });
+        });
+
+        setTimeout(function() {
+            agent.classList.remove('active');
+            agent.style.transition = '';
+            agent.style.opacity = '';
+            hub.style.transition = '';
+            hub.style.opacity = '';
+        }, 1200);
+    }
+
     document.querySelectorAll('.hub-category').forEach(function(cat) {
         cat.addEventListener('click', function(e) {
             e.preventDefault();
             var catKey = this.getAttribute('data-category');
+
+            if (catKey === 'agent') {
+                var soundFile = soundMap[catKey];
+                if (soundFile) {
+                    var audio = new Audio(soundFile);
+                    audio.volume = 0.3;
+                    audio.play().catch(function() {});
+                }
+                transitionHubToAgent();
+                return;
+            }
 
             var soundFile = soundMap[catKey];
             if (soundFile) {
@@ -458,6 +531,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1200);
     });
 
+    var agentBackEl = document.getElementById('agent-back');
+    if (agentBackEl) agentBackEl.addEventListener('click', function() {
+        transitionAgentToHub();
+    });
+
     var btnBackHubEl = document.getElementById('btn-back-hub');
     if (btnBackHubEl) btnBackHubEl.addEventListener('click', function() {
         if (playerVideo) { playerVideo.pause(); playerVideo.removeAttribute('src'); playerVideo.load(); }
@@ -547,7 +625,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getCategoryName(cat) {
-        var names = { documentary: 'AI纪录片', ads: 'AI广告片', game: '长AI游戏视频', real: '实拍纪录片' };
+        var names = { documentary: 'AI纪录片', ads: 'AI广告片', game: '长AI游戏视频', real: '实拍纪录片', agent: 'Agent项目' };
         return names[cat] || '';
     }
 
