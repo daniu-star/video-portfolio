@@ -274,10 +274,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function transitionHubToShowcase(cat) {
         var hub = document.getElementById('layer-hub');
         var grid = document.getElementById('layer-grid');
+        var hubBgVideo = document.getElementById('hub-bg-video');
 
         currentCategory = cat;
         currentIndex = 0;
         loadShowcaseVideo();
+
+        if (hubBgVideo) hubBgVideo.pause();
 
         grid.classList.add('active');
         grid.style.opacity = '0';
@@ -375,6 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (showcaseVideo) showcaseVideo.pause();
         var grid = document.getElementById('layer-grid');
         var hub = document.getElementById('layer-hub');
+        var hubBgVideo = document.getElementById('hub-bg-video');
 
         grid.style.transition = 'opacity 0.6s ease';
         grid.style.opacity = '0';
@@ -382,6 +386,8 @@ document.addEventListener('DOMContentLoaded', function() {
         hub.classList.add('active');
         hub.style.opacity = '0';
         hub.style.transition = 'none';
+
+        if (hubBgVideo) hubBgVideo.play().catch(function() {});
 
         requestAnimationFrame(function() {
             requestAnimationFrame(function() {
