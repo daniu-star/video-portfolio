@@ -250,9 +250,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         showcaseInfo.classList.remove('active');
 
+        var grid = document.getElementById('layer-grid');
+        if (grid) grid.classList.remove('playing');
+        isShowcasePlaying = false;
+
         setTimeout(function() {
             if (showcaseVideo) {
                 showcaseVideo.src = v.src;
+                showcaseVideo.muted = true;
+                showcaseVideo.loop = true;
                 showcaseVideo.play().catch(function() {});
             }
 
@@ -361,11 +367,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    var isShowcasePlaying = false;
+
     var showcaseLayerEl = document.getElementById('layer-grid');
     if (showcaseLayerEl) showcaseLayerEl.addEventListener('click', function(e) {
         if (e.target.closest('.showcase-right')) return;
-        loadVideo();
-        transitionShowcaseToPlayer();
+        if (isShowcasePlaying) {
+            showcaseLayerEl.classList.remove('playing');
+            showcaseVideo.muted = true;
+            showcaseVideo.loop = true;
+            isShowcasePlaying = false;
+        } else {
+            showcaseLayerEl.classList.add('playing');
+            showcaseVideo.muted = false;
+            showcaseVideo.loop = false;
+            showcaseVideo.currentTime = 0;
+            showcaseVideo.play().catch(function() {});
+            isShowcasePlaying = true;
+        }
+    });
+
+    if (showcaseVideo) showcaseVideo.addEventListener('ended', function() {
+        var grid = document.getElementById('layer-grid');
+        grid.classList.remove('playing');
+        showcaseVideo.muted = true;
+        showcaseVideo.loop = true;
+        showcaseVideo.currentTime = 0;
+        showcaseVideo.play().catch(function() {});
+        isShowcasePlaying = false;
     });
 
     var showcasePrevEl = document.getElementById('showcase-prev');
@@ -391,6 +420,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var grid = document.getElementById('layer-grid');
         var hub = document.getElementById('layer-hub');
         var hubBgVideo = document.getElementById('hub-bg-video');
+
+        grid.classList.remove('playing');
+        isShowcasePlaying = false;
 
         grid.style.transition = 'opacity 0.6s ease';
         grid.style.opacity = '0';

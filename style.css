@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
     font-family: 'MaShanZheng';
     src: url('fonts/MaShanZheng-Regular.ttf') format('truetype');
     font-weight: 400;
@@ -2190,7 +2190,7 @@ button:focus-visible {
     height: 100%;
     object-fit: cover;
     opacity: 0.7;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.8s ease;
     z-index: 0;
 }
 
@@ -2198,11 +2198,20 @@ button:focus-visible {
     opacity: 0.8;
 }
 
+#layer-grid.playing .showcase-video {
+    opacity: 1;
+}
+
 .showcase-gradient {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0.55) 60%, rgba(0, 0, 0, 0.8) 80%, rgba(0, 0, 0, 0.92) 100%);
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.35) 60%, rgba(0, 0, 0, 0.6) 80%, rgba(0, 0, 0, 0.75) 100%);
     z-index: 1;
+    transition: opacity 0.8s ease;
+}
+
+#layer-grid.playing .showcase-gradient {
+    opacity: 0.3;
 }
 
 .showcase-play-hint {
@@ -2234,6 +2243,11 @@ button:focus-visible {
     transform: translate(-50%, -50%) scale(1);
 }
 
+#layer-grid.playing .showcase-play-hint {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .showcase-right {
     position: absolute;
     right: 0;
@@ -2246,6 +2260,12 @@ button:focus-visible {
     justify-content: center;
     padding: 60px 48px;
     z-index: 4;
+    transition: opacity 0.8s ease;
+}
+
+#layer-grid.playing .showcase-right {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .showcase-info {
