@@ -42,6 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById(id).classList.add('active');
     }
 
+    function pauseAllBgVideos() {
+        var landingV = document.getElementById('landing-bg-video');
+        var hubV = document.getElementById('hub-bg-video');
+        var showcaseV = document.getElementById('showcase-video');
+        if (landingV) landingV.pause();
+        if (hubV) hubV.pause();
+        if (showcaseV) { showcaseV.pause(); showcaseV.removeAttribute('src'); showcaseV.load(); }
+    }
+
     var enterPortfolioEl = document.getElementById('enter-portfolio');
     if (enterPortfolioEl) enterPortfolioEl.addEventListener('click', function() {
         var landing = document.getElementById('layer-landing');
