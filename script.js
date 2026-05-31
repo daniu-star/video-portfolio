@@ -46,11 +46,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (enterPortfolioEl) enterPortfolioEl.addEventListener('click', function() {
         var landing = document.getElementById('layer-landing');
         var hub = document.getElementById('layer-hub');
+        var landingBgVideo = document.getElementById('landing-bg-video');
 
         var enterAudio = new Audio('sounds/click-documentary.wav');
         enterAudio.volume = 0.35;
         enterAudio.play().catch(function() {});
 
+        if (landingBgVideo) landingBgVideo.pause();
         landing.classList.add('leaving');
 
         setTimeout(function() {
@@ -91,11 +93,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (enterProfileEl) enterProfileEl.addEventListener('click', function() {
         var landing = document.getElementById('layer-landing');
         var profile = document.getElementById('layer-profile');
+        var landingBgVideo = document.getElementById('landing-bg-video');
 
         var enterAudio = new Audio('sounds/click-documentary.wav');
         enterAudio.volume = 0.35;
         enterAudio.play().catch(function() {});
 
+        if (landingBgVideo) landingBgVideo.pause();
         landing.classList.add('leaving');
 
         setTimeout(function() {
@@ -145,6 +149,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (profileBackEl) profileBackEl.addEventListener('click', function() {
         var landing = document.getElementById('layer-landing');
         var profile = document.getElementById('layer-profile');
+        var landingBgVideo = document.getElementById('landing-bg-video');
+
+        if (landingBgVideo) landingBgVideo.play().catch(function() {});
 
         profile.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         profile.style.opacity = '0';
@@ -181,6 +188,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (hubBackEl) hubBackEl.addEventListener('click', function() {
         var landing = document.getElementById('layer-landing');
         var hub = document.getElementById('layer-hub');
+        var landingBgVideo = document.getElementById('landing-bg-video');
+        var hubBgVideo = document.getElementById('hub-bg-video');
+
+        if (hubBgVideo) hubBgVideo.pause();
+        if (landingBgVideo) landingBgVideo.play().catch(function() {});
 
         hub.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         hub.style.opacity = '0';
