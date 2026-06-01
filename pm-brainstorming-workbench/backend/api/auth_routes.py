@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 
 from core.auth import create_jwt_token, send_sms_code, verify_sms_code
@@ -25,11 +25,13 @@ class QQAuthRequest(BaseModel):
 
 
 @router.post("/sms/send")
-async def sms_send(req: SmsSendRequest):
+async def sms_send(req: SmsSendRequest, request: Request):
     if not req.phone:
         raise HTTPException(status_code=400, detail="手机号不能为空")
     code = send_sms_code(req.phone)
-    return {"success": True, "hint": f"dev code: {code}"}
+    is_dev = request.client.host in ("127.0.0.1", "::1") if request.client else True
+    hint = f"dev code: {code}" if is_dev else "验证码已发送"
+    return {"success": True, "hint": hint}
 
 
 @router.post("/sms/verify")
