@@ -1,0 +1,9 @@
+{
+  "buildCommand": "cd pm-brainstorming-workbench/frontend && npm install && npm run build",
+  "outputDirectory": "pm-brainstorming-workbench/frontend/.next",
+  "installCommand": "cd pm-brainstorming-workbench/frontend && npm install",
+  "framework": "nextjs",
+  "env": {
+    "NEXT_PUBLIC_API_URL": "https://123chenjunliang-pm-brainstorm-workbench.hf.space"
+  }
+}
