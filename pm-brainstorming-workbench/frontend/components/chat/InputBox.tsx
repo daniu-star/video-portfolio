@@ -31,7 +31,7 @@ export function InputBox() {
     setInput("");
   };
 
-  const { isRecording, isTranscribing, transcript, errorMessage, start, stop, reset } = useSpeechRecognition();
+  const { isRecording, isTranscribing, transcript, errorMessage, start, stop, reset, status } = useSpeechRecognition();
 
   useEffect(() => {
     if (transcript) {
@@ -92,14 +92,43 @@ export function InputBox() {
         )}
       </div>
 
-      {(isRecording || isTranscribing) && (
-        <div className="voice-transcript-bar mb-2 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-700">
-          {isTranscribing ? "正在识别..." : "正在聆听..."}
+      {status === "recording" && (
+        <div className="voice-transcript-bar mb-2 px-3 py-1.5 bg-red-50 border border-red-200 rounded-lg text-xs text-red-600 flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+          <span>正在聆听...</span>
+          <span className="flex items-center gap-0.5 ml-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span key={i} className="inline-block w-0.5 bg-red-400 rounded-full animate-pulse" style={{ height: `${8 + Math.random() * 8}px`, animationDelay: `${i * 0.15}s` }} />
+            ))}
+          </span>
         </div>
       )}
-      {errorMessage && !isRecording && !isTranscribing && (
-        <div className="mb-2 px-3 py-1.5 bg-red-50 border border-red-200 rounded-lg text-xs text-red-600">
-          {errorMessage}
+      {status === "transcribing" && (
+        <div className="voice-transcript-bar mb-2 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-700 flex items-center gap-2">
+          <svg className="animate-spin h-3.5 w-3.5 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
+          <span>正在识别...</span>
+        </div>
+      )}
+      {status === "success" && (
+        <div className="voice-transcript-bar mb-2 px-3 py-1.5 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-600 flex items-center gap-2">
+          <svg className="h-3.5 w-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>识别成功</span>
+        </div>
+      )}
+      {status === "error" && (
+        <div className="voice-transcript-bar mb-2 px-3 py-1.5 bg-red-50 border border-red-200 rounded-lg text-xs text-red-600 flex items-center gap-2">
+          <svg className="h-3.5 w-3.5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span className="flex-1">{errorMessage}</span>
+          <button onClick={start} className="px-2 py-0.5 bg-red-100 hover:bg-red-200 active:bg-red-300 rounded text-red-700 transition-colors">
+            重试
+          </button>
         </div>
       )}
 
@@ -141,18 +170,25 @@ export function InputBox() {
             aria-label={isRecording ? "停止录音" : "语音输入"}
             title="点击语音输入"
             className={`w-10 h-10 min-w-[44px] min-h-[44px] rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:ring-offset-2 focus:ring-offset-white ${
-              isRecording
+              status === "recording"
                 ? "mic-ripple bg-red-600 hover:bg-red-500 active:bg-red-700 text-white"
-                : "mic-pulse bg-warm-100 hover:bg-warm-200 active:bg-warm-300 text-warm-500 hover:text-warm-600 disabled:text-warm-400"
+                : status === "transcribing"
+                  ? "bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white animate-pulse"
+                  : status === "success"
+                    ? "bg-emerald-500 text-white"
+                    : "mic-pulse bg-warm-100 hover:bg-warm-200 active:bg-warm-300 text-warm-500 hover:text-warm-600 disabled:text-warm-400"
             }`}
           >
             <MicIcon size={18} />
           </button>
-          {isRecording && (
+          {status === "recording" && (
             <span className="text-[10px] text-red-600 mt-0.5 whitespace-nowrap">正在聆听...</span>
           )}
-          {isTranscribing && (
+          {status === "transcribing" && (
             <span className="text-[10px] text-amber-600 mt-0.5 whitespace-nowrap">正在识别...</span>
+          )}
+          {status === "success" && (
+            <span className="text-[10px] text-emerald-600 mt-0.5 whitespace-nowrap">识别成功</span>
           )}
         </div>
         <button

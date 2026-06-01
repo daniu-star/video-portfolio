@@ -28,10 +28,16 @@ class QQAuthRequest(BaseModel):
 async def sms_send(req: SmsSendRequest, request: Request):
     if not req.phone:
         raise HTTPException(status_code=400, detail="手机号不能为空")
-    code = send_sms_code(req.phone)
+    code, hint = send_sms_code(req.phone)
     is_dev = request.client.host in ("127.0.0.1", "::1") if request.client else True
-    hint = f"dev code: {code}" if is_dev else "验证码已发送"
-    return {"success": True, "hint": hint}
+    response = {"success": True}
+    if hint:
+        if is_dev:
+            response["hint"] = hint
+        else:
+            response["hint"] = "短信服务暂不可用，验证码已显示在下方"
+            response["dev_code"] = code
+    return response
 
 
 @router.post("/sms/verify")

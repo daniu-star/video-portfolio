@@ -38,11 +38,18 @@ def generate_sms_code() -> str:
     return f"{random.randint(0, 999999):06d}"
 
 
-def send_sms_code(phone: str) -> str:
+def send_sms_code(phone: str) -> tuple[str, str | None]:
     code = generate_sms_code()
     expires_at = time.time() + SMS_CODE_EXPIRE_MINUTES * 60
     SMS_CODES[phone] = {"code": code, "expires_at": expires_at}
-    return code
+
+    from core.sms import send_sms_via_alibaba
+    result = send_sms_via_alibaba(phone, code)
+
+    if result["success"]:
+        return code, None
+    else:
+        return code, f"dev code: {code}"
 
 
 def verify_sms_code(phone: str, code: str) -> bool:

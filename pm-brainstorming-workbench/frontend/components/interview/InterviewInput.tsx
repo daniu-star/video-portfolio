@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useSessionStore } from "@/store/sessionStore";
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
 import { SendIcon, MicIcon } from "@/components/icons";
@@ -22,6 +22,7 @@ export function InterviewInput({ phoneMode, onTogglePhoneMode }: InterviewInputP
     stop,
     reset,
     isSupported,
+    status,
   } = useSpeechRecognition();
 
   useEffect(() => {
@@ -65,6 +66,7 @@ export function InterviewInput({ phoneMode, onTogglePhoneMode }: InterviewInputP
         start={start}
         stop={stop}
         onHangUp={onTogglePhoneMode}
+        status={status}
       />
     );
   }
@@ -115,6 +117,7 @@ export function InterviewInput({ phoneMode, onTogglePhoneMode }: InterviewInputP
         stop={stop}
         reset={reset}
         onSend={handleVoiceSend}
+        status={status}
       />
     </div>
   );
@@ -131,6 +134,7 @@ function VoiceInputView({
   stop,
   reset,
   onSend,
+  status,
 }: {
   isRecording: boolean;
   isTranscribing: boolean;
@@ -142,6 +146,7 @@ function VoiceInputView({
   stop: () => void;
   reset: () => void;
   onSend: () => void;
+  status: "idle" | "recording" | "transcribing" | "success" | "error";
 }) {
   const isActive = isRecording || isTranscribing || !!transcript || !!errorMessage;
 
@@ -178,46 +183,79 @@ function VoiceInputView({
 
   return (
     <div className="flex flex-col items-center gap-3">
-      {isRecording && (
+      {status === "recording" && (
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
           <p className="text-sm text-red-600">正在聆听...</p>
+          <span className="flex items-center gap-0.5 ml-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span key={i} className="inline-block w-0.5 bg-red-400 rounded-full animate-pulse" style={{ height: `${8 + Math.random() * 8}px`, animationDelay: `${i * 0.15}s` }} />
+            ))}
+          </span>
         </div>
       )}
-      {isTranscribing && (
+      {status === "transcribing" && (
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+          <svg className="animate-spin h-4 w-4 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
           <p className="text-sm text-amber-600">正在识别...</p>
         </div>
       )}
-      {transcript && (
+      {status === "success" && (
+        <div className="flex items-center gap-2">
+          <svg className="h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          <p className="text-sm text-emerald-600">识别成功</p>
+        </div>
+      )}
+      {status === "error" && (
+        <div className="flex flex-col items-center gap-2 w-full">
+          <div className="flex items-center gap-2">
+            <svg className="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p className="text-sm text-red-600">{errorMessage}</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <button onClick={start} className="px-3 py-1.5 bg-red-100 hover:bg-red-200 active:bg-red-300 rounded-lg text-xs text-red-700 transition-colors">
+              重试
+            </button>
+            <button onClick={reset} className="text-xs text-slate-500 hover:text-slate-700 transition-colors underline">
+              切换到文字模式
+            </button>
+          </div>
+        </div>
+      )}
+      {transcript && status !== "error" && (
         <div className="w-full bg-warm-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 min-h-[40px]">
           {transcript}
         </div>
       )}
-      {errorMessage && !isRecording && !isTranscribing && (
-        <div className="w-full bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 text-xs text-red-600">
-          {errorMessage}
-        </div>
-      )}
 
       <div className="flex items-center gap-4">
-        <div className={isRecording ? "mic-ripple relative" : ""}>
+        <div className={status === "recording" ? "mic-ripple relative" : ""}>
           <button
             onClick={isRecording ? stop : start}
             disabled={isTranscribing}
             aria-label={isRecording ? "停止录音" : "开始录音"}
             className={`w-16 h-16 min-w-[44px] min-h-[44px] rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white ${
-              isRecording
+              status === "recording"
                 ? "bg-red-600 hover:bg-red-500 active:bg-red-700 text-white focus:ring-red-500/50"
-                : "mic-pulse bg-slate-100 hover:bg-slate-200 active:bg-slate-200 text-slate-500 hover:text-slate-600 focus:ring-amber-500/50"
+                : status === "transcribing"
+                  ? "bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white focus:ring-amber-500/50 animate-pulse"
+                  : status === "success"
+                    ? "bg-emerald-500 text-white focus:ring-emerald-500/50"
+                    : "mic-pulse bg-slate-100 hover:bg-slate-200 active:bg-slate-200 text-slate-500 hover:text-slate-600 focus:ring-amber-500/50"
             }`}
           >
             <MicIcon size={28} />
           </button>
         </div>
 
-        {transcript && (
+        {transcript && status !== "error" && (
           <button
             onClick={onSend}
             disabled={isStreaming}
@@ -240,6 +278,7 @@ function PhoneModeView({
   start,
   stop,
   onHangUp,
+  status,
 }: {
   isRecording: boolean;
   isTranscribing: boolean;
@@ -248,9 +287,25 @@ function PhoneModeView({
   start: () => void;
   stop: () => void;
   onHangUp?: () => void;
+  status: "idle" | "recording" | "transcribing" | "success" | "error";
 }) {
+  const autoStartRef = useRef(false);
+
   useEffect(() => {
-    if (isSupported && !isRecording && !isTranscribing && !errorMessage) {
+    if (isRecording) {
+      autoStartRef.current = false;
+    }
+  }, [isRecording]);
+
+  useEffect(() => {
+    if (errorMessage) {
+      autoStartRef.current = false;
+    }
+  }, [errorMessage]);
+
+  useEffect(() => {
+    if (isSupported && !autoStartRef.current && !isRecording && !isTranscribing && !errorMessage) {
+      autoStartRef.current = true;
       const timer = setTimeout(() => {
         start();
       }, 500);
@@ -272,20 +327,36 @@ function PhoneModeView({
       </div>
 
       <div className="h-8 flex items-center justify-center">
-        {isRecording && (
+        {status === "recording" && (
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
             <span className="text-sm text-red-400">正在聆听...</span>
           </div>
         )}
-        {isTranscribing && (
+        {status === "transcribing" && (
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+            <svg className="animate-spin h-4 w-4 text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
             <span className="text-sm text-amber-400">正在识别...</span>
           </div>
         )}
-        {!isRecording && !isTranscribing && errorMessage && (
-          <span className="text-xs text-red-400">{errorMessage}</span>
+        {status === "success" && (
+          <div className="flex items-center gap-2">
+            <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="text-sm text-emerald-400">识别成功</span>
+          </div>
+        )}
+        {status === "error" && !isRecording && (
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-xs text-red-400">{errorMessage}</span>
+            <button onClick={start} className="px-3 py-1 bg-red-600 hover:bg-red-500 active:bg-red-700 text-white rounded-full text-xs font-medium transition-all duration-200">
+              重试
+            </button>
+          </div>
         )}
       </div>
 
@@ -316,9 +387,13 @@ function PhoneModeView({
           disabled={!isSupported || isTranscribing}
           aria-label={isRecording ? "停止录音" : "开始录音"}
           className={`relative w-20 h-20 rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none ${
-            isRecording
+            status === "recording"
               ? "bg-red-600 hover:bg-red-500 text-white shadow-lg shadow-red-500/30"
-              : "bg-amber-500 hover:bg-amber-400 text-white shadow-lg shadow-amber-500/30"
+              : status === "transcribing"
+                ? "bg-amber-500 hover:bg-amber-400 text-white shadow-lg shadow-amber-500/30 animate-pulse"
+                : status === "success"
+                  ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
+                  : "bg-amber-500 hover:bg-amber-400 text-white shadow-lg shadow-amber-500/30"
           }`}
         >
           <MicIcon size={32} />

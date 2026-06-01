@@ -13,6 +13,7 @@ interface SpeechRecognitionResult {
   stop: () => void;
   reset: () => void;
   isSupported: boolean;
+  status: "idle" | "recording" | "transcribing" | "success" | "error";
 }
 
 function getSupportedMimeType(): string | null {
@@ -29,6 +30,7 @@ export function useSpeechRecognition(): SpeechRecognitionResult {
   const [isTranscribing, setIsTranscribing] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "recording" | "transcribing" | "success" | "error">("idle");
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -63,6 +65,7 @@ export function useSpeechRecognition(): SpeechRecognitionResult {
 
         recorder.onstop = async () => {
           setIsRecording(false);
+          setStatus("transcribing");
           const blob = new Blob(chunksRef.current, {
             type: mimeType || "audio/webm",
           });
@@ -91,8 +94,11 @@ export function useSpeechRecognition(): SpeechRecognitionResult {
             const data = await res.json();
             if (data.text) {
               setTranscript(data.text);
+              setStatus("success");
+              setTimeout(() => setStatus("idle"), 2000);
             } else {
               setErrorMessage("未识别到语音内容，请重试");
+              setStatus("error");
             }
           } catch (err) {
             const msg =
@@ -104,6 +110,7 @@ export function useSpeechRecognition(): SpeechRecognitionResult {
                   ? err.message
                   : "语音识别失败，请重试";
             setErrorMessage(msg);
+            setStatus("error");
           } finally {
             setIsTranscribing(false);
           }
@@ -112,6 +119,7 @@ export function useSpeechRecognition(): SpeechRecognitionResult {
         recorder.onerror = () => {
           setIsRecording(false);
           setErrorMessage("录音过程中发生错误");
+          setStatus("error");
           stream.getTracks().forEach((t) => t.stop());
           streamRef.current = null;
         };
@@ -119,6 +127,7 @@ export function useSpeechRecognition(): SpeechRecognitionResult {
         mediaRecorderRef.current = recorder;
         recorder.start();
         setIsRecording(true);
+        setStatus("recording");
       })
       .catch((err) => {
         if (
@@ -126,8 +135,10 @@ export function useSpeechRecognition(): SpeechRecognitionResult {
           (err.name === "NotAllowedError" || err.name === "PermissionDeniedError")
         ) {
           setErrorMessage("麦克风权限被拒绝，请在浏览器设置中允许");
+          setStatus("error");
         } else {
           setErrorMessage("无法访问麦克风，请检查设备");
+          setStatus("error");
         }
       });
   }, [isSupported]);
@@ -144,6 +155,7 @@ export function useSpeechRecognition(): SpeechRecognitionResult {
   const reset = useCallback(() => {
     setTranscript("");
     setErrorMessage("");
+    setStatus("idle");
   }, []);
 
   return {
@@ -155,5 +167,6 @@ export function useSpeechRecognition(): SpeechRecognitionResult {
     stop,
     reset,
     isSupported,
+    status,
   };
 }

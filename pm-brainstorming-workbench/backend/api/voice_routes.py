@@ -2,7 +2,7 @@ import logging
 from fastapi import APIRouter, HTTPException, Query, Request, UploadFile, File
 from fastapi.responses import Response
 from pydantic import BaseModel
-from core.voice import synthesize_speech, transcribe_audio, DEFAULT_VOICE
+from core.voice import synthesize_speech, transcribe_audio, transcribe_audio_hf, DEFAULT_VOICE
 from api.deps import get_current_user, get_user_llm_config, check_quota
 
 logger = logging.getLogger(__name__)
@@ -57,13 +57,19 @@ async def speech_to_text(request: Request, file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail="音频文件为空")
 
     try:
-        text = await transcribe_audio(
-            audio_bytes=audio_bytes,
-            content_type=content_type,
-            api_key=llm_config["api_key"],
-            base_url=llm_config["base_url"],
-            model=llm_config["model"],
-        )
+        if llm_config["api_key"]:
+            text = await transcribe_audio(
+                audio_bytes=audio_bytes,
+                content_type=content_type,
+                api_key=llm_config["api_key"],
+                base_url=llm_config["base_url"],
+                model=llm_config["model"],
+            )
+        else:
+            text = await transcribe_audio_hf(
+                audio_bytes=audio_bytes,
+                content_type=content_type,
+            )
     except RuntimeError as e:
         raise HTTPException(status_code=500, detail=str(e))
     except Exception as e:
