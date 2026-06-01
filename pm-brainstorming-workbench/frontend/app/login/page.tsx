@@ -7,6 +7,17 @@ import { api } from "@/lib/api";
 
 type TabKey = "phone" | "wechat" | "qq";
 
+const QR_PATTERN = [
+  1,1,1,0,1,1,1,0,
+  1,0,1,0,1,0,1,1,
+  1,1,1,0,1,1,1,0,
+  0,0,0,1,0,0,0,1,
+  1,1,1,0,1,1,1,0,
+  1,0,1,1,0,1,0,1,
+  1,1,1,0,0,1,1,0,
+  0,0,0,1,1,0,0,1,
+];
+
 export default function LoginPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabKey>("phone");
@@ -15,8 +26,10 @@ export default function LoginPage() {
   const [countdown, setCountdown] = useState(0);
   const [isSending, setIsSending] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const [wechatStatus, setWechatStatus] = useState("请点击扫码登录");
-  const [qqStatus, setQqStatus] = useState("");
+  const [devCodeHint, setDevCodeHint] = useState<string | null>(null);
+  const [wechatStep, setWechatStep] = useState<"qr" | "scanned" | "expired">("qr");
+  const [qqStep, setQqStep] = useState<"qr" | "scanned" | "expired">("qr");
+  const [qrCountdown, setQrCountdown] = useState(120);
   const [error, setError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -32,6 +45,25 @@ export default function LoginPage() {
     return () => clearTimeout(timer);
   }, [countdown]);
 
+  useEffect(() => {
+    if (countdown === 0) setDevCodeHint(null);
+  }, [countdown]);
+
+  useEffect(() => {
+    if (activeTab !== "wechat" && activeTab !== "qq") return;
+    if (qrCountdown <= 0) return;
+    const currentStep = activeTab === "wechat" ? wechatStep : qqStep;
+    if (currentStep !== "qr") return;
+    const timer = setTimeout(() => setQrCountdown((c) => c - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [qrCountdown, activeTab, wechatStep, qqStep]);
+
+  useEffect(() => {
+    if (qrCountdown > 0) return;
+    if (activeTab === "wechat" && wechatStep === "qr") setWechatStep("expired");
+    if (activeTab === "qq" && qqStep === "qr") setQqStep("expired");
+  }, [qrCountdown, activeTab, wechatStep, qqStep]);
+
   const handleSendCode = useCallback(async () => {
     if (phone.length !== 11 || countdown > 0 || isSending) return;
     setIsSending(true);
@@ -43,6 +75,8 @@ export default function LoginPage() {
       });
       if (result.success) {
         setCountdown(60);
+        const codeMatch = result.hint?.match(/\d{4,6}/);
+        if (codeMatch) setDevCodeHint(codeMatch[0]);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "发送验证码失败");
@@ -68,13 +102,11 @@ export default function LoginPage() {
   const handleWechatLogin = useCallback(async () => {
     if (isLoggingIn) return;
     setIsLoggingIn(true);
-    setWechatStatus("正在登录...");
     setError(null);
     try {
       await loginWechat();
       router.push("/");
     } catch (err) {
-      setWechatStatus("登录失败，请重试");
       setError(err instanceof Error ? err.message : "微信登录失败");
     } finally {
       setIsLoggingIn(false);
@@ -84,13 +116,11 @@ export default function LoginPage() {
   const handleQqLogin = useCallback(async () => {
     if (isLoggingIn) return;
     setIsLoggingIn(true);
-    setQqStatus("正在登录...");
     setError(null);
     try {
       await loginQq();
       router.push("/");
     } catch (err) {
-      setQqStatus("登录失败，请重试");
       setError(err instanceof Error ? err.message : "QQ 登录失败");
     } finally {
       setIsLoggingIn(false);
@@ -125,7 +155,17 @@ export default function LoginPage() {
             {tabs.map((tab) => (
               <button
                 key={tab.key}
-                onClick={() => { setActiveTab(tab.key); setError(null); }}
+                onClick={() => {
+                  setActiveTab(tab.key);
+                  setError(null);
+                  if (tab.key === "wechat") {
+                    setWechatStep("qr");
+                    setQrCountdown(120);
+                  } else if (tab.key === "qq") {
+                    setQqStep("qr");
+                    setQrCountdown(120);
+                  }
+                }}
                 className={`flex-1 py-2.5 text-xs font-bold transition-colors relative ${
                   activeTab === tab.key
                     ? "text-amber-900"
@@ -173,6 +213,11 @@ export default function LoginPage() {
                       {isSending ? "发送中..." : countdown > 0 ? `${countdown}s` : "获取验证码"}
                     </button>
                   </div>
+                  {devCodeHint && (
+                    <div className="mt-2 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-700 font-medium">
+                      验证码已发送（开发模式）: {devCodeHint}
+                    </div>
+                  )}
                 </div>
                 <button
                   onClick={handlePhoneLogin}
@@ -192,58 +237,138 @@ export default function LoginPage() {
             {activeTab === "wechat" && (
               <div className="space-y-4">
                 <div className="flex flex-col items-center py-4">
-                  <div className="w-40 h-40 rounded-2xl border-2 border-dashed border-amber-200 bg-amber-50/50 flex flex-col items-center justify-center gap-2">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="#07C160">
-                      <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zM14.87 13.13c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.82 0c.534 0 .968.44.968.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.968-.983c0-.542.434-.982.969-.982z" />
-                    </svg>
-                    <span className="text-[10px] text-amber-500 font-medium">微信扫码登录</span>
-                  </div>
-                </div>
-                <button
-                  onClick={handleWechatLogin}
-                  disabled={isLoggingIn}
-                  className="w-full h-11 bg-[#07C160] hover:bg-[#06AD56] active:bg-[#059A4C] disabled:bg-green-200 disabled:text-green-400 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-sm shadow-md shadow-green-200 disabled:shadow-none"
-                >
-                  {isLoggingIn ? (
+                  {wechatStep === "qr" && (
                     <>
-                      <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      登录中...
+                      <div
+                        className="w-[160px] h-[160px] rounded-xl bg-white border-2 border-gray-200 p-2 relative cursor-pointer hover:border-[#07C160] transition-colors"
+                        onClick={() => setWechatStep("scanned")}
+                      >
+                        <div className="grid grid-cols-8 grid-rows-8 gap-[2px] h-full">
+                          {QR_PATTERN.map((cell, i) => (
+                            <div key={i} className={`rounded-[1px] ${cell ? "bg-gray-800" : "bg-gray-100"}`} />
+                          ))}
+                        </div>
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <div className="w-8 h-8 rounded-lg bg-[#07C160] flex items-center justify-center shadow-sm border-2 border-white">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                              <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zM14.87 13.13c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.82 0c.534 0 .968.44.968.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.968-.983c0-.542.434-.982.969-.982z" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-3 font-medium">请使用微信扫描二维码登录</p>
+                      <p className="text-xs text-amber-500 mt-1">{qrCountdown}s 后过期</p>
                     </>
-                  ) : "扫码登录"}
-                </button>
-                <p className="text-center text-[11px] text-amber-500 font-medium">{wechatStatus}</p>
+                  )}
+                  {wechatStep === "scanned" && (
+                    <>
+                      <div className="w-[160px] h-[160px] rounded-xl bg-green-50 border-2 border-green-200 flex flex-col items-center justify-center">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#07C160" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                        <p className="text-sm text-green-700 font-semibold mt-2">扫码成功</p>
+                      </div>
+                      <button
+                        onClick={handleWechatLogin}
+                        disabled={isLoggingIn}
+                        className="mt-4 w-full h-11 bg-[#07C160] hover:bg-[#06AD56] active:bg-[#059A4C] disabled:bg-green-200 disabled:text-green-400 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-sm shadow-md shadow-green-200 disabled:shadow-none"
+                      >
+                        {isLoggingIn ? (
+                          <>
+                            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            登录中...
+                          </>
+                        ) : "确认登录"}
+                      </button>
+                    </>
+                  )}
+                  {wechatStep === "expired" && (
+                    <>
+                      <div className="w-[160px] h-[160px] rounded-xl bg-gray-50 border-2 border-gray-200 flex flex-col items-center justify-center">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <path d="M12 6v6l4 2" />
+                        </svg>
+                        <p className="text-sm text-gray-500 mt-2 font-medium">二维码已过期</p>
+                      </div>
+                      <button
+                        onClick={() => { setWechatStep("qr"); setQrCountdown(120); }}
+                        className="mt-4 w-full h-11 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                      >
+                        刷新二维码
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
             )}
 
             {activeTab === "qq" && (
               <div className="space-y-4">
                 <div className="flex flex-col items-center py-4">
-                  <div className="w-20 h-20 rounded-2xl bg-[#12B7F5] flex items-center justify-center shadow-md shadow-blue-200">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
-                      <path d="M12.003 2c-2.265 0-6.29 1.364-6.29 7.325v1.195S3.55 14.96 3.55 17.474c0 .665.17 1.025.396 1.025.116 0 .263-.072.42-.216-.156.535-.216 1.043-.216 1.477 0 .88.356 1.366.96 1.366.346 0 .75-.176 1.17-.496-.072.478-.1.906-.1 1.273 0 1.09.506 1.644 1.336 1.644.546 0 1.19-.27 1.822-.746A4.63 4.63 0 0 0 12 24c.637 0 1.276-.2 1.858-.6.633.477 1.277.747 1.823.747.83 0 1.336-.555 1.336-1.644 0-.367-.028-.795-.1-1.273.42.32.824.496 1.17.496.604 0 .96-.487.96-1.366 0-.434-.06-.942-.216-1.477.157.144.304.216.42.216.227 0 .396-.36.396-1.025 0-2.514-2.163-6.954-2.163-6.954V9.325C18.293 3.364 14.268 2 12.003 2z" />
-                    </svg>
-                  </div>
-                </div>
-                <button
-                  onClick={handleQqLogin}
-                  disabled={isLoggingIn}
-                  className="w-full h-11 bg-[#12B7F5] hover:bg-[#0EA1DB] active:bg-[#0C8FC2] disabled:bg-blue-200 disabled:text-blue-400 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-sm shadow-md shadow-blue-200 disabled:shadow-none"
-                >
-                  {isLoggingIn ? (
+                  {qqStep === "qr" && (
                     <>
-                      <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      登录中...
-                    </>
-                  ) : (
-                    <>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                        <path d="M12.003 2c-2.265 0-6.29 1.364-6.29 7.325v1.195S3.55 14.96 3.55 17.474c0 .665.17 1.025.396 1.025.116 0 .263-.072.42-.216-.156.535-.216 1.043-.216 1.477 0 .88.356 1.366.96 1.366.346 0 .75-.176 1.17-.496-.072.478-.1.906-.1 1.273 0 1.09.506 1.644 1.336 1.644.546 0 1.19-.27 1.822-.746A4.63 4.63 0 0 0 12 24c.637 0 1.276-.2 1.858-.6.633.477 1.277.747 1.823.747.83 0 1.336-.555 1.336-1.644 0-.367-.028-.795-.1-1.273.42.32.824.496 1.17.496.604 0 .96-.487.96-1.366 0-.434-.06-.942-.216-1.477.157.144.304.216.42.216.227 0 .396-.36.396-1.025 0-2.514-2.163-6.954-2.163-6.954V9.325C18.293 3.364 14.268 2 12.003 2z" />
-                      </svg>
-                      QQ登录
+                      <div
+                        className="w-[160px] h-[160px] rounded-xl bg-white border-2 border-gray-200 p-2 relative cursor-pointer hover:border-[#12B7F5] transition-colors"
+                        onClick={() => setQqStep("scanned")}
+                      >
+                        <div className="grid grid-cols-8 grid-rows-8 gap-[2px] h-full">
+                          {QR_PATTERN.map((cell, i) => (
+                            <div key={i} className={`rounded-[1px] ${cell ? "bg-gray-800" : "bg-gray-100"}`} />
+                          ))}
+                        </div>
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <div className="w-8 h-8 rounded-lg bg-[#12B7F5] flex items-center justify-center shadow-sm border-2 border-white">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                              <path d="M12.003 2c-2.265 0-6.29 1.364-6.29 7.325v1.195S3.55 14.96 3.55 17.474c0 .665.17 1.025.396 1.025.116 0 .263-.072.42-.216-.156.535-.216 1.043-.216 1.477 0 .88.356 1.366.96 1.366.346 0 .75-.176 1.17-.496-.072.478-.1.906-.1 1.273 0 1.09.506 1.644 1.336 1.644.546 0 1.19-.27 1.822-.746A4.63 4.63 0 0 0 12 24c.637 0 1.276-.2 1.858-.6.633.477 1.277.747 1.823.747.83 0 1.336-.555 1.336-1.644 0-.367-.028-.795-.1-1.273.42.32.824.496 1.17.496.604 0 .96-.487.96-1.366 0-.434-.06-.942-.216-1.477.157.144.304.216.42.216.227 0 .396-.36.396-1.025 0-2.514-2.163-6.954-2.163-6.954V9.325C18.293 3.364 14.268 2 12.003 2z" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-3 font-medium">请使用QQ扫描二维码登录</p>
+                      <p className="text-xs text-amber-500 mt-1">{qrCountdown}s 后过期</p>
                     </>
                   )}
-                </button>
-                {qqStatus && <p className="text-center text-[11px] text-amber-500 font-medium">{qqStatus}</p>}
+                  {qqStep === "scanned" && (
+                    <>
+                      <div className="w-[160px] h-[160px] rounded-xl bg-blue-50 border-2 border-blue-200 flex flex-col items-center justify-center">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#12B7F5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                        <p className="text-sm text-blue-700 font-semibold mt-2">扫码成功</p>
+                      </div>
+                      <button
+                        onClick={handleQqLogin}
+                        disabled={isLoggingIn}
+                        className="mt-4 w-full h-11 bg-[#12B7F5] hover:bg-[#0EA1DB] active:bg-[#0C8FC2] disabled:bg-blue-200 disabled:text-blue-400 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-sm shadow-md shadow-blue-200 disabled:shadow-none"
+                      >
+                        {isLoggingIn ? (
+                          <>
+                            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            登录中...
+                          </>
+                        ) : "确认登录"}
+                      </button>
+                    </>
+                  )}
+                  {qqStep === "expired" && (
+                    <>
+                      <div className="w-[160px] h-[160px] rounded-xl bg-gray-50 border-2 border-gray-200 flex flex-col items-center justify-center">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <path d="M12 6v6l4 2" />
+                        </svg>
+                        <p className="text-sm text-gray-500 mt-2 font-medium">二维码已过期</p>
+                      </div>
+                      <button
+                        onClick={() => { setQqStep("qr"); setQrCountdown(120); }}
+                        className="mt-4 w-full h-11 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                      >
+                        刷新二维码
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
             )}
 
