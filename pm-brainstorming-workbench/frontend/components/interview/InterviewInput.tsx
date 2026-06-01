@@ -175,7 +175,7 @@ function VoiceInputView({
         </div>
         <div className="flex flex-col items-center gap-1.5">
           <p className="text-sm text-slate-600">点击麦克风开始语音对话</p>
-          <p className="text-xs text-slate-400">语音识别将自动转为文字</p>
+          <p className="text-xs text-slate-500">语音识别将自动转为文字</p>
         </div>
       </div>
     );
@@ -220,7 +220,7 @@ function VoiceInputView({
             <p className="text-sm text-red-600">{errorMessage}</p>
           </div>
           <div className="flex items-center gap-3">
-            <button onClick={start} className="px-3 py-1.5 bg-red-100 hover:bg-red-200 active:bg-red-300 rounded-lg text-xs text-red-700 transition-colors">
+            <button onClick={start} className="px-3 py-1.5 bg-red-100 hover:bg-red-200 active:bg-red-300 rounded-lg text-xs text-red-700 transition-colors min-h-[44px]">
               重试
             </button>
             <button onClick={reset} className="text-xs text-slate-500 hover:text-slate-700 transition-colors underline">
@@ -353,7 +353,7 @@ function PhoneModeView({
         {status === "error" && !isRecording && (
           <div className="flex flex-col items-center gap-2">
             <span className="text-xs text-red-400">{errorMessage}</span>
-            <button onClick={start} className="px-3 py-1 bg-red-600 hover:bg-red-500 active:bg-red-700 text-white rounded-full text-xs font-medium transition-all duration-200">
+            <button onClick={start} className="px-3 py-1 bg-red-600 hover:bg-red-500 active:bg-red-700 text-white rounded-full text-xs font-medium transition-all duration-200 min-h-[44px]">
               重试
             </button>
           </div>

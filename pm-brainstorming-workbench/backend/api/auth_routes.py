@@ -1,3 +1,5 @@
+import re
+
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 
@@ -5,6 +7,16 @@ from core.auth import create_jwt_token, send_sms_code, verify_sms_code
 from db.user_store import user_store
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
+
+
+def _validate_oauth_code(code: str, provider: str) -> bool:
+    if not code:
+        return False
+    if len(code) < 8 or len(code) > 128:
+        return False
+    if not re.match(r'^[a-zA-Z0-9_-]+$', code):
+        return False
+    return True
 
 
 class SmsSendRequest(BaseModel):
@@ -61,6 +73,8 @@ async def sms_verify(req: SmsVerifyRequest):
 
 @router.post("/wechat")
 async def wechat_auth(req: WechatAuthRequest):
+    if not _validate_oauth_code(req.code, "wechat"):
+        raise HTTPException(status_code=400, detail="无效的微信授权码")
     openid = f"wechat_{req.code}"
     user = user_store.get_user_by_wechat(openid)
     if user is None:
@@ -79,6 +93,8 @@ async def wechat_auth(req: WechatAuthRequest):
 
 @router.post("/qq")
 async def qq_auth(req: QQAuthRequest):
+    if not _validate_oauth_code(req.code, "qq"):
+        raise HTTPException(status_code=400, detail="无效的QQ授权码")
     openid = f"qq_{req.code}"
     user = user_store.get_user_by_qq(openid)
     if user is None:

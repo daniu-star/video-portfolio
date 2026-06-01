@@ -7,6 +7,12 @@ from typing import List, Optional
 SESSION_DATA_DIR = os.getenv("SESSION_DATA_DIR", "./data/sessions")
 
 
+def _validate_id(value: str) -> str:
+    if not value or ".." in value or "/" in value or "\\" in value:
+        raise ValueError(f"Invalid ID: {value}")
+    return value
+
+
 class SessionStore:
     def __init__(self):
         self.data_dir = SESSION_DATA_DIR
@@ -29,6 +35,10 @@ class SessionStore:
         return session
 
     def get(self, session_id: str, user_token: str | None = None) -> Optional[dict]:
+        try:
+            _validate_id(session_id)
+        except ValueError:
+            return None
         path = os.path.join(self.data_dir, f"{session_id}.json")
         if not os.path.exists(path):
             return None
@@ -81,6 +91,10 @@ class SessionStore:
         return sessions
 
     def delete(self, session_id: str, user_token: str | None = None) -> bool:
+        try:
+            _validate_id(session_id)
+        except ValueError:
+            return False
         path = os.path.join(self.data_dir, f"{session_id}.json")
         if not os.path.exists(path):
             return False
@@ -103,6 +117,7 @@ class SessionStore:
                     self._save(session)
 
     def _save(self, session: dict):
+        _validate_id(session['id'])
         path = os.path.join(self.data_dir, f"{session['id']}.json")
         with open(path, "w", encoding="utf-8") as f:
             json.dump(session, f, ensure_ascii=False, indent=2)

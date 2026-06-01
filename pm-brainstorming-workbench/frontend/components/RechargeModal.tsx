@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useSessionStore } from "@/store/sessionStore";
 import { api } from "@/lib/api";
 import { toast } from "@/components/Toast";
+import { WalletIcon } from "@/components/icons";
 
 type TierKey = "standard" | "professional" | "flagship";
 
@@ -13,7 +14,7 @@ interface RechargeResult {
   tier_name: string;
   tokens: number;
   price: number;
-  status: "pending" | "approved" | "rejected" | "cancelled";
+  status: "pending" | "pending_review" | "approved" | "rejected" | "cancelled";
 }
 
 type Step = 1 | 2 | 3;
@@ -22,7 +23,7 @@ const TIERS = [
   {
     name: "标准版",
     tierKey: "standard" as TierKey,
-    price: "¥10",
+    price: "10",
     priceValue: 10,
     tokens: "200,000",
     tokensNum: 200000,
@@ -39,7 +40,7 @@ const TIERS = [
   {
     name: "专业版",
     tierKey: "professional" as TierKey,
-    price: "¥30",
+    price: "30",
     priceValue: 30,
     tokens: "500,000",
     tokensNum: 500000,
@@ -57,7 +58,7 @@ const TIERS = [
   {
     name: "旗舰版",
     tierKey: "flagship" as TierKey,
-    price: "¥50",
+    price: "50",
     priceValue: 50,
     tokens: "1,000,000",
     tokensNum: 1000000,
@@ -75,7 +76,8 @@ const TIERS = [
 ];
 
 const STATUS_LABEL: Record<RechargeResult["status"], string> = {
-  pending: "待审核",
+  pending: "待付款",
+  pending_review: "待审核",
   approved: "已通过",
   rejected: "已拒绝",
   cancelled: "已取消",
@@ -83,6 +85,7 @@ const STATUS_LABEL: Record<RechargeResult["status"], string> = {
 
 const STATUS_STYLE: Record<RechargeResult["status"], string> = {
   pending: "text-amber-600 bg-amber-50 border-amber-200",
+  pending_review: "text-blue-600 bg-blue-50 border-blue-200",
   approved: "text-emerald-600 bg-emerald-50 border-emerald-200",
   rejected: "text-red-600 bg-red-50 border-red-200",
   cancelled: "text-warm-400 bg-warm-50 border-warm-200",
@@ -158,7 +161,7 @@ export function RechargeModal() {
         const data = await api<{ recharge: RechargeResult | null }>("/api/recharge/latest");
         const latest = data.recharge;
         if (cancelled) return;
-        if (latest && latest.status === "pending") {
+        if (latest && (latest.status === "pending" || latest.status === "pending_review")) {
           setRechargeResult(latest);
           setStep(3);
           rechargeResultRef.current = latest;
@@ -184,7 +187,7 @@ export function RechargeModal() {
 
   const checkStatus = useCallback(async () => {
     const current = rechargeResultRef.current;
-    if (!current || current.status !== "pending") return;
+    if (!current || (current.status !== "pending" && current.status !== "pending_review")) return;
     setChecking(true);
     try {
       const data = await api<{ recharges: RechargeResult[] }>("/api/recharge/status");
@@ -207,7 +210,7 @@ export function RechargeModal() {
   }, [refreshAfterRecharge, setRechargeOpen]);
 
   useEffect(() => {
-    if (rechargeResult?.status === "pending") {
+    if (rechargeResult?.status === "pending" || rechargeResult?.status === "pending_review") {
       if (pollRef.current) clearInterval(pollRef.current);
       pollRef.current = setInterval(checkStatus, 5000);
       return () => {
@@ -246,13 +249,10 @@ export function RechargeModal() {
     setConfirming(true);
     try {
       await api(`/api/recharge/confirm/${rechargeResult.id}`, { method: "POST" });
-      setRechargeResult({ ...rechargeResult, status: "approved" });
-      rechargeResultRef.current = { ...rechargeResult, status: "approved" };
-      await refreshAfterRecharge();
-      toast("info", "充值成功！额度已到账");
-      closeTimerRef.current = setTimeout(() => {
-        setRechargeOpen(false);
-      }, 2000);
+      setRechargeResult({ ...rechargeResult, status: "pending_review" });
+      rechargeResultRef.current = { ...rechargeResult, status: "pending_review" };
+      setStep(3);
+      toast("info", "已确认付款，等待管理员审核");
     } catch (err) {
       setStep(3);
       toast("error", `确认失败：${err instanceof Error ? err.message : "请稍后重试"}`);
@@ -292,7 +292,8 @@ export function RechargeModal() {
 
   if (!isOpen) return null;
 
-  const isTerminal = rechargeResult?.status === "approved" || rechargeResult?.status === "rejected" || rechargeResult?.status === "cancelled";
+  const TERMINAL_STATUSES: RechargeResult["status"][] = ["approved", "rejected", "cancelled"];
+  const isTerminal = !!rechargeResult?.status && TERMINAL_STATUSES.includes(rechargeResult.status);
 
   return (
     <>
@@ -305,9 +306,12 @@ export function RechargeModal() {
       >
         <div className="p-6">
           <div className="flex items-center justify-between mb-5">
-            <div>
-              <h2 id="recharge-title" className="text-lg font-semibold text-warm-600">充值额度</h2>
-              <p className="text-xs text-warm-500 mt-1">选择适合你的方案，解锁更多深度功能</p>
+            <div className="flex items-center gap-2">
+              <WalletIcon size={24} className="text-amber-500" />
+              <div>
+                <h2 id="recharge-title" className="text-lg font-semibold text-warm-600">充值额度</h2>
+                <p className="text-xs text-warm-500 mt-1">选择适合你的方案，解锁更多深度功能</p>
+              </div>
             </div>
             <button
               onClick={() => setRechargeOpen(false)}
@@ -393,12 +397,13 @@ export function RechargeModal() {
                           {tier.badge}
                         </div>
                       )}
-                      <div className="flex items-baseline gap-1.5 mb-1">
+                      <div className="flex items-baseline gap-0.5 mb-1">
+                        <span className="text-sm font-bold text-amber-700">¥</span>
                         <span className="text-lg font-bold text-warm-600">{tier.price}</span>
                         <span className="text-xs text-warm-500">/次</span>
                       </div>
                       <div className="text-xs text-warm-500 mb-0.5">{tier.name}</div>
-                      <div className="text-xs text-amber-600 font-medium mb-3">{tier.tokens} tokens · {tier.desc}</div>
+                      <div className="text-xs text-amber-700 font-medium mb-3">{tier.tokens} tokens · {tier.desc}</div>
                       <ul className="space-y-1.5">
                         {tier.features.map((f) => (
                           <li key={f} className="flex items-start gap-2 text-xs text-warm-600">
@@ -444,7 +449,7 @@ export function RechargeModal() {
                           </div>
                           <button
                             onClick={handleCopyCode}
-                            className="shrink-0 p-1.5 rounded-md bg-amber-50 border border-amber-200 text-amber-600 hover:bg-amber-100 active:bg-amber-200 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-amber-500/50 focus-visible:outline-none"
+                            className="shrink-0 p-1.5 rounded-md bg-amber-50 border border-amber-200 text-amber-600 hover:bg-amber-100 active:bg-amber-200 transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-amber-500/50 focus-visible:outline-none"
                             aria-label="复制验证码"
                           >
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -465,7 +470,7 @@ export function RechargeModal() {
                         disabled={confirming}
                         className="w-full py-2.5 text-sm font-medium rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 active:from-amber-700 active:to-orange-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber-500/50 focus-visible:outline-none"
                       >
-                        {confirming ? "确认中..." : "我已付款，立即到账"}
+                        {confirming ? "确认中..." : "我已付款"}
                       </button>
                     </div>
                   </div>
@@ -488,6 +493,12 @@ export function RechargeModal() {
                         <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-medium ${STATUS_STYLE[rechargeResult.status]}`}>
                           {rechargeResult.status === "pending" && (
                             <svg className="animate-spin w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                            </svg>
+                          )}
+                          {rechargeResult.status === "pending_review" && (
+                            <svg className="animate-spin w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="none">
                               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                             </svg>
@@ -520,7 +531,7 @@ export function RechargeModal() {
                           </div>
                           <button
                             onClick={handleCopyCode}
-                            className="shrink-0 p-1.5 rounded-md bg-amber-50 border border-amber-200 text-amber-600 hover:bg-amber-100 active:bg-amber-200 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-amber-500/50 focus-visible:outline-none"
+                            className="shrink-0 p-1.5 rounded-md bg-amber-50 border border-amber-200 text-amber-600 hover:bg-amber-100 active:bg-amber-200 transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-amber-500/50 focus-visible:outline-none"
                             aria-label="复制验证码"
                           >
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -554,6 +565,25 @@ export function RechargeModal() {
                         </div>
                       )}
 
+                      {rechargeResult.status === "pending_review" && (
+                        <div className="space-y-2">
+                          <div className="p-2.5 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-600 flex items-center gap-2">
+                            <svg className="animate-spin w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                            </svg>
+                            等待审核中...
+                          </div>
+                          <button
+                            onClick={checkStatus}
+                            disabled={checking}
+                            className="px-4 py-2 text-xs font-medium rounded-lg bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100 active:bg-blue-200 transition-all duration-200 disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:outline-none"
+                          >
+                            {checking ? "查询中..." : "查询审核状态"}
+                          </button>
+                        </div>
+                      )}
+
                       {rechargeResult.status === "approved" && (
                         <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-600">
                           充值成功！额度已到账，窗口将自动关闭
@@ -576,7 +606,7 @@ export function RechargeModal() {
 
                       {rechargeResult.status === "cancelled" && (
                         <div className="space-y-2">
-                          <div className="p-2.5 bg-warm-50 border border-warm-200 rounded-lg text-xs text-warm-400">
+                          <div className="p-2.5 bg-warm-50 border border-warm-200 rounded-lg text-xs text-warm-500">
                             充值已取消
                           </div>
                           <button
@@ -605,8 +635,8 @@ export function RechargeModal() {
                   >
                     <div className="flex items-center gap-3 text-warm-600">
                       <span className="font-medium">{r.tier_name}</span>
-                      <span className="text-warm-400">{(r.tokens ?? 0).toLocaleString()} tokens</span>
-                      <span className="text-warm-400">¥{r.price ?? 0}</span>
+                      <span className="text-warm-500">{(r.tokens ?? 0).toLocaleString()} tokens</span>
+                      <span className="text-warm-500">¥{r.price ?? 0}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full border text-xs font-medium ${STATUS_STYLE[r.status]}`}>

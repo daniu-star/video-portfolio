@@ -184,7 +184,7 @@ export function MessageList() {
         return (
           <div key={gm.message.id || gm.message.timestamp || idx}>
             {showTs && tsText && (
-              <div className="text-[10px] text-warm-400 text-center mb-1">
+              <div className="text-[10px] text-warm-500 text-center mb-1">
                 {tsText}
               </div>
             )}

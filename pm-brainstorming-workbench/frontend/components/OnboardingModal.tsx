@@ -169,7 +169,7 @@ export function OnboardingModal() {
                 四位 AI 专家将围绕你的产品想法展开多维度深度讨论，
                 AI 面试官帮你压力测试，可视化功能树梳理思路。
               </p>
-              <p className="text-amber-500/80 text-sm leading-relaxed mb-8 max-w-md mx-auto">
+              <p className="text-amber-700 text-sm leading-relaxed mb-8 max-w-md mx-auto">
                 使用本产品需要配置 LLM API。你可以使用自己的 Key，也可以使用平台额度。
               </p>
               <button

@@ -11,6 +11,12 @@ WECHAT_INDEX_FILE = os.path.join(USER_DATA_DIR, "_wechat_index.json")
 QQ_INDEX_FILE = os.path.join(USER_DATA_DIR, "_qq_index.json")
 
 
+def _validate_id(value: str) -> str:
+    if not value or ".." in value or "/" in value or "\\" in value:
+        raise ValueError(f"Invalid ID: {value}")
+    return value
+
+
 class UserStore:
     def __init__(self):
         self.data_dir = USER_DATA_DIR
@@ -199,6 +205,28 @@ class UserStore:
             json.dump(request, f, ensure_ascii=False, indent=2)
         return request
 
+    def get_recharge(self, request_id: str) -> Optional[dict]:
+        recharge_dir = os.path.join(self.data_dir, "recharges")
+        path = os.path.join(recharge_dir, f"{request_id}.json")
+        if not os.path.exists(path):
+            return None
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    def confirm_recharge(self, request_id: str) -> Optional[dict]:
+        recharge_dir = os.path.join(self.data_dir, "recharges")
+        path = os.path.join(recharge_dir, f"{request_id}.json")
+        if not os.path.exists(path):
+            return None
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if data["status"] != "pending":
+            return None
+        data["status"] = "pending_review"
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        return data
+
     def get_pending_recharges(self) -> list:
         recharge_dir = os.path.join(self.data_dir, "recharges")
         if not os.path.exists(recharge_dir):
@@ -210,7 +238,7 @@ class UserStore:
             path = os.path.join(recharge_dir, fname)
             with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)
-            if data.get("status") == "pending":
+            if data.get("status") in ("pending", "pending_review"):
                 results.append(data)
         return sorted(results, key=lambda x: x.get("created_at", ""))
 
@@ -236,7 +264,7 @@ class UserStore:
             return None
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
-        if data["status"] != "pending":
+        if data["status"] not in ("pending", "pending_review"):
             return None
         data["status"] = "approved"
         data["approved_at"] = datetime.now().isoformat()
@@ -252,7 +280,7 @@ class UserStore:
             return None
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
-        if data["status"] != "pending":
+        if data["status"] not in ("pending", "pending_review"):
             return None
         data["status"] = "rejected"
         data["approved_at"] = datetime.now().isoformat()
@@ -267,7 +295,7 @@ class UserStore:
             return None
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
-        if data["status"] != "pending":
+        if data["status"] not in ("pending", "pending_review"):
             return None
         if data.get("user_token") != user_token:
             return None
@@ -300,6 +328,7 @@ class UserStore:
         return count
 
     def _load(self, user_token: str) -> Optional[dict]:
+        _validate_id(user_token)
         path = os.path.join(self.data_dir, f"{user_token}.json")
         if not os.path.exists(path):
             return None
@@ -307,6 +336,7 @@ class UserStore:
             return json.load(f)
 
     def _save(self, user: dict):
+        _validate_id(user['user_token'])
         path = os.path.join(self.data_dir, f"{user['user_token']}.json")
         with open(path, "w", encoding="utf-8") as f:
             json.dump(user, f, ensure_ascii=False, indent=2)

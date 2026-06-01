@@ -1,6 +1,6 @@
 import os
 
-from fastapi import APIRouter, Request, HTTPException, Depends
+from fastapi import APIRouter, Request, HTTPException, Depends, Header
 from pydantic import BaseModel
 from db.user_store import user_store
 from api.deps import get_current_user
@@ -102,10 +102,10 @@ async def confirm_recharge(request_id: str, request: Request):
         raise HTTPException(status_code=404, detail="充值记录未找到")
     if match["status"] != "pending":
         raise HTTPException(status_code=400, detail=f"充值记录状态为 {match['status']}，无法确认")
-    result = user_store.approve_recharge(request_id)
+    result = user_store.confirm_recharge(request_id)
     if result is None:
-        raise HTTPException(status_code=500, detail="审批失败")
-    return {"status": "approved", "tokens_added": result["tokens"]}
+        raise HTTPException(status_code=500, detail="确认失败")
+    return {"status": "pending_review", "message": "已确认付款，等待管理员审核"}
 
 
 @router.post("/cancel/{request_id}")
@@ -115,3 +115,17 @@ async def cancel_recharge(request_id: str, request: Request):
     if result is None:
         raise HTTPException(status_code=404, detail="充值记录未找到或无法取消")
     return {"status": "cancelled"}
+
+
+@router.post("/admin-approve/{recharge_id}")
+async def admin_approve_recharge(recharge_id: str, admin_token: str = Header(..., alias="X-Admin-Token")):
+    expected = os.getenv("ADMIN_TOKEN", "")
+    if not expected or admin_token != expected:
+        raise HTTPException(status_code=403, detail="管理员权限不足")
+    record = user_store.get_recharge(recharge_id)
+    if not record:
+        raise HTTPException(status_code=404, detail="充值记录不存在")
+    if record.get("status") not in ("pending", "pending_review"):
+        raise HTTPException(status_code=400, detail="仅待审核状态可审批")
+    user_store.approve_recharge(recharge_id)
+    return {"status": "approved", "message": "充值已审批通过，额度已到账"}

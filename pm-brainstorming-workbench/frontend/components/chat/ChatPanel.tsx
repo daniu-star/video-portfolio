@@ -7,6 +7,7 @@ import { MessageList } from "./MessageList";
 import { RoleSelector } from "./RoleSelector";
 import { InputBox } from "./InputBox";
 import { InterviewBanner } from "./InterviewBanner";
+import { GearIcon, WalletIcon } from "@/components/icons";
 
 const PHASE_ACCENT: Record<string, string> = {
   brainstorm: "bg-amber-500",
@@ -26,6 +27,8 @@ export function ChatPanel() {
   const discussionMap = useSessionStore((s) => s.discussionMap);
   const isGeneratingPortrait = useSessionStore((s) => s.isGeneratingPortrait);
   const generateProductPortrait = useSessionStore((s) => s.generateProductPortrait);
+  const setSettingsOpen = useSessionStore((s) => s.setSettingsOpen);
+  const setRechargeOpen = useSessionStore((s) => s.setRechargeOpen);
 
   const accentColor = PHASE_ACCENT[phase] || PHASE_ACCENT.brainstorm;
   const streamingRoleColor = streamingRole ? ROLE_MAP[streamingRole]?.color : null;
@@ -83,6 +86,20 @@ export function ChatPanel() {
             <polyline points="7 10 12 15 17 10"/>
             <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
+        </button>
+        <button
+          onClick={() => setRechargeOpen(true)}
+          aria-label="充值"
+          className="text-warm-400 hover:text-amber-600 active:text-amber-700 transition-all duration-200 min-h-[32px] min-w-[32px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-amber-500/50 focus-visible:outline-none rounded"
+        >
+          <WalletIcon size={14} />
+        </button>
+        <button
+          onClick={() => setSettingsOpen(true)}
+          aria-label="设置"
+          className="text-warm-400 hover:text-warm-600 active:text-warm-700 transition-all duration-200 min-h-[32px] min-w-[32px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-amber-500/50 focus-visible:outline-none rounded"
+        >
+          <GearIcon size={14} />
         </button>
       </div>
 

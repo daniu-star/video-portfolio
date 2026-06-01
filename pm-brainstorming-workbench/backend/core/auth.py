@@ -1,13 +1,32 @@
 import os
 import random
 import time
+import logging
 from datetime import datetime, timedelta, timezone
 
 import jwt
 
+logger = logging.getLogger(__name__)
+
 JWT_SECRET = os.getenv("JWT_SECRET", "dev-secret-change-me")
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRE_HOURS = 72
+
+_jwt_secret_is_default = False
+
+
+def _check_jwt_secret():
+    global _jwt_secret_is_default
+    if JWT_SECRET == "dev-secret-change-me":
+        logger.error("JWT_SECRET 使用默认值，生产环境不安全！请设置环境变量 JWT_SECRET")
+        _jwt_secret_is_default = True
+
+
+def is_jwt_secret_safe() -> bool:
+    return not _jwt_secret_is_default
+
+
+_check_jwt_secret()
 
 SMS_CODES: dict[str, dict] = {}
 

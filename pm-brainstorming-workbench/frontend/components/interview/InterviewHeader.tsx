@@ -24,7 +24,7 @@ export function InterviewHeader({ phoneMode, onTogglePhoneMode }: InterviewHeade
               router.push("/");
             }
           }}
-          className="w-9 h-9 flex items-center justify-center rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/60 transition-all duration-200"
+          className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/60 transition-all duration-200"
           aria-label="返回主会话"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -55,7 +55,7 @@ export function InterviewHeader({ phoneMode, onTogglePhoneMode }: InterviewHeade
 
         <button
           onClick={onTogglePhoneMode}
-          className={`flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg transition-all duration-200 min-h-[36px] min-w-[36px] justify-center ${
+          className={`flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg transition-all duration-200 min-h-[44px] min-w-[44px] justify-center ${
             phoneMode
               ? "bg-red-600 text-white"
               : "bg-slate-700/60 text-slate-300 hover:text-white hover:bg-slate-600/60"

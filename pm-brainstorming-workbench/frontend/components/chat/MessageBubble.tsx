@@ -137,7 +137,7 @@ export const MessageBubble = memo(function MessageBubble({
                 className="w-full h-full object-cover"
               />
             ) : (
-              <span className="text-warm-400">?</span>
+              <span className="text-warm-500">?</span>
             )}
           </div>
         </div>
