@@ -47,8 +47,7 @@ async def sms_send(req: SmsSendRequest, request: Request):
         if is_dev:
             response["hint"] = hint
         else:
-            response["hint"] = "短信服务暂不可用，验证码已显示在下方"
-            response["dev_code"] = code
+            response["hint"] = "短信服务暂不可用"
     return response
 
 

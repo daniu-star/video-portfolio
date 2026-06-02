@@ -1,11 +1,3 @@
-FROM node:20-slim AS frontend-builder
-
-WORKDIR /build
-COPY frontend/package.json frontend/package-lock.json* ./
-RUN npm install
-COPY frontend/ .
-RUN npm run build
-
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -21,9 +13,7 @@ COPY scripts/ ./scripts/
 
 RUN python scripts/build_knowledge_base.py
 
-COPY --from=frontend-builder /build/out ./static
-
-RUN mkdir -p /app/data/sessions /app/data/users
+RUN mkdir -p /app/static /app/data/sessions /app/data/users
 
 EXPOSE 7860
 

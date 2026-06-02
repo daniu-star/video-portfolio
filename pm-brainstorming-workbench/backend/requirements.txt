@@ -6,3 +6,5 @@ python-dotenv==1.0.1
 edge-tts>=6.1.0
 PyJWT>=2.8.0
 python-multipart>=0.0.9
+alibabacloud-dysmsapi20170525>=4.5.0
+alibabacloud-tea-openapi>=0.3.0

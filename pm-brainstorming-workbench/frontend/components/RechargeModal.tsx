@@ -113,6 +113,7 @@ export function RechargeModal() {
   const rechargeResultRef = useRef<RechargeResult | null>(null);
 
   const [confirming, setConfirming] = useState(false);
+  const [qrError, setQrError] = useState(false);
 
   const remaining = (tokenQuota ?? 0) - (tokensUsed ?? 0);
   const isByok = !!userApiKey;
@@ -433,11 +434,18 @@ export function RechargeModal() {
                 <div className="mb-6 p-4 bg-warm-50 rounded-xl border border-warm-200">
                   <div className="flex items-start gap-4">
                     <div className="w-36 h-36 shrink-0">
-                      <img
-                        src="/qrcode.jpg"
-                        alt="微信收款码"
-                        className="w-full h-full object-cover rounded-lg border border-warm-200"
-                      />
+                      {qrError ? (
+                        <div className="w-full h-full rounded-lg border border-warm-200 bg-warm-50 flex items-center justify-center text-sm text-warm-500">
+                          请扫码付款
+                        </div>
+                      ) : (
+                        <img
+                          src="/qrcode.svg"
+                          alt="微信收款码"
+                          className="w-full h-full object-cover rounded-lg border border-warm-200"
+                          onError={() => setQrError(true)}
+                        />
+                      )}
                     </div>
                     <div className="flex-1">
                       <div className="text-sm text-warm-600 font-medium mb-2">扫码付款</div>
@@ -481,11 +489,18 @@ export function RechargeModal() {
                 <div className="mb-6 p-4 bg-warm-50 rounded-xl border border-warm-200">
                   <div className="flex items-start gap-4">
                     <div className="w-36 h-36 shrink-0">
-                      <img
-                        src="/qrcode.jpg"
-                        alt="微信收款码"
-                        className="w-full h-full object-cover rounded-lg border border-warm-200"
-                      />
+                      {qrError ? (
+                        <div className="w-full h-full rounded-lg border border-warm-200 bg-warm-50 flex items-center justify-center text-sm text-warm-500">
+                          请扫码付款
+                        </div>
+                      ) : (
+                        <img
+                          src="/qrcode.svg"
+                          alt="微信收款码"
+                          className="w-full h-full object-cover rounded-lg border border-warm-200"
+                          onError={() => setQrError(true)}
+                        />
+                      )}
                     </div>
                     <div className="flex-1">
                       <div className="mb-3">

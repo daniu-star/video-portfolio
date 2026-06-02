@@ -55,12 +55,20 @@ async def rate_limit_middleware(request: Request, call_next):
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
 
 
+def _has_static_files() -> bool:
+    if not os.path.isdir(STATIC_DIR):
+        return False
+    return bool(os.listdir(STATIC_DIR))
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     if not settings.llm_api_key:
         print("WARNING: LLM_API_KEY 未设置，仅支持 BYOK 模式（用户自带 API Key）")
-    if os.path.isdir(STATIC_DIR):
+    if _has_static_files():
         print(f"Serving frontend from {STATIC_DIR}")
+    else:
+        print("No frontend static files found, running in API-only mode")
     yield
 
 
@@ -108,9 +116,13 @@ async def api_info():
     }
 
 
-if os.path.isdir(STATIC_DIR):
-    app.mount("/_next", StaticFiles(directory=os.path.join(STATIC_DIR, "_next")), name="next-static")
-    app.mount("/avatars", StaticFiles(directory=os.path.join(STATIC_DIR, "avatars")), name="avatars")
+if _has_static_files():
+    _next_dir = os.path.join(STATIC_DIR, "_next")
+    _avatars_dir = os.path.join(STATIC_DIR, "avatars")
+    if os.path.isdir(_next_dir):
+        app.mount("/_next", StaticFiles(directory=_next_dir), name="next-static")
+    if os.path.isdir(_avatars_dir):
+        app.mount("/avatars", StaticFiles(directory=_avatars_dir), name="avatars")
 
     @app.get("/qrcode.jpg")
     async def qrcode():
