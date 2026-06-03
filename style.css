@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
     font-family: 'MaShanZheng';
     src: url('fonts/MaShanZheng-Regular.ttf') format('truetype');
     font-weight: 400;
@@ -42,9 +42,9 @@
 }
 
 :root {
-    --font-title: 'MaShanZheng', 'ZhiMangXing', serif;
-    --font-title-alt: 'ZhiMangXing', 'LongCang', serif;
-    --font-serif: 'NotoSerifSC', 'Microsoft YaHei', serif;
+    --font-title: 'Microsoft YaHei', '微软雅黑', 'MaShanZheng', serif;
+    --font-title-alt: 'Microsoft YaHei', '微软雅黑', 'ZhiMangXing', serif;
+    --font-serif: 'Microsoft YaHei', '微软雅黑', 'NotoSerifSC', serif;
     --font-body: 'Microsoft YaHei', '微软雅黑', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
     --font-brush: 'LiuJianMaoCao', 'ZhiMangXing', serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
@@ -1875,9 +1875,9 @@ button:focus-visible {
 .agent-bg {
     position: absolute;
     inset: 0;
-    background:
-        linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%);
-    opacity: 0.3;
+    background: url('pm-brainstorming-workbench/screenshot.png') center center / cover no-repeat;
+    filter: blur(8px) brightness(0.3);
+    transform: scale(1.05);
 }
 
 .agent-overlay {
@@ -1970,103 +1970,17 @@ button:focus-visible {
     transform: translateY(0);
 }
 
-.agent-mockup {
+.agent-screenshot-img {
     width: 100%;
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(15, 15, 25, 0.9);
-    overflow: hidden;
     box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
-}
-
-.agent-mockup-header {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 16px;
-    background: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.agent-mockup-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-}
-
-.agent-mockup-title {
-    font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.3);
-    margin-left: 8px;
-    letter-spacing: 0.05em;
-}
-
-.agent-mockup-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 280px;
-}
-
-.agent-mockup-chat {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 16px;
-    border-right: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.agent-mockup-msg {
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-}
-
-.agent-mockup-avatar {
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    font-size: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    letter-spacing: 0.05em;
-}
-
-.agent-mockup-text {
-    font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.4);
-    line-height: 1.5;
-    padding: 6px 10px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 4px;
-}
-
-.agent-mockup-canvas {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    padding: 16px;
-}
-
-.agent-mockup-node {
-    padding: 8px 20px;
-    background: rgba(180, 140, 80, 0.08);
-    border: 1px solid rgba(180, 140, 80, 0.15);
-    border-radius: 4px;
-    font-size: 0.7rem;
-    color: rgba(180, 140, 80, 0.6);
-    letter-spacing: 0.1em;
+    display: block;
 }
 
 @media (max-width: 768px) {
-    .agent-mockup-body {
-        grid-template-columns: 1fr;
-    }
-    .agent-mockup-canvas {
-        display: none;
+    .agent-screenshot-img {
+        border-radius: 6px;
     }
 }
 
