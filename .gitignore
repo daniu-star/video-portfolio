@@ -3,3 +3,11 @@
 # 操作系统文件
 Thumbs.db
 .DS_Store
+# 依赖
+node_modules/
+# 构建缓存
+.vercel/
+.trae/
+# 环境变量
+.env
+.env.local

@@ -139,90 +139,63 @@
         <div class="agent-bg"></div>
         <div class="agent-overlay"></div>
         <div class="agent-content">
-            <div class="agent-header">
+            <div class="agent-hero">
                 <span class="agent-badge">AGENT PROJECT</span>
                 <h2 class="agent-title">AI产品头脑风暴工作台</h2>
                 <p class="agent-subtitle">PM Brainstorming Workbench</p>
+                <p class="agent-desc">多角色AI协作，让产品思维碰撞出火花</p>
             </div>
-            <div class="agent-body">
-                <div class="agent-preview">
-                    <div class="agent-preview-frame">
-                        <div class="agent-preview-screen">
-                            <div class="agent-mock-chat">
-                                <div class="agent-mock-msg agent-mock-ai">
-                                    <div class="agent-mock-avatar">CTO</div>
-                                    <div class="agent-mock-bubble">从技术架构角度，这个方案需要考虑微服务拆分的粒度问题...</div>
-                                </div>
-                                <div class="agent-mock-msg agent-mock-ai">
-                                    <div class="agent-mock-avatar">设计</div>
-                                    <div class="agent-mock-bubble">用户交互流程需要简化，3步以内完成核心操作...</div>
-                                </div>
-                                <div class="agent-mock-msg agent-mock-ai">
-                                    <div class="agent-mock-avatar">运营</div>
-                                    <div class="agent-mock-bubble">冷启动阶段建议采用PLG策略，先做单点突破...</div>
-                                </div>
-                                <div class="agent-mock-msg agent-mock-user">
-                                    <div class="agent-mock-bubble">帮我从用户视角压力测试这个方案</div>
-                                </div>
-                            </div>
-                            <div class="agent-mock-canvas">
-                                <div class="agent-mock-node" style="top:15%;left:20%">核心功能</div>
-                                <div class="agent-mock-node" style="top:40%;left:55%">用户增长</div>
-                                <div class="agent-mock-node" style="top:65%;left:30%">数据闭环</div>
-                                <div class="agent-mock-line"></div>
-                            </div>
+            <div class="agent-screenshot">
+                <img src="pm-brainstorming-workbench/debug-after-onboarding.png" alt="PM Brainstorming Workbench 界面截图" class="agent-screenshot-img" loading="lazy">
+            </div>
+            <div class="agent-details">
+                <div class="agent-section">
+                    <div class="agent-section-label">核心能力</div>
+                    <div class="agent-features">
+                        <div class="agent-feature"><span class="agent-feature-dot"></span><span class="agent-feature-text">多角色头脑风暴 — CTO / 设计师 / 运营 / 用户同时在场</span></div>
+                        <div class="agent-feature"><span class="agent-feature-dot"></span><span class="agent-feature-text">可视化画布 — React Flow 实时特性树</span></div>
+                        <div class="agent-feature"><span class="agent-feature-dot"></span><span class="agent-feature-text">AI面试官模式 — 角色反转压力测试</span></div>
+                        <div class="agent-feature"><span class="agent-feature-dot"></span><span class="agent-feature-text">RAG知识库 — PM方法论 / 案例 / 基准</span></div>
+                        <div class="agent-feature"><span class="agent-feature-dot"></span><span class="agent-feature-text">语音交互 — edge-tts 实时语音输出</span></div>
+                        <div class="agent-feature"><span class="agent-feature-dot"></span><span class="agent-feature-text">SSE流式输出 — 实时响应零等待</span></div>
+                    </div>
+                </div>
+                <div class="agent-section">
+                    <div class="agent-section-label">技术栈</div>
+                    <div class="agent-tech">
+                        <div class="agent-tech-group">
+                            <div class="agent-tech-label">Frontend</div>
+                            <div class="agent-tech-tags"><span class="agent-tech-tag">Next.js 14</span><span class="agent-tech-tag">React Flow</span><span class="agent-tech-tag">Zustand</span><span class="agent-tech-tag">Tailwind CSS</span><span class="agent-tech-tag">TypeScript</span></div>
+                        </div>
+                        <div class="agent-tech-group">
+                            <div class="agent-tech-label">Backend</div>
+                            <div class="agent-tech-tags"><span class="agent-tech-tag">FastAPI</span><span class="agent-tech-tag">SSE Streaming</span><span class="agent-tech-tag">edge-tts</span><span class="agent-tech-tag">Pydantic</span></div>
+                        </div>
+                        <div class="agent-tech-group">
+                            <div class="agent-tech-label">AI / RAG</div>
+                            <div class="agent-tech-tags"><span class="agent-tech-tag">GPT-4o</span><span class="agent-tech-tag">DeepSeek</span><span class="agent-tech-tag">ChromaDB</span><span class="agent-tech-tag">RAG</span><span class="agent-tech-tag">Embedding</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="agent-info">
-                    <div class="agent-section">
-                        <div class="agent-section-label">FEATURES</div>
-                        <div class="agent-features">
-                            <div class="agent-feature"><span class="agent-feature-icon">🎭</span><span class="agent-feature-text">多角色头脑风暴 — CTO/设计师/运营/用户同时在场</span></div>
-                            <div class="agent-feature"><span class="agent-feature-icon">🎨</span><span class="agent-feature-text">可视化画布 — React Flow实时特性树</span></div>
-                            <div class="agent-feature"><span class="agent-feature-icon">🔍</span><span class="agent-feature-text">AI面试官模式 — 角色反转压力测试</span></div>
-                            <div class="agent-feature"><span class="agent-feature-icon">📚</span><span class="agent-feature-text">RAG知识库 — PM方法论/案例/基准</span></div>
-                            <div class="agent-feature"><span class="agent-feature-icon">🎙️</span><span class="agent-feature-text">语音交互 — edge-tts实时语音输出</span></div>
-                            <div class="agent-feature"><span class="agent-feature-icon">⚡</span><span class="agent-feature-text">SSE流式输出 — 实时响应零等待</span></div>
-                        </div>
-                    </div>
-                    <div class="agent-section">
-                        <div class="agent-section-label">TECH STACK</div>
-                        <div class="agent-tech">
-                            <div class="agent-tech-group">
-                                <div class="agent-tech-label">Frontend</div>
-                                <div class="agent-tech-tags"><span class="agent-tech-tag">Next.js 14</span><span class="agent-tech-tag">React Flow</span><span class="agent-tech-tag">Zustand</span><span class="agent-tech-tag">Tailwind CSS</span><span class="agent-tech-tag">TypeScript</span></div>
-                            </div>
-                            <div class="agent-tech-group">
-                                <div class="agent-tech-label">Backend</div>
-                                <div class="agent-tech-tags"><span class="agent-tech-tag">FastAPI</span><span class="agent-tech-tag">SSE Streaming</span><span class="agent-tech-tag">edge-tts</span><span class="agent-tech-tag">Pydantic</span></div>
-                            </div>
-                            <div class="agent-tech-group">
-                                <div class="agent-tech-label">AI / RAG</div>
-                                <div class="agent-tech-tags"><span class="agent-tech-tag">GPT-4o</span><span class="agent-tech-tag">DeepSeek</span><span class="agent-tech-tag">ChromaDB</span><span class="agent-tech-tag">RAG</span><span class="agent-tech-tag">Embedding</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="agent-section">
-                        <div class="agent-section-label">ARCHITECTURE</div>
-                        <div class="agent-arch">
-                            <div class="agent-arch-item"><span class="agent-arch-label">模式</span><span class="agent-arch-text">多Agent协作 + RAG检索增强 + 流式输出</span></div>
-                            <div class="agent-arch-item"><span class="agent-arch-label">前端</span><span class="agent-arch-text">Next.js SSR + Zustand状态管理 + React Flow可视化</span></div>
-                            <div class="agent-arch-item"><span class="agent-arch-label">后端</span><span class="agent-arch-text">FastAPI异步框架 + SSE长连接 + ChromaDB向量检索</span></div>
-                            <div class="agent-arch-item"><span class="agent-arch-label">AI</span><span class="agent-arch-text">OpenAI兼容API + Prompt Engineering + 角色提示链</span></div>
-                        </div>
-                    </div>
-                    <div class="agent-actions">
-                        <a class="agent-btn agent-btn-primary" href="https://pm-brainstorming-workbench-frontend-54rfiwz6p.vercel.app" target="_blank" rel="noopener">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                            <span>立即体验</span>
-                        </a>
-                        <a class="agent-btn agent-btn-secondary" href="https://github.com/daniu-star/pm-brainstorming-workbench" target="_blank" rel="noopener">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                            <span>查看源码</span>
-                        </a>
+                <div class="agent-section">
+                    <div class="agent-section-label">架构</div>
+                    <div class="agent-arch">
+                        <div class="agent-arch-item"><span class="agent-arch-label">模式</span><span class="agent-arch-text">多Agent协作 + RAG检索增强 + 流式输出</span></div>
+                        <div class="agent-arch-item"><span class="agent-arch-label">前端</span><span class="agent-arch-text">Next.js SSR + Zustand状态管理 + React Flow可视化</span></div>
+                        <div class="agent-arch-item"><span class="agent-arch-label">后端</span><span class="agent-arch-text">FastAPI异步框架 + SSE长连接 + ChromaDB向量检索</span></div>
+                        <div class="agent-arch-item"><span class="agent-arch-label">AI</span><span class="agent-arch-text">OpenAI兼容API + Prompt Engineering + 角色提示链</span></div>
                     </div>
                 </div>
+            </div>
+            <div class="agent-actions">
+                <a class="agent-btn agent-btn-primary" href="https://123chenjunliang-pm-brainstorm-workbench.hf.space" target="_blank" rel="noopener">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    <span>立即体验</span>
+                </a>
+                <a class="agent-btn agent-btn-secondary" href="https://github.com/daniu-star/pm-brainstorming-workbench" target="_blank" rel="noopener">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>查看源码</span>
+                </a>
             </div>
         </div>
         <button class="agent-back" id="agent-back" aria-label="返回作品集">

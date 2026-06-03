@@ -1,0 +1,531 @@
+{
+  "audit_time": "2026-05-22T17:51:05.359393",
+  "base_url": "https://www.chenjunliang.top",
+  "pages": [
+    {
+      "label": "landing",
+      "url": "https://www.chenjunliang.top",
+      "title": "陈俊良 | 个人作品集",
+      "actual_url": "https://www.chenjunliang.top/",
+      "wall_time_seconds": 21.17,
+      "performance_timing_ms": {
+        "dns": 0,
+        "tcp": 654,
+        "ssl": 650,
+        "ttfb": 94,
+        "download": 22,
+        "domParsing": 58,
+        "domComplete": 15540,
+        "loadEvent": 0,
+        "totalLoadTime": 16340,
+        "domContentLoaded": 1197
+      },
+      "interactive_element_count": 12
+    },
+    {
+      "label": "hub",
+      "url": "https://www.chenjunliang.top/",
+      "title": "陈俊良 | 个人作品集",
+      "actual_url": "https://www.chenjunliang.top/",
+      "wall_time_seconds": 26.02,
+      "performance_timing_ms": {
+        "dns": 0,
+        "tcp": 654,
+        "ssl": 650,
+        "ttfb": 94,
+        "download": 22,
+        "domParsing": 58,
+        "domComplete": 15540,
+        "loadEvent": 0,
+        "totalLoadTime": 16340,
+        "domContentLoaded": 1197
+      },
+      "interactive_element_count": 12
+    },
+    {
+      "label": "player-documentary",
+      "url": "https://www.chenjunliang.top/",
+      "title": "陈俊良 | 个人作品集",
+      "actual_url": "https://www.chenjunliang.top/",
+      "wall_time_seconds": 30.22,
+      "performance_timing_ms": {
+        "dns": 0,
+        "tcp": 654,
+        "ssl": 650,
+        "ttfb": 94,
+        "download": 22,
+        "domParsing": 58,
+        "domComplete": 15540,
+        "loadEvent": 0,
+        "totalLoadTime": 16340,
+        "domContentLoaded": 1197
+      },
+      "interactive_element_count": 12,
+      "prologue_button_exists": true,
+      "video_element_exists": true
+    },
+    {
+      "label": "player-ads",
+      "url": "https://www.chenjunliang.top/",
+      "title": "陈俊良 | 个人作品集",
+      "actual_url": "https://www.chenjunliang.top/",
+      "wall_time_seconds": 36.2,
+      "performance_timing_ms": {
+        "dns": 0,
+        "tcp": 654,
+        "ssl": 650,
+        "ttfb": 94,
+        "download": 22,
+        "domParsing": 58,
+        "domComplete": 15540,
+        "loadEvent": 0,
+        "totalLoadTime": 16340,
+        "domContentLoaded": 1197
+      },
+      "interactive_element_count": 12,
+      "prologue_button_exists": true,
+      "video_element_exists": true
+    },
+    {
+      "label": "player-game",
+      "url": "https://www.chenjunliang.top/",
+      "title": "陈俊良 | 个人作品集",
+      "actual_url": "https://www.chenjunliang.top/",
+      "wall_time_seconds": 42.15,
+      "performance_timing_ms": {
+        "dns": 0,
+        "tcp": 654,
+        "ssl": 650,
+        "ttfb": 94,
+        "download": 22,
+        "domParsing": 58,
+        "domComplete": 15540,
+        "loadEvent": 0,
+        "totalLoadTime": 16340,
+        "domContentLoaded": 1197
+      },
+      "interactive_element_count": 12,
+      "prologue_button_exists": true,
+      "video_element_exists": true
+    },
+    {
+      "label": "player-real",
+      "url": "https://www.chenjunliang.top/",
+      "title": "陈俊良 | 个人作品集",
+      "actual_url": "https://www.chenjunliang.top/",
+      "wall_time_seconds": 48.14,
+      "performance_timing_ms": {
+        "dns": 0,
+        "tcp": 654,
+        "ssl": 650,
+        "ttfb": 94,
+        "download": 22,
+        "domParsing": 58,
+        "domComplete": 15540,
+        "loadEvent": 0,
+        "totalLoadTime": 16340,
+        "domContentLoaded": 1197
+      },
+      "interactive_element_count": 12,
+      "prologue_button_exists": true,
+      "video_element_exists": true
+    },
+    {
+      "label": "video-collection",
+      "url": "https://www.chenjunliang.top/video-collection.html",
+      "title": "视频合集 | 陈俊良作品集",
+      "actual_url": "https://www.chenjunliang.top/video-collection.html",
+      "wall_time_seconds": 4.45,
+      "performance_timing_ms": {
+        "dns": 0,
+        "tcp": 0,
+        "ssl": 0,
+        "ttfb": 180,
+        "download": 2,
+        "domParsing": 489,
+        "domComplete": 568,
+        "loadEvent": 0,
+        "totalLoadTime": 766,
+        "domContentLoaded": 682
+      },
+      "interactive_element_count": 36
+    }
+  ],
+  "mobile_pages": [
+    {
+      "label": "mobile-landing",
+      "url": "https://www.chenjunliang.top",
+      "title": "陈俊良 | 个人作品集",
+      "actual_url": "https://www.chenjunliang.top/",
+      "wall_time_seconds": 9.12,
+      "performance_timing_ms": {
+        "dns": 0,
+        "tcp": 198,
+        "ssl": 197,
+        "ttfb": 70,
+        "download": 27,
+        "domParsing": 14,
+        "domComplete": 5896,
+        "loadEvent": 0,
+        "totalLoadTime": 6197,
+        "domContentLoaded": 506
+      },
+      "interactive_element_count": 12,
+      "layout_issues": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "landing-grain",
+          "width": 750,
+          "viewportWidth": 375,
+          "overflow": 375
+        }
+      ]
+    },
+    {
+      "label": "mobile-collection",
+      "url": "https://www.chenjunliang.top/video-collection.html",
+      "title": "视频合集 | 陈俊良作品集",
+      "actual_url": "https://www.chenjunliang.top/video-collection.html",
+      "wall_time_seconds": 3.34,
+      "performance_timing_ms": {
+        "dns": 0,
+        "tcp": 0,
+        "ssl": 0,
+        "ttfb": 64,
+        "download": 9,
+        "domParsing": 430,
+        "domComplete": 426,
+        "loadEvent": 0,
+        "totalLoadTime": 508,
+        "domContentLoaded": 507
+      },
+      "interactive_element_count": 36,
+      "layout_issues": [
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 640,
+          "viewportWidth": 375,
+          "overflow": 265
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 608,
+          "viewportWidth": 375,
+          "overflow": 233
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        },
+        {
+          "tag": "VIDEO",
+          "id": "",
+          "className": "",
+          "width": 578,
+          "viewportWidth": 375,
+          "overflow": 203
+        }
+      ]
+    }
+  ],
+  "console_errors": [
+    {
+      "page": "landing",
+      "type": "warning",
+      "text": "Failed to decode downloaded font: https://www.chenjunliang.top/fonts/LiuJianMaoCao-Regular.ttf"
+    },
+    {
+      "page": "landing",
+      "type": "warning",
+      "text": "OTS parsing error: invalid sfntVersion: 168430090"
+    },
+    {
+      "page": "landing",
+      "type": "warning",
+      "text": "Failed to decode downloaded font: https://www.chenjunliang.top/fonts/LiuJianMaoCao-Regular.ttf"
+    },
+    {
+      "page": "video-collection",
+      "type": "warning",
+      "text": "Failed to decode downloaded font: https://www.chenjunliang.top/fonts/LiuJianMaoCao-Regular.ttf"
+    },
+    {
+      "page": "landing",
+      "type": "warning",
+      "text": "OTS parsing error: invalid sfntVersion: 168430090"
+    },
+    {
+      "page": "video-collection",
+      "type": "warning",
+      "text": "OTS parsing error: invalid sfntVersion: 168430090"
+    },
+    {
+      "page": "mobile-landing",
+      "type": "warning",
+      "text": "Failed to decode downloaded font: https://www.chenjunliang.top/fonts/LiuJianMaoCao-Regular.ttf"
+    },
+    {
+      "page": "mobile-landing",
+      "type": "warning",
+      "text": "OTS parsing error: invalid sfntVersion: 168430090"
+    },
+    {
+      "page": "mobile-landing",
+      "type": "warning",
+      "text": "Failed to decode downloaded font: https://www.chenjunliang.top/fonts/LiuJianMaoCao-Regular.ttf"
+    },
+    {
+      "page": "mobile-collection",
+      "type": "warning",
+      "text": "Failed to decode downloaded font: https://www.chenjunliang.top/fonts/LiuJianMaoCao-Regular.ttf"
+    },
+    {
+      "page": "mobile-landing",
+      "type": "warning",
+      "text": "OTS parsing error: invalid sfntVersion: 168430090"
+    },
+    {
+      "page": "mobile-collection",
+      "type": "warning",
+      "text": "OTS parsing error: invalid sfntVersion: 168430090"
+    }
+  ],
+  "page_errors": [
+    {
+      "page": "landing",
+      "error": "Cannot read properties of null (reading 'addEventListener')"
+    },
+    {
+      "page": "video-collection",
+      "error": "Cannot read properties of null (reading 'addEventListener')"
+    },
+    {
+      "page": "mobile-landing",
+      "error": "Cannot read properties of null (reading 'addEventListener')"
+    },
+    {
+      "page": "mobile-collection",
+      "error": "Cannot read properties of null (reading 'addEventListener')"
+    }
+  ],
+  "summary": {
+    "total_pages_audited": 9,
+    "total_console_errors": 12,
+    "total_page_errors": 4,
+    "categories_found": [
+      {
+        "text": "AI纪录片",
+        "data-category": "documentary"
+      },
+      {
+        "text": "AI广告片",
+        "data-category": "ads"
+      },
+      {
+        "text": "长AI游戏视频",
+        "data-category": "game"
+      },
+      {
+        "text": "实拍纪录片",
+        "data-category": "real"
+      }
+    ],
+    "page_load_times": {
+      "landing": 21.17,
+      "hub": 26.02,
+      "player-documentary": 30.22,
+      "player-ads": 36.2,
+      "player-game": 42.15,
+      "player-real": 48.14,
+      "video-collection": 4.45
+    },
+    "mobile_layout_issues": {
+      "mobile-landing": 1,
+      "mobile-collection": 19
+    },
+    "performance_overview": {
+      "landing": {
+        "totalLoadTime_ms": 16340,
+        "domContentLoaded_ms": 1197,
+        "ttfb_ms": 94
+      },
+      "hub": {
+        "totalLoadTime_ms": 16340,
+        "domContentLoaded_ms": 1197,
+        "ttfb_ms": 94
+      },
+      "player-documentary": {
+        "totalLoadTime_ms": 16340,
+        "domContentLoaded_ms": 1197,
+        "ttfb_ms": 94
+      },
+      "player-ads": {
+        "totalLoadTime_ms": 16340,
+        "domContentLoaded_ms": 1197,
+        "ttfb_ms": 94
+      },
+      "player-game": {
+        "totalLoadTime_ms": 16340,
+        "domContentLoaded_ms": 1197,
+        "ttfb_ms": 94
+      },
+      "player-real": {
+        "totalLoadTime_ms": 16340,
+        "domContentLoaded_ms": 1197,
+        "ttfb_ms": 94
+      },
+      "video-collection": {
+        "totalLoadTime_ms": 766,
+        "domContentLoaded_ms": 682,
+        "ttfb_ms": 180
+      }
+    }
+  },
+  "categories": [
+    {
+      "text": "AI纪录片",
+      "data-category": "documentary"
+    },
+    {
+      "text": "AI广告片",
+      "data-category": "ads"
+    },
+    {
+      "text": "长AI游戏视频",
+      "data-category": "game"
+    },
+    {
+      "text": "实拍纪录片",
+      "data-category": "real"
+    }
+  ]
+}

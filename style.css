@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
     font-family: 'MaShanZheng';
     src: url('fonts/MaShanZheng-Regular.ttf') format('truetype');
     font-weight: 400;
@@ -1867,6 +1867,7 @@ button:focus-visible {
     }
 }
 
+/* Agent 页面 — 自然叙事风格 */
 #layer-agent {
     z-index: 1;
 }
@@ -1874,15 +1875,19 @@ button:focus-visible {
 .agent-bg {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #0a0a0f 0%, #0d0d18 40%, #0a0f0d 70%, #0a0a0f 100%);
+    background: url('pm-brainstorming-workbench/debug-after-onboarding.png') center center / cover no-repeat;
+    opacity: 0.2;
+    filter: saturate(0.5) brightness(0.4) blur(2px);
+    transform: scale(1.05);
 }
 
 .agent-overlay {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse at 30% 30%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 70%, rgba(6, 182, 212, 0.04) 0%, transparent 50%);
+        linear-gradient(180deg, rgba(10, 10, 15, 0.75) 0%, rgba(10, 10, 15, 0.4) 35%, rgba(10, 10, 15, 0.5) 65%, rgba(10, 10, 15, 0.85) 100%),
+        radial-gradient(ellipse at 30% 30%, rgba(180, 140, 80, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 70%, rgba(180, 140, 80, 0.04) 0%, transparent 50%);
 }
 
 .agent-content {
@@ -1891,7 +1896,11 @@ button:focus-visible {
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 6vh 6vw;
+    padding: 6vh 8vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
     scrollbar-width: thin;
     scrollbar-color: rgba(255,255,255,0.1) transparent;
 }
@@ -1899,15 +1908,16 @@ button:focus-visible {
 .agent-content::-webkit-scrollbar { width: 4px; }
 .agent-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
 
-.agent-header {
+/* Hero 区域 */
+.agent-hero {
     text-align: center;
-    margin-bottom: 48px;
+    max-width: 640px;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s;
 }
 
-#layer-agent.active .agent-header {
+#layer-agent.active .agent-hero {
     opacity: 1;
     transform: translateY(0);
 }
@@ -1916,17 +1926,17 @@ button:focus-visible {
     display: inline-block;
     font-family: var(--font-serif);
     font-size: 0.6rem;
-    color: rgba(99, 102, 241, 0.6);
+    color: rgba(180, 140, 80, 0.7);
     letter-spacing: 0.4em;
     margin-bottom: 16px;
     padding: 4px 16px;
-    border: 1px solid rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(180, 140, 80, 0.2);
 }
 
 .agent-title {
     font-family: var(--font-title);
     font-size: clamp(2rem, 4vw, 3.5rem);
-    color: #dc2626;
+    color: rgba(255, 255, 255, 0.9);
     letter-spacing: 0.1em;
     margin-bottom: 8px;
 }
@@ -1934,142 +1944,73 @@ button:focus-visible {
 .agent-subtitle {
     font-family: var(--font-serif);
     font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-    color: rgba(99, 102, 241, 0.4);
+    color: rgba(180, 140, 80, 0.5);
     letter-spacing: 0.2em;
     font-style: italic;
+    margin-bottom: 16px;
 }
 
-.agent-body {
-    display: flex;
-    gap: 48px;
-    max-width: 1200px;
-    margin: 0 auto;
+.agent-desc {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.1em;
+}
+
+/* 截图展示 */
+.agent-screenshot {
+    width: 100%;
+    max-width: 900px;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
 }
 
-#layer-agent.active .agent-body {
+#layer-agent.active .agent-screenshot {
     opacity: 1;
     transform: translateY(0);
 }
 
-.agent-preview {
-    flex: 0 0 480px;
-}
-
-.agent-preview-frame {
-    background: #111;
-    border: 1px solid rgba(255,255,255,0.06);
+.agent-screenshot-img {
+    width: 100%;
     border-radius: 4px;
-    padding: 16px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03);
+    display: block;
 }
 
-.agent-preview-screen {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    min-height: 320px;
-}
-
-.agent-mock-chat {
+/* 详情区域 */
+.agent-details {
+    width: 100%;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 12px;
-    background: rgba(255,255,255,0.02);
-    border-radius: 2px;
+    gap: 40px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
 }
 
-.agent-mock-msg {
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-}
-
-.agent-mock-avatar {
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: rgba(99, 102, 241, 0.15);
-    color: rgba(99, 102, 241, 0.8);
-    font-size: 0.55rem;
-    font-family: var(--font-serif);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    letter-spacing: 0.05em;
-}
-
-.agent-mock-bubble {
-    font-size: 0.65rem;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.5;
-    padding: 6px 10px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 2px;
-}
-
-.agent-mock-user {
-    flex-direction: row-reverse;
-}
-
-.agent-mock-user .agent-mock-bubble {
-    background: rgba(99, 102, 241, 0.08);
-    color: rgba(255,255,255,0.6);
-}
-
-.agent-mock-canvas {
-    position: relative;
-    padding: 12px;
-    background: rgba(255,255,255,0.02);
-    border-radius: 2px;
-}
-
-.agent-mock-node {
-    position: absolute;
-    padding: 6px 12px;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    border-radius: 2px;
-    font-size: 0.6rem;
-    color: rgba(99, 102, 241, 0.7);
-    letter-spacing: 0.05em;
-}
-
-.agent-mock-line {
-    position: absolute;
-    top: 35%;
-    left: 30%;
-    width: 40%;
-    height: 1px;
-    background: rgba(99, 102, 241, 0.15);
-    transform: rotate(25deg);
-}
-
-.agent-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+#layer-agent.active .agent-details {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .agent-section-label {
     font-family: var(--font-serif);
     font-size: 0.6rem;
-    color: rgba(99, 102, 241, 0.5);
+    color: rgba(180, 140, 80, 0.5);
     letter-spacing: 0.4em;
-    margin-bottom: 12px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(180, 140, 80, 0.15);
 }
 
+/* Feature 列表 — 用圆点替代 emoji */
 .agent-features {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 32px;
 }
 
 .agent-feature {
@@ -2077,15 +2018,19 @@ button:focus-visible {
     align-items: center;
     gap: 10px;
     font-size: 0.78rem;
-    color: var(--text-white-60);
+    color: rgba(255, 255, 255, 0.6);
     letter-spacing: 0.03em;
 }
 
-.agent-feature-icon {
-    font-size: 1rem;
+.agent-feature-dot {
     flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(180, 140, 80, 0.5);
 }
 
+/* 技术栈 */
 .agent-tech {
     display: flex;
     flex-direction: column;
@@ -2101,7 +2046,7 @@ button:focus-visible {
 .agent-tech-label {
     font-family: var(--font-serif);
     font-size: 0.65rem;
-    color: rgba(99, 102, 241, 0.4);
+    color: rgba(180, 140, 80, 0.4);
     letter-spacing: 0.25em;
 }
 
@@ -2113,14 +2058,15 @@ button:focus-visible {
 
 .agent-tech-tag {
     font-size: 0.7rem;
-    color: var(--text-white-60);
+    color: rgba(255, 255, 255, 0.6);
     padding: 3px 10px;
-    background: rgba(99, 102, 241, 0.06);
-    border: 1px solid rgba(99, 102, 241, 0.12);
+    background: rgba(180, 140, 80, 0.06);
+    border: 1px solid rgba(180, 140, 80, 0.12);
     border-radius: 2px;
     letter-spacing: 0.05em;
 }
 
+/* 架构 */
 .agent-arch {
     display: flex;
     flex-direction: column;
@@ -2137,9 +2083,9 @@ button:focus-visible {
     flex-shrink: 0;
     font-family: var(--font-serif);
     font-size: 0.65rem;
-    color: rgba(99, 102, 241, 0.5);
+    color: rgba(180, 140, 80, 0.5);
     padding: 2px 8px;
-    border: 1px solid rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(180, 140, 80, 0.12);
     letter-spacing: 0.1em;
     min-width: 48px;
     text-align: center;
@@ -2147,14 +2093,22 @@ button:focus-visible {
 
 .agent-arch-text {
     font-size: 0.78rem;
-    color: var(--text-white-50);
+    color: rgba(255, 255, 255, 0.5);
     line-height: 1.6;
 }
 
+/* 行动按钮 */
 .agent-actions {
     display: flex;
     gap: 16px;
-    margin-top: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.7s, transform 0.8s ease 0.7s;
+}
+
+#layer-agent.active .agent-actions {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .agent-btn {
@@ -2171,29 +2125,30 @@ button:focus-visible {
 }
 
 .agent-btn-primary {
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    color: rgba(99, 102, 241, 0.8);
+    background: rgba(180, 140, 80, 0.1);
+    border: 1px solid rgba(180, 140, 80, 0.2);
+    color: rgba(180, 140, 80, 0.8);
 }
 
 .agent-btn-primary:hover {
-    background: rgba(99, 102, 241, 0.15);
-    border-color: rgba(99, 102, 241, 0.35);
-    color: rgba(99, 102, 241, 1);
+    background: rgba(180, 140, 80, 0.15);
+    border-color: rgba(180, 140, 80, 0.35);
+    color: rgba(180, 140, 80, 1);
 }
 
 .agent-btn-secondary {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-white-50);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .agent-btn-secondary:hover {
     background: rgba(255, 255, 255, 0.06);
     border-color: rgba(255, 255, 255, 0.2);
-    color: var(--text-white);
+    color: rgba(255, 255, 255, 1);
 }
 
+/* 返回按钮 */
 .agent-back {
     position: fixed;
     top: 32px;
@@ -2216,38 +2171,35 @@ button:focus-visible {
     color: var(--text-white);
 }
 
+/* Agent 响应式 */
 @media (max-width: 768px) {
-    .agent-body {
-        flex-direction: column;
-        gap: 32px;
+    .agent-content {
+        padding: 4vh 5vw;
+        gap: 36px;
     }
 
-    .agent-preview {
-        flex: none;
-        max-width: 100%;
+    .agent-features {
+        grid-template-columns: 1fr;
     }
 
-    .agent-preview-frame {
-        padding: 10px;
-    }
-
-    .agent-preview-screen {
-        min-height: 240px;
+    .agent-screenshot-img {
+        border-radius: 2px;
     }
 }
 
 @media (max-width: 480px) {
-    .agent-preview-screen {
-        grid-template-columns: 1fr;
-        min-height: 200px;
-    }
-
-    .agent-mock-canvas {
-        display: none;
-    }
-
     .agent-content {
-        padding: 4vh 4vw;
+        padding: 3vh 4vw;
+        gap: 28px;
+    }
+
+    .agent-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .agent-btn {
+        justify-content: center;
     }
 }
 
