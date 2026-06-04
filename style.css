@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
     font-family: 'Microsoft YaHei';
     src: url('fonts/msyh-subset.woff2') format('woff2');
     font-weight: 400;
@@ -54,9 +54,9 @@
 }
 
 :root {
-    --font-title: 'Microsoft YaHei', '微软雅黑', 'MaShanZheng', serif;
-    --font-title-alt: 'Microsoft YaHei', '微软雅黑', 'ZhiMangXing', serif;
-    --font-serif: 'Microsoft YaHei', '微软雅黑', 'NotoSerifSC', serif;
+    --font-title: 'NotoSerifSC', 'Microsoft YaHei', '微软雅黑', serif;
+    --font-title-alt: 'NotoSerifSC', 'Microsoft YaHei', '微软雅黑', serif;
+    --font-serif: 'NotoSerifSC', 'Microsoft YaHei', '微软雅黑', serif;
     --font-body: 'Microsoft YaHei', '微软雅黑', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
     --font-brush: 'LiuJianMaoCao', 'ZhiMangXing', serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
