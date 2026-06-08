@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
+﻿@font-face {
     font-family: 'Microsoft YaHei';
     src: url('fonts/msyh-subset.woff2') format('woff2');
     font-weight: 400;
@@ -11,32 +11,14 @@
     font-display: swap;
 }
 @font-face {
-    font-family: 'MaShanZheng';
-    src: url('fonts/MaShanZheng-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-display: swap;
-}
-@font-face {
     font-family: 'ZhiMangXing';
     src: url('fonts/ZhiMangXing-Regular.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
 @font-face {
-    font-family: 'LongCang';
-    src: url('fonts/LongCang-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-display: swap;
-}
-@font-face {
     font-family: 'LiuJianMaoCao';
     src: url('fonts/LiuJianMaoCao-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-display: swap;
-}
-@font-face {
-    font-family: 'LXGWWenKai';
-    src: url('fonts/LXGWWenKai-Regular.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
@@ -167,6 +149,7 @@ button:focus-visible {
     opacity: 0.75;
     z-index: 0;
     transform: translateZ(0);
+    background: #0a0a0f;
 }
 
 .landing-grain {
@@ -442,6 +425,7 @@ button:focus-visible {
     opacity: 0.65;
     z-index: 0;
     transform: translateZ(0);
+    background: #0a0a0f;
 }
 
 .hub-overlay {
@@ -635,6 +619,15 @@ button:focus-visible {
 .hub-back:hover {
     border-color: var(--border-hover);
     color: var(--text-white);
+}
+
+.hub-category-featured .hub-cat-text {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.hub-category-featured .cat-ai {
+    font-size: 1.2rem;
 }
 
 .player-bg {
@@ -1569,6 +1562,27 @@ button:focus-visible {
     transform: translateZ(0);
 }
 
+.showcase-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+#layer-grid.warm-bg .showcase-image {
+    display: none;
+}
+
+#layer-grid.warm-bg {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 25%, #fbbf24 50%, #f59e0b 75%, #d97706 100%);
+}
+
+#layer-grid.warm-bg .showcase-gradient {
+    background: linear-gradient(to right, rgba(254, 243, 199, 0.3) 0%, rgba(251, 191, 36, 0.15) 40%, rgba(245, 158, 11, 0.1) 60%, rgba(217, 119, 6, 0.05) 100%);
+}
+
 #layer-grid:hover .showcase-video {
     opacity: 0.8;
 }
@@ -1814,6 +1828,26 @@ button:focus-visible {
     color: rgba(180, 140, 80, 0.8);
 }
 
+.showcase-link-btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 10px 24px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+}
+
+.showcase-link-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
 @media (max-width: 768px) {
     .showcase-right {
         position: absolute;
@@ -1876,343 +1910,6 @@ button:focus-visible {
     .showcase-play-hint svg {
         width: 24px;
         height: 24px;
-    }
-}
-
-/* Agent 页面 — 自然叙事风格 */
-#layer-agent {
-    z-index: 1;
-}
-
-.agent-bg {
-    position: absolute;
-    inset: 0;
-    background: url('pm-brainstorming-workbench/screenshot.png') center center / cover no-repeat;
-    filter: blur(8px) brightness(0.3);
-    transform: scale(1.05);
-}
-
-.agent-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(180deg, rgba(10, 10, 15, 0.75) 0%, rgba(10, 10, 15, 0.4) 35%, rgba(10, 10, 15, 0.5) 65%, rgba(10, 10, 15, 0.85) 100%),
-        radial-gradient(ellipse at 30% 30%, rgba(180, 140, 80, 0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 70%, rgba(180, 140, 80, 0.04) 0%, transparent 50%);
-}
-
-.agent-content {
-    position: relative;
-    z-index: 3;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 6vh 8vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,0.1) transparent;
-}
-
-.agent-content::-webkit-scrollbar { width: 4px; }
-.agent-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
-
-/* Hero 区域 */
-.agent-hero {
-    text-align: center;
-    max-width: 640px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s;
-}
-
-#layer-agent.active .agent-hero {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.agent-badge {
-    display: inline-block;
-    font-family: var(--font-serif);
-    font-size: 0.6rem;
-    color: rgba(180, 140, 80, 0.7);
-    letter-spacing: 0.4em;
-    margin-bottom: 16px;
-    padding: 4px 16px;
-    border: 1px solid rgba(180, 140, 80, 0.2);
-}
-
-.agent-title {
-    font-family: var(--font-title);
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 0.1em;
-    margin-bottom: 8px;
-}
-
-.agent-subtitle {
-    font-family: var(--font-serif);
-    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-    color: rgba(180, 140, 80, 0.5);
-    letter-spacing: 0.2em;
-    font-style: italic;
-    margin-bottom: 16px;
-}
-
-.agent-desc {
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 0.1em;
-}
-
-/* 截图展示 */
-.agent-screenshot {
-    width: 100%;
-    max-width: 900px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
-}
-
-#layer-agent.active .agent-screenshot {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.agent-screenshot-img {
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
-    display: block;
-}
-
-@media (max-width: 768px) {
-    .agent-screenshot-img {
-        border-radius: 6px;
-    }
-}
-
-/* 详情区域 */
-.agent-details {
-    width: 100%;
-    max-width: 800px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
-}
-
-#layer-agent.active .agent-details {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.agent-section-label {
-    font-family: var(--font-serif);
-    font-size: 0.6rem;
-    color: rgba(180, 140, 80, 0.5);
-    letter-spacing: 0.4em;
-    margin-bottom: 16px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(180, 140, 80, 0.15);
-}
-
-/* Feature 列表 — 用圆点替代 emoji */
-.agent-features {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px 32px;
-}
-
-.agent-feature {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.6);
-    letter-spacing: 0.03em;
-}
-
-.agent-feature-dot {
-    flex-shrink: 0;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(180, 140, 80, 0.5);
-}
-
-/* 技术栈 */
-.agent-tech {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.agent-tech-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.agent-tech-label {
-    font-family: var(--font-serif);
-    font-size: 0.65rem;
-    color: rgba(180, 140, 80, 0.4);
-    letter-spacing: 0.25em;
-}
-
-.agent-tech-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.agent-tech-tag {
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.6);
-    padding: 3px 10px;
-    background: rgba(180, 140, 80, 0.06);
-    border: 1px solid rgba(180, 140, 80, 0.12);
-    border-radius: 2px;
-    letter-spacing: 0.05em;
-}
-
-/* 架构 */
-.agent-arch {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.agent-arch-item {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-}
-
-.agent-arch-label {
-    flex-shrink: 0;
-    font-family: var(--font-serif);
-    font-size: 0.65rem;
-    color: rgba(180, 140, 80, 0.5);
-    padding: 2px 8px;
-    border: 1px solid rgba(180, 140, 80, 0.12);
-    letter-spacing: 0.1em;
-    min-width: 48px;
-    text-align: center;
-}
-
-.agent-arch-text {
-    font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.5);
-    line-height: 1.6;
-}
-
-/* 行动按钮 */
-.agent-actions {
-    display: flex;
-    gap: 16px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease 0.7s, transform 0.8s ease 0.7s;
-}
-
-#layer-agent.active .agent-actions {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.agent-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 24px;
-    font-family: var(--font-serif);
-    font-size: 0.8rem;
-    letter-spacing: 0.15em;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-}
-
-.agent-btn-primary {
-    background: rgba(180, 140, 80, 0.1);
-    border: 1px solid rgba(180, 140, 80, 0.2);
-    color: rgba(180, 140, 80, 0.8);
-}
-
-.agent-btn-primary:hover {
-    background: rgba(180, 140, 80, 0.15);
-    border-color: rgba(180, 140, 80, 0.35);
-    color: rgba(180, 140, 80, 1);
-}
-
-.agent-btn-secondary {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.agent-btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 1);
-}
-
-/* 返回按钮 */
-.agent-back {
-    position: fixed;
-    top: 32px;
-    left: 32px;
-    z-index: 20;
-    background: transparent;
-    border: 1px solid var(--text-white-20);
-    color: var(--text-white-50);
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all var(--transition);
-}
-
-.agent-back:hover {
-    border-color: var(--border-hover);
-    color: var(--text-white);
-}
-
-/* Agent 响应式 */
-@media (max-width: 768px) {
-    .agent-content {
-        padding: 4vh 5vw;
-        gap: 36px;
-    }
-
-    .agent-features {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .agent-content {
-        padding: 3vh 4vw;
-        gap: 28px;
-    }
-
-    .agent-actions {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .agent-btn {
-        justify-content: center;
     }
 }
 

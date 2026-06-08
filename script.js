@@ -26,6 +26,38 @@ document.addEventListener('DOMContentLoaded', function() {
             { src: '视频合集/纪录片——东兴电商宣传.mp4', poster: 'posters/real-2.jpg', title: '纪录片——东兴电商宣传', desc: { 光影: '混合光源，室内暖光营造电商工作温度，室外自然光展现物流实景，补光均匀保持画面通透', 镜头: '采访固定镜头保持叙事稳定，跟拍展现物流动态，中景叙事→特写捕捉人物情绪', 风格: '现代纪实风，发展叙事，以人物故事承载产业变迁', 节奏: '稳健推进，数据呈现与人物故事交织，理性与感性双线并行' } },
             { src: '视频合集/实拍纪录片——五四青年节.mp4', poster: 'posters/real-3.jpg', title: '实拍纪录片——五四青年节', desc: { 光影: '明亮自然光为主，高调画面传递青春朝气，侧光勾勒青年轮廓，逆光光晕营造理想主义氛围', 镜头: '动态跟拍捕捉青年活力，升格慢动作定格奋斗瞬间，中近景为主保持情感亲近', 风格: '青春纪实风，朝气视觉调性，以真实力量替代口号式表达', 节奏: '明快昂扬，激情递进，从个体奋斗到群体共鸣逐步升温' } },
             { src: '视频合集/实拍纪录片——广西三月三.mp4', poster: 'posters/real-1.jpg', title: '实拍纪录片——广西三月三', desc: { 光影: '自然日光为主，暖调环境光还原节日热烈，逆光拍摄歌舞剪影强化仪式感，室内烛光补充人文温度', 镜头: '纪实跟拍捕捉民俗自然感，仪式段落固定镜头保持庄重，全景→中景→特写传递文化厚度', 风格: '民族纪实风，人文关怀视角，以真实记录替代奇观化呈现', 节奏: '节庆律动，仪式庄重与生活欢快交织，情绪在传统与现代间自然流转', 荣誉: '广西日报年度最佳宣传片、广西自治区党委宣传部表彰' } }
+        ],
+        agent: [
+            {
+                image: 'pm-brainstorming-workbench/screenshot.png',
+                title: 'AI产品头脑风暴工作台',
+                link: 'https://www.brainstorming.top',
+                linkText: '立即体验',
+                desc: {
+                    '核心能力': '多角色AI协作头脑风暴（CTO/设计师/运营/用户），可视化画布React Flow实时特性树，AI面试官模式压力测试，RAG知识库检索增强，语音交互edge-tts，SSE流式输出',
+                    '技术栈': 'Next.js 14 + React Flow + Zustand + Tailwind CSS + TypeScript | FastAPI + SSE Streaming + edge-tts + Pydantic | GPT-4o + DeepSeek + ChromaDB + RAG',
+                    '架构': '多Agent协作 + RAG检索增强 + 流式输出 | Next.js SSR + Zustand状态管理 + React Flow可视化 | FastAPI异步框架 + SSE长连接 + ChromaDB向量检索'
+                }
+            },
+            {
+                src: '视频合集/敦煌莫高窟DIY.mp4',
+                title: '敦煌莫高窟DIY',
+                desc: {
+                    '产品介绍': '为敦煌莫高窟打造的DIY互动产品，用户可以通过AI技术体验莫高窟壁画的创作过程，感受千年文化遗产的魅力，实现传统文化与现代科技的深度融合',
+                    '技术栈': 'AI图像生成 + 图像风格迁移 + 前端交互设计 + 文化遗产数字化'
+                }
+            },
+            {
+                image: '',
+                warmBg: true,
+                title: '沐萌美官网',
+                link: 'https://www.mumengmei.top',
+                linkText: '访问官网',
+                desc: {
+                    '项目介绍': '为沐萌美公司搭建的官方网站，助力企业实现招商引资与加盟拓展，展示品牌形象与产品实力，打通线上线下商业闭环',
+                    '技术栈': '全栈Web开发 + 响应式设计 + SEO优化 + 品牌视觉系统'
+                }
+            }
         ]
     };
 
@@ -265,12 +297,50 @@ document.addEventListener('DOMContentLoaded', function() {
         if (grid) grid.classList.remove('playing');
         isShowcasePlaying = false;
 
+        var showcaseImage = document.getElementById('showcase-image');
+        var playHint = document.getElementById('showcase-play-hint');
+
         setTimeout(function() {
-            if (showcaseVideo) {
-                showcaseVideo.src = v.src;
-                showcaseVideo.muted = true;
-                showcaseVideo.loop = true;
-                showcaseVideo.play().catch(function() {});
+            // Handle image vs video background
+            if (v.image || v.warmBg) {
+                if (showcaseVideo) {
+                    showcaseVideo.pause();
+                    showcaseVideo.removeAttribute('src');
+                    showcaseVideo.load();
+                    showcaseVideo.style.display = 'none';
+                }
+                if (showcaseImage) {
+                    showcaseImage.style.display = 'block';
+                    if (v.image) {
+                        showcaseImage.src = v.image;
+                        showcaseImage.alt = v.title;
+                    } else {
+                        showcaseImage.removeAttribute('src');
+                    }
+                }
+                if (playHint) playHint.style.display = 'none';
+                // Add warm-bg class for warm background items
+                if (grid) {
+                    if (v.warmBg) {
+                        grid.classList.add('warm-bg');
+                    } else {
+                        grid.classList.remove('warm-bg');
+                    }
+                }
+            } else {
+                if (showcaseVideo) {
+                    showcaseVideo.style.display = '';
+                    showcaseVideo.src = v.src;
+                    showcaseVideo.muted = true;
+                    showcaseVideo.loop = true;
+                    showcaseVideo.play().catch(function() {});
+                }
+                if (showcaseImage) {
+                    showcaseImage.style.display = 'none';
+                    showcaseImage.removeAttribute('src');
+                }
+                if (playHint) playHint.style.display = '';
+                if (grid) grid.classList.remove('warm-bg');
             }
 
             document.getElementById('showcase-cat').textContent = info.title || '';
@@ -287,6 +357,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     item.innerHTML = '<div class="showcase-desc-label">' + key + '</div><div class="showcase-desc-text">' + v.desc[key] + '</div>';
                     descEl.appendChild(item);
                 });
+            }
+
+            // Add link button if present
+            if (v.link) {
+                var linkItem = document.createElement('a');
+                linkItem.className = 'showcase-link-btn';
+                linkItem.href = v.link;
+                linkItem.target = '_blank';
+                linkItem.rel = 'noopener';
+                linkItem.textContent = v.linkText || '查看详情';
+                descEl.appendChild(linkItem);
             }
 
             var prevBtn = document.getElementById('showcase-prev');
@@ -362,81 +443,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     }
 
-    function transitionHubToAgent() {
-        var hub = document.getElementById('layer-hub');
-        var agent = document.getElementById('layer-agent');
-        var hubBgVideo = document.getElementById('hub-bg-video');
-
-        if (hubBgVideo) hubBgVideo.pause();
-
-        agent.classList.add('active');
-        agent.style.opacity = '0';
-        agent.style.transition = 'none';
-
-        hub.style.transition = 'opacity 0.6s ease';
-        hub.style.opacity = '0';
-
-        requestAnimationFrame(function() {
-            requestAnimationFrame(function() {
-                agent.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                agent.style.opacity = '1';
-            });
-        });
-
-        setTimeout(function() {
-            hub.classList.remove('active');
-            hub.style.transition = '';
-            hub.style.opacity = '';
-            agent.style.transition = '';
-            agent.style.opacity = '';
-        }, 1200);
-    }
-
-    function transitionAgentToHub() {
-        var agent = document.getElementById('layer-agent');
-        var hub = document.getElementById('layer-hub');
-        var hubBgVideo = document.getElementById('hub-bg-video');
-
-        agent.style.transition = 'opacity 0.6s ease';
-        agent.style.opacity = '0';
-
-        hub.classList.add('active');
-        hub.style.opacity = '0';
-        hub.style.transition = 'none';
-
-        if (hubBgVideo) hubBgVideo.play().catch(function() {});
-
-        requestAnimationFrame(function() {
-            requestAnimationFrame(function() {
-                hub.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                hub.style.opacity = '1';
-            });
-        });
-
-        setTimeout(function() {
-            agent.classList.remove('active');
-            agent.style.transition = '';
-            agent.style.opacity = '';
-            hub.style.transition = '';
-            hub.style.opacity = '';
-        }, 1200);
-    }
-
     document.querySelectorAll('.hub-category').forEach(function(cat) {
         cat.addEventListener('click', function(e) {
             e.preventDefault();
             var catKey = this.getAttribute('data-category');
-
-            if (catKey === 'agent') {
-                var soundFile = soundMap[catKey];
-                if (soundFile) {
-                    var audio = new Audio(soundFile);
-                    audio.volume = 0.3;
-                    audio.play().catch(function() {});
-                }
-                transitionHubToAgent();
-                return;
-            }
 
             var soundFile = soundMap[catKey];
             if (soundFile) {
@@ -454,6 +464,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var showcaseLayerEl = document.getElementById('layer-grid');
     if (showcaseLayerEl) showcaseLayerEl.addEventListener('click', function(e) {
         if (e.target.closest('.showcase-right')) return;
+        var v = videoData[currentCategory] && videoData[currentCategory][currentIndex];
+        // Don't toggle play for image/warmBg items
+        if (v && (v.image || v.warmBg)) return;
         if (isShowcasePlaying) {
             showcaseLayerEl.classList.remove('playing');
             showcaseVideo.muted = true;
@@ -500,6 +513,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (showcaseBackEl) showcaseBackEl.addEventListener('click', function() {
         if (showcaseVideo) showcaseVideo.pause();
         var grid = document.getElementById('layer-grid');
+        var showcaseImage = document.getElementById('showcase-image');
+        if (showcaseImage) {
+            showcaseImage.style.display = 'none';
+            showcaseImage.removeAttribute('src');
+        }
+        grid.classList.remove('warm-bg');
         var hub = document.getElementById('layer-hub');
         var hubBgVideo = document.getElementById('hub-bg-video');
 
@@ -529,11 +548,6 @@ document.addEventListener('DOMContentLoaded', function() {
             hub.style.transition = '';
             hub.style.opacity = '';
         }, 1200);
-    });
-
-    var agentBackEl = document.getElementById('agent-back');
-    if (agentBackEl) agentBackEl.addEventListener('click', function() {
-        transitionAgentToHub();
     });
 
     var btnBackHubEl = document.getElementById('btn-back-hub');
