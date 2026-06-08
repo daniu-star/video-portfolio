@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
         agent: [
             {
-                image: 'agent-brainstorm.png',
+                image: 'agent-brainstorm.jpg',
                 title: 'AI产品头脑风暴工作台',
                 link: 'https://www.brainstorming.top',
                 linkText: '立即体验',
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
             {
-                image: 'agent-mumengmei.png',
+                image: 'agent-mumengmei.jpg',
                 title: '沐萌美官网',
                 link: 'https://www.mumengmei.top',
                 linkText: '访问官网',
