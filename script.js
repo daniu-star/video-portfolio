@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
         agent: [
             {
-                image: 'image copy 4.png',
+                image: 'agent-brainstorm.png',
                 title: 'AI产品头脑风暴工作台',
                 link: 'https://www.brainstorming.top',
                 linkText: '立即体验',
