@@ -301,6 +301,14 @@ document.addEventListener('DOMContentLoaded', function() {
         var playHint = document.getElementById('showcase-play-hint');
 
         setTimeout(function() {
+            // Add category class for styling
+            if (grid) {
+                grid.classList.remove('cat-agent', 'warm-bg');
+                if (currentCategory === 'agent') {
+                    grid.classList.add('cat-agent');
+                }
+            }
+
             // Handle image vs video background
             if (v.image || v.warmBg) {
                 if (showcaseVideo) {
@@ -323,23 +331,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (grid) {
                     if (v.warmBg) {
                         grid.classList.add('warm-bg');
-                    } else {
-                        grid.classList.remove('warm-bg');
                     }
                 }
             } else {
                 if (showcaseVideo) {
                     showcaseVideo.style.display = '';
+                    showcaseVideo.removeAttribute('src');
+                    showcaseVideo.load();
                     showcaseVideo.src = v.src;
                     showcaseVideo.muted = true;
                     showcaseVideo.loop = true;
+                    showcaseVideo.autoplay = true;
+                    showcaseVideo.playsInline = true;
                     showcaseVideo.play().catch(function() {});
                 }
                 if (showcaseImage) {
                     showcaseImage.style.display = 'none';
                     showcaseImage.removeAttribute('src');
                 }
-                if (playHint) playHint.style.display = '';
+                // Hide play hint for agent videos (auto-play)
+                if (playHint) playHint.style.display = currentCategory === 'agent' ? 'none' : '';
                 if (grid) grid.classList.remove('warm-bg');
             }
 
@@ -518,7 +529,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showcaseImage.style.display = 'none';
             showcaseImage.removeAttribute('src');
         }
-        grid.classList.remove('warm-bg');
+        grid.classList.remove('warm-bg', 'cat-agent');
         var hub = document.getElementById('layer-hub');
         var hubBgVideo = document.getElementById('hub-bg-video');
 

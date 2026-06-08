@@ -36,9 +36,9 @@
 }
 
 :root {
-    --font-title: 'NotoSerifSC', 'Microsoft YaHei', '微软雅黑', serif;
-    --font-title-alt: 'NotoSerifSC', 'Microsoft YaHei', '微软雅黑', serif;
-    --font-serif: 'NotoSerifSC', 'Microsoft YaHei', '微软雅黑', serif;
+    --font-title: 'ZhiMangXing', 'Microsoft YaHei', '微软雅黑', serif;
+    --font-title-alt: 'LiuJianMaoCao', 'Microsoft YaHei', '微软雅黑', serif;
+    --font-serif: 'Microsoft YaHei', '微软雅黑', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
     --font-body: 'Microsoft YaHei', '微软雅黑', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
     --font-brush: 'LiuJianMaoCao', 'ZhiMangXing', serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
@@ -1846,6 +1846,41 @@ button:focus-visible {
 .showcase-link-btn:hover {
     background: rgba(255, 255, 255, 0.25);
     border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Agent category: larger fonts and bright background */
+#layer-grid.cat-agent {
+    background: #1a1a2e;
+}
+
+#layer-grid.cat-agent .showcase-image {
+    opacity: 0.85;
+}
+
+#layer-grid.cat-agent .showcase-gradient {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.05) 30%, rgba(0, 0, 0, 0.25) 55%, rgba(0, 0, 0, 0.55) 75%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+#layer-grid.cat-agent .showcase-cat {
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+}
+
+#layer-grid.cat-agent .showcase-title {
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+}
+
+#layer-grid.cat-agent .showcase-subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+}
+
+#layer-grid.cat-agent .showcase-desc-label {
+    font-size: 0.8rem;
+}
+
+#layer-grid.cat-agent .showcase-desc-text {
+    font-size: 0.9rem;
+    line-height: 1.7;
 }
 
 @media (max-width: 768px) {
