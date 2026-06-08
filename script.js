@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
             {
-                image: 'image copy 5.png',
+                image: 'agent-mumengmei.png',
                 title: '沐萌美官网',
                 link: 'https://www.mumengmei.top',
                 linkText: '访问官网',
