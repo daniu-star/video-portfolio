@@ -45,8 +45,11 @@ async def speech_to_text(request: Request, file: UploadFile = File(...)):
     check_quota(user, llm_config)
 
     content_type = file.content_type or "audio/webm"
-    if content_type not in ("audio/webm", "audio/wav"):
-        raise HTTPException(status_code=400, detail="仅支持 audio/webm 或 audio/wav 格式")
+    # Normalize content_type - browsers may send "audio/webm;codecs=opus"
+    ct_lower = content_type.lower().split(";")[0].strip()
+    if ct_lower not in ("audio/webm", "audio/wav", "audio/mp4", "audio/ogg", "audio/mpeg"):
+        raise HTTPException(status_code=400, detail=f"不支持的音频格式: {content_type}，仅支持 webm/wav/mp3/ogg")
+    content_type = ct_lower
 
     try:
         audio_bytes = await file.read()
@@ -57,19 +60,29 @@ async def speech_to_text(request: Request, file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail="音频文件为空")
 
     try:
-        if llm_config["api_key"]:
-            text = await transcribe_audio(
-                audio_bytes=audio_bytes,
-                content_type=content_type,
-                api_key=llm_config["api_key"],
-                base_url=llm_config["base_url"],
-                model=llm_config["model"],
-            )
-        else:
+        # Always prefer HF Whisper (free, reliable) for STT
+        # Only fallback to user's API key if HF is unavailable
+        # Note: Most LLM providers (DeepSeek, etc.) do NOT support Whisper
+        try:
             text = await transcribe_audio_hf(
                 audio_bytes=audio_bytes,
                 content_type=content_type,
             )
+        except RuntimeError as hf_err:
+            # HF unavailable, try user's API key only if it looks like OpenAI
+            if llm_config["api_key"] and llm_config.get("base_url") and (
+                "openai" in (llm_config.get("base_url") or "").lower()
+            ):
+                logger.warning(f"HF STT failed ({hf_err}), falling back to user API")
+                text = await transcribe_audio(
+                    audio_bytes=audio_bytes,
+                    content_type=content_type,
+                    api_key=llm_config["api_key"],
+                    base_url=llm_config["base_url"],
+                    model=llm_config["model"],
+                )
+            else:
+                raise
     except RuntimeError as e:
         raise HTTPException(status_code=500, detail=str(e))
     except Exception as e:
