@@ -12,22 +12,17 @@
 }
 @font-face {
     font-family: 'ZhiMangXing';
-    src: url('fonts/ZhiMangXing-Regular.ttf') format('truetype');
+    src: url('fonts/ZhiMangXing-Regular.woff2') format('woff2');
     font-weight: 400;
     font-display: swap;
 }
 @font-face {
     font-family: 'LiuJianMaoCao';
-    src: url('fonts/LiuJianMaoCao-Regular.ttf') format('truetype');
+    src: url('fonts/LiuJianMaoCao-Regular.woff2') format('woff2');
     font-weight: 400;
     font-display: swap;
 }
-@font-face {
-    font-family: 'NotoSerifSC';
-    src: url('fonts/NotoSerifSC-Variable.ttf') format('truetype');
-    font-weight: 400 900;
-    font-display: swap;
-}
+
 
 * {
     margin: 0;
@@ -624,10 +619,14 @@ button:focus-visible {
 .hub-category-featured .hub-cat-text {
     font-size: clamp(2.4rem, 4.8vw, 3.8rem);
     font-weight: 600;
+    letter-spacing: 0.15em;
 }
 
 .hub-category-featured .cat-ai {
-    font-size: 0.65em;
+    font-size: 0.72em;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    margin: 0 0.08em;
 }
 
 .player-bg {
