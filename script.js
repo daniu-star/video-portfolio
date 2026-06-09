@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
             {
-                src: '视频合集/敦煌莫高窟DIY.mp4',
+                src: 'dunhuang-diy.mp4',
                 title: '敦煌莫高窟DIY',
                 desc: {
                     '产品介绍': '为敦煌莫高窟打造的DIY互动产品，用户可以通过AI技术体验莫高窟壁画的创作过程，感受千年文化遗产的魅力，实现传统文化与现代科技的深度融合',
@@ -319,8 +319,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (showcaseImage) {
                     showcaseImage.style.display = 'block';
                     if (v.image) {
-                        showcaseImage.src = v.image;
+                        showcaseImage.src = v.image + '?v=20260609';
                         showcaseImage.alt = v.title;
+                        showcaseImage.onerror = function() {
+                            showcaseImage.src = v.image;
+                        };
                     } else {
                         showcaseImage.removeAttribute('src');
                     }
