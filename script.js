@@ -335,14 +335,21 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 if (showcaseVideo) {
                     showcaseVideo.style.display = '';
-                    showcaseVideo.removeAttribute('src');
-                    showcaseVideo.load();
-                    showcaseVideo.src = v.src;
+                    showcaseVideo.pause();
+                    showcaseVideo.src = v.src + '?v=20260609';
                     showcaseVideo.muted = true;
                     showcaseVideo.loop = true;
-                    showcaseVideo.autoplay = true;
-                    showcaseVideo.playsInline = true;
-                    showcaseVideo.play().catch(function() {});
+                    showcaseVideo.setAttribute('playsinline', '');
+                    showcaseVideo.setAttribute('webkit-playsinline', '');
+                    showcaseVideo.setAttribute('x5-playsinline', '');
+                    showcaseVideo.setAttribute('x5-video-player-type', 'h5');
+                    showcaseVideo.load();
+                    showcaseVideo.play().catch(function() {
+                        // Retry play after a short delay if autoplay is blocked
+                        setTimeout(function() {
+                            showcaseVideo.play().catch(function() {});
+                        }, 500);
+                    });
                 }
                 if (showcaseImage) {
                     showcaseImage.style.display = 'none';
