@@ -313,6 +313,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (showcaseVideo) {
                     showcaseVideo.pause();
                     showcaseVideo.removeAttribute('src');
+                    showcaseVideo.oncanplay = null;
+                    showcaseVideo.onerror = null;
                     showcaseVideo.style.display = 'none';
                 }
                 if (showcaseImage) {
@@ -321,8 +323,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         showcaseImage.src = v.image;
                         showcaseImage.alt = v.title;
                         showcaseImage.onerror = function() {
-                            console.error('Image load failed:', v.image);
-                            showcaseImage.src = v.image;
+                            console.error('Image load failed, retrying:', v.image);
+                            setTimeout(function() { showcaseImage.src = v.image + '?retry=1'; }, 1000);
                         };
                     } else {
                         showcaseImage.removeAttribute('src');
@@ -335,30 +337,47 @@ document.addEventListener('DOMContentLoaded', function() {
                         grid.classList.add('warm-bg');
                     }
                 }
-            } else {
+            } else if (v.src) {
+                // Video showcase
                 if (showcaseVideo) {
+                    showcaseImage.style.display = 'none';
+                    showcaseImage.removeAttribute('src');
                     showcaseVideo.style.display = 'block';
                     showcaseVideo.pause();
-                    showcaseVideo.removeAttribute('src');
                     showcaseVideo.src = v.src;
                     showcaseVideo.muted = true;
                     showcaseVideo.loop = true;
+                    showcaseVideo.playsInline = true;
                     showcaseVideo.setAttribute('playsinline', '');
                     showcaseVideo.setAttribute('webkit-playsinline', '');
                     showcaseVideo.setAttribute('x5-playsinline', '');
                     showcaseVideo.setAttribute('x5-video-player-type', 'h5');
-                    showcaseVideo.load();
-                    showcaseVideo.play().catch(function(err) {
-                        console.warn('Autoplay blocked, retrying:', err);
-                        setTimeout(function() {
+
+                    // Wait for video data before playing
+                    var playWhenReady = function() {
+                        showcaseVideo.play().catch(function(err) {
+                            console.warn('Autoplay blocked, retrying:', err);
                             showcaseVideo.muted = true;
-                            showcaseVideo.play().catch(function() {});
-                        }, 500);
-                    });
-                }
-                if (showcaseImage) {
-                    showcaseImage.style.display = 'none';
-                    showcaseImage.removeAttribute('src');
+                            setTimeout(function() {
+                                showcaseVideo.play().catch(function() {});
+                            }, 300);
+                        });
+                    };
+
+                    if (showcaseVideo.readyState >= 3) {
+                        // Already have enough data
+                        playWhenReady();
+                    } else {
+                        showcaseVideo.oncanplay = function() {
+                            showcaseVideo.oncanplay = null;
+                            playWhenReady();
+                        };
+                        showcaseVideo.onerror = function() {
+                            showcaseVideo.onerror = null;
+                            console.error('Video load failed:', v.src);
+                        };
+                    }
+                    showcaseVideo.load();
                 }
                 // Hide play hint for agent videos (auto-play)
                 if (playHint) playHint.style.display = currentCategory === 'agent' ? 'none' : '';
