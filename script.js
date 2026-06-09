@@ -313,15 +313,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (showcaseVideo) {
                     showcaseVideo.pause();
                     showcaseVideo.removeAttribute('src');
-                    showcaseVideo.load();
                     showcaseVideo.style.display = 'none';
                 }
                 if (showcaseImage) {
                     showcaseImage.style.display = 'block';
                     if (v.image) {
-                        showcaseImage.src = v.image + '?v=20260609';
+                        showcaseImage.src = v.image;
                         showcaseImage.alt = v.title;
                         showcaseImage.onerror = function() {
+                            console.error('Image load failed:', v.image);
                             showcaseImage.src = v.image;
                         };
                     } else {
@@ -337,9 +337,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             } else {
                 if (showcaseVideo) {
-                    showcaseVideo.style.display = '';
+                    showcaseVideo.style.display = 'block';
                     showcaseVideo.pause();
-                    showcaseVideo.src = v.src + '?v=20260609';
+                    showcaseVideo.removeAttribute('src');
+                    showcaseVideo.src = v.src;
                     showcaseVideo.muted = true;
                     showcaseVideo.loop = true;
                     showcaseVideo.setAttribute('playsinline', '');
@@ -347,9 +348,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     showcaseVideo.setAttribute('x5-playsinline', '');
                     showcaseVideo.setAttribute('x5-video-player-type', 'h5');
                     showcaseVideo.load();
-                    showcaseVideo.play().catch(function() {
-                        // Retry play after a short delay if autoplay is blocked
+                    showcaseVideo.play().catch(function(err) {
+                        console.warn('Autoplay blocked, retrying:', err);
                         setTimeout(function() {
+                            showcaseVideo.muted = true;
                             showcaseVideo.play().catch(function() {});
                         }, 500);
                     });
