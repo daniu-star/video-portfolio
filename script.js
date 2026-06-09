@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 image: 'agent-mumengmei.jpg',
                 title: '沐萌美官网',
-                link: 'https://www.mumengmei.top',
+                link: 'https://www.mumengmei.cn',
                 linkText: '访问官网',
                 desc: {
                     '项目介绍': '为沐萌美公司搭建的官方网站，助力企业实现招商引资与加盟拓展，展示品牌形象与产品实力，打通线上线下商业闭环',
