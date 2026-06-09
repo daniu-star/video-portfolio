@@ -1827,24 +1827,24 @@ button:focus-visible {
     color: rgba(180, 140, 80, 0.8);
 }
 
-.showcase-link-btn {
-    display: inline-block;
-    margin-top: 16px;
-    padding: 10px 24px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: rgba(255, 255, 255, 0.9);
+.showcase-link-nav-btn {
+    border-color: rgba(180, 140, 80, 0.2);
     text-decoration: none;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    font-family: var(--font-body);
 }
 
-.showcase-link-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.5);
+.showcase-link-nav-btn:hover {
+    border-color: rgba(180, 140, 80, 0.4);
+    color: rgba(180, 140, 80, 0.9);
+    background: rgba(180, 140, 80, 0.06);
+}
+
+.showcase-link-nav-btn svg {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.showcase-link-nav-btn:hover svg {
+    opacity: 0.8;
 }
 
 /* Agent category: bright background for image items */

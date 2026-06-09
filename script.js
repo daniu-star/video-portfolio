@@ -369,15 +369,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            // Add link button if present
+            // Add link button to nav if present
+            var showcaseNav = document.getElementById('showcase-nav');
+            // Remove any existing link button
+            var existingLinkBtn = document.getElementById('showcase-link-btn');
+            if (existingLinkBtn) existingLinkBtn.parentNode.removeChild(existingLinkBtn);
+
             if (v.link) {
                 var linkItem = document.createElement('a');
-                linkItem.className = 'showcase-link-btn';
+                linkItem.id = 'showcase-link-btn';
+                linkItem.className = 'showcase-nav-btn showcase-link-nav-btn';
                 linkItem.href = v.link;
                 linkItem.target = '_blank';
                 linkItem.rel = 'noopener';
-                linkItem.textContent = v.linkText || '查看详情';
-                descEl.appendChild(linkItem);
+                linkItem.innerHTML = '<span>' + (v.linkText || '查看详情') + '</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>';
+                // Insert before the back button
+                var backBtn = document.getElementById('showcase-back');
+                if (showcaseNav && backBtn) {
+                    showcaseNav.insertBefore(linkItem, backBtn);
+                }
             }
 
             var prevBtn = document.getElementById('showcase-prev');
