@@ -1,4 +1,4 @@
-﻿@font-face {
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
     font-family: 'Microsoft YaHei';
     src: url('fonts/msyh-subset.woff2') format('woff2');
     font-weight: 400;
@@ -1661,9 +1661,9 @@ button:focus-visible {
 
 .showcase-cat {
     display: inline-block;
-    font-family: var(--font-serif);
-    font-size: 0.6rem;
-    color: rgba(180, 140, 80, 0.6);
+    font-family: var(--font-brush);
+    font-size: 0.75rem;
+    color: rgba(180, 140, 80, 0.7);
     letter-spacing: 0.4em;
     text-transform: uppercase;
     margin-bottom: 20px;
@@ -1678,7 +1678,7 @@ button:focus-visible {
 }
 
 .showcase-title {
-    font-family: var(--font-title);
+    font-family: var(--font-brush);
     font-size: clamp(2rem, 3.5vw, 3.2rem);
     color: #dc2626;
     letter-spacing: 0.1em;
@@ -1728,9 +1728,9 @@ button:focus-visible {
 }
 
 .showcase-desc {
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    color: var(--text-white-35);
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    color: var(--text-white-50);
     line-height: 1.8;
     letter-spacing: 0.03em;
     max-height: 200px;
@@ -1761,15 +1761,15 @@ button:focus-visible {
 }
 
 .showcase-desc-label {
-    font-family: var(--font-serif);
-    font-size: 0.65rem;
-    color: rgba(180, 140, 80, 0.5);
+    font-family: var(--font-brush);
+    font-size: 0.75rem;
+    color: rgba(180, 140, 80, 0.6);
     letter-spacing: 0.15em;
     margin-bottom: 3px;
 }
 
 .showcase-desc-text {
-    color: var(--text-white-40);
+    color: var(--text-white-50);
 }
 
 .showcase-nav {

@@ -315,6 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showcaseVideo.removeAttribute('src');
                     showcaseVideo.oncanplay = null;
                     showcaseVideo.onerror = null;
+                    showcaseVideo.load();
                     showcaseVideo.style.display = 'none';
                 }
                 if (showcaseImage) {
@@ -562,7 +563,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var showcaseBackEl = document.getElementById('showcase-back');
     if (showcaseBackEl) showcaseBackEl.addEventListener('click', function() {
-        if (showcaseVideo) showcaseVideo.pause();
+        if (showcaseVideo) { showcaseVideo.pause(); showcaseVideo.removeAttribute('src'); showcaseVideo.load(); }
         var grid = document.getElementById('layer-grid');
         var showcaseImage = document.getElementById('showcase-image');
         if (showcaseImage) {
