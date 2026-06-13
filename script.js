@@ -95,6 +95,73 @@ document.addEventListener('DOMContentLoaded', function() {
             layer.classList.remove('active');
         });
         document.getElementById(id).classList.add('active');
+        // N-01: 更新 URL hash
+        var hashMap = {
+            'layer-landing': 'landing',
+            'layer-hub': 'hub',
+            'layer-grid': 'grid',
+            'layer-player': 'player',
+            'layer-profile': 'profile'
+        };
+        var hash = hashMap[id];
+        if (hash && window.location.hash !== '#' + hash) {
+            history.pushState({ layer: id }, '', '#' + hash);
+        }
+    }
+
+    // N-01: hash 路由初始化
+    var hashLayerMap = {
+        'landing': 'layer-landing',
+        'hub': 'layer-hub',
+        'grid': 'layer-grid',
+        'player': 'layer-player',
+        'profile': 'layer-profile'
+    };
+
+    function navigateToHash() {
+        var hash = window.location.hash.replace('#', '');
+        var targetLayer = hashLayerMap[hash];
+        if (!targetLayer) return;
+
+        var landing = document.getElementById('layer-landing');
+        var hub = document.getElementById('layer-hub');
+        var grid = document.getElementById('layer-grid');
+        var player = document.getElementById('layer-player');
+        var profile = document.getElementById('layer-profile');
+
+        // 停掉所有背景视频
+        var landingV = document.getElementById('landing-bg-video');
+        var hubV = document.getElementById('hub-bg-video');
+        var showcaseV = document.getElementById('showcase-video');
+        if (landingV) landingV.pause();
+        if (hubV) hubV.pause();
+        if (showcaseV) { showcaseV.pause(); showcaseV.removeAttribute('src'); showcaseV.load(); }
+
+        // 隐藏所有层
+        document.querySelectorAll('.page-layer').forEach(function(l) { l.classList.remove('active'); });
+        landing.classList.remove('leaving');
+
+        if (targetLayer === 'layer-landing') {
+            showLayer('layer-landing');
+            if (landingV) landingV.play().catch(function() {});
+        } else if (targetLayer === 'layer-hub') {
+            showLayer('layer-hub');
+            if (hubV) hubV.play().catch(function() {});
+        } else if (targetLayer === 'layer-profile') {
+            showLayer('layer-profile');
+        } else if (targetLayer === 'layer-grid') {
+            showLayer('layer-grid');
+        } else if (targetLayer === 'layer-player') {
+            showLayer('layer-player');
+        }
+    }
+
+    // 监听 hash 变化（浏览器前进/后退）
+    window.addEventListener('hashchange', navigateToHash);
+
+    // 页面加载时检查 hash
+    if (window.location.hash) {
+        navigateToHash();
     }
 
     function pauseAllBgVideos() {
@@ -114,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var enterAudio = new Audio('sounds/click-documentary.wav');
         enterAudio.volume = 0.35;
-        enterAudio.play().catch(function() {});
+        if (soundEnabled) enterAudio.play().catch(function() {});
 
         if (landingBgVideo) landingBgVideo.pause();
         landing.classList.add('leaving');
@@ -161,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var enterAudio = new Audio('sounds/click-documentary.wav');
         enterAudio.volume = 0.35;
-        enterAudio.play().catch(function() {});
+        if (soundEnabled) enterAudio.play().catch(function() {});
 
         if (landingBgVideo) landingBgVideo.pause();
         landing.classList.add('leaving');
@@ -315,6 +382,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var info = catInfo[currentCategory] || {};
 
         showcaseInfo.classList.remove('active');
+        showcaseInfo.classList.add('loading');
 
         var grid = document.getElementById('layer-grid');
         if (grid) grid.classList.remove('playing');
@@ -460,6 +528,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             requestAnimationFrame(function() {
                 showcaseInfo.classList.add('active');
+                showcaseInfo.classList.remove('loading');
             });
         }, 300);
     }
@@ -532,7 +601,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var catKey = this.getAttribute('data-category');
 
             var soundFile = soundMap[catKey];
-            if (soundFile) {
+            if (soundFile && soundEnabled) {
                 var audio = new Audio(soundFile);
                 audio.volume = 0.3;
                 audio.play().catch(function() {});
@@ -1021,29 +1090,76 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.addEventListener('keydown', function(e) {
-        if (!document.getElementById('layer-player').classList.contains('active')) return;
-        if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            playerVideo.currentTime = Math.max(0, playerVideo.currentTime - 5);
-        } else if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            playerVideo.currentTime = Math.min(playerVideo.duration || 0, playerVideo.currentTime + 5);
-        } else if (e.key === ' ') {
-            e.preventDefault();
-            if (playerVideo.paused) {
-                if (!isCurtainOpen) {
-                    document.getElementById('curtain-trigger').click();
-                } else {
-                    playerVideo.play();
-                    isPlaying = true;
+        var playerLayer = document.getElementById('layer-player');
+        var hubLayer = document.getElementById('layer-hub');
+        var gridLayer = document.getElementById('layer-grid');
+        var profileLayer = document.getElementById('layer-profile');
+
+        // N-02: Player层键盘导航
+        if (playerLayer && playerLayer.classList.contains('active')) {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (playerVideo && playerVideo.duration) playerVideo.currentTime = Math.max(0, playerVideo.currentTime - 5);
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (playerVideo && playerVideo.duration) playerVideo.currentTime = Math.min(playerVideo.duration || 0, playerVideo.currentTime + 5);
+            } else if (e.key === ' ') {
+                e.preventDefault();
+                if (playerVideo) {
+                    if (playerVideo.paused) {
+                        if (!isCurtainOpen) {
+                            var ct = document.getElementById('curtain-trigger');
+                            if (ct) ct.click();
+                        } else {
+                            playerVideo.play();
+                            isPlaying = true;
+                        }
+                    } else {
+                        playerVideo.pause();
+                        isPlaying = false;
+                        closeCurtainWithWave();
+                    }
                 }
-            } else {
-                playerVideo.pause();
-                isPlaying = false;
-                closeCurtainWithWave();
+            } else if (e.key === 'Escape') {
+                var btnBack = document.getElementById('btn-back-hub');
+                if (btnBack) btnBack.click();
             }
-        } else if (e.key === 'Escape') {
-            document.getElementById('btn-back-hub').click();
+            return;
+        }
+
+        // N-02: Hub层键盘导航
+        if (hubLayer && hubLayer.classList.contains('active')) {
+            if (e.key === 'Escape') {
+                var hubBack = document.getElementById('hub-back');
+                if (hubBack) hubBack.click();
+            }
+            return;
+        }
+
+        // N-02: Grid层键盘导航
+        if (gridLayer && gridLayer.classList.contains('active')) {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                var prevBtn = document.getElementById('showcase-prev');
+                if (prevBtn && prevBtn.style.display !== 'none') prevBtn.click();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                var nextBtn = document.getElementById('showcase-next');
+                if (nextBtn && nextBtn.style.display !== 'none') nextBtn.click();
+            } else if (e.key === 'Escape') {
+                var backBtn = document.getElementById('showcase-back');
+                if (backBtn) backBtn.click();
+            }
+            return;
+        }
+
+        // N-02: Profile层键盘导航
+        if (profileLayer && profileLayer.classList.contains('active')) {
+            if (e.key === 'Escape') {
+                var profileBack = document.getElementById('profile-back');
+                if (profileBack) profileBack.click();
+            }
+            return;
         }
     });
 
@@ -1052,5 +1168,131 @@ document.addEventListener('DOMContentLoaded', function() {
         var sec = Math.floor(s % 60);
         return m + ':' + (sec < 10 ? '0' : '') + sec;
     }
+
+    // N-06: 音量控制
+    var ctrlVolume = document.getElementById('ctrl-volume');
+    var ctrlMute = document.getElementById('ctrl-mute');
+    var lastVolume = 80;
+    if (ctrlVolume && playerVideo) {
+        playerVideo.volume = ctrlVolume.value / 100;
+        ctrlVolume.addEventListener('input', function() {
+            playerVideo.volume = this.value / 100;
+            if (this.value > 0) lastVolume = parseInt(this.value);
+            updateMuteIcon();
+        });
+    }
+    if (ctrlMute && playerVideo) {
+        ctrlMute.addEventListener('click', function() {
+            if (playerVideo.volume > 0) {
+                lastVolume = Math.round(playerVideo.volume * 100);
+                playerVideo.volume = 0;
+                if (ctrlVolume) ctrlVolume.value = 0;
+            } else {
+                playerVideo.volume = lastVolume / 100;
+                if (ctrlVolume) ctrlVolume.value = lastVolume;
+            }
+            updateMuteIcon();
+        });
+    }
+    function updateMuteIcon() {
+        var onIcon = document.getElementById('ctrl-mute-icon-on');
+        var offIcon = document.getElementById('ctrl-mute-icon-off');
+        if (!onIcon || !offIcon) return;
+        if (playerVideo.volume === 0) {
+            onIcon.style.display = 'none';
+            offIcon.style.display = '';
+        } else {
+            onIcon.style.display = '';
+            offIcon.style.display = 'none';
+        }
+    }
+
+    // N-06: 全屏控制
+    var ctrlFullscreen = document.getElementById('ctrl-fullscreen');
+    if (ctrlFullscreen) {
+        ctrlFullscreen.addEventListener('click', function() {
+            var wrapper = document.getElementById('player-video-wrapper');
+            var el = wrapper || playerVideo;
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else if (el.requestFullscreen) {
+                el.requestFullscreen();
+            } else if (el.webkitRequestFullscreen) {
+                el.webkitRequestFullscreen();
+            } else if (el.msRequestFullscreen) {
+                el.msRequestFullscreen();
+            }
+        });
+    }
+
+    // N-16: 拖拽进度条
+    var ctrlProgressEl = document.getElementById('ctrl-progress');
+    var isDragging = false;
+
+    function seekByEvent(e) {
+        if (!playerVideo || !playerVideo.duration || !ctrlProgressEl) return;
+        var rect = ctrlProgressEl.getBoundingClientRect();
+        var clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        var pct = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+        playerVideo.currentTime = pct * playerVideo.duration;
+    }
+
+    if (ctrlProgressEl) {
+        ctrlProgressEl.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            seekByEvent(e);
+        });
+        document.addEventListener('mousemove', function(e) {
+            if (isDragging) seekByEvent(e);
+        });
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+        });
+        ctrlProgressEl.addEventListener('touchstart', function(e) {
+            isDragging = true;
+            seekByEvent(e);
+        });
+        document.addEventListener('touchmove', function(e) {
+            if (isDragging) seekByEvent(e);
+        });
+        document.addEventListener('touchend', function() {
+            isDragging = false;
+        });
+    }
+
+    // N-14: 音效开关
+    var soundEnabled = true;
+    var soundToggle = document.getElementById('sound-toggle');
+    if (soundToggle) {
+        // 读取localStorage中的音效偏好
+        var savedSound = localStorage.getItem('soundEnabled');
+        if (savedSound === 'false') {
+            soundEnabled = false;
+            updateSoundToggleIcon();
+        }
+
+        soundToggle.addEventListener('click', function() {
+            soundEnabled = !soundEnabled;
+            localStorage.setItem('soundEnabled', soundEnabled ? 'true' : 'false');
+            updateSoundToggleIcon();
+        });
+    }
+
+    function updateSoundToggleIcon() {
+        var onIcon = document.getElementById('sound-toggle-icon-on');
+        var offIcon = document.getElementById('sound-toggle-icon-off');
+        if (onIcon && offIcon) {
+            onIcon.style.display = soundEnabled ? '' : 'none';
+            offIcon.style.display = soundEnabled ? 'none' : '';
+        }
+    }
+
+    // 修改现有音效播放函数，添加开关判断
+    var originalPlaySound = function(soundFile) {
+        if (!soundEnabled || !soundFile) return;
+        var audio = new Audio(soundFile);
+        audio.volume = 0.3;
+        audio.play().catch(function() {});
+    };
 
 });

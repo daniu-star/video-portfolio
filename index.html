@@ -12,8 +12,11 @@
     <meta property="og:url" content="https://www.chenjunliang.top">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="stylesheet" href="style.css?v=20260610">
-    <link rel="preload" href="script.js?v=20260610" as="script">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&family=Noto+Serif+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=20260613">
+    <link rel="preload" href="script.js?v=20260613" as="script">
     <link rel="preload" href="求职神器.webp" as="image" fetchpriority="high">
     <link rel="preload" href="全能研究.webp" as="image" fetchpriority="high">
 </head>
@@ -104,6 +107,10 @@
         <button class="hub-back" id="hub-back" aria-label="返回首页">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </button>
+        <button class="sound-toggle" id="sound-toggle" aria-label="音效开关" title="音效开关">
+            <svg id="sound-toggle-icon-on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+            <svg id="sound-toggle-icon-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </button>
     </div>
 
     <div id="layer-grid" class="page-layer">
@@ -180,8 +187,16 @@
             </div>
             <div class="player-controls" id="player-controls">
                 <button class="ctrl-btn" id="ctrl-speed" aria-label="播放速度">1x</button>
+                <button class="ctrl-btn" id="ctrl-mute" aria-label="静音切换">
+                    <svg id="ctrl-mute-icon-on" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+                    <svg id="ctrl-mute-icon-off" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                </button>
+                <input type="range" class="ctrl-volume" id="ctrl-volume" min="0" max="100" value="80" aria-label="音量" title="音量">
                 <button class="ctrl-btn" id="ctrl-pip" aria-label="画中画">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><rect x="12" y="9" width="8" height="6" rx="1" fill="currentColor" opacity="0.3"/></svg>
+                </button>
+                <button class="ctrl-btn" id="ctrl-fullscreen" aria-label="全屏">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </button>
                 <div class="ctrl-progress" id="ctrl-progress">
                     <div class="ctrl-progress-bar" id="ctrl-progress-bar"></div>
@@ -293,8 +308,8 @@
                     <div class="profile-section" data-delay="5">
                         <div class="profile-section-label">CONTACT</div>
                         <div class="profile-contact">
-                            <div class="contact-item">www.chenjunliang.top</div>
-                            <div class="contact-item">1306737664@qq.com</div>
+                            <a href="https://www.chenjunliang.top" class="contact-item contact-link" target="_blank" rel="noopener">www.chenjunliang.top</a>
+                            <a href="mailto:1306737664@qq.com" class="contact-item contact-link">1306737664@qq.com</a>
                         </div>
                     </div>
                 </div>
@@ -305,6 +320,6 @@
     <div class="curtain-transition" id="curtain-transition">
         <div class="curtain-panel" id="curtain-panel"></div>
     </div>
-    <script src="script.js?v=20260610" defer></script>
+    <script src="script.js?v=20260613" defer></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
     font-family: 'Microsoft YaHei';
     src: url('fonts/msyh-subset.woff2') format('woff2');
     font-weight: 400;
@@ -25,11 +25,11 @@
 }
 
 :root {
-    --font-title: 'ZhiMangXing', 'Microsoft YaHei', '微软雅黑', serif;
-    --font-title-alt: 'ZhiMangXing', 'Microsoft YaHei', '微软雅黑', serif;
-    --font-serif: 'Microsoft YaHei', '微软雅黑', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
-    --font-body: 'Microsoft YaHei', '微软雅黑', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
-    --font-brush: 'ZhiMangXing', 'Microsoft YaHei', '微软雅黑', serif;
+    --font-title: 'ZCOOL QingKe HuangYou', 'ZhiMangXing', 'Noto Serif SC', 'Microsoft YaHei', '微软雅黑', serif;
+    --font-title-alt: 'ZCOOL QingKe HuangYou', 'ZhiMangXing', 'Noto Serif SC', 'Microsoft YaHei', '微软雅黑', serif;
+    --font-serif: 'Noto Serif SC', 'Microsoft YaHei', '微软雅黑', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+    --font-body: 'Noto Serif SC', 'Microsoft YaHei', '微软雅黑', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+    --font-brush: 'ZCOOL QingKe HuangYou', 'ZhiMangXing', 'Noto Serif SC', 'Microsoft YaHei', '微软雅黑', serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
     --bg-dark: #0a0a0f;
     --bg-player: #0a0a0f;
@@ -917,6 +917,57 @@ button:focus-visible {
     transition: width 0.1s linear;
 }
 
+.ctrl-volume {
+    width: 80px;
+    height: 3px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--text-white-08);
+    outline: none;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.ctrl-volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-white-60);
+    cursor: pointer;
+}
+
+.ctrl-volume::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-white-60);
+    cursor: pointer;
+    border: none;
+}
+
+.sound-toggle {
+    position: fixed;
+    top: 32px;
+    right: 32px;
+    z-index: 20;
+    background: transparent;
+    border: 1px solid var(--text-white-20);
+    color: var(--text-white-50);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.sound-toggle:hover {
+    border-color: var(--border-hover);
+    color: var(--text-white);
+}
+
 .ctrl-time {
     font-size: 0.75rem;
     color: var(--text-white-30);
@@ -1297,6 +1348,112 @@ button:focus-visible {
     letter-spacing: 0.1em;
 }
 
+.contact-link {
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+}
+
+.contact-link:hover {
+    color: rgba(180, 140, 80, 0.8);
+}
+
+/* N-11: 骨架屏 */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 2px;
+}
+
+.showcase-info.loading .showcase-cat,
+.showcase-info.loading .showcase-title,
+.showcase-info.loading .showcase-subtitle,
+.showcase-info.loading .showcase-desc {
+    color: transparent !important;
+}
+
+.showcase-info.loading .showcase-cat::after,
+.showcase-info.loading .showcase-title::after,
+.showcase-info.loading .showcase-subtitle::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 2px;
+}
+
+.showcase-cat, .showcase-title, .showcase-subtitle {
+    position: relative;
+    overflow: hidden;
+}
+
+/* N-05: Agent 卡片样式 */
+#layer-grid.cat-agent .showcase-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+#layer-grid.cat-agent .showcase-info {
+    margin-bottom: 0;
+}
+
+#layer-grid.cat-agent .showcase-title {
+    color: rgba(180, 140, 80, 0.9);
+    font-size: clamp(1.5rem, 2.5vw, 2.4rem);
+}
+
+#layer-grid.cat-agent .showcase-meta {
+    display: none;
+}
+
+#layer-grid.cat-agent .showcase-play-hint,
+#layer-grid.cat-agent .showcase-video,
+#layer-grid.cat-agent .showcase-nav-btn#showcase-prev,
+#layer-grid.cat-agent .showcase-nav-btn#showcase-next {
+    display: none !important;
+}
+
+.agent-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.agent-tag {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    color: var(--text-white-50);
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .sound-toggle {
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+    }
+    .ctrl-volume {
+        width: 60px;
+    }
+}
+
 @media (max-width: 768px) {
     .landing-top-left {
         top: auto;
@@ -1356,8 +1513,8 @@ button:focus-visible {
     }
 
     .landing-enter {
-        min-height: 44px;
-        padding: 8px 16px;
+        min-height: 48px;
+        padding: 12px 24px;
     }
 
     .hub-title-char {
@@ -1767,17 +1924,12 @@ button:focus-visible {
 }
 
 .showcase-nav {
-    opacity: 0;
-    transform: translateY(10px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.5s ease, transform 0.5s ease;
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-.showcase-right:hover .showcase-nav {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .showcase-nav-btn {
@@ -1916,6 +2068,23 @@ button:focus-visible {
     .showcase-play-hint svg {
         width: 24px;
         height: 24px;
+    }
+}
+
+/* C-03: 移动端视频溢出修复 */
+.video-wrapper {
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.video-wrapper video {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .video-gallery {
+        grid-template-columns: 1fr !important;
     }
 }
 
