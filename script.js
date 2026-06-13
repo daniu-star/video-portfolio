@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
             {
-                image: '求职神器.png',
+                image: '求职神器.webp',
                 title: '求职神器 Agent',
                 link: 'https://github.com/daniu-star/job-agent',
                 linkText: '访问地址',
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
             {
-                image: '全能研究.png',
+                image: '全能研究.webp',
                 title: '全能研究 Agent (ScholarMind)',
                 link: 'https://github.com/daniu-star/scholarmind',
                 linkText: '访问地址',
