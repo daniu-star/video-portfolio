@@ -40,6 +40,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
             {
+                image: '求职神器.png',
+                title: '求职神器 Agent',
+                link: 'https://github.com/daniu-star/job-agent',
+                linkText: '访问地址',
+                desc: {
+                    '核心能力': '5步流水线自动化投递系统（搜索→筛选→JD语义分析→RAG生成打招呼语→自动发送），每日自动投递40+岗位。基于FAISS向量检索+DeepSeek LLM生成250-300字个性化打招呼语',
+                    '产品决策': '5步流水线而非单步——每步可独立降级保证可用性；RAG检索而非纯LLM生成——知识库含个人简历/能力点/项目详情，生成更精准；undetected-chromedriver而非API直连——BOSS直聘无公开API',
+                    '产品取舍': 'FAISS而非ChromaDB——求职场景数据量小，FAISS轻量无需服务端；Flask而非FastAPI——工具类项目无需异步，开发更快；Cookie过期自动扫码续期',
+                    '技术栈': 'LangGraph · DeepSeek · FAISS · RAG · undetected-chromedriver · Flask · Selenium'
+                }
+            },
+            {
+                image: '全能研究.png',
+                title: '全能研究 Agent (ScholarMind)',
+                link: 'https://github.com/daniu-star/scholarmind',
+                linkText: '访问地址',
+                desc: {
+                    '核心能力': '5Agent协作（研究员/审查员/架构师/综述员/润色员）覆盖选题→审查→架构→综述→润色全流程，8个预设技能+自定义技能扩展，12种Origin风格学术图表',
+                    '产品决策': '5Agent而非单Agent——学术研究各阶段方法论差异大，需专职Agent；6层企业架构（middleware→core→models→db→routes→services）保证可维护性和可扩展性',
+                    '产品取舍': 'ChromaDB而非FAISS——学术场景知识库持续增长，需持久化向量存储；Celery+Redis而非纯background——支持任务队列和分布式扩展；WebSocket而非SSE——学术对话需双向交互',
+                    '技术栈': 'FastAPI · LangGraph · DeepSeek · ChromaDB · RAG · Celery+Redis · SQLAlchemy · WebSocket · Matplotlib'
+                }
+            },
+            {
                 src: 'dunhuang-diy.mp4',
                 title: '敦煌莫高窟DIY',
                 desc: {
