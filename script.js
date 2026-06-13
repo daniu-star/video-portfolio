@@ -443,6 +443,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 showcaseImage.removeAttribute('src');
                 showcaseVideo.style.display = 'block';
                 showcaseVideo.pause();
+                // Set poster to prevent black screen while video loads
+                if (v.poster) {
+                    showcaseVideo.poster = v.poster;
+                } else {
+                    showcaseVideo.removeAttribute('poster');
+                }
                 showcaseVideo.src = v.src;
                 showcaseVideo.muted = true;
                 showcaseVideo.loop = true;
@@ -454,6 +460,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Wait for video data before playing
                 var playWhenReady = function() {
+                    // Remove poster once video has content to show
+                    showcaseVideo.removeAttribute('poster');
                     showcaseVideo.play().catch(function(err) {
                         console.warn('Autoplay blocked, retrying:', err);
                         showcaseVideo.muted = true;
