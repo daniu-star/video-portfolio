@@ -345,12 +345,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (showcaseImage) {
                     showcaseImage.style.display = 'block';
                     if (v.image) {
-                        showcaseImage.src = v.image;
+                        showcaseImage.onerror = null;
+                        showcaseImage.onload = null;
+                        showcaseImage.removeAttribute('src');
                         showcaseImage.alt = v.title;
-                        showcaseImage.onerror = function() {
-                            console.error('Image load failed, retrying:', v.image);
-                            setTimeout(function() { showcaseImage.src = v.image + '?retry=1'; }, 1000);
+                        showcaseImage.onload = function() {
+                            showcaseImage.onload = null;
+                            showcaseImage.onerror = null;
                         };
+                        showcaseImage.onerror = function() {
+                            showcaseImage.onerror = null;
+                            console.error('Image load failed:', v.image);
+                        };
+                        showcaseImage.src = v.image;
                     } else {
                         showcaseImage.removeAttribute('src');
                     }
