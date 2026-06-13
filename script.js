@@ -391,146 +391,144 @@ document.addEventListener('DOMContentLoaded', function() {
         var showcaseImage = document.getElementById('showcase-image');
         var playHint = document.getElementById('showcase-play-hint');
 
-        setTimeout(function() {
-            // Add category class for styling
-            if (grid) {
-                grid.classList.remove('cat-agent', 'warm-bg');
-                if (currentCategory === 'agent') {
-                    grid.classList.add('cat-agent');
-                }
+        // Add category class for styling
+        if (grid) {
+            grid.classList.remove('cat-agent', 'warm-bg');
+            if (currentCategory === 'agent') {
+                grid.classList.add('cat-agent');
             }
+        }
 
-            // Handle image vs video background
-            if (v.image || v.warmBg) {
-                if (showcaseVideo) {
-                    showcaseVideo.pause();
-                    showcaseVideo.removeAttribute('src');
-                    showcaseVideo.oncanplay = null;
-                    showcaseVideo.onerror = null;
-                    showcaseVideo.load();
-                    showcaseVideo.style.display = 'none';
-                }
-                if (showcaseImage) {
-                    showcaseImage.style.display = 'block';
-                    if (v.image) {
-                        showcaseImage.onerror = null;
-                        showcaseImage.onload = null;
-                        showcaseImage.removeAttribute('src');
-                        showcaseImage.alt = v.title;
-                        showcaseImage.onload = function() {
-                            showcaseImage.onload = null;
-                            showcaseImage.onerror = null;
-                        };
-                        showcaseImage.onerror = function() {
-                            showcaseImage.onerror = null;
-                            console.error('Image load failed:', v.image);
-                        };
-                        showcaseImage.src = v.image;
-                    } else {
-                        showcaseImage.removeAttribute('src');
-                    }
-                }
-                if (playHint) playHint.style.display = 'none';
-                // Add warm-bg class for warm background items
-                if (grid) {
-                    if (v.warmBg) {
-                        grid.classList.add('warm-bg');
-                    }
-                }
-            } else if (v.src) {
-                // Video showcase
-                if (showcaseVideo) {
-                    showcaseImage.style.display = 'none';
+        // Handle image vs video background
+        if (v.image || v.warmBg) {
+            if (showcaseVideo) {
+                showcaseVideo.pause();
+                showcaseVideo.removeAttribute('src');
+                showcaseVideo.oncanplay = null;
+                showcaseVideo.onerror = null;
+                showcaseVideo.load();
+                showcaseVideo.style.display = 'none';
+            }
+            if (showcaseImage) {
+                showcaseImage.style.display = 'block';
+                if (v.image) {
+                    showcaseImage.onerror = null;
+                    showcaseImage.onload = null;
                     showcaseImage.removeAttribute('src');
-                    showcaseVideo.style.display = 'block';
-                    showcaseVideo.pause();
-                    showcaseVideo.src = v.src;
-                    showcaseVideo.muted = true;
-                    showcaseVideo.loop = true;
-                    showcaseVideo.playsInline = true;
-                    showcaseVideo.setAttribute('playsinline', '');
-                    showcaseVideo.setAttribute('webkit-playsinline', '');
-                    showcaseVideo.setAttribute('x5-playsinline', '');
-                    showcaseVideo.setAttribute('x5-video-player-type', 'h5');
-
-                    // Wait for video data before playing
-                    var playWhenReady = function() {
-                        showcaseVideo.play().catch(function(err) {
-                            console.warn('Autoplay blocked, retrying:', err);
-                            showcaseVideo.muted = true;
-                            setTimeout(function() {
-                                showcaseVideo.play().catch(function() {});
-                            }, 300);
-                        });
+                    showcaseImage.alt = v.title;
+                    showcaseImage.onload = function() {
+                        showcaseImage.onload = null;
+                        showcaseImage.onerror = null;
                     };
+                    showcaseImage.onerror = function() {
+                        showcaseImage.onerror = null;
+                        console.error('Image load failed:', v.image);
+                    };
+                    showcaseImage.src = v.image;
+                } else {
+                    showcaseImage.removeAttribute('src');
+                }
+            }
+            if (playHint) playHint.style.display = 'none';
+            // Add warm-bg class for warm background items
+            if (grid) {
+                if (v.warmBg) {
+                    grid.classList.add('warm-bg');
+                }
+            }
+        } else if (v.src) {
+            // Video showcase
+            if (showcaseVideo) {
+                showcaseImage.style.display = 'none';
+                showcaseImage.removeAttribute('src');
+                showcaseVideo.style.display = 'block';
+                showcaseVideo.pause();
+                showcaseVideo.src = v.src;
+                showcaseVideo.muted = true;
+                showcaseVideo.loop = true;
+                showcaseVideo.playsInline = true;
+                showcaseVideo.setAttribute('playsinline', '');
+                showcaseVideo.setAttribute('webkit-playsinline', '');
+                showcaseVideo.setAttribute('x5-playsinline', '');
+                showcaseVideo.setAttribute('x5-video-player-type', 'h5');
 
-                    if (showcaseVideo.readyState >= 3) {
-                        // Already have enough data
+                // Wait for video data before playing
+                var playWhenReady = function() {
+                    showcaseVideo.play().catch(function(err) {
+                        console.warn('Autoplay blocked, retrying:', err);
+                        showcaseVideo.muted = true;
+                        setTimeout(function() {
+                            showcaseVideo.play().catch(function() {});
+                        }, 300);
+                    });
+                };
+
+                if (showcaseVideo.readyState >= 3) {
+                    // Already have enough data
+                    playWhenReady();
+                } else {
+                    showcaseVideo.oncanplay = function() {
+                        showcaseVideo.oncanplay = null;
                         playWhenReady();
-                    } else {
-                        showcaseVideo.oncanplay = function() {
-                            showcaseVideo.oncanplay = null;
-                            playWhenReady();
-                        };
-                        showcaseVideo.onerror = function() {
-                            showcaseVideo.onerror = null;
-                            console.error('Video load failed:', v.src);
-                        };
-                    }
-                    showcaseVideo.load();
+                    };
+                    showcaseVideo.onerror = function() {
+                        showcaseVideo.onerror = null;
+                        console.error('Video load failed:', v.src);
+                    };
                 }
-                // Hide play hint for agent videos (auto-play)
-                if (playHint) playHint.style.display = currentCategory === 'agent' ? 'none' : '';
-                if (grid) grid.classList.remove('warm-bg');
+                showcaseVideo.load();
             }
+            // Hide play hint for agent videos (auto-play)
+            if (playHint) playHint.style.display = currentCategory === 'agent' ? 'none' : '';
+            if (grid) grid.classList.remove('warm-bg');
+        }
 
-            document.getElementById('showcase-cat').textContent = info.title || '';
-            document.getElementById('showcase-title').textContent = v.title;
-            document.getElementById('showcase-subtitle').textContent = info.en || '';
-            document.getElementById('showcase-meta').textContent = info.title + ' | ' + (v.title || '');
+        document.getElementById('showcase-cat').textContent = info.title || '';
+        document.getElementById('showcase-title').textContent = v.title;
+        document.getElementById('showcase-subtitle').textContent = info.en || '';
+        document.getElementById('showcase-meta').textContent = info.title + ' | ' + (v.title || '');
 
-            var descEl = document.getElementById('showcase-desc');
-            descEl.innerHTML = '';
-            if (v.desc) {
-                Object.keys(v.desc).forEach(function(key) {
-                    var item = document.createElement('div');
-                    item.className = 'showcase-desc-item';
-                    item.innerHTML = '<div class="showcase-desc-label">' + key + '</div><div class="showcase-desc-text">' + v.desc[key] + '</div>';
-                    descEl.appendChild(item);
-                });
-            }
-
-            // Add link button to nav if present
-            var showcaseNav = document.getElementById('showcase-nav');
-            // Remove any existing link button
-            var existingLinkBtn = document.getElementById('showcase-link-btn');
-            if (existingLinkBtn) existingLinkBtn.parentNode.removeChild(existingLinkBtn);
-
-            if (v.link) {
-                var linkItem = document.createElement('a');
-                linkItem.id = 'showcase-link-btn';
-                linkItem.className = 'showcase-nav-btn showcase-link-nav-btn';
-                linkItem.href = v.link;
-                linkItem.target = '_blank';
-                linkItem.rel = 'noopener';
-                linkItem.innerHTML = '<span>' + (v.linkText || '查看详情') + '</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>';
-                // Insert before the back button
-                var backBtn = document.getElementById('showcase-back');
-                if (showcaseNav && backBtn) {
-                    showcaseNav.insertBefore(linkItem, backBtn);
-                }
-            }
-
-            var prevBtn = document.getElementById('showcase-prev');
-            var nextBtn = document.getElementById('showcase-next');
-            if (prevBtn) prevBtn.style.display = currentIndex > 0 ? '' : 'none';
-            if (nextBtn) nextBtn.style.display = currentIndex < videos.length - 1 ? '' : 'none';
-
-            requestAnimationFrame(function() {
-                showcaseInfo.classList.add('active');
-                showcaseInfo.classList.remove('loading');
+        var descEl = document.getElementById('showcase-desc');
+        descEl.innerHTML = '';
+        if (v.desc) {
+            Object.keys(v.desc).forEach(function(key) {
+                var item = document.createElement('div');
+                item.className = 'showcase-desc-item';
+                item.innerHTML = '<div class="showcase-desc-label">' + key + '</div><div class="showcase-desc-text">' + v.desc[key] + '</div>';
+                descEl.appendChild(item);
             });
-        }, 300);
+        }
+
+        // Add link button to nav if present
+        var showcaseNav = document.getElementById('showcase-nav');
+        // Remove any existing link button
+        var existingLinkBtn = document.getElementById('showcase-link-btn');
+        if (existingLinkBtn) existingLinkBtn.parentNode.removeChild(existingLinkBtn);
+
+        if (v.link) {
+            var linkItem = document.createElement('a');
+            linkItem.id = 'showcase-link-btn';
+            linkItem.className = 'showcase-nav-btn showcase-link-nav-btn';
+            linkItem.href = v.link;
+            linkItem.target = '_blank';
+            linkItem.rel = 'noopener';
+            linkItem.innerHTML = '<span>' + (v.linkText || '查看详情') + '</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>';
+            // Insert before the back button
+            var backBtn = document.getElementById('showcase-back');
+            if (showcaseNav && backBtn) {
+                showcaseNav.insertBefore(linkItem, backBtn);
+            }
+        }
+
+        var prevBtn = document.getElementById('showcase-prev');
+        var nextBtn = document.getElementById('showcase-next');
+        if (prevBtn) prevBtn.style.display = currentIndex > 0 ? '' : 'none';
+        if (nextBtn) nextBtn.style.display = currentIndex < videos.length - 1 ? '' : 'none';
+
+        requestAnimationFrame(function() {
+            showcaseInfo.classList.add('active');
+            showcaseInfo.classList.remove('loading');
+        });
     }
 
     function transitionHubToShowcase(cat) {

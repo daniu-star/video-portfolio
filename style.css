@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
     font-family: 'Microsoft YaHei';
     src: url('fonts/msyh-subset.woff2') format('woff2');
     font-weight: 400;
@@ -1416,8 +1416,7 @@ button:focus-visible {
     display: none;
 }
 
-#layer-grid.cat-agent .showcase-play-hint,
-#layer-grid.cat-agent .showcase-video {
+#layer-grid.cat-agent .showcase-play-hint {
     display: none !important;
 }
 
