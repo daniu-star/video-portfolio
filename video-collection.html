@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -324,6 +324,238 @@
                 display: none;
             }
         }
+    /* ========== 视频合集核心样式（补充） ========== */
+        .hidden {
+            display: none !important;
+        }
+
+        .video-category-section {
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .video-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .video-gallery {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        .video-card {
+            position: relative;
+            border-radius: 24px;
+            background: rgba(15, 15, 25, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-wrapper {
+            position: relative;
+            overflow: hidden;
+            max-width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.35);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .video-card:hover .video-overlay {
+            opacity: 1;
+        }
+
+        .video-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .play-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.85);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+        }
+
+        .play-btn:hover {
+            background: rgba(129, 140, 248, 0.95);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+        }
+
+        .play-btn svg {
+            width: 24px;
+            height: 24px;
+            color: #fff;
+            margin-left: 3px;
+        }
+
+        .video-loading {
+            position: absolute;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 4;
+            gap: 16px;
+        }
+
+        .video-loading.active {
+            display: flex;
+        }
+
+        .video-loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            border-top-color: #6366f1;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .video-loading-progress-bar {
+            width: 200px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .video-loading-progress-bar::after {
+            content: '';
+            display: block;
+            height: 100%;
+            width: 60%;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            border-radius: 2px;
+            animation: loading-progress 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loading-progress {
+            0% { width: 20%; }
+            50% { width: 80%; }
+            100% { width: 20%; }
+        }
+
+        .video-loading-percent {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.05em;
+        }
+
+        .video-error {
+            position: absolute;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 4;
+            gap: 12px;
+        }
+
+        .video-error.active {
+            display: flex;
+        }
+
+        .video-error svg {
+            width: 32px;
+            height: 32px;
+            color: rgba(239, 68, 68, 0.8);
+        }
+
+        .video-error p {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.05em;
+        }
+
+        .video-error .retry-btn {
+            padding: 8px 20px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 20px;
+            background: transparent;
+            color: rgba(239, 68, 68, 0.8);
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+        }
+
+        .video-error .retry-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.6);
+        }
+
+        .video-info {
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .video-info h3 {
+            font-family: 'ZCOOL QingKe HuangYou', 'Noto Serif SC', serif;
+            font-size: 1.05rem;
+            color: #fff;
+            margin-bottom: 6px;
+            letter-spacing: 0.05em;
+        }
+
+        .video-description {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.7;
+            letter-spacing: 0.04em;
+        }
     </style>
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" defer></script>
 
@@ -414,7 +646,7 @@
                 <div class="video-gallery" style="grid-template-columns:1fr">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/AI纪录片《何以为家》.mp4" poster="posters/AI纪录片《何以为家》.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/AI纪录片《何以为家》.mp4" poster="视频合集/posters/AI纪录片《何以为家》.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -460,7 +692,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/AI纪录片《沁园春·雪》.mp4" poster="posters/AI纪录片《沁园春·雪》.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/AI纪录片《沁园春·雪》.mp4" poster="视频合集/posters/AI纪录片《沁园春·雪》.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -525,7 +757,7 @@
                 <div class="video-gallery video-gallery-ads">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片1.mp4" poster="posters/广告片1.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/广告片1.mp4" poster="视频合集/posters/广告片1.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -571,7 +803,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片2.mp4" poster="posters/广告片2.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/广告片2.mp4" poster="视频合集/posters/广告片2.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -617,7 +849,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片3.mp4" poster="posters/广告片3.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/广告片3.mp4" poster="视频合集/posters/广告片3.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -663,7 +895,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片4.mp4" poster="posters/广告片4.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/广告片4.mp4" poster="视频合集/posters/广告片4.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -709,7 +941,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片5.mp4" poster="posters/广告片5.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/广告片5.mp4" poster="视频合集/posters/广告片5.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -755,7 +987,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片6.mp4" poster="posters/广告片6.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/广告片6.mp4" poster="视频合集/posters/广告片6.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -801,7 +1033,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/广告片7.mp4" poster="posters/广告片7.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/广告片7.mp4" poster="视频合集/posters/广告片7.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -866,7 +1098,7 @@
                 <div class="video-gallery video-gallery-game">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频1.mp4" poster="posters/长游戏AI视频1.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/长游戏AI视频1.mp4" poster="视频合集/posters/长游戏AI视频1.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -912,7 +1144,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频2.mp4" poster="posters/长游戏AI视频2.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/长游戏AI视频2.mp4" poster="视频合集/posters/长游戏AI视频2.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -958,7 +1190,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频3.mp4" poster="posters/长游戏AI视频3.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/长游戏AI视频3.mp4" poster="视频合集/posters/长游戏AI视频3.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1004,7 +1236,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频4.mp4" poster="posters/长游戏AI视频4.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/长游戏AI视频4.mp4" poster="视频合集/posters/长游戏AI视频4.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1050,7 +1282,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频5.mp4" poster="posters/长游戏AI视频5.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/长游戏AI视频5.mp4" poster="视频合集/posters/长游戏AI视频5.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1096,7 +1328,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频6.mp4" poster="posters/长游戏AI视频6.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/长游戏AI视频6.mp4" poster="视频合集/posters/长游戏AI视频6.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1142,7 +1374,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/长游戏AI视频7.mp4" poster="posters/长游戏AI视频7.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/长游戏AI视频7.mp4" poster="视频合集/posters/长游戏AI视频7.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1207,7 +1439,7 @@
                 <div class="video-gallery video-gallery-real">
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/实拍纪录片——广西三月三.mp4" poster="posters/实拍纪录片——广西三月三.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/实拍纪录片——广西三月三.mp4" poster="视频合集/posters/实拍纪录片——广西三月三.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1257,7 +1489,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/纪录片——东兴电商宣传.mp4" poster="posters/纪录片——东兴电商宣传.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/纪录片——东兴电商宣传.mp4" poster="视频合集/posters/纪录片——东兴电商宣传.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1303,7 +1535,7 @@
                     </div>
                     <div class="video-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <video src="视频合集/实拍纪录片——五四青年节.mp4" poster="posters/实拍纪录片——五四青年节.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
+                            <video src="视频合集/实拍纪录片——五四青年节.mp4" poster="视频合集/posters/实拍纪录片——五四青年节.jpg" preload="metadata" muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"></video>
                             <div class="video-overlay">
                                 <button class="play-btn" aria-label="播放视频">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
