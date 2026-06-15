@@ -1,8 +1,0 @@
-- [x] Landing→Hub过渡动画使用CSS transform+opacity组合（非clip-path逐帧计算）
-- [x] Landing页以opacity淡出+scale缩小+轻微blur模糊方式消散
-- [x] Hub页以opacity淡入+scale放大方式显现（scale 0.95→1）
-- [x] 两层动画有0.3-0.5秒重叠期，形成呼吸感（Landing 1.5s + Hub延迟0.8s = 重叠0.7s→实际0.5s有效重叠）
-- [x] 过渡总时长2.0-2.5秒（Landing 1.5s + Hub延迟0.8s + Hub 1.2s = 2.0s）
-- [x] 过渡过程无黑屏、无突然消失、无硬切割
-- [x] 过渡完成后临时样式已清理
-- [x] 音效与过渡动画同步播放
