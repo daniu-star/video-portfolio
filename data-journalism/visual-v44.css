@@ -1,0 +1,167 @@
+/* V4.4 | THE EVIDENCE HAS A VISUAL GRAMMAR
+   Scoped, source-preserving chart and diagram restoration.
+   Ink lettering remains for editorial titles, not for numerical marks. */
+:root{
+ --v44-paper:#f3eadc;--v44-paper-deep:#e9d9c4;
+ --v44-ink:#29241f;--v44-red:#9b4436;--v44-olive:#59786e;
+ --v44-clay:#a76557;--v44-muted:#716659;--v44-rule:#b9a891;
+ --v44-figure-font:'Noto Sans CJK SC','Noto Sans SC','Source Han Sans SC','Microsoft YaHei',sans-serif;
+}
+/* Real marks and measured numbers must stay crisp in the surrounding manuscript. */
+.v3-time-paper,.em-explorer,.pv-evidence-chart,.ab-board,.ab-v34-flourish-fallback,
+.na-v35-matrix,.ea37-reading-desk,.al38-chart-shell,.rm39-research-grid,.mp41-ledger-grid{
+ --chart-ink:#2e2923;--chart-sub:#6e6053;--chart-rule:#c6b8a4;
+ font-variant-numeric:tabular-nums lining-nums;
+}
+.v3-chart-axis,.v3-time-control,.v3-chart-caption,.em-svg-axis,.em-node-label,.em-node-count,
+.em-chart-source,.em-flow-legend,.pv-chart-captions,.pv-percentages,.pv-chart-footer,
+.ab-v34-mini-data,.ab-board-note,.na-v35-axis-labels,.na-v35-matrix-legend,
+.al38-time-axis,.al38-comp-legend,.mp41-ledger-grid small,.v44-tools{
+ font-family:var(--v44-figure-font)!important;letter-spacing:0!important;
+}
+/* One sober plotting surface, no fake dashboard depth. */
+.archive-v3 .v3-time-paper,
+.em-explorer .em-v3-flourish,.em-explorer .em-explore-visual,
+.pv-evidence-chart,.ab-v34-flourish-fallback,.na-v35-matrix,
+.al38-chart-shell,.mp41 .mp41-flourish{
+ background-color:rgba(249,244,235,.76)!important;
+ border:1px solid var(--v44-rule)!important;
+ border-radius:0!important;
+ box-shadow:4px 5px 0 rgba(111,90,66,.09)!important;
+}
+/* Fine offset registration mark: archival, not decorative clutter. */
+.v3-time-paper,.em-explore-visual,.pv-evidence-chart,.ab-v34-flourish-fallback,
+.na-v35-matrix,.al38-chart-shell{position:relative;isolation:isolate}
+.v3-time-paper:before,.em-explore-visual:before,.pv-evidence-chart:before,
+.ab-v34-flourish-fallback:before,.na-v35-matrix:before,.al38-chart-shell:before{
+ content:'';position:absolute;left:13px;top:13px;width:16px;height:16px;
+ border-top:1px solid #a95746;border-left:1px solid #a95746;pointer-events:none;opacity:.65;z-index:1;
+}
+/* Shared figure controls: real zoom, actual data retained on page. */
+.v44-tools{display:flex;align-items:center;justify-content:flex-end;gap:9px;min-height:32px;
+ margin:0 0 18px;padding:0 0 10px;border-bottom:1px solid rgba(141,119,95,.30)}
+.v44-tools .v44-figure-id{margin-right:auto;font:11px/1.4 var(--v44-figure-font);color:var(--v44-muted);white-space:nowrap}
+.v44-tools button{font:12px/1.4 var(--v44-figure-font)!important;color:#69483a!important;
+ border:1px solid #c6ad91!important;background:#f8f1e4!important;min-height:31px;
+ padding:6px 12px!important;white-space:nowrap;cursor:pointer;border-radius:1px!important;
+ transition:background .16s,transform .16s}
+.v44-tools button:hover{background:#e6d4bd!important;transform:translateY(-1px)}
+.v44-tools button:focus-visible{outline:3px solid #9a4436;outline-offset:2px}
+.v44-tools [data-v44-close]{display:none}
+.v44-focused .v44-tools [data-v44-close]{display:inline-flex}
+.v44-focused .v44-tools [data-v44-expand]{display:none}
+body.v44-focus-open{overflow:hidden!important}
+/* The focused figure casts the scrim itself; a body pseudo-overlay can cover nested stacking contexts. */
+.v44-focused{position:fixed!important;inset:3vh 3vw!important;z-index:1101!important;
+ margin:0!important;width:94vw!important;max-width:none!important;max-height:94vh!important;height:94vh!important;
+ padding:28px 40px 33px!important;overflow:auto!important;overscroll-behavior:contain;
+ background:#f4ead9 url('./assets/archive-v3/paper-fibres.webp') center/960px!important;
+ box-shadow:0 0 0 100vmax rgba(18,14,11,.78),0 25px 65px rgba(0,0,0,.55)!important;border:1px solid #ae9980!important;
+ transform:none!important;filter:none!important}
+.v44-focused .v44-tools{position:sticky;top:-28px;background:#f4ead9;z-index:50;padding:11px 0}
+.v44-focused .em-flow-svg{min-height:650px!important;max-height:none!important}
+.v44-focused .v3-chart-grid{height:min(55vh,530px)!important}
+.v44-focused .na-v35-matrix-row{min-height:49px}
+.v44-focused iframe{min-height:67vh}
+.v44-focused .pv-chart-stage{min-height:260px}
+.v44-focused .al38-month-chart{height:50vh;max-height:530px}
+.v44-focused .ab-v34-flourish-grid{max-width:1300px;margin:0 auto}
+/* 01: monthly marks reveal source recording time, not a claim about all-platform opinion. */
+.archive-v3 .v3-chart-wrapper{margin-top:37px}
+.archive-v3 .v3-chart-grid{background:repeating-linear-gradient(to top,transparent 0 67px,rgba(138,112,88,.16) 68px 69px)!important;
+ border-left:1px solid #9d8a76!important;border-bottom:1px solid #887969!important}
+.archive-v3 .v3-chart-bar{background:var(--v44-clay)!important;opacity:.78;min-height:1px}
+.archive-v3 .v3-chart-column.last-visible .v3-chart-bar,.archive-v3 .v3-chart-column:hover .v3-chart-bar,
+.archive-v3 .v3-chart-column:focus-visible .v3-chart-bar{background:var(--v44-red)!important;opacity:1;
+ box-shadow:0 0 0 1px #76382960}
+.archive-v3 .v3-chart-column{border-right:1px solid rgba(249,244,234,.50)!important}
+.archive-v3 .v3-chart-column:focus-visible{outline:2px solid #8e4637;outline-offset:2px}
+.archive-v3 .v3-chart-axis{font-size:12px!important;color:#4d453c}
+.archive-v3 .v3-chart-caption{color:#64574a;font-size:12px}
+/* 02: 47 real flows; keep narrow ribbons visible and remove oversized thematic glow. */
+#employment .em-explorer{background:#f3eadd url('./assets/archive-v3/paper-fibres.webp') center/960px!important;
+ border-color:#bca990!important;box-shadow:none!important}
+#employment .em-explore-visual{padding:19px 8px 8px!important;overflow-x:auto}
+#employment .em-flow-svg{display:block;width:100%;min-width:950px}
+#employment .em-ribbon{stroke:#eadccd!important;stroke-width:.65!important;opacity:.36;
+ transition:opacity .2s ease,fill .2s ease,stroke .2s ease;cursor:pointer}
+#employment .em-ribbon.is-job{fill:#a35243!important;opacity:.72}
+#employment .em-ribbon:hover,#employment .em-ribbon:focus-visible,
+#employment .em-ribbon.is-active,#employment .em-ribbon.is-focused{opacity:.91!important;
+ stroke:#603a2d!important;stroke-width:1.1!important}
+#employment .em-node-label{font-size:12.5px!important;fill:#3b3027!important;font-weight:600}
+#employment .em-node-count{font-size:10.5px!important;fill:#745f4d!important}
+#employment .em-explore-head h3{letter-spacing:.015em}
+#employment .em-inspector{border-left:3px solid var(--v44-red);background:#eee2d2!important}
+#employment .em-chart-source{color:#685b4c!important;font-size:12px!important}
+/* 03: give the two poles a shared zero, not competing graphic cards. */
+#public .pv-evidence-chart{padding:24px 27px!important}
+#public .pv-chart-stage{margin:20px 0 16px;padding:18px 10px 12px;background:rgba(230,221,207,.28);
+ border-top:1px solid #cdbba6;border-bottom:1px solid #cdbba6}
+#public .pv-divergence{position:relative}
+#public .pv-negative-fill{background:#a76557!important}
+#public .pv-positive-fill{background:#5a786e!important}
+#public .pv-centerline{border-color:#65584d!important}
+#public .pv-percentages strong{font-variant-numeric:tabular-nums;color:#302820!important}
+#public .pv-chart-footer{color:#6a5a49!important}
+#public .pv-object-buttons button:focus-visible{outline:3px solid #9b4436;outline-offset:3px}
+/* 04: true counts and denominators; explicit hierarchy, no false subcategory numbers. */
+#ability .ab-v34-flourish-fallback{padding:25px!important}
+#ability .ab-v34-mini-data i{height:9px!important;display:block;margin:5px 0 15px;
+ box-shadow:inset 0 0 0 1px rgba(52,42,30,.12)}
+#ability .ab-v34-mini-data i:not(.core){background:#aa5d4c!important}
+#ability .ab-v34-mini-data i.core{background:#547669!important}
+#ability .ab-board{box-shadow:4px 6px 0 rgba(89,66,51,.15)!important;border-width:1px!important}
+#ability .ab-board-note{font-size:12px!important;line-height:1.85!important}
+#ability .ab-v34-flourish-source{line-height:1.9}
+/* 05: heatmap is measured cells, not upholstery. Calm rails, stronger keyboard focus. */
+.na-v35 .na-v35-matrix{box-shadow:4px 6px 0 #71564015!important;padding:28px 28px 25px!important}
+.na-v35 .na-v35-cell{min-height:42px;outline-offset:-2px;transition:transform .15s,box-shadow .15s,filter .15s}
+.na-v35 .na-v35-cell:hover,.na-v35 .na-v35-cell:focus-visible{z-index:8;
+ transform:scale(1.12);box-shadow:0 0 0 2px #5b352e,0 4px 12px #39251944;
+ filter:contrast(1.08)}
+.na-v35 .na-v35-axis-labels,.na-v35 .na-v35-matrix-legend{color:#4d443b!important}
+.na-v35 .na-v35-map-inspector{border-left:3px solid #9f4435!important}
+/* 06: reader takes out evidence; source cards should not look like another dashboard. */
+.ea37-page .ea37-case-file{background:#f0e3d0!important;box-shadow:4px 5px 0 #57443218!important}
+.ea37-page .ea37-reading-desk{background:linear-gradient(145deg,#47382d,#302821)!important;color:#f3e6d4!important}
+.ea37-page .ea37-pinned{background:#faf3e7!important;box-shadow:3px 4px 0 #795a3d19}
+.ea37-page .ea37-case-tabs button:focus-visible,.ea37-page .ea37-pinned button:focus-visible{outline:2px solid #9c4737}
+/* 07: same warm plotting grid as month chart on opening page. */
+.al38-page .al38-month-chart{background:repeating-linear-gradient(to top,transparent 0 56px,#aa99842c 57px,#aa99842c 58px)!important;
+ border-left:1px solid #a48f78;border-bottom:1px solid #9d8973!important}
+.al38-page .al38-month-bar>span{background:#b16b58!important;opacity:.65;
+ transition:opacity .14s,height .3s,background .14s}
+.al38-page .al38-month-bar.active>span,.al38-page .al38-month-bar:hover>span,
+.al38-page .al38-month-bar:focus-visible>span{background:#9d3d31!important;opacity:1}
+.al38-page .al38-month-bar:focus-visible{outline:2px solid #9d4434}
+.al38-page .al38-comp-bar{background:#d5c8b8!important}
+.al38-page .al38-chart-shell{padding:26px 28px 19px}
+.al38-page .al38-time-axis{color:#60564b!important;font-size:12px!important}
+/* 08: pixel simulation remains visually distinct; evidence remains typographically serious. */
+.rm39-archive .rm39-research-grid{background:#f3e8d7!important}
+.rm39-archive .rm39-real-bar{border:1px solid rgba(80,67,55,.12)}
+.rm39-archive .rm39-research-stats strong{font-variant-numeric:tabular-nums}
+.rm39-archive .rm39-flourish-panel{border:1px solid #b7a288!important;background:#f5ecdd!important}
+/* 09: methodology chart as open ledger: hierarchy and provenance, not victory metrics. */
+.mp41 .mp41-ledger-grid{gap:16px}
+.mp41 .mp41-step-paper{box-shadow:3px 4px 0 #80674b18!important}
+.mp41 .mp41-flourish{border-color:#b7a38b!important}
+/* Reading consistency, not a giant toolbar collection. */
+.v44-figure-foot{display:flex;flex-wrap:wrap;gap:7px 22px;font:12px/1.7 var(--v44-figure-font);
+ padding:12px 0 0;margin:11px 0 0;border-top:1px dashed #c9b8a0;color:#64594d}
+.v44-figure-foot strong{color:#46392f;font-weight:600}
+.v44-figure-foot a{color:#8e4032;text-decoration:underline;text-underline-offset:3px}
+.v44-figure-foot a:focus-visible{outline:2px solid #9a4436;outline-offset:3px}
+@media(max-width:1000px){.v44-focused{inset:2vh 2vw!important;width:96vw!important;height:96vh!important;padding:15px!important}
+ .v44-tools{flex-wrap:wrap}.v44-tools .v44-figure-id{white-space:normal}}
+@media(prefers-reduced-motion:reduce){.v44-tools button,.na-v35 .na-v35-cell,#employment .em-ribbon{transition:none!important}}
+body.motion-paused .v44-tools button,body.motion-paused .na-v35 .na-v35-cell{transition:none!important}
+
+/* Keep the evidence desk dark for contrast with its cream case cards. */
+.ea37-page .ea37-reading-desk .ea37-empty-slot{color:#e2d0bc!important}
+.ea37-page .ea37-reading-desk .ea37-desk-top{color:#f7e8d3!important}
+.rm39-archive .rm39-research-stats .v44-tools{grid-column:1/-1}
+/* Reserve the persistent chapter masthead while in focused mode. */
+.v44-focused{inset:92px 3vw 2vh!important;height:calc(98vh - 92px)!important;max-height:calc(98vh - 92px)!important}
+@media(max-width:1000px){.v44-focused{inset:72px 2vw 2vh!important;height:calc(98vh - 72px)!important}}

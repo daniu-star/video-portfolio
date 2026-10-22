@@ -1,0 +1,31 @@
+/* V4.3 — live Chinese brush painting. Underlying text remains indexable, selectable and accessible.
+   NO font binaries are distributed. Optional online calligraphy font, reliable local Kai fallback. */
+@import url('https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&family=Ma+Shan+Zheng&display=swap');
+:root{--v43-brush:'Zhi Mang Xing','Ma Shan Zheng','STXingkai','HanziPen SC','AR PL KaitiM GB','KaiTi',serif}
+.v42-masthead h1,.v42-ink-subtitle,.mp41 .mp41-ending h2,
+.mp41 .mp41-hero h1,.mp41 .mp41-section-intro h2,
+.cinema-story .story-prologue h1,.cinema-story .reading-copy h2,.cinema-story .cinema-ending h2,
+#employment .em-intro-heading h2,#public .pv-intro h2,#public .pv-duet-head h3,
+#ability .ab-v34-intro h2,.na-v35-reading h2,.ea37-page h1,.al38-page h1,.rm39-archive h1,
+.archive-v3 .v3-section-head h2,.archive-v3 .v3-next-main h2{
+  font-family:var(--v43-brush)!important; font-weight:400!important;
+  font-synthesis:none; font-kerning:normal; text-wrap:balance;
+}
+/* The ink is a second live canvas layer. Nothing important is embedded in a background JPG. */
+.ink-v43{position:relative!important;isolation:isolate;overflow:visible!important}
+.ink-v43.ink-v43-ready,.ink-v43.ink-v43-ready *:not(canvas){-webkit-text-fill-color:transparent!important;color:transparent!important;text-shadow:none!important}
+.ink-v43 .ink-v43-layer{position:absolute!important;inset:0!important;z-index:4!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;pointer-events:none!important;user-select:none;display:block;filter:drop-shadow(0 3px 2px rgba(17,10,7,.28))}
+.ink-v43.ink-v43-cover .ink-v43-layer{filter:drop-shadow(1px 4px 3px rgba(15,6,4,.65)) drop-shadow(0 0 20px rgba(213,125,68,.12))}
+.ink-v43.ink-v43-ending .ink-v43-layer{filter:drop-shadow(0 3px 3px rgba(0,0,0,.6))}
+@keyframes inkV43Reveal{from{clip-path:inset(-15% 102% -15% -8%);opacity:.30}60%{opacity:1}to{clip-path:inset(-15% -8% -15% -8%);opacity:1}}
+.ink-v43.ink-v43-animate .ink-v43-layer{animation:inkV43Reveal 1.45s cubic-bezier(.32,.09,.14,1) both}
+.v42-masthead h1{font-size:clamp(85px,9.3vw,165px)!important;letter-spacing:.035em!important}
+.mp41 .mp41-ending h2{font-size:clamp(54px,5.5vw,102px)!important}
+/* Brush flourish: a separate animated paintstroke, not a text decoration glyph. */
+.ink-v43-cover:after{content:'';position:absolute;z-index:5;pointer-events:none;bottom:3%;left:8%;width:65%;height:7px;background:linear-gradient(90deg,#883324 0%,#c65c40 30%,#862c24 80%,transparent);clip-path:polygon(0 32%,12% 13%,25% 0,45% 32%,75% 65%,100% 84%,90% 100%,58% 64%,17% 58%);transform:rotate(-2deg);opacity:.9}
+.ink-v43-ending:after{content:'';position:absolute;bottom:-.07em;left:2%;width:34%;height:4px;transform:rotate(-3deg);background:#a94835;clip-path:polygon(0 22%,40% 0,100% 67%,54% 96%,0 100%);opacity:.75;pointer-events:none}
+@media(prefers-reduced-motion:reduce){.ink-v43.ink-v43-animate .ink-v43-layer{animation:none!important}}
+body.motion-paused .ink-v43.ink-v43-animate .ink-v43-layer{animation:none!important}
+
+.v42-film-actions .v43-replay{font-family:'Noto Serif CJK SC',serif;cursor:pointer;border:0;border-bottom:1px dotted #b58f68;background:transparent;color:#dabd98;padding:10px 2px;letter-spacing:.08em;font-size:13px;transition:color .2s}
+.v42-film-actions .v43-replay:hover,.v42-film-actions .v43-replay:focus-visible{color:#fff1d9;outline-offset:5px}

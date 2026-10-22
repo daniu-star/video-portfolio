@@ -1,0 +1,42 @@
+{
+  "race": {
+    "template": "bar-chart-race",
+    "source": "./data/figures/v2/race.csv",
+    "mode": "local-fallback",
+    "autoplay": true,
+    "embed": "",
+    "public": ""
+  },
+  "migration": {
+    "template": "sankey",
+    "source": "./data/figures/v2/migration.csv",
+    "mode": "published",
+    "autoplay": true,
+    "embed": "https://flo.uri.sh/visualisation/30509053/embed",
+    "public": "https://public.flourish.studio/visualisation/30509053/"
+  },
+  "ability": {
+    "template": "hierarchy",
+    "source": "./data/figures/v2/ability.csv",
+    "mode": "local-fallback",
+    "autoplay": true,
+    "embed": "https://flo.uri.sh/visualisation/30501030/embed",
+    "public": "https://public.flourish.studio/visualisation/30501030/"
+  },
+  "attributes": {
+    "template": "dot-plot",
+    "source": "./data/figures/v2/attributes.csv",
+    "mode": "local-fallback",
+    "autoplay": true,
+    "embed": "",
+    "public": ""
+  },
+  "network": {
+    "template": "network",
+    "source": "./data/figures/v2/network-edges.csv",
+    "mode": "local-fallback",
+    "autoplay": true,
+    "embed": "",
+    "public": ""
+  }
+}

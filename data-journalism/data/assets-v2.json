@@ -1,0 +1,45 @@
+{
+  "status": "complete",
+  "generator": "Canva AI browser UI",
+  "model": "Not disclosed by the generation interface; not claimed as image 2.5",
+  "sourceThread": "https://www.canva.com/ai/thread/c4f67bd9-d727-4be7-84f8-af25b9fc4c37",
+  "coverWide": {
+    "src": "./assets/cinema-v2/coverWide.webp",
+    "width": 1680,
+    "height": 944,
+    "bytes": 32870,
+    "generated": true
+  },
+  "coverPortrait": {
+    "src": "./assets/cinema-v2/coverPortrait.webp",
+    "width": 864,
+    "height": 1536,
+    "bytes": 37740,
+    "generated": true
+  },
+  "workbench": {
+    "src": "./assets/cinema-v2/workbench.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 67190,
+    "generated": true,
+    "mobile": "./assets/cinema-v2/workbench-mobile.webp"
+  },
+  "field": {
+    "src": "./assets/cinema-v2/field.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 107438,
+    "generated": true,
+    "mobile": "./assets/cinema-v2/field-mobile.webp"
+  },
+  "dawn": {
+    "src": "./assets/cinema-v2/dawn.webp",
+    "width": 1680,
+    "height": 944,
+    "bytes": 129652,
+    "generated": true,
+    "mobile": "./assets/cinema-v2/dawn-mobile.webp"
+  },
+  "totalBytes": 473560
+}

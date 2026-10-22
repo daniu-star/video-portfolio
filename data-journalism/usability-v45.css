@@ -1,0 +1,21 @@
+/* V4.5 · 真实用户端到端检查：原生选项可读性、定位与游戏引导 */
+html{color-scheme:light!important}
+/* Chromium/Windows native popup does not inherit the parchment select background; force both states. */
+select,select option,select optgroup{color-scheme:light!important}
+select option,select optgroup{background-color:#f8efdf!important;color:#29231d!important;font-weight:500!important}
+select option:checked{background-color:#bd5942!important;color:#fff9ed!important}
+select:focus-visible{outline:3px solid #b54d35!important;outline-offset:3px}
+/* Reader doesn't have to hunt for the objective beneath a large visual game. */
+.rm45-onboarding{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:17px 22px;margin:22px 0 20px;background:#f3e3c8;color:#3c3024;border:1px solid #ae9071;border-left:5px solid #ab4a34;box-shadow:4px 5px 0 rgba(92,56,31,.12);font-size:14px;line-height:1.65}
+.rm45-onboarding p{margin:0!important;color:#433629!important;flex:1 1 480px}
+.rm45-onboarding strong{color:#84382c}
+.rm45-onboarding button{border:1px solid #97422f!important;padding:10px 16px!important;background:#8e4030!important;color:#fff7ea!important;min-height:42px;font-weight:700!important;white-space:nowrap;cursor:pointer}
+.rm45-onboarding button:hover{background:#6e3026!important}
+:is(#archive-v3,#v3-voices,#v3-sample,#v3-time,#rm39-game,#rm39-research,#mp41-trial,#mp41-method,#mp41-ending,#mp41-reflections){scroll-margin-top:96px}
+/* Discrete cue that this is a real game, not an infographic. */
+.rm39-canvas-shell:focus-within{outline:2px solid rgba(162,71,48,.45);outline-offset:2px}
+@media(max-width:1150px){.rm45-onboarding{margin:12px 0;gap:10px}}
+/* A real switch hit-area: the visible track must never conceal the operable input. */
+.al38-toggle{position:relative}
+.al38-toggle input[type="checkbox"]{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important;opacity:0!important;z-index:1;cursor:pointer}
+.al38-toggle-track{pointer-events:none}

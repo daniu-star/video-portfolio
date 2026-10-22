@@ -612,8 +612,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelectorAll('.hub-category').forEach(function(cat) {
         cat.addEventListener('click', function(e) {
-            e.preventDefault();
             var catKey = this.getAttribute('data-category');
+            if (!catKey) return;
+            e.preventDefault();
 
             var soundFile = soundMap[catKey];
             if (soundFile && soundEnabled) {

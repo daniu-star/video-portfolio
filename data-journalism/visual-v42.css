@@ -1,0 +1,59 @@
+/* V4.2 — Cinematic archive + Chinese brush titles. Preserves functional controls and research footnotes. */
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+:root{--v42-brush:'Ma Shan Zheng','STKaiti','Kaiti SC','AR PL KaitiM GB','KaiTi',serif;--v42-text:'Noto Serif SC','Songti SC','AR PL SungtiL GB',serif}
+body{font-family:var(--v42-text)}
+/* Every chapter title is a genuine selectable HTML text layer. */
+.archive-v3 h1,.archive-v3 h2,.archive-v3 .v3-brand,.archive-v3 .v42-ink-subtitle,
+#employment .em-intro-heading h2,#employment .em-scroll-step h3,#employment .em-explore-head h3,
+#public h1,#public h2,#public .pv-hero h2,
+#ability h1,#ability h2,#ability h3,.av34 h2,.av34 h3,
+.na-v35-reading h1,.na-v35-reading h2,.na-v35-reading h3,
+.ev37 h1,.ev37 h2,.lab38 h1,.lab38 h2,.lab38 h3,
+.rm39-archive h1,.rm39-archive h2,.rm39-archive .rm39-title h1,
+.mp41 .mp41-hero h1,.mp41 .mp41-ending h2,.mp41 .mp41-section-intro h2,
+.cinema-story .story-prologue h1,.cinema-story .reading-copy h2,.cinema-story .cinema-ending h2{
+  font-family:var(--v42-brush)!important;font-weight:400!important;letter-spacing:.03em;text-wrap:balance}
+/* Avoid calligraphy for body, axes, footnotes, forms, evidence and game controls. */
+.archive-v3 p,.archive-v3 blockquote,#employment p,#public p,.mp41 p{font-family:var(--v42-text)}
+.archive-v3 .v3-topline{height:76px;background:#231b17!important;color:#eee1cb!important;border-color:#6b5140!important}
+.archive-v3 .v3-topline a{color:#eee1cb!important}.archive-v3 .v3-brand{font-size:29px!important}
+.archive-v3 .v3-brandline{font-family:var(--v42-text);font-size:12px}
+.archive-v3 .v3-topnav .current{color:#dfab89!important}
+.v42-cinema-stage{height:min(850px,calc(100vh - 76px));min-height:690px;position:relative;overflow:hidden;isolation:isolate;color:#f7ead2;background:#171411 url('./assets/archive-v42/cinema-archive-stage.webp') center center/cover no-repeat;border-bottom:7px solid #211914}
+.v42-cinema-stage::before{content:'';position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,rgba(12,12,11,.92),rgba(16,14,13,.68) 42%,rgba(25,17,12,.07) 75%),linear-gradient(0deg,rgba(15,11,10,.90),transparent 35%);pointer-events:none}
+.v42-cinema-stage::after{content:'';position:absolute;inset:14px;border:1px solid #b9946844;pointer-events:none;z-index:4}
+.v42-film-grain{position:absolute;inset:0;opacity:.25;background-image:url('./assets/archive-v3/paper-fibres.webp');background-size:460px;mix-blend-mode:soft-light;pointer-events:none}
+.v42-film-top{position:absolute;top:40px;left:5.3%;right:5%;z-index:3;display:flex;justify-content:space-between;gap:20px;color:#d9c2a6;font:13px var(--v42-text);letter-spacing:.14em}
+.v42-masthead{position:absolute;z-index:3;top:19%;left:7%;width:min(780px,57%)}
+.v42-seal{border:2px solid #a34a35;transform:rotate(-11deg);position:absolute;left:0;top:-54px;color:#d88870;font:15px/1.45 var(--v42-brush);padding:6px 13px;letter-spacing:.2em;opacity:.9}
+.v42-strap{color:#d7b38d!important;font:15px var(--v42-text)!important;letter-spacing:.16em;margin:0 0 17px 120px}
+.v42-masthead h1{font-family:var(--v42-brush)!important;font-size:clamp(90px,10vw,172px)!important;line-height:1.10!important;color:#f2e1c1!important;letter-spacing:.065em!important;text-shadow:0 5px 12px #0d0806,0 0 36px #1b0908;margin:10px 0 1px -7px!important;white-space:nowrap}
+.v42-ink-subtitle{color:#d77f64!important;font-size:clamp(32px,3.7vw,63px)!important;line-height:1.2!important;letter-spacing:.09em;border-top:2px solid #b05a42;display:inline-block;padding:13px 3px 0;margin:0 0 22px!important}
+.v42-deck{color:#e9dccb!important;font-size:clamp(16px,1.4vw,20px)!important;line-height:1.85!important;letter-spacing:.06em;max-width:580px;text-shadow:0 2px 6px #120c09}
+.v42-film-actions{margin-top:29px;display:flex;align-items:center;gap:35px;font-size:15px}.v42-film-actions a{color:#f4e3c9!important;border-bottom:1px solid #e8bb9e;padding:11px 0}
+.v42-film-actions .v42-primary{background:#9e362c;color:#fff3e5!important;border:1px solid #c8735a;padding:13px 34px;box-shadow:4px 6px 0 #0006;font-size:18px;transition:transform .2s,background .2s}
+.v42-film-actions .v42-primary:hover{transform:translateY(-3px);background:#b54536}
+.v42-photo-credit{position:absolute;right:4.6%;bottom:118px;color:#d0b99da9;z-index:3;font:11px var(--v42-text);writing-mode:vertical-rl;letter-spacing:.08em}
+.v42-quiet-tag{position:absolute;right:16%;top:18%;z-index:3;color:#e5c0a0;font:25px/1.65 var(--v42-brush);transform:rotate(9deg);text-shadow:0 2px 8px #0b0706}
+.v42-film-foot{position:absolute;bottom:0;left:0;right:0;z-index:5;display:flex;gap:3.4%;align-items:center;padding:24px 6%;background:#100d0bde;border-top:1px solid #af8b6844;font:14px var(--v42-text);letter-spacing:.04em}
+.v42-film-foot>span{color:#e8d6bc}.v42-film-foot>span:not(:first-child){border-left:1px solid #7c6047;padding-left:3.4%}.v42-film-foot .v42-scroll-hint{margin-left:auto;color:#d08167;font-family:var(--v42-brush);font-size:22px;white-space:nowrap}
+.v42-chapters{background:#281f1a;display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:1px;border-bottom:4px solid #ae5440;padding:6px 0;box-shadow:0 20px 30px #4c382330}
+.v42-chapters a{min-height:112px;border-right:1px solid #68503b;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#eadac0!important;font:19px/1.35 var(--v42-brush);gap:10px;transition:background .25s,transform .25s;text-align:center;padding:15px 4px}.v42-chapters a span{color:#d87962;font:12px Georgia,serif;letter-spacing:.13em}.v42-chapters a:hover{background:#4d3329;transform:translateY(-4px);text-decoration:none!important}
+.archive-v3 .v3-voices-section,.archive-v3 .v3-sample-section,.archive-v3 .v3-time-section{padding-top:67px;padding-bottom:65px}
+.archive-v3 .v3-section-head{margin-bottom:27px}.archive-v3 .v3-section-head h2{font-size:clamp(31px,3vw,49px)!important}
+.archive-v3 .v3-voices-deck{min-height:0}.archive-v3 .folio-voice{min-height:315px;padding:22px 23px}.archive-v3 .folio-voice blockquote{min-height:100px;font-size:20px;margin:18px 0}.archive-v3 .v3-voices-aside{padding:10px 22px;gap:12px}.archive-v3 .v3-voices-aside p{font-size:14px}
+.archive-v3 .v3-sample-ledger{padding:20px 0}.archive-v3 .v3-sample-ledger strong{font-size:49px;margin:9px 0}.archive-v3 .v3-sample-ledger p{font-size:13px;line-height:1.6}
+.mp41 .mp41-ending{background:radial-gradient(ellipse at 55% 25%,#36261f 0%,#110f0e 75%)!important;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.mp41 .mp41-ending h2{font-size:clamp(55px,5.8vw,108px)!important;line-height:1.32!important;color:#f8ead3!important;text-shadow:0 6px 25px #0008}
+.mp41 .mp41-ending h2 em{color:#d99279!important}.mp41 .mp41-ending>p{font-size:clamp(16px,1.28vw,20px)!important;line-height:2!important;max-width:760px!important;color:#d0bfaa!important}
+#employment .em-intro-heading h2,.mp41 .mp41-hero h1{font-size:clamp(51px,4.7vw,84px)!important}
+#public h2,.na-v35-reading h2{letter-spacing:.02em!important}
+/* readable captions and protected controls */
+button,select,input,textarea{font-family:'Noto Sans SC','Noto Sans CJK SC',sans-serif}
+@media(max-width:1200px){.v42-masthead{width:65%}.v42-masthead h1{font-size:105px!important}.v42-quiet-tag{right:8%}.v42-chapters{grid-template-columns:repeat(5,1fr)}.v42-cinema-stage{min-height:730px}}
+@media(max-width:700px){.v42-cinema-stage{height:760px;min-height:700px;background-position:55% center}.v42-cinema-stage::before{background:linear-gradient(90deg,#100c0be8,#100c0b6e)}.v42-masthead{top:26%;left:7%;width:87%}.v42-masthead h1{font-size:74px!important}.v42-strap{margin-left:0}.v42-film-foot{gap:10px;flex-wrap:wrap}.v42-film-foot .v42-scroll-hint{display:none}.v42-chapters{grid-template-columns:repeat(3,1fr)}.v42-chapters a{min-height:74px;font-size:17px}.v42-quiet-tag{display:none}}
+@media(prefers-reduced-motion:reduce){.v42-film-actions a,.v42-chapters a{transition:none}}
+/* Actual evidence and laboratory route class names: their H1/H2 were formerly missed by generic aliases. */
+.ea37-page h1,.ea37-page h2,.al38-page h1,.al38-page h2,
+.na-v35-reading .na35-heading h2,.rm39-archive .rm39-hero h1{
+  font-family:var(--v42-brush)!important;font-weight:400!important;letter-spacing:.025em!important}

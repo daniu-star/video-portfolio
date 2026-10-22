@@ -1,0 +1,84 @@
+/* V3.3 / participatory journalism. No scores, no pseudo-elections, no fabricated chronology. */
+#employment .participatory,#public .participatory{--pp-ink:#29221d;--pp-muted:#7a6a59;--pp-red:#994333;--pp-green:#4e6c5d;position:relative;margin:24px 0 105px;padding:33px clamp(25px,3.5vw,58px) 34px;background:#e9ddc9;background-image:linear-gradient(135deg,#e5d4bb6d,#f6eddf 42%,#e8dac8 100%);border:1px solid #a89880;box-shadow:6px 8px 0 #b8a58b,0 14px 30px #5039291a;color:var(--pp-ink);overflow:hidden;font-family:'Songti SC','Noto Serif SC',serif}
+#employment .participatory:before,#public .participatory:before{content:'';position:absolute;left:-20px;top:16px;bottom:16px;width:37px;border-right:2px dotted #816b5477;opacity:.6;pointer-events:none}
+#employment .participatory:after,#public .participatory:after{content:'档案内互动';position:absolute;right:35px;top:71px;transform:rotate(8deg);border:2px solid #a2574788;padding:6px 11px;font:13px/1.2 'Songti SC',serif;letter-spacing:1px;color:#a25747a8;pointer-events:none}
+#public .participatory{margin:90px 3.5vw 105px;background:linear-gradient(130deg,#eee6d6,#f5ede1 50%,#d7d9cc);border-top:4px solid var(--pp-green);box-shadow:8px 9px 0 #b1b8a4,0 19px 40px #393f3030}
+#public .participatory:after{content:'证词判读';border-color:#55746588;color:#527062aa}
+#employment .pp-eyebrow,#public .pp-eyebrow{display:flex;justify-content:space-between;gap:20px;align-items:center;padding-bottom:15px;border-bottom:1px solid #9f8d7477;color:#765f4b;font:12px/1.3 system-ui,sans-serif;letter-spacing:.08em}
+#employment .pp-eyebrow span:first-child,#public .pp-eyebrow span:first-child{color:var(--pp-red);font-weight:650}
+#public .pp-eyebrow span:first-child{color:var(--pp-green)}
+#employment .pp-head,#public .pp-head{display:grid;grid-template-columns:1fr 150px;gap:24px;align-items:center;padding:30px 0 32px}
+#employment .pp-head h3,#public .pp-head h3{font:normal clamp(31px,3.4vw,52px)/1.45 'Songti SC',serif;margin:0 0 13px;color:#2b241f;letter-spacing:-.045em}
+#employment .pp-head h3 em,#public .pp-head h3 em{font-style:normal;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:10px;color:#9c4735;text-decoration-color:#9c4735a0}
+#public .pp-head h3 em{color:#476b59;text-decoration-color:#476b59a0}
+#employment .pp-head p,#public .pp-head p{max-width:760px;color:#695b4f;line-height:1.85;font-size:15px;margin:0}
+#employment .pp-side-note,#public .pp-side-note{font:italic 26px/1.55 'Songti SC',serif;color:#975745;transform:rotate(-6deg);text-align:center;opacity:.8;position:relative}
+#employment .pp-side-note:after,#public .pp-side-note:after{content:'';height:2px;display:block;width:80%;margin:9px auto;background:#a45a45;transform:rotate(-3deg)}
+#public .pp-side-note-green{color:#567260}
+#public .pp-side-note-green:after{background:#567260}
+#employment .pp-workspace,#public .pp-workspace{display:grid;grid-template-columns:.9fr 1.1fr;gap:25px;align-items:stretch}
+#employment .pp-input-paper,#public .pp-input-paper{padding:26px 25px 30px;background:#f8f0e5;border:1px solid #baaa94;box-shadow:3px 4px 0 #d7c8b3;position:relative}
+#employment .pp-result-paper,#public .pp-result-paper{padding:27px 30px;background:linear-gradient(180deg,#f7f2e9,#ede3d5);border:1px solid #ad9d86;box-shadow:inset 0 0 0 6px #ebe0cf88;min-height:450px;position:relative}
+#employment .pp-result-paper:before,#public .pp-result-paper:before{content:'';position:absolute;top:-11px;left:41%;height:26px;width:90px;transform:rotate(-3deg);background:#ad9a796f}
+#employment .pp-index,#public .pp-index{display:block;font:12px system-ui,sans-serif;color:#98604b;letter-spacing:.06em;margin-bottom:13px}
+#public .pp-index{color:#5a7866}
+#employment .pp-second,#public .pp-second{margin-top:29px}
+#employment .pp-input-paper label,#public .pp-input-paper label{font:18px/1.5 'Songti SC',serif;color:#28221c}
+#employment .pp-select{width:100%;display:block;margin:11px 0 10px;border:1px solid #a58f77;padding:13px 14px;background:#fffaf2;color:#382d26;font:19px 'Songti SC',serif;min-height:48px;cursor:pointer}
+#employment .pp-micro,#public .pp-micro{margin:0;color:#7c6b5c;font:12px/1.8 system-ui,sans-serif}
+#employment .pp-choice-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#employment .pp-choice,#public .pp-tab{background:#efe4d4;border:1px solid #c2b098;color:#56473a;border-radius:0;padding:12px 4px;font:14px 'Songti SC',serif;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
+#employment .pp-choice:hover,#public .pp-tab:hover{background:#dfceba;border-color:#996753;transform:translateY(-2px)}
+#employment .pp-choice.is-selected{background:#a34c3a;border-color:#a34c3a;color:#fff9ef;box-shadow:2px 3px 0 #7e392a44}
+#public .pp-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#public .pp-tab.is-selected{background:#4f6e5d;border-color:#4f6e5d;color:white;box-shadow:2px 3px 0 #344b3c3d}
+#employment .pp-primary,#public .pp-primary{margin-top:25px;width:100%;border:0;border-bottom:4px solid #713524;background:#a24534;color:white;font:17px/1.25 'Songti SC',serif;padding:15px 18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .16s,transform .16s}
+#public .pp-primary{background:#4d6d5a;border-bottom-color:#334d3e}
+#employment .pp-primary:hover:not(:disabled){background:#832f27;transform:translateY(-1px)}
+#public .pp-primary:hover:not(:disabled){background:#395444;transform:translateY(-1px)}
+#employment .pp-primary:disabled{opacity:.48;cursor:not-allowed}
+#employment button:focus-visible,#employment select:focus-visible,#public button:focus-visible,#public input:focus-visible{outline:3px solid #af7d37;outline-offset:4px}
+#employment .pp-result-top,#public .pp-result-top{display:flex;justify-content:space-between;gap:15px;align-items:center;border-bottom:1px solid #bdb09f;padding-bottom:17px;color:#755f51;font:12px system-ui,sans-serif;letter-spacing:.04em}
+#employment .pp-stamp,#public .pp-stamp{display:inline-block;color:#9a7e68;border:1px dashed #c6a68b;padding:5px 9px;transform:rotate(5deg);font:14px 'Songti SC',serif}
+#employment .pp-stamp.is-revealed{color:#a04d39;border:2px solid #a04d3999;transform:rotate(-4deg)}
+#public .pp-stamp.is-revealed{color:#4f725d;border-color:#4f725daa}
+#employment .pp-blank,#public .pp-blank{text-align:center;display:flex;min-height:335px;flex-direction:column;align-items:center;justify-content:center;gap:17px}
+#employment .pp-blank>b,#public .pp-blank>b{display:block;font:100px/.9 'Songti SC',serif;font-weight:400;color:#b4a28a}
+#employment .pp-blank p,#public .pp-blank p{font-size:19px;line-height:1.7;color:#514336;margin:0;max-width:380px}
+#employment .pp-blank span,#public .pp-blank span{font:12px/1.7 system-ui,sans-serif;color:#958373;max-width:330px}
+#employment .pp-revealed,#public .pp-revealed{animation:pp-open .4s both;padding-top:22px}
+@keyframes pp-open{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+#employment .pp-result-lead,#public .pp-result-lead{font:14px/1.7 system-ui,sans-serif;color:#66584b;margin:0 0 12px}
+#employment .pp-revealed h4,#public .pp-revealed h4{font:normal 27px/1.5 'Songti SC',serif;margin:0 0 13px;color:#25201b}
+#employment .pp-revealed h4 em,#public .pp-revealed h4 em{font-style:normal;color:#a34637}
+#public .pp-revealed h4 em{color:#4d705c}
+#employment .pp-result-compare,#public .pp-result-compare{font:13px/1.9 system-ui,sans-serif;color:#65584b;margin:0 0 14px}
+#employment .pp-hbars{border-top:1px solid #cebda9;padding-top:13px;display:grid;gap:8px}
+#employment .pp-hrow{display:grid;grid-template-columns:82px 1fr 60px;align-items:center;gap:10px;font:12px system-ui,sans-serif;color:#5c4f42}
+#employment .pp-hrow>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#employment .pp-htrack{height:12px;background:#e5dac9;border:1px solid #cbbba7;overflow:hidden}
+#employment .pp-htrack i{height:100%;display:block;width:var(--pp-r);background:#6f7a70;transform-origin:left;animation:pp-bar .7s both}
+#employment .pp-htrack i.is-job{background:#a44737}
+@keyframes pp-bar{from{transform:scaleX(.02)}to{transform:scaleX(1)}}
+#employment .pp-hrow>strong{text-align:right;white-space:nowrap;color:#312a23;font-weight:650}
+#employment .pp-hrow small{font-weight:400;color:#7c6a5b}
+#employment .pp-result-footnote,#public .pp-result-footnote{font:12px/1.8 system-ui,sans-serif;color:#776957;border-left:2px solid #a74f3b;padding-left:10px;margin:17px 0 0}
+#public .pp-result-footnote{border-color:#567560}
+#employment .pp-result-actions,#public .pp-result-actions{display:flex;justify-content:space-between;gap:12px;align-items:center;border-top:1px solid #c7b7a4;margin-top:18px;padding-top:14px;font:12px system-ui,sans-serif;color:#776658}
+#employment .pp-result-actions button,#public .pp-result-actions button{border:0;background:none;border-bottom:1px solid #9a503e;color:#944536;padding:4px 0;cursor:pointer;font:13px 'Songti SC',serif}
+#public .pp-result-actions button{border-color:#50705d;color:#456850}
+#employment .pp-foot,#public .pp-foot{border-top:1px solid #9f907b77;margin-top:25px;padding-top:14px;display:flex;justify-content:space-between;gap:16px;font:12px/1.8 system-ui,sans-serif;color:#756555}
+#employment .pp-foot button,#public .pp-foot button{flex-shrink:0;color:#9f4938;text-decoration:underline;text-underline-offset:5px;border:0;background:none;padding:0;cursor:pointer;font:inherit}
+#public .pp-foot button{color:#4b6d5b}
+#public .pp-slider-label{display:block;font-size:17px;line-height:1.8;color:#332a23}
+#public .pp-slider-label output{float:right;color:#416a56;font-size:29px;line-height:1.2}
+#public .pp-range{display:block;width:100%;margin:25px 0 9px;cursor:ew-resize;accent-color:#527260;min-height:18px}
+#public .pp-slider-caps{display:flex;justify-content:space-between;font:12px system-ui,sans-serif;color:#857565}
+#public .pp-percent-ruler{position:relative;height:26px;margin:28px 0 16px;background:#a9544777;border:1px solid #bdafa0}
+#public .pp-percent-ruler i{display:block;height:100%;background:#5f806b;transition:width .65s ease}
+#public .pp-percent-ruler span{display:block;position:absolute;top:-10px;height:44px;border-left:3px dashed #27201b;transform:translateX(-50%)}
+#public .pp-ruler-labels{display:flex;justify-content:space-between;gap:10px;font:12px/1.5 system-ui,sans-serif;color:#6a5c4e;margin-bottom:19px}
+#public .pp-ruler-labels i{display:inline-block;width:10px;height:10px;background:#5f806b;margin-right:4px}
+@media (max-width:1150px){#employment .pp-workspace,#public .pp-workspace{grid-template-columns:1fr 1fr}#employment .pp-choice-grid,#public .pp-tabs{grid-template-columns:repeat(2,1fr)}#public .participatory{margin-left:0;margin-right:0}}
+@media (max-width:750px){#employment .pp-workspace,#public .pp-workspace{grid-template-columns:1fr}#employment .pp-head,#public .pp-head{grid-template-columns:1fr}#employment .pp-side-note,#public .pp-side-note{display:none}#employment .pp-foot,#public .pp-foot{flex-wrap:wrap}#employment .pp-hrow{grid-template-columns:72px 1fr 52px}}
+@media(prefers-reduced-motion:reduce){#employment .pp-revealed,#public .pp-revealed,#employment .pp-htrack i,#public .pp-percent-ruler i{animation:none;transition:none}}
