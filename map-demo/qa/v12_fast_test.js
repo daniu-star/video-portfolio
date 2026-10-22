@@ -1,0 +1,20 @@
+const assert=require('node:assert/strict');const fs=require('node:fs');const vm=require('node:vm');
+const dom=new Map();const el=id=>{if(!dom.has(id))dom.set(id,{id,textContent:'',innerHTML:'',value:'',style:{},hidden:false,disabled:false,attributes:{},setAttribute(n,v){this.attributes[n]=v;},getAttribute(n){return this.attributes[n]}});return dom.get(id)};
+const ns={state:{site:'fast'},onState(){},Drive:{},Geo:{mode:'demo'}};
+const context={window:{SpatialApp:ns},document:{getElementById:el,addEventListener(){}},localStorage:{setItem(){}},devicePixelRatio:1,innerWidth:1440,innerHeight:900,Math,Set,Date,console};
+vm.runInNewContext(fs.readFileSync(require('node:path').resolve(__dirname,'../assets/js/fast/immersive-lab.js'),'utf8'),context);
+const g=ns.FastGame;g.active=true;g.stage=2;g.paint=()=>{};
+assert.match(g.content(),/任务三 · 寻找深空候选信号/);
+assert.ok(g.content().indexOf('fast-aim-console')<g.content().indexOf('fast-lab-scene'),'controls should come before oversized canvas');
+assert.match(g.content(),/帮我演示一步/);
+g.render();assert.match(el('fastAimNavigation').innerHTML,/向右转 85°/);assert.match(el('fastAimNavigation').innerHTML,/抬高 30°/);
+assert.equal(el('fastCollect').disabled,true);
+const old=g.aimAz;g.act('az-inc');assert.equal(g.aimAz,old+10);
+g.act('el-inc');assert.equal(g.aimEl,17);
+g.act('aim-hint');assert.equal(el('fastAimHelp').hidden,true); // fake DOM does not parse markup, so starts false -> toggles true
+const prev=g.aimAz;g.act('aim-demo');assert.ok(g.aimAz>prev);
+g.act('tune');assert.equal(g.stage,2,'must not complete if not aimed');
+g.aimAz=125;g.aimEl=42;g.setReadout();assert.equal(el('fastCollect').disabled,false);
+assert.match(el('fastAimNavigation').innerHTML,/已锁定/);
+g.act('tune');assert.equal(g.stage,3,'correct aim unlocks completion');
+console.log('FAST interaction assertions: 12 passed');

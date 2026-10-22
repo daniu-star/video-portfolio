@@ -1,0 +1,261 @@
+{
+  "version": "V12",
+  "note": "静态检查 + 独立逻辑检查，不等于浏览器端到端运行验收",
+  "passed": 63,
+  "failed": 0,
+  "real_photos": 0,
+  "checks": [
+    {
+      "name": "JavaScript:assets/js/app.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/state.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/math.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/db.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/drive/controller.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/drive/drive-ui.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/drive/route.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/ui/ui.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/ui/feature-panel.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/scene/engine.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/fast/immersive-lab.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/fast/quiet-game.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/media/photo-vault.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/geo/live-open-elevation.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/geo/offline-terrain.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/geo/geo-provider.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/ux/pixel-truck.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/ux/regional-expedition.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript:assets/js/ux/visitor-journey.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/data/database.bundle.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/data/real_elevation.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/data/offline_roads.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/math.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/state.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/db.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/geo/offline-terrain.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/geo/live-open-elevation.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/scene/engine.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/ux/regional-expedition.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/ux/pixel-truck.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/drive/route.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/drive/controller.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/drive/drive-ui.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/ui/feature-panel.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/ui/ui.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/app.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/data/local_photo_catalog.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/data/packaged_photos.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/media/photo-vault.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/geo/geo-provider.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/fast/immersive-lab.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/js/ux/visitor-journey.js",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/tokens.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/layout.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/components.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/cinematic.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/prologue.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/interactive-v7.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/drive-v7.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/geo-v7.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/fast-game.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/v8-upgrade.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/v9-clarity.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/ux-repair.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/v10-pixel.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/v11-pixel.css",
+      "passed": true
+    },
+    {
+      "name": "依赖:assets/css/v12-guidance.css",
+      "passed": true
+    },
+    {
+      "name": "可见教程",
+      "passed": true
+    },
+    {
+      "name": "方向增减",
+      "passed": true
+    },
+    {
+      "name": "信号强度",
+      "passed": true
+    },
+    {
+      "name": "演示一步",
+      "passed": true
+    },
+    {
+      "name": "采集按钮",
+      "passed": true
+    },
+    {
+      "name": "清单与真实照片数一致",
+      "passed": true
+    }
+  ]
+}

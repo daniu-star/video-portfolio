@@ -1,0 +1,96 @@
+{
+  "method": "Chromium static assets inlined; provider objects stubbed. NOT live geographic SDK auth/DEM proof",
+  "checks": [
+    {
+      "name": "geo module present",
+      "passed": true
+    },
+    {
+      "name": "operation help displayed",
+      "passed": true
+    },
+    {
+      "name": "operation help closed",
+      "passed": true
+    },
+    {
+      "name": "map provider setup visible",
+      "passed": true
+    },
+    {
+      "name": "blank key is rejected clearly",
+      "passed": true
+    },
+    {
+      "name": "google provider fields",
+      "passed": true
+    },
+    {
+      "name": "setup closes",
+      "passed": true
+    },
+    {
+      "name": "photo dialog opens",
+      "passed": true
+    },
+    {
+      "name": "photo author displayed",
+      "passed": true
+    },
+    {
+      "name": "fast author license",
+      "passed": true
+    },
+    {
+      "name": "bridge author license",
+      "passed": true
+    },
+    {
+      "name": "bridge pulsing entry appears",
+      "passed": true
+    },
+    {
+      "name": "bridge beacon opens prepare",
+      "passed": true
+    },
+    {
+      "name": "AMap adapter activates view",
+      "passed": true
+    },
+    {
+      "name": "terrain true configured",
+      "passed": true
+    },
+    {
+      "name": "AMap coordinates converted",
+      "passed": true
+    },
+    {
+      "name": "AMap cleaned up",
+      "passed": true
+    },
+    {
+      "name": "Google adapter activates 3D view",
+      "passed": true
+    },
+    {
+      "name": "geo exit restores old map controls",
+      "passed": true
+    },
+    {
+      "name": "no JavaScript errors",
+      "passed": true
+    },
+    {
+      "name": "mobile photo modal visible",
+      "passed": true
+    },
+    {
+      "name": "mobile photo dialog within width",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "passed": 22,
+  "total": 22
+}

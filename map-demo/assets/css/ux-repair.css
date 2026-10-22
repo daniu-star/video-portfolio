@@ -1,0 +1,98 @@
+/* V7 UX repair: the interactive scene must stay the primary canvas, not a wall of overlays. */
+[hidden]{display:none!important}
+html,body,.app{min-width:0;min-height:0}
+button,select{touch-action:manipulation}
+button:disabled{cursor:wait;opacity:.75}
+.is-visitor-guide .journey-bar{pointer-events:none}
+.visitor-guide{position:fixed;inset:0;z-index:125;background:#020917e9;backdrop-filter:blur(14px);display:grid;place-items:center;padding:clamp(10px,3vw,30px);pointer-events:auto;overflow:auto}
+.visitor-guide-card{width:min(830px,100%);max-height:calc(100dvh - 24px);overflow:auto;border:1px solid #85bcc68c;background:linear-gradient(135deg,#092238 0%,#05131f 68%,#1e2030 100%);padding:clamp(20px,3.5vw,38px);border-radius:24px;color:#f1fbff;box-shadow:0 24px 85px #000d}
+.visitor-guide-top{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#9ce4e9;font:12px ui-monospace,monospace;letter-spacing:.05em}
+.visitor-guide-top button{background:#253849;border:1px solid #6f919c;color:#fff;border-radius:8px;padding:8px 12px;cursor:pointer}
+.visitor-guide h2{font-size:clamp(23px,3vw,35px);line-height:1.25;margin:20px 0 10px}
+.visitor-guide p{color:#c8dce2;line-height:1.75;font-size:14px}
+.visitor-guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:24px 0 18px}
+.visitor-guide-grid button{text-align:left;min-height:152px;padding:18px;display:flex;flex-direction:column;gap:7px;cursor:pointer;border:1px solid #517689;background:#102a3d;border-radius:16px;color:#fff}
+.visitor-guide-grid button:hover,.visitor-guide-grid button:focus-visible{border-color:#a7fcff;background:#193e54}
+.visitor-guide-grid .journey-icon{font-size:24px;color:#e9cc8f}
+.visitor-guide-grid strong{font-size:16px}
+.visitor-guide-grid small{font-size:12px;line-height:1.55;color:#dceaf0}
+.visitor-guide-grid em{font-size:11px;line-height:1.5;color:#92cfd9;font-style:normal;margin-top:auto}
+.visitor-guide .visitor-guide-foot{font-size:12px;color:#9bb3c4;border-top:1px solid #46667966;padding-top:13px}
+.journey-bar{pointer-events:auto;position:absolute;z-index:34;top:91px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 520px);display:flex;gap:8px;align-items:center;padding:7px 9px;border:1px solid #79d8ef44;border-radius:16px;background:#081b2ae9;box-shadow:0 10px 30px #0008}
+.journey-bar .fast-quick,.journey-bar .drive-quick,.journey-bar .explore-start{position:static;inset:auto;transform:none;max-width:none;width:auto;min-height:45px;padding:7px 11px;margin:0;box-shadow:none;flex-direction:row;gap:8px;align-items:center;font-size:12px;border-radius:10px;white-space:nowrap}
+.journey-bar .fast-quick>span:first-child{width:26px;height:26px;font-size:18px}
+.journey-bar .fast-quick small,.journey-bar .drive-quick small,.journey-bar .explore-start span{font-size:9px;white-space:nowrap;display:block}
+.journey-bar .fast-quick span:last-child{display:block}
+.journey-secondary{cursor:pointer;white-space:nowrap;min-height:45px;border:1px solid #6d8c9d;background:#123047;color:#e2f6f9;border-radius:10px;padding:9px 11px;font-size:12px}
+.journey-secondary:hover{background:#1c4a62}
+.camera-hud{top:164px}
+.fast-pulse{display:none!important} /* Duplicate interactive FAST portal obscured its map node. Main CTA remains in journey bar. */
+.mobile-more-btn,.mobile-more-menu{display:none}
+.inspector-toggle{display:none}
+.photo-load-state{display:flex;align-items:center;justify-content:center;text-align:center;min-height:105px;padding:16px;font-size:13px;line-height:1.7;color:#e8d7ac;background:linear-gradient(130deg,#122e40,#202a32);border:1px dashed #b0b9a36e;border-radius:11px;margin-bottom:10px}
+.photo-load-state.is-success{min-height:0;padding:7px;background:#102e32;border-style:solid;border-color:#6bb6af7a;color:#9ceadf}
+.mobile-db-picker{display:none}
+/* Prefer action and reading space to floating ornament. */
+@media(max-width:1260px) and (min-width:961px){
+ .journey-bar{left:39%;max-width:calc(100vw - 440px)}
+ .journey-bar .fast-quick small,.journey-bar .drive-quick small,.journey-bar .explore-start span{display:none}
+}
+@media(max-width:960px){
+ .journey-bar{top:83px;left:12px;right:12px;width:auto;max-width:none;transform:none;overflow-x:auto;scrollbar-width:thin;border-radius:11px;justify-content:flex-start;gap:7px;max-height:74px}
+ .journey-bar .fast-quick,.journey-bar .drive-quick,.journey-bar .explore-start{flex:0 0 auto;min-height:42px}
+ .journey-bar .fast-quick small,.journey-bar .drive-quick small,.journey-bar .explore-start span{display:none}
+ .journey-secondary{flex:0 0 auto;min-height:42px}
+ .camera-hud{top:170px}
+ .mobile-db-picker{display:block;margin:0 0 14px;color:#c5e8f2;font-size:13px}
+ .mobile-db-picker select{margin-left:12px;background:#0b2a3a;border:1px solid #7fcbdd;color:#fff;padding:8px;border-radius:8px}
+}
+@media(max-width:600px){
+ .topbar .top-actions #storyBtn,.topbar .top-actions #dbBtn,.topbar .theme-menu{display:none!important}
+ .mobile-more-btn{display:block;min-width:43px;height:33px;background:#164457;border:1px solid #86bfcd;color:#e8f9ff;border-radius:8px;font-size:11px;cursor:pointer}
+ .mobile-more-menu{display:grid;pointer-events:auto;position:absolute;z-index:45;right:12px;top:65px;width:min(250px,calc(100vw - 24px));padding:9px;grid-template-columns:1fr 1fr;gap:8px;background:#071d2cf0;border:1px solid #6592a6;border-radius:14px}
+ .mobile-more-menu button{padding:10px 7px;background:#16394a;color:white;border:1px solid #44778c;border-radius:8px;font-size:12px;cursor:pointer}
+ .topbar .brand{display:none!important}
+ .topbar #siteSelect{min-width:90px;font-size:11px!important}
+ .topbar .geo-nav-btn{min-width:42px;max-width:46px}
+ .journey-bar{top:75px}
+ .camera-hud{display:none!important}
+ .fast-pulse{display:none!important}
+ .bridge-pulse{max-width:155px;white-space:normal;font-size:10px;z-index:25;pointer-events:auto}
+ .bridge-pulse small{display:none}
+ .inspector{bottom:155px;max-height:min(48dvh,400px)}
+ .inspector-toggle{pointer-events:auto;display:flex;align-items:center;gap:7px;justify-content:flex-start;width:100%;flex:none;background:#102a3bbf;border:0;border-bottom:1px solid #405e75;color:#d6f6fa;padding:8px 12px;font-size:11px;cursor:pointer}
+ .inspector-collapsed .inspector{height:48px;max-height:48px;bottom:158px;overflow:hidden}
+ .inspector-collapsed .inspector .inspector-head,.inspector-collapsed .inspector .tabs,.inspector-collapsed .inspector .inspector-content{display:none}
+ .node-legend{display:none!important} /* mobile: select node expands the single accessible inspector */
+ .left-rail{bottom:92px;max-width:calc(100vw - 24px);gap:5px;padding:6px}
+ .left-rail .nav-btn{min-width:0}
+ .timeline{bottom:12px;min-height:69px}
+ .drive-look-controls{display:flex!important;position:absolute;z-index:53;left:8px;right:8px;bottom:215px;justify-content:center;align-items:center;gap:6px;pointer-events:auto}
+ .drive-look-controls .drive-btn{padding:10px!important;font-size:12px!important;min-width:92px;background:#0a293dda}
+ #driveLookHint{font-size:9px;color:#e2f2f6;max-width:104px;text-align:center;background:#062033cf;border-radius:8px;padding:7px 5px}
+ .drive-view-rail{bottom:152px;left:8px;right:8px;z-index:52}
+ .drive-controls{bottom:8px;z-index:54;padding:8px}
+ .drive-cockpit{bottom:85px;height:70px}
+ .drive-narrative{max-width:calc(100vw - 24px);padding:9px 11px}
+ .drive-narrative p{max-height:57px;overflow:auto}
+ .drive-evidence{bottom:246px;max-height:32dvh;overflow:auto}
+ .visitor-guide-grid{grid-template-columns:1fr;gap:9px}
+ .visitor-guide-grid button{min-height:100px;padding:12px}
+ .visitor-guide-card{padding:17px}
+ .visitor-guide p{font-size:12px}
+ .visitor-guide h2{font-size:22px}
+ .visitor-guide-grid strong{font-size:14px}
+ .visitor-guide-grid .journey-icon{font-size:19px}
+}
+@media(prefers-reduced-motion:reduce){.fast-quick,.bridge-pulse{animation:none!important}}
+.is-driving .journey-bar,.is-fast-playing .journey-bar,.is-geo-map .journey-bar,.is-prologue .journey-bar{display:none!important}
+.is-fast-playing .mobile-more-menu,.is-driving .mobile-more-menu,.is-geo-map .mobile-more-menu{display:none!important}
+.fast-zone-explain{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+.fast-zone-explain span{background:#123145;border:1px solid #608da2;border-radius:8px;padding:6px 9px;color:#d8e8f2;font-size:11px}
+@media(max-width:420px){
+ .fast-zone-map{display:grid;place-items:center;margin:2px auto 15px}
+ .fast-zone-pin{left:calc(50% + min(var(--pin-r),25%));font-size:17px}
+ .fast-zone-map .fast-radar{width:150px}
+ .fast-zone-explain{justify-content:center}
+ .fast-zone-explain span{font-size:10px}
+}

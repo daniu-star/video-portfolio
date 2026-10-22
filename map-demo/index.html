@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#050812">
+  <title>黔境 · 大国工程志｜贵州超级基础设施 三维 时空地图</title>
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/cinematic.css">
+  <link rel="stylesheet" href="assets/css/prologue.css">
+  <link rel="stylesheet" href="assets/css/interactive-v7.css">
+  <link rel="stylesheet" href="assets/css/drive-v7.css">
+  <link rel="stylesheet" href="assets/css/geo-v7.css">
+  <link rel="stylesheet" href="assets/css/fast-game.css">
+<link rel="stylesheet" href="assets/css/v8-upgrade.css"><link rel="stylesheet" href="assets/css/v9-clarity.css"><link rel="stylesheet" href="assets/css/ux-repair.css"><link rel="stylesheet" href="assets/css/v10-pixel.css"><link rel="stylesheet" href="assets/css/v11-pixel.css"><link rel="stylesheet" href="assets/css/v12-guidance.css"><link rel="stylesheet" href="assets/css/v13-places.css"><link rel="stylesheet" href="assets/css/v14-transport.css"><link rel="stylesheet" href="assets/css/v15-transport.css">
+</head>
+<body data-theme="nebula" data-site="huajiang" class="is-map-entered v15-direct-entry">
+<main class="app">
+  <div class="world"><canvas id="worldCanvas" aria-label="贵州天眼与花江峡谷大桥概念三维空间地图"></canvas><div id="geoMapStage" aria-label="获授权在线三维地图底座" hidden></div></div>
+  <div class="film-bars"></div><div class="flare"></div><div class="grain"></div><div class="scan"></div><div class="time-aura"></div>
+
+  <section id="prologue" class="prologue" aria-label="项目序章" hidden>
+    <div class="prologue-sky"></div>
+    <div class="ink-mountain mountain-back"></div>
+    <div class="ink-mountain mountain-mid"></div>
+    <div class="ink-mountain mountain-front"></div>
+    <div class="prologue-mist mist-a"></div><div class="prologue-mist mist-b"></div>
+    <div class="prologue-seal" aria-hidden="true">黔</div>
+    <div class="prologue-title-wrap">
+      <div class="prologue-eyebrow">贵州 · 大国工程 · 空间叙事</div>
+      <h1 class="prologue-title"><span>黔</span><span>境</span></h1>
+      <div class="prologue-subtitle">大国工程志 · 三维时空交互地图</div>
+      <button id="enterMapBtn" class="enter-map-btn"><i></i><span>进入三维地图</span><b>点击进入空间探索</b></button>
+      <div class="prologue-hint">概念场景可离线浏览 · 公开高程可免密钥加载 · 地点资料与科普体验可直接查看</div>
+    </div>
+    <div class="prologue-credit">
+      <div><small>主创</small><strong>陈俊良</strong></div>
+      <div class="provider"><small>资料来源与田野调研</small><strong>中央民族大学新闻与传播学院赴贵州省“大国工程”调研团</strong><span>联合贵州民族大学“聚力黔山 共结籽情”实践团</span></div>
+    </div>
+    <div class="prologue-index"><span>中国天眼</span><i></i><span>花江峡谷大桥</span></div>
+  </section>
+  <div class="transition-curtain" aria-hidden="true"><span></span></div>
+
+  <div class="chrome">
+    <header class="topbar glass">
+      <div class="brand"><div class="brand-mark"></div><div><h1>贵州大国工程 · 三维互动地图</h1><small>模型与实证资料分级展示 · 公开高程免密钥下载</small></div></div>
+      <select id="siteSelect" class="chip" aria-label="区域"><option value="fast">中国天眼 + 天文小镇</option><option value="huajiang" selected>花江峡谷大桥 + 科力寨 + 小花江</option><option value="overview">贵州双区域交通总览</option></select>
+      <span class="status">V15 · 花江首屏 / 离线路网</span><div class="spacer"></div>
+      <div class="top-actions"><button id="geoOpen" class="geo-nav-btn" type="button" aria-haspopup="dialog" aria-controls="geoConfig">◈ <span class="geo-long">在线三维地图（需密钥）</span><span class="geo-short">地图</span></button><button id="geoHelpOpen" class="geo-help" type="button" title="查看操作指引" aria-label="地图操作帮助">?</button>
+        <button id="storyBtn" class="icon-btn" aria-label="自动播放故事模式"><span class="play-mark">▶</span><span class="label-hide">故事</span></button>
+        <button id="dbBtn" class="icon-btn" aria-label="本地数据库"><span class="grid-mark">▦</span><span class="label-hide">数据</span></button>
+        <div class="theme-menu"><button id="themeToggle" class="icon-btn" aria-label="电影主题"><span class="theme-mark">◐</span><span class="label-hide">主题</span></button>
+          <div id="themePop" class="theme-pop glass"><div class="theme-title">画面配色</div><button class="theme-btn" data-t="nebula"><i></i><span>深空星云<small>星云主题</small></span></button><button class="theme-btn" data-t="solar"><i></i><span>日冕熔金<small>暖金主题</small></span></button><button class="theme-btn" data-t="aurora"><i></i><span>极光量子<small>极光主题</small></span></button></div>
+        </div>
+        <button id="mobileMoreBtn" class="mobile-more-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="mobileMoreMenu">更多</button>
+      </div>
+    </header>
+    <div id="mobileMoreMenu" class="mobile-more-menu glass" hidden role="group" aria-label="更多工具">
+      <button type="button" data-more-action="story">▶ 自动故事</button><button type="button" data-more-action="data">▦ 查看数据</button><button type="button" data-more-action="theme">◐ 更换主题</button><button type="button" data-more-action="help">? 操作说明</button>
+    </div>
+    <section id="visitorGuide" class="visitor-guide" role="dialog" aria-modal="true" aria-labelledby="visitorGuideTitle" hidden>
+      <div class="visitor-guide-card" tabindex="-1">
+        <div class="visitor-guide-top"><span>首次访问 · 体验路线</span><button type="button" id="visitorGuideClose" aria-label="关闭新手引导">✕ 跳过</button></div>
+        <h2 id="visitorGuideTitle">贵州双工程，可以从这里开始</h2>
+        <p>这里有一张 <strong>概念三维地图</strong>、两种互动游戏和可核查的地点资料。你不需要先学会所有按钮；选择一条路线即可。</p>
+        <div class="visitor-guide-grid">
+          <button type="button" data-journey="fast"><span class="journey-icon">◎</span><strong>中国天眼 · 空间科普探索</strong><small>旋转三维场景 → 空间巡检 → 模拟接收器调谐</small><em>适合先了解：科研为什么需要电磁宁静</em></button>
+          <button type="button" data-journey="drive"><span class="journey-icon">↗</span><strong>花江大桥 · 模拟穿越</strong><small>选择镜头 → 看桥梁 → 左右观察峡谷</small><em>体验说明：概念路线，非真实驾驶导航</em></button>
+          <button type="button" data-journey="pixel"><span class="journey-icon">🚚</span><strong>像素货车 · 交通探索</strong><small>选择 G552、S315 或六安高速独立章节 → 自由查看地点资料</small><em>分别探索有来源的公路章节，不虚构两地直达路线</em></button>
+          <button type="button" data-journey="free"><span class="journey-icon">⌖</span><strong>先自由探索地图</strong><small>点击地点或建筑 · 切换场景 · 查看数据</small><em>不要求完成任何游戏</em></button>
+        </div><p class="visitor-guide-foot">你无需地图密钥也能体验游戏。当前工程支持从公开高程瓦片导入真实地形，但尚未完成下载时地形仍是模拟；建筑和道路未按测绘精度复原。</p>
+      </div>
+    </section>
+    <nav id="journeyBar" class="journey-bar glass" aria-label="推荐体验入口">
+      <button id="fastQuickStart" class="fast-quick" type="button" hidden><span>◎</span><span>玩天眼科普游戏<small>守护信号 · 三关学习</small></span></button>
+      <button id="driveQuickStart" class="drive-quick" type="button">🚘 体验桥梁穿越<small>路线演示 · 可切换视角</small></button>
+      <button id="exploreStart" class="explore-start glass" type="button" aria-label="打开示意建筑并查看其资料">⌂ 探索建筑<span>空间资料 / 模型状态</span></button>
+      <button id="pixelQuickOpen" class="journey-secondary" type="button">🚚 像素货车</button>
+      <button id="journeyGuideBtn" class="journey-secondary" type="button">☷ 玩法指南</button>
+    </nav>
+    <button id="fastPulse" class="fast-pulse" type="button" aria-label="打开中国天眼沉浸式科普游戏" hidden><span>◎</span><span>启动天眼科普游戏<small>三项空间实验 · 旋转设备 / 区域探索 / 调谐</small></span></button>
+    <button id="bridgePulse" class="bridge-pulse" type="button" aria-label="进入花江峡谷大桥虚拟驾驶游戏" hidden><span class="pulse-orb">▶</span><span>从这里开始桥梁穿越<small>7 幕 · 驾驶 / 乘客 / 电影视角</small></span></button>
+    <section id="geoConfig" class="geo-dialog" role="dialog" aria-modal="true" aria-labelledby="geoHeading" hidden>
+      <div class="geo-sheet"><button class="geo-dismiss" type="button" data-close-geo aria-label="关闭地图设置">×</button><span class="geo-kicker">实地地图接入说明</span><h2 id="geoHeading">选择真实三维地图底座</h2>
+      <p class="geo-lead">当前离线概念图与真实地图属于两套不同坐标系统。选择高德或 谷歌 后，将在独立地图视图中显示真实地理位置，不叠加未经核验的模拟建筑。</p>
+      <div class="geo-provider-tabs" role="group" aria-label="地图供应商"><button type="button" data-geo-provider="amap" class="is-current">高德立体地形 · 国内优先</button><button type="button" data-geo-provider="google">谷歌立体地图 · 影像效果依地区而定</button></div>
+      <div class="geo-fields"><label>网页地图访问密钥<input id="geoApiKey" autocomplete="off" spellcheck="false" placeholder="粘贴你在官方平台申请的 网页访问密钥"></label>
+      <label id="geoAmapProxyRow">安全代理 安全代理地址（正式发布建议使用）<input id="geoServiceHost" autocomplete="off" placeholder="https://你的域名/_AMapService"></label>
+      <details id="geoDevSecretRow"><summary>仅限本机调试：明文 安全代码（请勿公开展示）</summary><input id="geoDevSecret" autocomplete="off" placeholder="仅在本地调试时临时填写"></details>
+      <p id="geoGoogleNote" hidden>谷歌地图 三维地图接口 需要 云服务项目开通相关接口及计费及有效密钥，并将实际运行域名纳入允许来源。</p></div>
+      <div class="geo-status" id="geoStatus" role="status">尚未连接在线地图。概念模型可离线继续使用。</div>
+      <div class="geo-sheet-actions"><button type="button" id="geoConnect" class="geo-primary">载入所选真实 三维 地图</button><button type="button" id="geoDemoBack">返回概念地图</button></div>
+      <small class="geo-footnote">密钥只保存在当前页面内存，不写入压缩包 或本地缓存。高德 三维 地形按官方文档使用 2.1Beta；在线瓦片不离线复制。正式部署请配置安全代理与域名限制。</small></div>
+    </section>
+    <section id="geoHud" class="geo-hud" aria-label="真实地图操作台" hidden><div class="geo-hud-title"><strong>真实 三维 地图</strong><span id="geoProviderLabel">等待加载</span></div><p id="geoGeoStatus">地理底图由地图提供商在线实时加载，不代表本项目地形实测精度。</p><div class="geo-hud-actions"><button id="geoFocusFast">定位中国天眼</button><button id="geoFocusBridge">定位花江大桥</button><button id="geoGameFromMap">▶ 桥梁游戏</button><button id="geoFastGameFromMap" type="button">◎ 天眼科普游戏</button><button id="geoClose">↩ 返回概念场景</button></div></section>
+    <section id="geoHelp" class="geo-dialog" role="dialog" aria-modal="true" aria-labelledby="geoHelpHeading" hidden><div class="geo-sheet geo-help-sheet"><button type="button" class="geo-dismiss" data-close-help>×</button><h2 id="geoHelpHeading">30 秒了解如何操作</h2><ol><li><b>选场景</b>：顶部切换“天眼”“花江”或区域总览。</li><li><b>了解地点</b>：直接点击模型建筑或像素地图的地点图标，阅读空间资料和已核实的道路名称。</li><li><b>真实地形</b>：点击“真实地形地图”，选择高德或 谷歌 并填写自己的 网页地图密钥。</li><li><b>桥梁游戏</b>：切换到花江后，点击地图上闪烁的“▶”或“驶过花江峡谷大桥”。</li><li><b>天眼游戏</b>：切换天眼场景，点击金色闪烁的“◎”或“启动天眼信号守护挑战”，完成三个空间探索任务。</li><li><b>驾驶视角</b>：按钮 1—4 切视角；桌面端 A/D 切换模拟车道；左右箭头观察峡谷；退出键退出。车辆仍沿模拟路线前进。</li></ol><button id="geoHelpDone" class="geo-primary">我知道了，开始探索</button></div></section>
+    <section id="fastGameShell" class="fast-game-shell" role="dialog" aria-modal="true" aria-labelledby="fastGameChapter" hidden>
+      <header class="fast-game-top"><div class="fast-game-top-icon">◎</div><div class="fast-game-top-title"><b>中国天眼 · 深空信号守护计划</b><small>中国天眼 · 空间互动科普</small></div><div class="fast-game-meta"><strong id="fastGameChapter">任务准备</strong><span id="fastGameScore">0/3 已完成</span></div><button id="fastGameExit" class="fast-game-exit" type="button" aria-label="关闭 FAST 科普游戏并返回地图">✕ 返回地图</button></header>
+      <div id="fastGameMain" class="fast-game-scroll" tabindex="-1"></div>
+    </section>
+    <section id="featurePanel" class="feature-panel glass" role="dialog" aria-label="空间对象资料" aria-modal="false" aria-hidden="true"><button id="featureClose" class="feature-close" aria-label="关闭空间资料">×</button><div id="featurePanelContent"></div></section>
+    <section id="drivePrepare" class="drive-prep" role="dialog" aria-modal="true" aria-labelledby="drivePrepRoute" hidden>
+      <div class="drive-prep-card">
+        <span class="drive-eyebrow">桥梁空间驾驶体验</span>
+        <h2 id="drivePrepRoute">驶过花江峡谷大桥</h2>
+        <p><strong>路线锁定式模拟乘车体验</strong> · 非现实导航</p>
+        <p>本工程现有道路和地形以模拟几何为主，所展示的引桥坡度、车道、镜头与通行时间并非实测。为避免时间错位，体验将在<strong>通车后场景</strong>中播放；退出会恢复原时间轴和地图视角。</p>
+        <p id="drivePrepPeriod"></p>
+        <ul><li>只沿演示路线自动前进，不模拟自由高速驾驶和真实交通。</li><li>支持驾驶位、乘客位、跟车和电影视角，随时暂停与退出。</li><li>按退出键返回地图；空格暂停；1—4 切换视角。</li></ul>
+        <label for="driveViewInitial">初始体验视角</label>
+        <select id="driveViewInitial"><option value="cockpit">驾驶位 · 车内第一视角</option><option value="passenger">乘客位 · 侧窗视角</option><option value="follow">跟车视角</option><option value="cinematic">峡谷电影镜头</option></select>
+        <div class="drive-prep-actions"><button id="driveConfirm" class="drive-btn primary">▶ 开始概念穿越</button><button id="driveCancel" class="drive-btn">返回地图</button></div>
+      </div>
+    </section>
+    <section id="driveHud" class="drive-hud" aria-label="模拟通行控制台" hidden>
+      <header class="drive-hud-top"><div><span class="drive-eyebrow">教学模拟路线 · 不是导航</span><h2 id="driveRouteTitle">驶过花江峡谷大桥</h2></div><button id="driveExit" class="drive-btn" aria-label="退出模拟驾驶，返回地图">✕ 退出驾驶</button></header>
+      <div class="drive-narrative" aria-live="off"><strong id="driveChapter">从虚拟入口驶近</strong><p id="driveNarration"></p></div>
+      <div class="drive-view-rail" role="group" aria-label="选择行驶视角"><button class="drive-btn is-current" data-drive-view="cockpit">1 驾驶位</button><button class="drive-btn" data-drive-view="passenger">2 乘客位</button><button class="drive-btn" data-drive-view="follow">3 跟车</button><button class="drive-btn" data-drive-view="cinematic">4 电影</button></div>
+      <div class="drive-stage-mark">模拟车辆正在行驶</div>
+      <div class="drive-cockpit" aria-hidden="true"><div class="dash"></div><div class="wheel"></div><div class="dash-label">贵州 · 模拟驾驶</div></div>
+      <div class="drive-action-panel" role="group" aria-label="车辆互动工具"><button id="driveLaneLeft" class="drive-btn" type="button">⇤ 向左变道</button><span id="driveLaneState" role="status">保持当前车道</span><button id="driveLaneRight" class="drive-btn" type="button">向右变道 ⇥</button><button id="driveScenicStop" class="drive-btn" type="button">◉ 观景驻留</button><button id="driveHorn" class="drive-btn" type="button">♫ 模拟鸣笛</button></div>
+      <div class="drive-look-controls" aria-label="左右临时观察，不控制车辆方向"><button id="driveLookLeft" class="drive-btn" aria-label="向左观察峡谷两秒">← 看左侧</button><span id="driveLookHint" aria-live="polite">左右看 · 非转向</span><button id="driveLookRight" class="drive-btn" aria-label="向右观察峡谷两秒">看右侧 →</button></div>
+      <aside id="driveEvidence" class="drive-evidence" hidden><h3>关于此段模拟</h3><p>路线来源：项目自有的模拟道路控制点和桥面概念插值。地形、桥面纵坡、两岸接线、护栏与视角仍为示意。</p><p>工程参考指标：桥面距水面约 625 米；主桥跨径约 1420 米。这两项数字不能用于反推当前场景的海拔或车辆高度。</p><p>切勿作为出行导航、停车或通行许可信息使用。</p></aside>
+      <div class="drive-controls"><div class="drive-meter-line"><span id="driveViewName">驾驶位</span><span id="drivePct">0%</span></div><input id="driveProgress" class="drive-progress" type="range" min="0" max="1000" step="1" value="0" aria-label="跳转模拟行驶进度"><div class="drive-control-line"><button id="drivePause" class="drive-btn">Ⅱ 暂停</button><label for="driveRate">节奏 <select id="driveRate" aria-label="播放速度"><option value="0.65">舒缓</option><option value="1" selected>标准</option><option value="1.65">快速</option></select></label><button id="driveInfo" class="drive-btn" aria-expanded="false" aria-controls="driveEvidence">ⓘ 模拟依据</button><span class="drive-eyebrow">空格暂停 · A/D 变道 · ←/→ 看两侧 · 退出键返回</span></div></div>
+      <div id="driveFinish" class="drive-finish" role="status" hidden><span class="drive-eyebrow">行程完成</span><h2>已抵达虚拟路线终点</h2><p>你体验了主桥的概念通行视角。地形与道路未按实测精度重建；可以返回原地图继续查看科力寨、小花江村与桥梁资料。</p><button id="driveReplay" class="drive-btn primary">↻ 再体验一次</button> <button id="driveBack" class="drive-btn">返回原地图</button></div>
+    </section>
+    <section id="regionalExpedition" class="regional-expedition" hidden aria-label="交通网络与像素货车游戏">
+      <div class="regional-expedition-head"><span class="region-tag">贵州交通 · 公路分级</span><button id="regionFold" type="button" aria-expanded="true">收起</button></div>
+      <div id="regionBody">
+        <h3>两大工程周边，究竟有哪些公路？</h3>
+        <p class="region-sub">分路段认识道路：国道、省道与高速公路不是同一种通行网络。</p>
+        <button id="pixelGameLaunch" class="pixel-open" type="button">🚚 开始像素货车 · 三条公路章节</button>
+        <div class="road-fact"><strong>国道 · G552</strong><small>平塘县中国天眼景区接入天眼收费站方向；名称依据景区公开规划。</small></div>
+        <div class="road-fact"><strong>省道 · S315</strong><small>中国天眼景区联系边阳收费站的公路方向；适合作为独立地理观察章节。</small></div>
+        <div class="road-fact"><strong>高速 · 六枝至安龙高速</strong><small>花江峡谷大桥所在高速公路；大桥于2025年9月28日通车。</small></div>
+        <p id="roadLayerStatus" class="road-layer-status" role="status">开放道路数据：检测中……</p>
+        <button id="regionYundu" type="button">⌖ 查看云渡服务区</button>
+        <p class="region-proof">开放路网来源：<a href="https://download.geofabrik.de/asia/china/guizhou.html" target="_blank" rel="noopener">OpenStreetMap / Geofabrik</a>（ODbL）。<br>无道路文件时，不会绘制虚构的跨区公路。</p>
+      </div>
+    </section>
+    <section id="roadLegend" class="road-legend glass" aria-label="道路图例"><b>区域路网</b><span><i class="motorway"></i>高速公路</span><span><i class="primary"></i>国道和主要干线</span><span><i class="secondary"></i>省道与地方干线</span><span><i class="railway"></i>铁路（仅导入后）</span><small id="roadLegendTruth">仅显示工程位置；尚未导入开放道路中心线</small></section>
+    <section id="pixelTruckGame" class="pixel-game" role="dialog" aria-modal="true" aria-labelledby="pixelGameTitle" hidden>
+      <header class="pixel-head"><div><span class="pixel-eyebrow">◈ 贵州双工程 · 可玩的地理故事</span><h2 id="pixelGameTitle">重生之我是天眼—花江峡谷大桥的货车司机</h2><p>选择 G552、S315 或六安高速花江段独立章节，控制货车逐站探索；章节之间可自由切换。</p></div><button id="pixelClose" type="button" aria-label="退出像素货车游戏">✕ 退出游戏</button></header>
+      <div class="pixel-workspace">
+        <section class="pixel-stage-column" aria-label="像素运输地图">
+          <div class="pixel-route-select" role="group" aria-label="选择公路章节"><button type="button" data-pixel-route="g552"><strong>① G552 国道</strong><small>天眼收费站方向</small></button><button type="button" data-pixel-route="s315"><strong>② S315 省道</strong><small>边阳收费站方向</small></button><button type="button" data-pixel-route="liuan"><strong>③ 六安高速</strong><small>花江峡谷大桥段</small></button></div>
+          <div class="pixel-map-head"><span id="pixelRoad">请先选择线路</span><span id="pixelProgress">0%</span></div>
+          <div id="pixelMapViewport" class="pixel-map-viewport"><div id="pixelMapContent" class="pixel-map-content"><canvas id="pixelWorld" width="800" height="460" aria-label="像素化公路章节示意地图，虚线是游戏章节切换，不是真实道路"></canvas><div id="pixelMapMarkers" class="pixel-map-markers" aria-label="可自由点击的地点"></div><button id="pixelTransfer" class="pixel-transfer" type="button" aria-label="切换天眼与花江的道路章节">⇄ 切换道路章节<span>非实际公路</span></button></div><div class="pixel-map-legend"><span>━ 可行驶的章节路段</span><span>┄ 跨章切换（非实际公路）</span><span>● 点击地标查阅资料</span></div></div>
+          <div class="pixel-controls" role="group" aria-label="旅途交互操作"><button id="pixelGo" type="button">🚚 驶向下一站</button><button id="pixelPause" type="button">Ⅱ 暂停</button><button id="pixelReverse" type="button">⇄ 返程</button><button id="pixelReset" type="button">↺ 重新出发</button><button id="pixelZoomIn" type="button" aria-label="放大像素地图">＋</button><button id="pixelZoomOut" type="button" aria-label="缩小像素地图">－</button></div>
+          <p id="pixelMessage" class="pixel-message" role="status">先选择公路章节，再点击地标了解沿线工程与地方生活；点击“驶向下一站”体验逐站探索。</p>
+        </section>
+        <aside class="pixel-sidebar" aria-label="沿线地点自由探索"><div class="pixel-stat-row"><span id="pixelPlace">起点：中国天眼</span><span id="pixelScore">发现 0 处</span></div><h3>可自由探索的地标</h3><p class="pixel-side-note">点击地图上发光圆点，或选择下方地点。无需完成驾驶任务也能查看资料。</p><div id="pixelStops" class="pixel-stops"></div><div id="pixelDataStatus" class="pixel-inventory" role="status">选择路线后，点击沿线标记可以查看位置资料与道路证据。</div><div class="pixel-side-caution">三个独立章节：天眼景区 G552、S315 接入方向，以及六安高速花江桥段。图形为教学插画，不代表真实可行驶轨迹。</div></aside>
+      </div>
+    </section>
+    <section id="pixelPlaceDialog" class="pixel-photo" role="dialog" aria-modal="true" aria-labelledby="pixelPlaceTitle" hidden>
+      <div class="pixel-photo-card pixel-place-card"><header><div><span class="pixel-eyebrow">地理探索 · 地点档案</span><h3 id="pixelPlaceTitle">地点档案</h3></div><button id="pixelPlaceClose" type="button">✕ 返回地图</button></header>
+        <p id="pixelPlaceIntro" class="pixel-place-intro"></p>
+        <div class="pixel-place-grid">
+          <div><small>线路或所在区域</small><strong id="pixelPlaceRoad"></strong></div>
+          <div><small>对象类型</small><strong id="pixelPlaceType"></strong></div>
+        </div>
+        <div id="pixelPlaceEvidence" class="pixel-place-evidence" role="note"></div>
+        <button id="pixelPlaceLocate" class="pixel-place-locate" type="button" hidden>⌖ 在三维地图中查看此地点</button><p class="pixel-place-foot">此地图用于基础设施科普与区域关系理解；图标位置为非比例示意，不作为导航、停车或出入依据。</p>
+      </div>
+    </section>
+<nav id="leftRail" class="left-rail glass" aria-label="空间模式"></nav>
+    <section class="mini-map glass"><div class="mini-map-head"><span>区域位置</span><span>贵州</span></div><canvas id="miniMapCanvas"></canvas></section>
+    <section class="camera-hud"><div id="hudShot" class="shot"></div><div id="hudTitle" class="title"></div><div id="hudSub" class="sub"></div></section>
+    <div class="center-reticle"></div>
+    <aside class="inspector glass"><button type="button" id="inspectorToggle" class="inspector-toggle" aria-expanded="true" aria-controls="inspectorContent">▤ <span>收起资料面板</span></button><div class="inspector-head"><div id="inspectorKicker" class="kicker"></div><h2 id="inspectorTitle"></h2><p id="inspectorDesc"></p></div><div class="tabs"><button class="tab is-active" data-tab="overview">概览</button><button class="tab" data-tab="nodes">建筑</button><button class="tab" data-tab="stats">数据</button><button class="tab" data-tab="sources">来源</button></div><div id="inspectorContent" class="inspector-content"></div></aside>
+    <section id="nodeLegend" class="node-legend glass" aria-live="polite"></section>
+    <div class="legend"><span class="status">公开资料</span><span class="status sim">模拟几何</span></div>
+    <section id="timeline" class="timeline glass"></section>
+    <div id="measureHud" class="measure-hud glass"><div class="measure-scan"></div><div id="measureValue" class="value">625 m</div><div id="measureLabel" class="label">桥面至水面高差</div></div>
+    <div id="toast" class="toast glass"></div>
+    <section id="dataModal" class="data-modal glass"><button id="dbClose" class="icon-btn modal-close" aria-label="关闭数据库">×</button><aside class="modal-side"><h3>本地空间数据库</h3><p>离线数据库 · 页面数据副本</p><div class="db-nav"><button data-table="building_instances" class="is-active">三维建筑实例</button><button data-table="terrain_samples">地形采样</button><button data-table="nodes">建筑与地点</button><button data-table="node_legends">地点资料</button><button data-table="roads">三维道路</button><button data-table="transport_assets">交通设施</button><button data-table="metrics">统计指标</button><button data-table="sources">数据来源</button></div></aside><article id="dbMain" class="modal-main"></article></section>
+  </div>
+</main>
+<script src="assets/data/database.bundle.js"></script>
+<script src="assets/data/real_elevation.js"></script><script src="assets/data/offline_roads.js"></script><script src="assets/data/geographic_anchors.js"></script>
+<script src="assets/js/math.js"></script>
+<script src="assets/js/state.js"></script>
+<script src="assets/js/db.js"></script>
+<script src="assets/js/geo/offline-terrain.js"></script>
+<script src="assets/js/geo/live-open-elevation.js"></script>
+<script src="assets/js/scene/engine.js"></script><script src="assets/js/ux/regional-expedition.js"></script><script src="assets/js/ux/pixel-truck.js"></script>
+<script src="assets/js/drive/route.js"></script>
+<script src="assets/js/drive/controller.js"></script>
+<script src="assets/js/drive/drive-ui.js"></script>
+<script src="assets/js/ui/feature-panel.js"></script>
+<script src="assets/js/ui/ui.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/geo/geo-provider.js"></script>
+<script src="assets/js/fast/immersive-lab.js"></script><script src="assets/js/ux/visitor-journey.js"></script>
+</body>
+</html>

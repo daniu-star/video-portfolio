@@ -1,0 +1,9 @@
+/* V15: bridge-first landing, clear fallback status and an actionable chapter transfer. */
+.v15-direct-entry #prologue[hidden]{display:none!important}
+.v15-direct-entry .chrome{opacity:1!important;visibility:visible!important;pointer-events:none}
+.pixel-game .pixel-transfer{position:absolute;left:48%;top:49%;transform:translate(-50%,-50%);z-index:8;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:116px;padding:6px 8px;border:2px solid #ffe7ac;background:#143c4a;color:#ffedbb;font:bold 13px sans-serif;box-shadow:4px 4px 0 #062431;cursor:pointer;line-height:1.25}
+.pixel-game .pixel-transfer span{font-size:10px;font-weight:normal;color:#ccebed}
+.pixel-game .pixel-transfer:hover,.pixel-game .pixel-transfer:focus-visible{background:#2e6574;border-color:#fff}
+@media(max-width:680px){.pixel-game .pixel-transfer{min-width:94px;font-size:10px;padding:5px 6px}.pixel-game .pixel-transfer span{font-size:8px}}
+
+.road-legend .railway{height:3px;border-top:2px dashed #f8e6ce;background:transparent}

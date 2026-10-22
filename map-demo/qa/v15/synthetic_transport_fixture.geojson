@@ -1,0 +1,47 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "test-road-a",
+        "highway": "primary",
+        "name": "仅用于导入单元测试的道路"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            105.58,
+            25.7
+          ],
+          [
+            105.62,
+            25.71
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "test-rail-a",
+        "railway": "rail",
+        "name": "仅用于导入单元测试的铁路"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.73,
+            25.65
+          ],
+          [
+            106.75,
+            25.66
+          ]
+        ]
+      }
+    }
+  ]
+}

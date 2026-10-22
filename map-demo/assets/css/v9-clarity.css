@@ -1,0 +1,23 @@
+/* V9 – Legibility, meaningful regional-transport exploration, and reliable model focus */
+.world canvas{filter:brightness(1.2) saturate(1.17) contrast(1.06)}
+.camera-hud .shot,.camera-hud .sub{color:#c7f2fc;text-shadow:0 2px 10px #00101d}
+.camera-hud .title{text-shadow:0 3px 14px #001d2c,0 0 5px #00111e}
+.region-tag{color:#8cf2f1;font-size:11px;letter-spacing:.08em;font-weight:700}
+.regional-expedition{pointer-events:auto;position:absolute;left:108px;top:270px;width:min(375px,calc(100vw - 40px));z-index:17;border:1px solid #6cb4c2a6;box-shadow:0 16px 40px #0006;background:linear-gradient(145deg,rgba(8,34,53,.98),rgba(19,44,63,.96));backdrop-filter:blur(12px);border-radius:17px;padding:14px 16px;color:#f1fafb}
+.regional-expedition[hidden]{display:none!important}.regional-expedition-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.regional-expedition button{cursor:pointer;border:1px solid #6d9eab;background:#21465a;color:#f8fcfd;border-radius:10px;padding:9px 10px;font-size:12px;font-weight:650}
+.regional-expedition button:hover,.regional-expedition button:focus-visible{background:#39758c;border-color:#9ef6e9}
+.regional-expedition h3{font-size:18px;margin:14px 0 8px}.region-sub{color:#bed2de;line-height:1.65;font-size:12px}
+.region-rail{display:flex;align-items:center;gap:5px;margin:14px 0;justify-content:space-between}.region-rail button{flex:1;padding:9px 5px}.region-rail span{color:#85c9df}
+.region-rail .is-done{background:#1c6256;border-color:#76e6d5}
+#regionFeedback{background:#0a2639;padding:12px;border-left:3px solid #e0cb91;font-size:12px;line-height:1.7;min-height:55px;border-radius:6px}
+.region-actions{display:flex;gap:8px}.region-actions button{flex:1}.region-actions button:first-child{background:#136e73}
+.regional-expedition small{display:block;color:#a3c4d1;line-height:1.55;margin-top:9px}
+.regional-expedition.is-collapsed{width:245px}.regional-expedition.is-collapsed #regionBody{display:none}
+/* Feature info no longer carries distracting unverifiable all-caps labels */
+.feature-empty-media{background:#143649!important;color:#dceff3!important;border-color:#71abbd!important}
+.feature-empty-media strong{color:#fff!important}
+@media(max-width:960px){.regional-expedition{left:12px;top:100px;width:min(350px,calc(100vw - 24px));max-height:38vh;overflow:auto;z-index:19}.regional-expedition h3{font-size:14px}.region-rail button{font-size:11px}.region-actions button{font-size:11px}.regional-expedition:not(.is-collapsed){width:min(350px,calc(100vw - 24px))}}
+@media(max-width:540px){.regional-expedition{top:87px;max-height:37vh}.regional-expedition:not(.is-collapsed){max-height:31vh}.regional-expedition.is-collapsed{width:230px}}
+
+#terrainTruth{max-width:300px;background:rgba(7,39,55,.93)!important;color:#e9fcff!important;border:1px solid #79b6c2!important}

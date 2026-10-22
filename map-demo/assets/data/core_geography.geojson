@@ -1,0 +1,43 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "fast_core",
+        "site_id": "fast",
+        "name": "FAST 500m反射面",
+        "category": "science",
+        "geometry_quality": "official_coordinate",
+        "data_status": "VERIFIED",
+        "source_id": "SRC_FAST_QUIET_RULE"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.8555556,
+          25.6527778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bridge_core",
+        "site_id": "huajiang",
+        "name": "花江峡谷大桥",
+        "category": "bridge",
+        "geometry_quality": "public_map_anchor",
+        "data_status": "VERIFIED",
+        "source_id": "SRC_HUAJIANG_OFFICIAL_2025"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.5881,
+          25.7047
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+95fd908fd376e70d7cd307b9ee684151d00c9a1eb058677aeea512c61f8fcc84  database/spatial_demo.db
+2bcfffcf292cb4ff1cb32efe18cfea55b5657eea7ac87fe49404a513a1e4a081  assets/data/database.bundle.js

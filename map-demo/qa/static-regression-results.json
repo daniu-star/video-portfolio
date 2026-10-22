@@ -1,0 +1,277 @@
+{
+  "method": "static source and DB validation, not browser UI test",
+  "passed": 50,
+  "failed": 4,
+  "checks": [
+    {
+      "name": "no duplicate IDs",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "all local styles exist",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "all local scripts exist",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/app.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/state.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/math.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/db.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/drive/controller.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/drive/drive-ui.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/drive/route.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/ui/ui.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/ui/feature-panel.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/scene/engine.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/fast/immersive-lab.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/fast/quiet-game.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/geo/live-open-elevation.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/geo/offline-terrain.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/geo/geo-provider.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/ux/pixel-truck.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/ux/regional-expedition.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "JavaScript parse: assets/js/ux/visitor-journey.js",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #enterMapBtn",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #visitorGuide",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #visitorGuideClose",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #journeyBar",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #journeyGuideBtn",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #journeyPhotoBtn",
+      "passed": false,
+      "note": ""
+    },
+    {
+      "name": "required control exists #mobileMoreBtn",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #mobileMoreMenu",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #inspectorToggle",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #photoLoadState",
+      "passed": false,
+      "note": ""
+    },
+    {
+      "name": "required control exists #driveLookLeft",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #driveLookRight",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #driveLookHint",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #fastQuickStart",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #fastGameShell",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #dbMain",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #geoOpen",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "required control exists #geoConnect",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "first-visit onboarding routes wired",
+      "passed": false,
+      "note": ""
+    },
+    {
+      "name": "mobile tools wired",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "mobile turn controls enabled",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "mobile quiet-zone diagram enabled",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "local concepts explicitly labeled",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "real map credentials not prefilled",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "SQLite integrity",
+      "passed": true,
+      "note": "ok"
+    },
+    {
+      "name": "building_instances rows >=496",
+      "passed": true,
+      "note": "496"
+    },
+    {
+      "name": "roads rows >=23",
+      "passed": true,
+      "note": "23"
+    },
+    {
+      "name": "nodes rows >=58",
+      "passed": true,
+      "note": "58"
+    },
+    {
+      "name": "terrain_samples rows >=10090",
+      "passed": true,
+      "note": "10090"
+    },
+    {
+      "name": "offline DB mirror exists",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "photo fallback and creator credit code",
+      "passed": false,
+      "note": ""
+    },
+    {
+      "name": "FAST sim data disclosure",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "active game suspends background render",
+      "passed": true,
+      "note": ""
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+/* V12: clear, actionable FAST aiming tutorial. No generated photos. */
+#fastGameMain .fast-aim-lead{font-size:15px;line-height:1.7;color:#d4e8ef;max-width:950px;margin:12px 0}
+#fastGameMain .fast-aim-lead strong{color:#fff1b4}
+.fast-aim-tutorial{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
+.fast-aim-tutorial span{border:1px solid #577d90;background:#143449;border-radius:12px;padding:12px 13px;font-size:13px;color:#eefaff;line-height:1.55}
+.fast-aim-tutorial b{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#f5d791;color:#112b41;margin-right:7px}
+.fast-aim-console{border:1px solid #6a94a0;background:linear-gradient(135deg,#142f41,#113748);border-radius:16px;padding:16px 18px;max-width:1120px}
+.fast-aim-status{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+.fast-aim-status div{display:grid;gap:4px}
+.fast-aim-status small{font-size:12px;color:#c6d9e4}
+.fast-aim-status b{font-size:15px;color:#fbeac2}
+.fast-aim-status strong{font-size:25px;color:#a8fff1;font-variant-numeric:tabular-nums}
+.fast-signal-track{height:13px;background:#081c2a;border:1px solid #496d7d;border-radius:12px;overflow:hidden}
+.fast-signal-track i{display:block;height:100%;width:0;background:linear-gradient(90deg,#e9ac69,#f0e895,#69ecc6);transition:width .16s ease}
+.fast-aim-navigation{color:#fff2cf;background:#0e2837;border-left:4px solid #f5ce79;border-radius:8px;padding:11px 13px;margin:12px 0;font-size:14px;line-height:1.6}
+.fast-aim-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:14px 0}
+.fast-aim-field{border:1px solid #58849b;border-radius:12px;background:#092a3a;padding:12px 14px;min-width:0}
+.fast-aim-field label{display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:700;color:#eaf7fc;margin-bottom:12px}
+.fast-aim-field output{font-variant-numeric:tabular-nums;color:#ffe5ac;font-size:18px}
+.fast-aim-field input{width:100%;margin-top:10px;accent-color:#fed384;cursor:pointer;min-height:18px}
+.fast-aim-buttons{display:flex;gap:8px}.fast-aim-buttons button{flex:1;background:#1b5670;color:white;border:1px solid #8ac6dc;border-radius:9px;padding:12px 5px;font-size:12px;font-weight:700;cursor:pointer;min-width:0}
+.fast-aim-buttons button:hover,.fast-aim-buttons button:focus-visible{background:#276f86;border-color:#fff2ba;outline:2px solid #fff2ba;outline-offset:2px}
+.fast-aim-actions{display:flex;flex-wrap:wrap;align-items:center;margin-top:12px}.fast-aim-actions button{font-size:12px}
+.fast-aim-actions #fastCollect{background:#f5ca6b;color:#0c2634;font-weight:900;min-width:156px;box-shadow:0 2px 16px #f3c56730}.fast-aim-actions #fastCollect:disabled{background:#627682;color:#d1dce2;opacity:.75;box-shadow:none;cursor:not-allowed}
+.fast-aim-help{background:#294352;border:1px solid #ecd39e;border-radius:10px;padding:12px;line-height:1.75;font-size:13px;margin:12px 0;color:#f3f5eb}
+.fast-aim-help[hidden]{display:none!important}
+#fastGameMain .fast-aim-scene{min-height:210px;height:min(36vh,310px);margin-top:12px}
+#fastGameMain .fast-aim-scene .fast-lab-hint{font-size:11px}
+.photo-vault{border:1px dashed #8fcddd;border-radius:12px;margin-top:12px;padding:13px;background:#142f3c}
+.photo-vault label{display:block;font-size:13px;font-weight:700;color:#e5f8ff;margin-bottom:8px}
+.photo-vault input{width:100%;color:#d4ebf0;font-size:12px}
+.photo-vault p{font-size:12px;line-height:1.6;color:#c9dbe4;margin:8px 0 0}
+.photo-vault-state{font-size:12px;color:#ffdda2}
+@media(max-width:740px){.fast-aim-tutorial{grid-template-columns:1fr;gap:6px}.fast-aim-tutorial span{padding:8px 10px;font-size:12px}.fast-aim-tutorial b{width:22px;height:22px}.fast-aim-fields{grid-template-columns:1fr}.fast-aim-console{padding:11px}.fast-aim-buttons button{font-size:12px;padding:11px 5px}.fast-aim-navigation{font-size:12px}#fastGameMain .fast-aim-scene{height:260px;min-height:200px}}
+.feature-photo-import{display:block;padding:12px;margin-top:12px;background:#173d4c;border:1px solid #7197a5;border-radius:10px;color:#effaff;font-size:12px;text-align:left}
+.feature-photo-import input{display:block;margin-top:8px;font-size:12px;width:100%}
+#featurePhotoStatus{font-size:11px;line-height:1.5;color:#eddbba;margin:8px 0}

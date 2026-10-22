@@ -1,0 +1,9 @@
+/* V14: explicit source-aware transport legend and third independent route chapter */
+.road-legend[hidden]{display:none!important}
+.road-legend{position:absolute;bottom:153px;left:clamp(15px,5vw,90px);z-index:25;display:flex;flex-wrap:wrap;align-items:center;gap:10px;max-width:470px;padding:9px 13px;border:1px solid #6ca9bb;border-radius:12px;background:#0b2738e8;color:#eaf9fc;pointer-events:none;font-size:11px;box-shadow:0 4px 19px #0005}
+.road-legend b{color:#f5d69b}.road-legend span{white-space:nowrap}.road-legend i{display:inline-block;height:4px;width:20px;vertical-align:middle;margin-right:4px;background:#ffda8c}.road-legend .primary{background:#a5eaf2}.road-legend .secondary{background:#78c7df}.road-legend small{display:block;flex-basis:100%;font-size:10px;color:#b8d2d9}
+.road-layer-status{padding:9px 11px;border-left:3px solid #6dcad8;border-radius:4px;background:#173d4f;color:#d5eef3;font-size:11px;line-height:1.65}
+.pixel-game .pixel-route-select{grid-template-columns:repeat(3,minmax(0,1fr))}.pixel-game .pixel-route-select button{min-width:0}
+@media(max-width:650px){.road-legend{bottom:125px;left:8px;max-width:calc(100vw - 20px);font-size:9px;padding:6px}.pixel-game .pixel-route-select{grid-template-columns:1fr 1fr}.pixel-route-select button:last-child{grid-column:1/-1}}
+.pixel-game .pixel-marker.is-route .pixel-pin{background:#ffba61;box-shadow:0 0 0 6px #553d3288,0 0 18px #ffd68d}
+.pixel-game .pixel-stop.is-route{background:#5c5042!important;border-color:#e4c18f!important;color:#fff8df}

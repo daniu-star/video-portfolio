@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "build_context": "真实影像需要在有网络的机器上执行下载工具；仅在本地文件实际存在时显示",
+  "photos": [
+    {
+      "site": "huajiang",
+      "id": "huajiang_bridge_01",
+      "file": "Huajiang_Canyon_Bridge1.JPG",
+      "local": "assets/media/approved/huajiang_bridge_01.jpg",
+      "title": "花江峡谷大桥整体",
+      "creator": "Glabb",
+      "date": "2025-09",
+      "license": "CC BY-SA 3.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Huajiang_Canyon_Bridge1.JPG",
+      "scope": "工程整体实拍，非云渡服务区建筑实拍",
+      "exact": true
+    },
+    {
+      "site": "huajiang",
+      "id": "huajiang_bridge_02",
+      "file": "Huajiang_Canyon_Bridge2.JPG",
+      "local": "assets/media/approved/huajiang_bridge_02.jpg",
+      "title": "花江峡谷大桥峡谷侧视",
+      "creator": "Glabb",
+      "date": "2025-09",
+      "license": "CC BY-SA 3.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Huajiang_Canyon_Bridge2.JPG",
+      "scope": "工程整体实拍，非科力寨或单户民居",
+      "exact": false
+    },
+    {
+      "site": "huajiang",
+      "id": "huajiang_bridge_03",
+      "file": "Huajiang_Canyon_Bridge3.JPG",
+      "local": "assets/media/approved/huajiang_bridge_03.jpg",
+      "title": "花江峡谷大桥桥体",
+      "creator": "Glabb",
+      "date": "2025-09",
+      "license": "CC BY-SA 3.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Huajiang_Canyon_Bridge3.JPG",
+      "scope": "工程整体实拍，非服务区特定建筑",
+      "exact": false
+    },
+    {
+      "site": "fast",
+      "id": "fast_2025",
+      "file": "202508_FAST_(Five-hundred-meter_Aperture_Spherical_radio_Telescope).jpg",
+      "local": "assets/media/approved/fast_2025.jpg",
+      "title": "FAST 中国天眼装置",
+      "creator": "SCJiang",
+      "date": "2025-08-10",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File:202508_FAST_(Five-hundred-meter_Aperture_Spherical_radio_Telescope).jpg",
+      "scope": "FAST 科研装置实拍，非天文小镇建筑",
+      "exact": true
+    },
+    {
+      "site": "fast",
+      "id": "fast_scenic_2019",
+      "file": "平塘天眼风景区.jpg",
+      "local": "assets/media/approved/fast_scenic_2019.jpg",
+      "title": "平塘天眼景区与周围建筑群",
+      "creator": "Lkjidm",
+      "date": "2019-11-10",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File:平塘天眼风景区.jpg",
+      "scope": "平塘天眼景区建筑群，不是特定建筑实拍",
+      "exact": false
+    },
+    {
+      "site": "fast",
+      "id": "fast_panorama_2019",
+      "file": "平塘天眼景区全景图.jpg",
+      "local": "assets/media/approved/fast_panorama_2019.jpg",
+      "title": "平塘天眼景区全景",
+      "creator": "Lkjidm",
+      "date": "2019-11-10",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File:平塘天眼景区全景图.jpg",
+      "scope": "天眼镇区景区场景，不是特定建筑实拍",
+      "exact": false
+    },
+    {
+      "site": "fast",
+      "id": "fast_construction_2015",
+      "file": "FAST under construction, took from rim..jpg",
+      "local": "assets/media/approved/fast_construction_2015.jpg",
+      "title": "中国天眼建设阶段（2015）",
+      "creator": "罗放",
+      "date": "2015-08-08",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File:FAST_under_construction,_took_from_rim..jpg",
+      "scope": "中国天眼建设时期，不能作为当前景区建筑实景",
+      "exact": true
+    },
+    {
+      "site": "fast",
+      "id": "fast_scaled_model_2023",
+      "file": "FAST at NMC 02.jpg",
+      "local": "assets/media/approved/fast_scaled_model_2023.jpg",
+      "title": "中国天眼馈源舱缩比模型（国家博物馆）",
+      "creator": "Shujianyang",
+      "date": "2023-06-22",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File:FAST_at_NMC_02.jpg",
+      "scope": "位于北京国家博物馆的缩比模型，不是贵州现场摄影",
+      "exact": false
+    }
+  ]
+}

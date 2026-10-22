@@ -1,0 +1,288 @@
+{
+  "checked": 70,
+  "passed": 70,
+  "failed": 0,
+  "checks": [
+    {
+      "test": "desktop init",
+      "passed": true
+    },
+    {
+      "test": "desktop terrain status",
+      "passed": true
+    },
+    {
+      "test": "desktop enter map",
+      "passed": true
+    },
+    {
+      "test": "desktop driving entry",
+      "passed": true
+    },
+    {
+      "test": "desktop driving prepared",
+      "passed": true
+    },
+    {
+      "test": "desktop driving start",
+      "passed": true
+    },
+    {
+      "test": "desktop driving active",
+      "passed": true
+    },
+    {
+      "test": "desktop model in follow camera",
+      "passed": true
+    },
+    {
+      "test": "desktop model state",
+      "passed": true
+    },
+    {
+      "test": "desktop left lane",
+      "passed": true
+    },
+    {
+      "test": "desktop lane offset",
+      "passed": true
+    },
+    {
+      "test": "desktop right lane",
+      "passed": true
+    },
+    {
+      "test": "desktop scenic pause",
+      "passed": true
+    },
+    {
+      "test": "desktop scenic state",
+      "passed": true
+    },
+    {
+      "test": "desktop scenic resume",
+      "passed": true
+    },
+    {
+      "test": "desktop glance",
+      "passed": true
+    },
+    {
+      "test": "desktop exit driving",
+      "passed": true
+    },
+    {
+      "test": "desktop switch FAST",
+      "passed": true
+    },
+    {
+      "test": "desktop FAST launch",
+      "passed": true
+    },
+    {
+      "test": "desktop FAST start",
+      "passed": true
+    },
+    {
+      "test": "desktop FAST 3D canvas",
+      "passed": true
+    },
+    {
+      "test": "desktop FAST hotspots",
+      "passed": true
+    },
+    {
+      "test": "desktop deactivate mobile",
+      "passed": true
+    },
+    {
+      "test": "desktop deactivate drone",
+      "passed": true
+    },
+    {
+      "test": "desktop deactivate station",
+      "passed": true
+    },
+    {
+      "test": "desktop fast stage two",
+      "passed": true
+    },
+    {
+      "test": "desktop inspect core",
+      "passed": true
+    },
+    {
+      "test": "desktop inspect middle",
+      "passed": true
+    },
+    {
+      "test": "desktop inspect outer",
+      "passed": true
+    },
+    {
+      "test": "desktop fast stage three",
+      "passed": true
+    },
+    {
+      "test": "desktop azimuth adjustment",
+      "passed": true
+    },
+    {
+      "test": "desktop elevation adjustment",
+      "passed": true
+    },
+    {
+      "test": "desktop fast finish",
+      "passed": true
+    },
+    {
+      "test": "desktop fast exit",
+      "passed": true
+    },
+    {
+      "test": "desktop no JS page errors",
+      "passed": true
+    },
+    {
+      "test": "mobile init",
+      "passed": true
+    },
+    {
+      "test": "mobile terrain status",
+      "passed": true
+    },
+    {
+      "test": "mobile enter map",
+      "passed": true
+    },
+    {
+      "test": "mobile driving entry",
+      "passed": true
+    },
+    {
+      "test": "mobile driving prepared",
+      "passed": true
+    },
+    {
+      "test": "mobile driving start",
+      "passed": true
+    },
+    {
+      "test": "mobile driving active",
+      "passed": true
+    },
+    {
+      "test": "mobile model in follow camera",
+      "passed": true
+    },
+    {
+      "test": "mobile model state",
+      "passed": true
+    },
+    {
+      "test": "mobile left lane",
+      "passed": true
+    },
+    {
+      "test": "mobile lane offset",
+      "passed": true
+    },
+    {
+      "test": "mobile right lane",
+      "passed": true
+    },
+    {
+      "test": "mobile scenic pause",
+      "passed": true
+    },
+    {
+      "test": "mobile scenic state",
+      "passed": true
+    },
+    {
+      "test": "mobile scenic resume",
+      "passed": true
+    },
+    {
+      "test": "mobile glance",
+      "passed": true
+    },
+    {
+      "test": "mobile exit driving",
+      "passed": true
+    },
+    {
+      "test": "mobile switch FAST",
+      "passed": true
+    },
+    {
+      "test": "mobile FAST launch",
+      "passed": true
+    },
+    {
+      "test": "mobile FAST start",
+      "passed": true
+    },
+    {
+      "test": "mobile FAST 3D canvas",
+      "passed": true
+    },
+    {
+      "test": "mobile FAST hotspots",
+      "passed": true
+    },
+    {
+      "test": "mobile deactivate mobile",
+      "passed": true
+    },
+    {
+      "test": "mobile deactivate drone",
+      "passed": true
+    },
+    {
+      "test": "mobile deactivate station",
+      "passed": true
+    },
+    {
+      "test": "mobile fast stage two",
+      "passed": true
+    },
+    {
+      "test": "mobile inspect core",
+      "passed": true
+    },
+    {
+      "test": "mobile inspect middle",
+      "passed": true
+    },
+    {
+      "test": "mobile inspect outer",
+      "passed": true
+    },
+    {
+      "test": "mobile fast stage three",
+      "passed": true
+    },
+    {
+      "test": "mobile azimuth adjustment",
+      "passed": true
+    },
+    {
+      "test": "mobile elevation adjustment",
+      "passed": true
+    },
+    {
+      "test": "mobile fast finish",
+      "passed": true
+    },
+    {
+      "test": "mobile fast exit",
+      "passed": true
+    },
+    {
+      "test": "mobile no JS page errors",
+      "passed": true
+    }
+  ],
+  "method": "实际 Chromium 浏览器采用内联加载项目原样 HTML/CSS/JS；不验证 file://、HTTP 站点加载或外部地形下载"
+}

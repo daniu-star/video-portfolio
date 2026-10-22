@@ -1,0 +1,156 @@
+{
+  "name": "V7 Stage 2 Driving Browser QA",
+  "environment": "Headless Chromium; inlined static project assets, no network",
+  "checks": [
+    {
+      "name": "DB and simulation modules loaded",
+      "passed": true
+    },
+    {
+      "name": "route source explicitly simulated",
+      "passed": true
+    },
+    {
+      "name": "FAST has no driveable route",
+      "passed": true
+    },
+    {
+      "name": "prologue entered",
+      "passed": true
+    },
+    {
+      "name": "explicit preflight confirmation",
+      "passed": true
+    },
+    {
+      "name": "preflight preserves initial site",
+      "passed": true
+    },
+    {
+      "name": "preflight cancel by Escape",
+      "passed": true
+    },
+    {
+      "name": "driving starts in selected passenger perspective",
+      "passed": true
+    },
+    {
+      "name": "switches to bridge site",
+      "passed": true
+    },
+    {
+      "name": "historical timeline pushed to post-opening",
+      "passed": true
+    },
+    {
+      "name": "key 1 cockpit mode",
+      "passed": true
+    },
+    {
+      "name": "key 3 follow mode",
+      "passed": true
+    },
+    {
+      "name": "key 4 cinematic mode",
+      "passed": true
+    },
+    {
+      "name": "HUD perspective control works",
+      "passed": true
+    },
+    {
+      "name": "Space pauses",
+      "passed": true
+    },
+    {
+      "name": "pause freezes route progress",
+      "passed": true
+    },
+    {
+      "name": "route seek sets progress and chapter",
+      "passed": true
+    },
+    {
+      "name": "tempo control changes playback rate",
+      "passed": true
+    },
+    {
+      "name": "evidence disclosure opens",
+      "passed": true
+    },
+    {
+      "name": "resume works",
+      "passed": true
+    },
+    {
+      "name": "journey reaches completion",
+      "passed": true
+    },
+    {
+      "name": "completion supports replay",
+      "passed": true
+    },
+    {
+      "name": "exit restores prior site",
+      "passed": true
+    },
+    {
+      "name": "exit restores time, mode and camera",
+      "passed": true
+    },
+    {
+      "name": "exit clears overlay and camera rig",
+      "passed": true
+    },
+    {
+      "name": "selected bridge road offers a simulated tour",
+      "passed": true
+    },
+    {
+      "name": "road detail enters preflight",
+      "passed": true
+    },
+    {
+      "name": "Escape restores road panel",
+      "passed": true
+    },
+    {
+      "name": "existing building media/evidence panel unaffected",
+      "passed": true
+    },
+    {
+      "name": "FAST simulated roads do not expose car driving",
+      "passed": true
+    },
+    {
+      "name": "20 enter/exit cycles leave no driving state",
+      "passed": true
+    },
+    {
+      "name": "no desktop JavaScript exceptions",
+      "passed": true
+    },
+    {
+      "name": "mobile preflight fits screen",
+      "passed": true
+    },
+    {
+      "name": "mobile driving HUD fits screen",
+      "passed": true
+    },
+    {
+      "name": "mobile exit button restores page",
+      "passed": true
+    },
+    {
+      "name": "no mobile JavaScript exceptions",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "desktop_errors": [],
+  "mobile_errors": [],
+  "count": 36,
+  "passed": 36,
+  "status": "PASS"
+}

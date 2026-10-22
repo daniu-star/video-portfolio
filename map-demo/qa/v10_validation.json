@@ -1,0 +1,13 @@
+{
+  "version": "V10",
+  "mode": "静态/逻辑虚拟DOM测试，未进行真实浏览器端到端验收",
+  "checked": 82,
+  "passed": 82,
+  "failed": [],
+  "logic_test_stdout": "PASS 36 logic assertions",
+  "verified_named_road_segments": 3,
+  "complete_verified_routes": 0,
+  "licensed_photo_manifest_entries": 8,
+  "actual_local_real_photo_files": 0,
+  "osm_road_geometry_available": false
+}

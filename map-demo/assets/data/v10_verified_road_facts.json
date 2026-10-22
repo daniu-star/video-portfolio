@@ -1,0 +1,33 @@
+{
+  "version": "V10",
+  "purpose": "仅验证道路名称与端点方向，不是可通行的完整路线几何",
+  "verified_segments": [
+    {
+      "id": "G552",
+      "name": "G552 国道",
+      "origin": "中国天眼景区",
+      "destination": "余安高速天眼收费站方向",
+      "distance_km_official": 4.5,
+      "fact_source": "https://www.gzpt.gov.cn/IGI/upload/file/2025/06/11/U020250611624916265022.pdf",
+      "geometry_status": "unverified"
+    },
+    {
+      "id": "S315",
+      "name": "S315 省道",
+      "origin": "中国天眼景区",
+      "destination": "边阳收费站方向",
+      "distance_km_official": 27.6,
+      "fact_source": "https://www.gzpt.gov.cn/IGI/upload/file/2025/06/11/U020250611624916265022.pdf",
+      "geometry_status": "unverified"
+    },
+    {
+      "id": "LA",
+      "name": "六枝至安龙高速公路",
+      "landmark": "花江峡谷大桥",
+      "fact_source": "https://wap.sasac.gov.cn/n2588025/n2588124/c34629198/content.html",
+      "geometry_status": "unverified"
+    }
+  ],
+  "cross_region_topology": "not_verified",
+  "navigation_available": false
+}

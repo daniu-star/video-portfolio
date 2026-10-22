@@ -1,0 +1,23 @@
+{
+  "status": "PROJECT VALID V6",
+  "counts": {
+    "sources": 29,
+    "sites": 3,
+    "metrics": 28,
+    "nodes": 58,
+    "node_legends": 58,
+    "districts": 7,
+    "building_instances": 496,
+    "roads": 23,
+    "road_points": 154,
+    "transport_assets": 304,
+    "structures": 8,
+    "terrain_samples": 10090,
+    "relations": 15,
+    "story_chapters": 8,
+    "timeline_states": 13,
+    "themes": 3
+  },
+  "integrity": "ok",
+  "browser_bundle_mb": 1.88
+}

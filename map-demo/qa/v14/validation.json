@@ -1,0 +1,120 @@
+{
+  "version": "V14",
+  "method": "static source tests and synthetic in-memory import geometry; NOT live GIS acquisition/browser UI test",
+  "checks": 28,
+  "passed": 28,
+  "results": [
+    {
+      "test": "JS syntax: assets/js/scene/engine.js",
+      "pass": true
+    },
+    {
+      "test": "JS syntax: assets/js/ux/pixel-truck.js",
+      "pass": true
+    },
+    {
+      "test": "JS syntax: assets/js/ux/regional-expedition.js",
+      "pass": true
+    },
+    {
+      "test": "HTML chapter: g552",
+      "pass": true
+    },
+    {
+      "test": "JS route: g552",
+      "pass": true
+    },
+    {
+      "test": "HTML chapter: s315",
+      "pass": true
+    },
+    {
+      "test": "JS route: s315",
+      "pass": true
+    },
+    {
+      "test": "HTML chapter: liuan",
+      "pass": true
+    },
+    {
+      "test": "JS route: liuan",
+      "pass": true
+    },
+    {
+      "test": "no fake cross-region node",
+      "pass": true
+    },
+    {
+      "test": "fake connection removed",
+      "pass": true
+    },
+    {
+      "test": "OpenStreetMap genuine road rendering conditional",
+      "pass": true
+    },
+    {
+      "test": "OSM road tags rendered",
+      "pass": true
+    },
+    {
+      "test": "three distinct road categories",
+      "pass": true
+    },
+    {
+      "test": "source truth update",
+      "pass": true
+    },
+    {
+      "test": "no fake highways when empty",
+      "pass": true
+    },
+    {
+      "test": "region legend exists",
+      "pass": true
+    },
+    {
+      "test": "terrain declared illustrative",
+      "pass": true
+    },
+    {
+      "test": "styles connected",
+      "pass": true
+    },
+    {
+      "test": "pixel marker click handler",
+      "pass": true
+    },
+    {
+      "test": "no dead SDK dependency for road rendering",
+      "pass": true
+    },
+    {
+      "test": "pixel road is standalone stage",
+      "pass": true
+    },
+    {
+      "test": "road import entrypoints",
+      "pass": true
+    },
+    {
+      "test": "GeoJSON road parser accepts real coordinate shape",
+      "pass": true
+    },
+    {
+      "test": "vehicle road importer excludes footpaths",
+      "pass": true
+    },
+    {
+      "test": "empty real-road placeholder remains honest",
+      "pass": true
+    },
+    {
+      "test": "source metadata cites ODbL",
+      "pass": true
+    },
+    {
+      "test": "pixel map has no made-up cross-region route",
+      "pass": true
+    }
+  ]
+}

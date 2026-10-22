@@ -1,0 +1,161 @@
+{
+  "phase": "V7-P4",
+  "method": "Chromium inline bundled JS/CSS under about:blank because local host navigation blocked by execution environment; no SDK auth",
+  "checks": [
+    {
+      "name": "HTML and code loaded",
+      "passed": true
+    },
+    {
+      "name": "FAST module initialized",
+      "passed": true
+    },
+    {
+      "name": "FAST quick start visible",
+      "passed": true
+    },
+    {
+      "name": "FAST beacon rendered",
+      "passed": true
+    },
+    {
+      "name": "bridge drive hidden in FAST mode",
+      "passed": true
+    },
+    {
+      "name": "intro appears",
+      "passed": true
+    },
+    {
+      "name": "source attribution visible",
+      "passed": true
+    },
+    {
+      "name": "real fact simulated data disclaimer",
+      "passed": true
+    },
+    {
+      "name": "chapter 1 ready",
+      "passed": true
+    },
+    {
+      "name": "3 emitters active",
+      "passed": true
+    },
+    {
+      "name": "missing source feedback",
+      "passed": true
+    },
+    {
+      "name": "all toggled off",
+      "passed": true
+    },
+    {
+      "name": "chapter 2 ready",
+      "passed": true
+    },
+    {
+      "name": "first rule core 3km",
+      "passed": true
+    },
+    {
+      "name": "wrong choice explained",
+      "passed": true
+    },
+    {
+      "name": "zone case 1 explanation",
+      "passed": true
+    },
+    {
+      "name": "zone case 2 explanation",
+      "passed": true
+    },
+    {
+      "name": "zone case 3 explanation",
+      "passed": true
+    },
+    {
+      "name": "chapter 3 entered",
+      "passed": true
+    },
+    {
+      "name": "three synthetic candidates visible",
+      "passed": true
+    },
+    {
+      "name": "bad candidate feedback",
+      "passed": true
+    },
+    {
+      "name": "result completed",
+      "passed": true
+    },
+    {
+      "name": "completion is kept in game state",
+      "passed": true
+    },
+    {
+      "name": "replay resets progress",
+      "passed": true
+    },
+    {
+      "name": "replay intro displayed",
+      "passed": true
+    },
+    {
+      "name": "escape restores map",
+      "passed": true
+    },
+    {
+      "name": "FAST entry hidden bridge visible",
+      "passed": true
+    },
+    {
+      "name": "existing bridge game intact",
+      "passed": true
+    },
+    {
+      "name": "map anchored FAST beacon launches game",
+      "passed": true
+    },
+    {
+      "name": "close button works",
+      "passed": true
+    },
+    {
+      "name": "legacy building detail still opens",
+      "passed": true
+    },
+    {
+      "name": "legacy building detail still closes",
+      "passed": true
+    },
+    {
+      "name": "desktop no JS errors",
+      "passed": true
+    },
+    {
+      "name": "mobile fast primary visible",
+      "passed": true
+    },
+    {
+      "name": "mobile game overlay within viewport",
+      "passed": true
+    },
+    {
+      "name": "mobile chapter buttons reachable",
+      "passed": true
+    },
+    {
+      "name": "mobile no body horizontal scroll",
+      "passed": true
+    },
+    {
+      "name": "mobile no JS errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "passed": 38,
+  "total": 38
+}

@@ -1,0 +1,74 @@
+{
+  "method": "headless Chromium using inlined project assets (local navigation administratively blocked)",
+  "results": [
+    {
+      "name": "startup scenes loaded",
+      "passed": true
+    },
+    {
+      "name": "prologue enter",
+      "passed": true
+    },
+    {
+      "name": "explore entry selects defined building",
+      "passed": true
+    },
+    {
+      "name": "fallback is honest",
+      "passed": true
+    },
+    {
+      "name": "panel opens",
+      "passed": true
+    },
+    {
+      "name": "back clears selected feature",
+      "passed": true
+    },
+    {
+      "name": "canvas pointer selects building",
+      "passed": true
+    },
+    {
+      "name": "Escape closes panel",
+      "passed": true
+    },
+    {
+      "name": "canvas pointer selects road",
+      "passed": true
+    },
+    {
+      "name": "road details open",
+      "passed": true
+    },
+    {
+      "name": "original node dossier works",
+      "passed": true
+    },
+    {
+      "name": "site switch works",
+      "passed": true
+    },
+    {
+      "name": "no JS page errors",
+      "passed": true
+    },
+    {
+      "name": "mobile feature panel opens",
+      "passed": true
+    },
+    {
+      "name": "mobile panel fits viewport",
+      "passed": true
+    },
+    {
+      "name": "mobile close works",
+      "passed": true
+    },
+    {
+      "name": "no mobile JS errors",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

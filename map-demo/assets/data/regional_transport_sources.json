@@ -1,0 +1,26 @@
+{
+  "note": "用于区域信息和教学连线，不含高德、Google 提取的线路几何；线形不是道路拓扑。",
+  "verified_infrastructure": [
+    {
+      "name": "六安高速 S57 / 花江峡谷大桥",
+      "bridge_lat": 25.7047,
+      "bridge_lon": 105.5881,
+      "source": "https://english.www.gov.cn/news/202412/27/content_WS676e4de6c6d0868f4e8ee502.html",
+      "geometry_status": "reference-point-only"
+    },
+    {
+      "name": "中国天眼 FAST",
+      "lat": 25.6528077,
+      "lon": 106.8566259,
+      "source": "https://commons.wikimedia.org/wiki/Category:Five_hundred_meter_Aperture_Spherical_Telescope",
+      "geometry_status": "point-of-interest"
+    }
+  ],
+  "screen_corridors": "概念性空间联系（不可导航，不可计算里程/车程）",
+  "road_dataset_next_step": "OpenStreetMap ODbL GeoJSON/Overpass before use; attribution required",
+  "map_rendering_policy": "No anonymous connection/line when offline roads have not been imported; three named chapters are independent",
+  "osm_download": "https://download.geofabrik.de/asia/china/guizhou.html",
+  "osm_license": "https://www.openstreetmap.org/copyright",
+  "importer": "tools/导入贵州开放路网.py --input <local Geofabrik GeoPackage or GeoJSON> | --overpass",
+  "import_status": "not downloaded into this package"
+}

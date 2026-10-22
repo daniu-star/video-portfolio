@@ -1,0 +1,93 @@
+{
+  "name": "Guizhou Spatial Cinema",
+  "version": "10.0-pixel-freight-route-evidence",
+  "delivery": "Enterprise-style Offline-first Demo/MVP",
+  "runtime": "offline-first concept viewer + optional credentialed AMap/Google online maps",
+  "database": "SQLite -> database.bundle.js",
+  "entrypoint": "index.html",
+  "scenes": [
+    "overview",
+    "fast",
+    "huajiang"
+  ],
+  "modes": [
+    "structure",
+    "infrastructure",
+    "flow",
+    "radiation",
+    "timeline"
+  ],
+  "themes": [
+    "nebula",
+    "solar",
+    "aurora"
+  ],
+  "features": [
+    "AAA Chinese-epic prologue",
+    "terrain-constrained settlement generation",
+    "road-aligned building placement",
+    "496 local 3D building instances",
+    "3D terrain",
+    "extruded roads",
+    "304 transport assets",
+    "unique node dossiers",
+    "temporal shock engine",
+    "story mode",
+    "projected building surface click hit testing",
+    "road polyline contextual selection",
+    "feature evidence panel with truthful no-image fallback",
+    "584 stable spatial object IDs",
+    "approval-gated media manifest pipeline",
+    "route-locked conceptual Huajiang bridge journey with preflight and simulation disclosure",
+    "first-person cockpit, passenger, follow and cinematic perspectives",
+    "seven progress-triggered driving chapters",
+    "driving timeline safety and return snapshot",
+    "keyboard and mobile control HUD with 20-cycle regression",
+    "provider-isolated AMap JS 2.1Beta WebGL terrain SDK adapter",
+    "Google Maps JS 3D Map3DElement SDK adapter",
+    "map provider credential dialog, loading diagnostics and fallback",
+    "public-licensed location-level FAST and Huajiang photography comparison",
+    "bridge-site pulsing launch beacon and operator quick help",
+    "FAST science-game primary launch beacon and scenario quick action",
+    "FAST simulated signal-noise cleaning puzzle",
+    "FAST quiet-zone educational rule decisions (5/10/30 km)",
+    "FAST synthetic waveform candidate exercise, completion and replay",
+    "FAST keyboard/mobile interaction and citation links",
+    "Geo 3D HUD FAST science-game link",
+    "first-visitor mission-based guide with live navigation actions",
+    "consolidated visible FAST/bridge/photo CTA row",
+    "responsive mobile tools menu and database select",
+    "mobile inspector collapse and expand",
+    "photo loading and failure state with source link",
+    "mobile left/right driver look controls",
+    "mobile FAST quiet-zone reference diagram",
+    "Chromium clickable journey QA with 102 checks and screenshots",
+    "source-graded G552 S315 LiuAn highway factual road panel",
+    "offline pixel freight simulated game with outbound and inbound paths",
+    "road event handling and photo stop gallery with strict non-photo fallback",
+    "research-team owned photo importer with provenance reminders"
+  ],
+  "credits": {
+    "author": "陈俊良",
+    "data_provider": "中央民族大学新闻与传播学院赴贵州省“大国工程”调研团联合贵州民族大学“聚力黔山 共结籽情”实践团"
+  },
+  "truth_policy": {
+    "VERIFIED": "publicly sourced factual data",
+    "SIMULATED": "reference/road/terrain-constrained MVP geometry; not survey-grade",
+    "MEDIA": "No public image without rights and privacy approval, feature binding scope is explicit",
+    "DRIVING": "Conceptual, explicitly SIMULATED; no real traffic, GNSS route, speed or guaranteed lawful access",
+    "ONLINE_MAPS": "API credentialed online SDK, coverage/billing/network required; not bundled or verified in headless QA",
+    "FAST_GAME": "Public law zone radii cited; emitters, waveforms, distance cases and interference levels are educational simulations, not live measurements",
+    "V10_TRAVEL": "verified road names and connection directions only; no end-to-end navigable road topology; game stage positions simulated"
+  },
+  "qa": {
+    "chromium_inline_rendered_user_journey_passed": 102,
+    "chromium_inline_rendered_user_journey_failed": 0,
+    "static_validation_passed": 49,
+    "http_file_navigation_verified": false,
+    "real_amap_google_3d_verified": false,
+    "v10_static_checks": 82,
+    "v10_logic_assertions": 36,
+    "v10_browser_e2e_checked": false
+  }
+}

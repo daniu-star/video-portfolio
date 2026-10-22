@@ -1,0 +1,15 @@
+{
+  "version": "V9",
+  "mode": "源码/依赖/资源清点；不等于真实浏览器操作测试",
+  "static_checks": 35,
+  "passed": 35,
+  "failed": [],
+  "local_real_photo_files": 0,
+  "identified_licensable_photo_sources": 6,
+  "actual_osm_roads_imported": false,
+  "offline_runtime_images_only": true,
+  "expected_unavailable": [
+    "外部下载当前环境未成功，照片与真实 OSM GeoJSON 仍需在可联网终端导入",
+    "无法通过受浏览器安全策略限制的 file:// 页面进行用户浏览器实测"
+  ]
+}

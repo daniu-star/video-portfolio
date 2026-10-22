@@ -1,0 +1,83 @@
+{
+  "version": "10.0-pixel-freight-route-evidence",
+  "generated_at": "2026-10-22",
+  "offline_first": true,
+  "entrypoint": "index.html",
+  "database": "database/spatial_demo.db",
+  "browser_data": "assets/data/database.bundle.js",
+  "integrity": "ok",
+  "counts": {
+    "sources": 29,
+    "sites": 3,
+    "metrics": 28,
+    "nodes": 58,
+    "node_legends": 58,
+    "districts": 7,
+    "building_instances": 496,
+    "roads": 23,
+    "road_points": 154,
+    "transport_assets": 304,
+    "structures": 8,
+    "terrain_samples": 10090,
+    "relations": 15,
+    "story_chapters": 8,
+    "timeline_states": 13,
+    "themes": 3,
+    "spatial_features": 584,
+    "media_assets": 0,
+    "media_bindings": 0
+  },
+  "browser_bundle_mb": 2.08,
+  "driving_demo": {
+    "id": "huajiang_bridge_demo",
+    "path_source": "simulated scenario control points",
+    "stages": 7,
+    "camera_modes": 4,
+    "static_route_verified": false,
+    "allowed_realworld_navigation": false
+  },
+  "online_providers": {
+    "amap": "JS API 2.1Beta terrain mode; live auth not tested",
+    "google": "Maps Javascript API maps3d; live auth not tested"
+  },
+  "photography_context_references": 2,
+  "photography_downloaded_to_project": 0,
+  "fast_science_game": {
+    "stages": 3,
+    "zone_cases": 3,
+    "real_rf_data": false,
+    "real_terrain_dependency": false,
+    "source_law": "Guizhou Provincial Order No.188 (2019)",
+    "browser_checks": 38
+  },
+  "ux_audit": {
+    "chromium_inline_real_browser_checks": 102,
+    "passed": 102,
+    "failed": 0,
+    "browser_real_http_navigation_tested": false,
+    "chromium_screenshots": 34,
+    "static_checks_passed": 49,
+    "browser_viewports": [
+      "1440x900",
+      "390x844"
+    ],
+    "photos_downloaded": 0,
+    "real_terrain_tiles_loaded": false,
+    "remaining_gaps": [
+      "actual file/http navigation QA",
+      "photo media assets and location bindings",
+      "online map SDK credentials and terrain validation",
+      "survey-grade bridge and road model"
+    ]
+  },
+  "v10": {
+    "licensed_photo_citations": 8,
+    "photos_present": 0,
+    "verified_road_name_records": 3,
+    "complete_routes_verified": 0,
+    "game_routes": "two verified access directions, simulated unverified cross-region segment",
+    "logic_checks": 36,
+    "static_checks": 82,
+    "browser_e2e": false
+  }
+}

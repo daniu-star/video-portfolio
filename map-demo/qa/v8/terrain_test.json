@@ -1,0 +1,22 @@
+[
+  {
+    "mode": "success",
+    "passed": true,
+    "data": {
+      "real": true,
+      "button": true,
+      "status": "已载入公开高程 · 桥梁建筑仍为概念模型",
+      "terrainFast": "OPEN_ELEVATION_OFFSET"
+    }
+  },
+  {
+    "mode": "failure",
+    "passed": true,
+    "data": {
+      "real": false,
+      "button": false,
+      "status": "地形仍为模拟：公共高程服务器未能返回瓦片\n重试获取高程",
+      "terrainFast": "SIMULATED"
+    }
+  }
+]

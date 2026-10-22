@@ -1,0 +1,159 @@
+{
+  "checks": [
+    {
+      "check": "JavaScript语法: pixel-truck.js",
+      "pass_": true
+    },
+    {
+      "check": "JavaScript语法: geo-provider.js",
+      "pass_": true
+    },
+    {
+      "check": "JavaScript语法: feature-panel.js",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelTruckGame",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelGameTitle",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelWorld",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelMapMarkers",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelMapViewport",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelMapContent",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelPhotoDialog",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelLocalPreview",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelGo",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelReverse",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelReset",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelZoomIn",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelZoomOut",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelPhotoClose",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: pixelMediaStatus",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: photoLoadState",
+      "pass_": true
+    },
+    {
+      "check": "交互 DOM 唯一: photoActual",
+      "pass_": true
+    },
+    {
+      "check": "像素游戏关键机制: g552",
+      "pass_": true
+    },
+    {
+      "check": "像素游戏关键机制: s315",
+      "pass_": true
+    },
+    {
+      "check": "像素游戏关键机制: UNKNOWN",
+      "pass_": true
+    },
+    {
+      "check": "像素游戏关键机制: openPhoto",
+      "pass_": true
+    },
+    {
+      "check": "像素游戏关键机制: pause",
+      "pass_": true
+    },
+    {
+      "check": "像素游戏关键机制: zoomBy",
+      "pass_": true
+    },
+    {
+      "check": "像素游戏关键机制: previewFiles",
+      "pass_": true
+    },
+    {
+      "check": "像素游戏关键机制: auditPhotos",
+      "pass_": true
+    },
+    {
+      "check": "居中定位CSS",
+      "pass_": true
+    },
+    {
+      "check": "响应式页面CSS",
+      "pass_": true
+    },
+    {
+      "check": "地标全量点击事件",
+      "pass_": true
+    },
+    {
+      "check": "照片不再反复读取缺失文件",
+      "pass_": true
+    },
+    {
+      "check": "地理错误路段明示",
+      "pass_": true
+    },
+    {
+      "check": "不使用远程照片直链",
+      "pass_": true
+    },
+    {
+      "check": "地图库被正确引入",
+      "pass_": true
+    },
+    {
+      "check": "V11新样式链接存在",
+      "pass_": true
+    },
+    {
+      "check": "已存在影像无损坏",
+      "pass_": true
+    }
+  ],
+  "pass": 37,
+  "total": 37,
+  "actual_local_photos": 0,
+  "assets": [],
+  "errors": [],
+  "browser_e2e_executed": false,
+  "note": "此环境浏览器本地HTTP导航受到策略阻止；不将源码检查伪称浏览器渲染测试。"
+}

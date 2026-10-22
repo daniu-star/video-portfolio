@@ -1,0 +1,351 @@
+{
+  "total": 86,
+  "passed": 86,
+  "failed": 0,
+  "details": [
+    {
+      "name": "存在页面资源：assets/css/tokens.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/layout.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/components.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/cinematic.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/prologue.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/interactive-v7.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/drive-v7.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/geo-v7.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/fast-game.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/v8-upgrade.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/v9-clarity.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/ux-repair.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/v10-pixel.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/v11-pixel.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/v12-guidance.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/v13-places.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/css/v14-transport.css",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/data/database.bundle.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/data/real_elevation.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/data/offline_roads.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/math.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/state.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/db.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/geo/offline-terrain.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/geo/live-open-elevation.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/scene/engine.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/ux/regional-expedition.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/ux/pixel-truck.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/drive/route.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/drive/controller.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/drive/drive-ui.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/ui/feature-panel.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/ui/ui.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/app.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/geo/geo-provider.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/fast/immersive-lab.js",
+      "pass": true
+    },
+    {
+      "name": "存在页面资源：assets/js/ux/visitor-journey.js",
+      "pass": true
+    },
+    {
+      "name": "已撤除空照片入口：photoModal",
+      "pass": true
+    },
+    {
+      "name": "已撤除空照片入口：photoOpen",
+      "pass": true
+    },
+    {
+      "name": "已撤除空照片入口：journeyPhotoBtn",
+      "pass": true
+    },
+    {
+      "name": "已撤除空照片入口：geoShowPhoto",
+      "pass": true
+    },
+    {
+      "name": "已撤除空照片入口：pixelPhotoDialog",
+      "pass": true
+    },
+    {
+      "name": "已撤除空照片入口：featurePhotoImport",
+      "pass": true
+    },
+    {
+      "name": "已撤除空照片入口：photoLocalFile",
+      "pass": true
+    },
+    {
+      "name": "已撤除空照片入口：pixelLocalPreview",
+      "pass": true
+    },
+    {
+      "name": "有效地点档案组件：pixelPlaceDialog",
+      "pass": true
+    },
+    {
+      "name": "有效地点档案组件：pixelPlaceClose",
+      "pass": true
+    },
+    {
+      "name": "有效地点档案组件：pixelPlaceTitle",
+      "pass": true
+    },
+    {
+      "name": "有效地点档案组件：pixelPlaceIntro",
+      "pass": true
+    },
+    {
+      "name": "有效地点档案组件：pixelPlaceEvidence",
+      "pass": true
+    },
+    {
+      "name": "有效地点档案组件：pixelPlaceRoad",
+      "pass": true
+    },
+    {
+      "name": "有效地点档案组件：pixelPlaceType",
+      "pass": true
+    },
+    {
+      "name": "有效地点档案组件：pixelPlaceLocate",
+      "pass": true
+    },
+    {
+      "name": "无需远程照片",
+      "pass": true
+    },
+    {
+      "name": "首次体验改为货车探索",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/app.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/state.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/math.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/db.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/drive/controller.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/drive/drive-ui.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/drive/route.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/ui/ui.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/ui/feature-panel.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/scene/engine.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/fast/immersive-lab.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/fast/quiet-game.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/geo/live-open-elevation.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/geo/offline-terrain.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/geo/geo-provider.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/ux/pixel-truck.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/ux/regional-expedition.js",
+      "pass": true
+    },
+    {
+      "name": "脚本语法：assets/js/ux/visitor-journey.js",
+      "pass": true
+    },
+    {
+      "name": "运行脚本没有废弃功能：PhotoVault",
+      "pass": true
+    },
+    {
+      "name": "运行脚本没有废弃功能：showPhoto(",
+      "pass": true
+    },
+    {
+      "name": "运行脚本没有废弃功能：'photoModal'",
+      "pass": true
+    },
+    {
+      "name": "运行脚本没有废弃功能：openPhoto(",
+      "pass": true
+    },
+    {
+      "name": "运行脚本没有废弃功能：auditPhotos(",
+      "pass": true
+    },
+    {
+      "name": "运行脚本没有废弃功能：local_photo_catalog.js",
+      "pass": true
+    },
+    {
+      "name": "运行脚本没有废弃功能：packaged_photos.js",
+      "pass": true
+    },
+    {
+      "name": "可导航地点名称配置：fast_core",
+      "pass": true
+    },
+    {
+      "name": "可导航地点名称配置：bridge_core",
+      "pass": true
+    },
+    {
+      "name": "可导航地点名称配置：yundu",
+      "pass": true
+    },
+    {
+      "name": "可导航地点名称配置：keli_village",
+      "pass": true
+    },
+    {
+      "name": "可导航地点名称配置：xiaohuajiang_village",
+      "pass": true
+    },
+    {
+      "name": "正式脚本无已删除照片 JS 引用",
+      "pass": true
+    }
+  ]
+}

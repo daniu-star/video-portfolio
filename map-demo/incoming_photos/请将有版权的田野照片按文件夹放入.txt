@@ -1,0 +1,1 @@
+只存放调研团队自有或已明确取得离线再分发授权的现场实拍。各目录为片区级归档，并不证明具体建筑的一一对应。\n安装依赖：python -m pip install Pillow\n执行：python tools/导入自有现场照片.py\n之后压缩整个 Map demo 文件夹。\n
