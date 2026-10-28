@@ -1,0 +1,14 @@
+{
+  "name": "flesh-audit-first-person",
+  "version": "16.0.0",
+  "private": true,
+  "description": "三幕第一人称互动思想实验：数据反身性闭环、场景工位交互与审计台",
+  "scripts": {
+    "start": "node server.cjs",
+    "test": "node --test test/*.test.cjs",
+    "check": "node --check js/game.js && node --check js/data.js && node --check js/engine.js && node --check js/audio.js && npm test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

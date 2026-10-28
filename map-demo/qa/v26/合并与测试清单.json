@@ -1,0 +1,27 @@
+{
+  "baseline": "V25",
+  "original_file_paths": 200,
+  "retained_paths": 200,
+  "missing_files": [],
+  "modified_existing_files": [
+    "Map demo/assets/js/app.js",
+    "Map demo/assets/js/scene/engine.js",
+    "Map demo/assets/js/scene/webgl-terrain-v25.js",
+    "Map demo/index.html"
+  ],
+  "new_files": [
+    "Map demo/docs/V26_河道游船与电影镜头验收.md",
+    "Map demo/config/v26_river_and_cinema.json",
+    "Map demo/qa/v26/boat_follow_final.png",
+    "Map demo/qa/v26/boat_first_final.png",
+    "Map demo/qa/v26/v26_bridge_before.png",
+    "Map demo/qa/v26/drive_cinema_final.png",
+    "Map demo/qa/v26/drive_cockpit_final.png",
+    "Map demo/qa/v26/mobile_boat_390.png",
+    "Map demo/assets/css/v26-river-cinema.css",
+    "Map demo/assets/js/drive/river-cruise-v26.js",
+    "Map demo/assets/js/geo/huajiang-river-v26.js"
+  ],
+  "total_files": 211,
+  "status": "offline Browser Chromium tests passed; WebGL2 GPU review pending"
+}

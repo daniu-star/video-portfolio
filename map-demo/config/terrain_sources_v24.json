@@ -1,0 +1,11 @@
+{
+  "version": "24.0",
+  "default_status": "simulated_terrain_until_real_dem_import",
+  "sites": {
+    "fast": {"name": "中国天眼", "center_wgs84": [106.8566259, 25.6528077], "grid_local_xy_m": 15200, "current_dem_status": "not_downloaded"},
+    "huajiang": {"name": "花江峡谷大桥", "center_wgs84": [105.588056, 25.704722], "grid_local_xy_m": 6800, "current_dem_status": "not_downloaded"}
+  },
+  "open_source": {"dataset": "Mapzen/Tilezen Terrain Tiles (Terrarium)", "url": "https://registry.opendata.aws/terrain-tiles/", "resolution": "varies_by_source_and_zoom; visual interpolation is not additional native precision", "attribution": "Mapzen and original elevation providers; refer to source terms"},
+  "other_candidate": {"dataset": "Copernicus DEM GLO-30 (DSM)", "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM"},
+  "rules": ["Original database terrain points are retained", "Download only after successful retrieval and record source tile hashes", "Never claim surveyed bridge geometry", "Vertical shift is only a scene compatibility operation", "Do not use illustrative geometry for navigation or structural engineering"]
+}

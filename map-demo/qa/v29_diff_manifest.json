@@ -1,0 +1,23 @@
+{
+  "baseline_files": 221,
+  "new_files": 227,
+  "all_original_paths_preserved": true,
+  "unchanged": 217,
+  "modified": [
+    "assets/js/app.js",
+    "assets/js/drive/river-cruise-v26.js",
+    "assets/js/scene/engine.js",
+    "index.html"
+  ],
+  "added": [
+    "assets/css/v29-portal-depth.css",
+    "assets/js/ux/v29-world-portals.js",
+    "config/v29_scene_interaction.json",
+    "docs/V29_模型入口与运动反馈改造说明.md",
+    "qa/v29_diff_manifest.json",
+    "qa/v29_runtime_checklist.md"
+  ],
+  "data_config_bytewise_unchanged": true,
+  "zip_test": "pending",
+  "note": "The manifest itself is counted as an added QA file. Baseline config and data bytes are unchanged."
+}

@@ -1,0 +1,22 @@
+{
+  "version": "V23",
+  "base": "贵州3D交互地图游戏_V22_原始数据保留合并完整工程.zip",
+  "original_files": 185,
+  "unchanged_original_files": 180,
+  "modified_original_files": [
+    "Map demo/assets/js/scene/engine.js",
+    "Map demo/assets/js/ux/game-hub-v16.js",
+    "Map demo/assets/js/ux/v17-entry.js",
+    "Map demo/assets/js/ux/v20-journeys.js",
+    "Map demo/index.html"
+  ],
+  "missing_original_files": [],
+  "preserved_critical_data_config_files": 39,
+  "critical_files_modified": [],
+  "new_files": [
+    "Map demo/assets/css/v23-pixel-journey.css",
+    "Map demo/assets/css/v23-terrain-bridge.css",
+    "Map demo/assets/js/fast/pixel-journey-v23.js",
+    "Map demo/docs/V23_地形_桥梁交互与天眼像素冒险.md"
+  ]
+}

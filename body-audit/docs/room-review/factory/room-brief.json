@@ -1,0 +1,73 @@
+{
+  "schema": "game-room.room-brief.v1",
+  "roomId": "flesh-audit-v6-factory",
+  "family": "gameplay-room",
+  "purpose": "动作数据采集与复用收益追踪",
+  "runtimeSurface": "WebGL browser + CPU perspective fallback",
+  "boundsMeters": [
+    30,
+    12.4,
+    20
+  ],
+  "hero": {
+    "id": "capture-workstation",
+    "role": "可交互主道具",
+    "reservedBoundsMeters": [
+      2.6,
+      3,
+      2.7
+    ]
+  },
+  "symmetry": {
+    "mode": "none",
+    "order": 1,
+    "appliesTo": [],
+    "exceptions": [
+      "功能性非对称"
+    ]
+  },
+  "circulation": {
+    "description": "开放式可行走区域，主通路目标净宽≥2.4m；最终须实测",
+    "minimumClearanceMeters": 2.4
+  },
+  "productionCamera": {
+    "viewport": [
+      1440,
+      900
+    ],
+    "location": [
+      0,
+      8.2,
+      18
+    ],
+    "target": [
+      0,
+      1.15,
+      -1.05
+    ],
+    "verticalFovDegrees": 43
+  },
+  "performanceBudget": {
+    "maxSceneTriangles": 25000,
+    "maxVLowBytes": 5000000,
+    "maxHighTextureBytes": 12000000
+  },
+  "creditBudget": {
+    "maximumCredits": 0,
+    "approvalRequired": true
+  },
+  "environment": {
+    "type": "procedural",
+    "identity": "factory",
+    "source": "js/world3d.js",
+    "assignmentKey": "factory"
+  },
+  "artifacts": {
+    "floorPlan": "待正式绘制",
+    "reflectedCeilingPlan": "待正式绘制",
+    "planMetadata": "plan-metadata.json",
+    "wallElevations": [],
+    "visualTarget": "软件透视截图仅为QA证据",
+    "openingContactSheet": "待审批"
+  }
+}

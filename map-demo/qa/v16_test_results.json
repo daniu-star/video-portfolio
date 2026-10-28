@@ -1,0 +1,30 @@
+{
+  "version": "V16",
+  "date": "2026-10-28",
+  "test_environment": "Chromium 144 headless with source-equivalent inline HTML/CSS/JS; 1440x900 and 390x844",
+  "passed": {
+    "six_role_era_stories": 6,
+    "fast_missions": 18,
+    "fast_result_records": 18,
+    "fast_era_switch": true,
+    "fast_map_peek_resume": true,
+    "game_hub_cards": 3,
+    "bridge_checkpoint_stop_resume": true,
+    "pixel_chapter_task_completion": true,
+    "mobile_horizontal_overflow": false,
+    "uncaught_page_errors": 0,
+    "database_integrity": "ok"
+  },
+  "not_tested": [
+    "browser direct HTTP navigation due environment policy",
+    "physical mobile hardware",
+    "online geospatial map SDK authentication",
+    "real imported terrain and photographic assets",
+    "multi-browser compatibility"
+  ],
+  "limitations": [
+    "Canvas is perspective educational geometry, not photogrammetry or CAD",
+    "dialogue scenarios synthetic, not attributable to field respondents",
+    "observed QA does not prove every human interaction or production scenario"
+  ]
+}

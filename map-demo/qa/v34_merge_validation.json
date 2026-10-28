@@ -1,0 +1,23 @@
+{
+  "version": "V34",
+  "base": "V33",
+  "base_files": 259,
+  "unchanged_files": 256,
+  "modified_files": [
+    "Map demo/assets/js/geo/bridge-road-cut-v30.js",
+    "Map demo/assets/js/math.js",
+    "Map demo/assets/js/scene/engine.js"
+  ],
+  "new_files": [
+    "qa/v34_terrain_color_regression.cjs",
+    "docs/V34_山体消失根因及修复说明.md",
+    "qa/v34/cinematic_1280.png",
+    "qa/v34/cockpit_1280_20.png",
+    "qa/v34/cockpit_1280_5.png",
+    "qa/v34/cockpit_390_5.png",
+    "qa/v34/map_1280.png"
+  ],
+  "visual_validation": "Chromium Canvas compatibility screenshots at 1280x800,390x844",
+  "webgl2": "not GPU-validated",
+  "data_files_untouched": true
+}

@@ -2,16 +2,18 @@
 const App={
  init(){
   this.engine=new NS.Engine(document.getElementById('worldCanvas'));
+  document.body.classList.add('cinema-focus','v26-cinematic-default');
   NS.UI.init();document.body.dataset.theme=S.theme;document.body.classList.add('is-prologue');
   this.storyTimer=null;
   document.getElementById('exploreStart').addEventListener('click',()=>this.startBuildingExplore());
+  document.getElementById('cinemaViewToggle')?.addEventListener('click',()=>this.toggleCinematic());
   const enter=document.getElementById('enterMapBtn');
   if(enter)enter.addEventListener('click',()=>this.enterMap());
   document.getElementById('worldCanvas').addEventListener('dblclick',()=>{if(S.entered&&!NS.Drive.active)this.engine.fly(this.siteCamera(S.site))});
   // V15: first render is the bridge, not the former empty regional overview.
   this.setSite('huajiang',false);
   NS.setState({entered:true,site:'huajiang',selected:'bridge_core',timeline:.99,mode:'infrastructure'});
-  this.engine.cam=JSON.parse(JSON.stringify(this.siteCamera('huajiang')));
+  this.engine.cam=JSON.parse(JSON.stringify(this.cinemaCamera('huajiang')));
   document.body.dataset.site='huajiang';
   document.body.classList.remove('is-prologue','is-entering');
   document.body.classList.add('is-map-entered','v15-direct-entry');
@@ -19,6 +21,18 @@ const App={
   NS.UI.renderRail();NS.UI.renderTimeline();NS.UI.renderMiniMap();NS.UI.renderInspector();NS.UI.renderHud();
   // Guidance is available on demand; never obscure the initial bridge with a dialog.
   
+ },
+ cinemaCamera(site){
+  if(site==='fast')return{yaw:-.44,pitch:.52,distance:1950,target:{x:0,y:45,z:0}};
+  if(site==='huajiang')return{yaw:.44,pitch:.44,distance:3200,target:{x:0,y:560,z:0}};
+  return this.siteCamera(site)
+ },
+ toggleCinematic(){
+  // Film-grade renderer remains on. The button restores the wide composed shot.
+  document.body.classList.add('cinema-focus');const on=true;
+  const btn=document.getElementById('cinemaViewToggle');if(btn){btn.setAttribute('aria-pressed',String(on));btn.textContent='◉ 重置电影镜头'}
+  if(on){NS.UI.hideNodeLegend?.();this.engine.fly(this.cinemaCamera(S.site),1.25)}
+  else this.engine.fly(this.siteCamera(S.site),1.2);
  },
  prologueCamera(){return{yaw:-.58,pitch:.78,distance:6500,target:{x:0,y:80,z:0}}},
  enterMap(){
@@ -31,9 +45,9 @@ const App={
   setTimeout(()=>{document.body.classList.remove('is-prologue','is-entering');document.body.classList.add('is-map-entered');NS.UI.renderRail();NS.UI.renderTimeline();NS.UI.renderMiniMap();NS.UI.renderInspector();NS.UI.renderHud();NS.UI.toast('已进入花江峡谷大桥 · 可点击桥梁、建筑或体验驾驶');NS.Journey?.firstVisit()},1120);
  },
  siteCamera(site){
-  if(site==='fast')return{yaw:-.63,pitch:.66,distance:13200,target:{x:2550,y:260,z:1850}};
-  if(site==='huajiang')return{yaw:.62,pitch:.57,distance:5000,target:{x:80,y:360,z:80}};
-  return{yaw:-.43,pitch:.84,distance:6200,target:{x:0,y:-40,z:0}}
+  if(site==='fast')return{yaw:-.63,pitch:.63,distance:4250,target:{x:0,y:65,z:0}};
+  if(site==='huajiang')return{yaw:.53,pitch:.57,distance:4500,target:{x:0,y:410,z:0}};
+  return{yaw:-.36,pitch:.58,distance:3750,target:{x:0,y:-40,z:0}}
  },
  setSite(site,fly=true){
   document.body.dataset.site=site;
@@ -41,7 +55,7 @@ const App={
   const selected=site==='fast'?'fast_core':site==='huajiang'?'bridge_core':null;
   NS.setState({site,selected,selectedFeature:null,hoveredFeature:null,mode:site==='overview'?'infrastructure':S.mode==='radiation'&&site!=='fast'?'infrastructure':S.mode,measure:null,selectionEpoch:S.selectionEpoch+1});
   const sel=document.getElementById('siteSelect');if(sel)sel.value=site;
-  if(fly&&S.entered)this.engine.fly(this.siteCamera(site),site==='fast'?2.0:1.65);
+  if(fly&&S.entered)this.engine.fly(document.body.classList.contains('cinema-focus')?this.cinemaCamera(site):this.siteCamera(site),site==='fast'?1.5:1.4);
   NS.UI.renderRail();NS.UI.renderTimeline();NS.UI.renderMiniMap();NS.UI.renderInspector();NS.UI.renderHud();
   if(selected)NS.UI.showNodeLegend(selected,true); else NS.UI.hideNodeLegend();
   if(S.entered)NS.UI.toast('场景切换 · '+(DB.sites[site]?.name||site));

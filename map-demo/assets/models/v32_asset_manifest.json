@@ -1,0 +1,25 @@
+{
+  "schema": "concept-assets-v32",
+  "assets": [
+    {
+      "asset": "v32_bridge_concept.glb",
+      "purpose": "bridge",
+      "source": "original procedural geometry based on V32DriveWorld",
+      "license": "self-authored original project asset",
+      "precision": "CONCEPTUAL_NOT_BIM_NOT_SURVEYED",
+      "runtime_uses_file": false,
+      "faces": 40654,
+      "sha256": "c4e1b0f11e77f8e6d64fd9410e476d4eac19101cddd64ac6c5f4258bdea0df6e"
+    },
+    {
+      "asset": "v32_car_concept.glb",
+      "purpose": "car",
+      "source": "original procedural geometry based on V32DriveWorld",
+      "license": "self-authored original project asset",
+      "precision": "CONCEPTUAL_NOT_BIM_NOT_SURVEYED",
+      "runtime_uses_file": false,
+      "faces": 356,
+      "sha256": "d387dbfbd55300e28378728242fe98f2dc4621652b937a29f541db1e74cd9e9d"
+    }
+  ]
+}

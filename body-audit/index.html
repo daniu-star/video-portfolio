@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101b24"><title>肉身审计局 v16 · 数据反身性交互升级 | The Flesh Audit</title>
+<link rel="stylesheet" href="css/game.css"><link rel="stylesheet" href="css/cinematic-v11.css"><link rel="stylesheet" href="css/world3d.css"><link rel="stylesheet" href="css/factory-v7.css"><link rel="stylesheet" href="css/director-v9.css"><link rel="stylesheet" href="css/receipt-v12.css"><link rel="stylesheet" href="css/language-v14.css"><link rel="stylesheet" href="css/factory-layout-v15.css"><link rel="stylesheet" href="css/reflexive-v16.css">
+</head>
+<body>
+<div class="app" id="app">
+  <div class="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <button class="brand" id="homeBtn" type="button" aria-label="返回游戏开始"><span class="brand-mark">F/A</span><span>肉身审计局 <small>THE FLESH AUDIT</small></span></button>
+    <div class="progress" id="progress" aria-label="游戏进度"><span class="progress-label" id="progressLabel">互动思想实验</span><span class="progress-track"><i></i><i></i><i></i></span></div>
+    <div class="toptools"><button id="helpBtn" class="iconbtn" type="button" title="操作说明">怎么玩</button><button id="soundBtn" class="iconbtn" type="button" aria-pressed="false">声音：关</button><button id="motionBtn" class="iconbtn" type="button" aria-pressed="false">减弱动效</button></div>
+  </header>
+  <main id="main" class="main">
+    <div class="director-atmosphere" aria-hidden="true"><i></i><i></i><i></i><span class="artery artery-one"></span><span class="artery artery-two"></span></div>
+    <div id="directorImpact" class="director-impact" aria-live="polite" aria-atomic="true"><span id="impactOrdinal">01 / 被分流</span><strong id="impactHeadline">系统如何处理你的信息？</strong><small id="impactSubline">看看这次操作产生了什么结果。</small></div>
+    <div id="evidenceRail" class="evidence-rail hidden" aria-label="三幕证据" aria-live="polite"><span class="thread-title">一条证据链</span><span id="evidenceOne">01 复核申请</span><span id="evidenceTwo">02 症状记录</span><span id="evidenceThree">03 收益分配</span></div>
+    <section class="world" id="world" aria-label="故事场景">
+      <div class="sky"></div><div class="moon"></div><div class="skyline skyline-back"></div><div class="skyline skyline-front"></div>
+      <div class="window-lights" aria-hidden="true"></div><div class="horizon"></div><div class="ground"></div><div class="road-line"></div>
+      <div class="scene-meta"><span id="sceneTime">18:42 · 北京</span><span id="sceneLocation">晚高峰</span></div>
+      <div class="scene-title" id="sceneTitle"><span>今晚来问诊</span><small>先把自己的身体情况说清楚。</small></div>
+      <div class="decor decor-left"></div><div class="decor decor-right"></div>
+      <div id="npcAvatar" class="avatar npc" aria-hidden="true"><div class="hair"></div><div class="head"></div><div class="torso"></div><div class="arm arm-l"></div><div class="arm arm-r"></div><div class="leg leg-l"></div><div class="leg leg-r"></div></div>
+      <div id="playerAvatar" class="avatar player" aria-label="当前玩家人物"><div class="hair"></div><div class="head"></div><div class="torso"></div><div class="arm arm-l"></div><div class="arm arm-r"></div><div class="leg leg-l"></div><div class="leg leg-r"></div><span class="avatar-name" id="avatarName">周远</span></div>
+      <div id="machine" class="machine" role="img" aria-label="AI自助问诊机"><div class="machine-light"></div><div class="machine-screen"><span>陈俊良</span><small>AI 问诊室</small><b>◌</b></div><div class="machine-stand"></div></div>
+      <button type="button" id="stageHotspot" class="hotspot hidden"><span class="hotspot-ring"></span><span class="hotspot-label">点击这里，去问诊</span></button>
+      <div class="world-caption" id="worldCaption">点击问诊机，描述你的身体情况。</div>
+    </section>
+
+    <section class="intro overlay" id="intro">
+      <div class="intro-inner">
+        <div class="eyebrow">AN INTERACTIVE FILM · 2026</div>
+        <h1>身体的事，<br><em>谁说了算？</em></h1>
+        <p>三个故事，一项共同任务。看看身体怎样被记录和评价，又怎样改变人下一次的行动。</p>
+        <p class="intro-question">每一幕都试着问自己：我为什么改变了做法？谁决定了这条规则？</p>
+        <button class="btn primary" id="startBtn">走进故事 <span>↗</span></button>
+        <div class="disclaimer">虚构故事 · 含抽象冲突画面 · 可开启减弱动效</div>
+      </div>
+    </section>
+
+    <section class="role-overlay overlay hidden" id="roleOverlay">
+      <div class="role-panel"><div class="eyebrow" id="roleEyebrow">CHAPTER 01 · 城市</div><h2 id="roleHeading">今晚，你是谁？</h2><p id="roleIntro">先选一个人，跟着他走进问诊室。</p><div id="roleOptions" class="role-options"></div><p class="role-foot"></p></div>
+    </section>
+
+    <section class="chat-screen hidden" id="chatScreen" aria-label="陈俊良问诊室">
+      <div class="chat-context"><div class="chat-avatar" id="chatAvatar">周</div><div><span id="chatPersonName">周远</span><small id="chatPersonContext">今天想弄清楚身体的不舒服</small></div></div>
+      <div class="chat-box">
+        <div class="chat-header"><div class="chat-brand"><span class="ai-orb">✦</span><div><strong>陈俊良问诊室</strong><small>AI剧情模拟 · 不能替代医生诊疗</small></div></div><button id="chatExit" class="plainlink" type="button">返回街道</button></div>
+        <div id="chatMessages" class="chat-messages" role="log" aria-label="对话记录" aria-live="polite"></div>
+        <div class="chat-interaction" id="chatInteraction"><div class="step-task" id="chatTask">想先问问什么？</div><div id="chatOptions" class="chat-options"></div><div class="write-line" id="writeLine"><input id="freeInput" type="text" maxlength="110" placeholder="也可以自己问一句（支持常见问法）" aria-label="输入想问的话"><button type="button" id="sendBtn">发送 ↗</button></div><div class="chat-hint" id="chatHint">不知道怎么说？点上面的句子就行。</div></div>
+      </div>
+    </section>
+
+    <section id="factoryScreen" class="factory-screen hidden" aria-label="动作数据采集工厂">
+      <div class="factory-story"><div class="factory-kicker" id="factoryRole">数据采集</div><h2 id="factoryHeading">今天还差几段动作。</h2><p id="factoryStory">做完这批，就能领今天的报酬。</p></div>
+      <div class="factory-centre"><div class="factory-worker" id="factoryWorker"><div class="worker-head"></div><div class="worker-body"></div><div class="worker-arm left"></div><div class="worker-arm right"></div><div class="worker-legs"></div><div class="ar-frame"></div></div><div class="signal-line"><span id="signalBubbles"></span></div><div class="factory-device"><span>动作样本</span><div class="device-bits" id="deviceBits">◦ ◦ ◦</div><strong id="deviceCount">0 / 10</strong></div></div>
+      <div id="factoryStatus" class="factory-status" aria-live="polite"></div>
+      <button type="button" id="factorySceneAction" class="factory-scene-action hidden" aria-label="点击三维场景中的工作设备"><span class="scene-pulse" aria-hidden="true"></span><span id="factorySceneActionLabel">点击设备，开始操作</span></button>
+      <div class="factory-dock" id="factoryDock" data-open="false" aria-label="第三幕任务操作台">
+        <div class="factory-dock-bar">
+          <div class="factory-dock-summary"><small id="factoryDockEyebrow">本轮任务</small><strong id="factoryDockBrief">查看合同并开始动作采集</strong></div>
+          <button class="factory-dock-toggle" id="factoryToggle" type="button" aria-controls="factoryControls" aria-expanded="false">展开操作 <span aria-hidden="true">▴</span></button>
+        </div>
+        <div class="factory-controls" id="factoryControls"></div>
+      </div>
+    </section>
+
+    <section class="panel-overlay hidden" id="sheetOverlay" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="sheet" id="sheet"><div class="sheet-top"><span id="sheetKicker">刚才发生了什么</span><button id="closeSheet" type="button" aria-label="关闭弹窗">✕</button></div><h2 id="sheetTitle"></h2><div id="sheetBody"></div><div class="sheet-actions" id="sheetActions"></div></div></section>
+    <section id="endingScreen" class="ending-screen hidden"></section>
+    
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="help-overlay hidden" id="helpOverlay"><div class="help-card"><button id="helpClose" aria-label="关闭帮助" class="help-x">✕</button><span class="eyebrow">HOW TO PLAY</span><h2>走进场景，完成这名人物今天要做的事。</h2><p>选一个人，点击画面中的问诊机。你只需要说出自己的情况、回答追问、检查机器记下的内容。你不需要知道算法是什么。</p><p>第一幕比较个人感受与设备数据，第二幕亲自核对漏记，第三幕点击工厂设备并审查授权。三幕人物各有其生活，场景内的指标、货币和制度均为教学模拟。</p><p>工厂里可直接点击发光工作点；也可以从右侧任务台完成同样的操作。每完成一次任务，记得看看新的记录怎样反过来影响你的下一次选择。</p><p class="small">游戏里的对话、分数、人物和金币均为虚构情境；出现胸痛、呼吸困难、晕厥等真实症状时，请及时就医或寻求紧急帮助。</p><button id="openArchive" class="btn secondary">看看这个故事参考了什么研究</button></div></div>
+  <div class="archive hidden" id="archive"><div class="archive-inner"><div class="archive-head"><div><small>READING ROOM</small><h2>文献档案</h2></div><button id="archiveClose">关闭 ✕</button></div><p>以下截图直接来自原始文献素材。它们用于解释游戏的理论问题，不是虚构角色评分或合同数字的实证来源。</p><div class="sources" id="sources"></div></div></div>
+</div>
+<script src="js/world3d.js"></script><script src="js/data.js"></script><script src="js/engine.js"></script><script src="js/audio.js"></script><script src="js/director-v9.js"></script><script src="js/game.js"></script>
+</body>
+</html>

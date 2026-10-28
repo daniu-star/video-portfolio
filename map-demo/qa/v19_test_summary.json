@@ -1,0 +1,13 @@
+{
+  "version": "V19-step3",
+  "test_environment": "Headless Chromium through inline local HTML",
+  "story_groups": 6,
+  "story_tasks": 18,
+  "flow_cases_passed": 18,
+  "failure_gate_checks": ["missing-role-action-blocks-decision", "role-action-unlocks-decision", "no-history-uses-marked-teaching-sample", "unreviewed-history-blocks-decision", "history-review-unlocks-decision"],
+  "desktop_width": 1440,
+  "mobile_width": 390,
+  "mobile_horizontal_overflow": false,
+  "uncaught_browser_script_errors": 0,
+  "limitations": ["automation is not a human usability study", "browser navigation to HTTP/file was blocked by sandbox policy; tests used inline HTML", "3D view is conceptual, not a surveyed or calibrated scientific model"]
+}

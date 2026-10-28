@@ -1,0 +1,36 @@
+{
+  "version": "V21",
+  "method": "Chromium headless, Playwright, locally inlined source scripts and styles",
+  "scope": "new physical lab core paths; previous game paths smoke-tested through entry to hub",
+  "viewports_passed": [
+    "1440x900",
+    "390x844",
+    "320x740 (lab rendering and overflow smoke test only)"
+  ],
+  "results": {
+    "fast_simulation_initial_score": 18,
+    "fast_simulation_calibrated_score": 100,
+    "bridge_baseline_and_reduced_response": {
+      "desktop": [
+        0.53,
+        0.33
+      ],
+      "mobile": [
+        0.82,
+        0.15
+      ]
+    },
+    "quality_toggle": "pass",
+    "learning_records_save": "pass",
+    "return_to_game_hub": "pass",
+    "horizontal_document_overflow": false,
+    "uncaught_javascript_errors": 0
+  },
+  "limits": [
+    "no GPU timing evidence",
+    "no hardware-device evidence",
+    "no audited source models",
+    "no authentic survey-grade terrain",
+    "other original games not fully replayed in this round"
+  ]
+}

@@ -1,6 +1,18 @@
 (function(NS){'use strict';const M={};
 M.clamp=(v,a,b)=>Math.max(a,Math.min(b,v));M.lerp=(a,b,t)=>a+(b-a)*t;M.ease=t=>1-Math.pow(1-t,3);M.smooth=t=>t*t*(3-2*t);
-M.hex=h=>{h=h.replace('#','');if(h.length===3)h=h.split('').map(x=>x+x).join('');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]};
+// V34: color compositing accepts both #RRGGBB and the rgb() strings it produces.
+// The previous hex-only parser turned every second terrain blend into rgb(NaN,...),
+// causing the terrain fillStyle to be rejected and the mountains to disappear.
+M.hex=h=>{
+ if(Array.isArray(h))return h.slice(0,3).map(v=>M.clamp(Number(v)||0,0,255));
+ const value=String(h||'#000000').trim();
+ const match=value.match(/^rgba?\(\s*([\d.]+)\s*[, ]+\s*([\d.]+)\s*[, ]+\s*([\d.]+)/i);
+ if(match)return match.slice(1,4).map(v=>M.clamp(Number(v),0,255));
+ let hex=value.replace(/^#/,'');
+ if(/^[0-9a-f]{3}$/i.test(hex))hex=hex.split('').map(x=>x+x).join('');
+ if(/^[0-9a-f]{6}([0-9a-f]{2})?$/i.test(hex))return[parseInt(hex.slice(0,2),16),parseInt(hex.slice(2,4),16),parseInt(hex.slice(4,6),16)];
+ return[0,0,0];
+};
 M.mix=(a,b,t)=>{const A=M.hex(a),B=M.hex(b);return`rgb(${A.map((v,i)=>Math.round(M.lerp(v,B[i],t))).join(',')})`};
 M.rgba=(hex,a)=>{const c=M.hex(hex);return`rgba(${c[0]},${c[1]},${c[2]},${a})`};
 M.norm=v=>{const l=Math.hypot(v.x,v.y,v.z)||1;return{x:v.x/l,y:v.y/l,z:v.z/l}};M.cross=(a,b)=>({x:a.y*b.z-a.z*b.y,y:a.z*b.x-a.x*b.z,z:a.x*b.y-a.y*b.x});M.dot=(a,b)=>a.x*b.x+a.y*b.y+a.z*b.z;

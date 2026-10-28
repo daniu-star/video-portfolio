@@ -1,0 +1,63 @@
+/* V17 · 01, a navigable first-use map and one visible primary action at a time */
+.v17-entry #journeyBar,.v17-entry #gameHubLaunch,.v17-entry #fastPulse,.v17-entry #bridgePulse{display:none!important}
+.v17-entry .brand small,.v17-entry .topbar .status{display:none!important}
+.v17-entry .top-actions #geoOpen,.v17-entry .top-actions #storyBtn,.v17-entry .top-actions #dbBtn,.v17-entry .top-actions .theme-menu{display:none!important}
+#v17Dock{position:fixed;z-index:68;top:91px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:5px;background:#071b2dec;border:1px solid #7696a36b;border-radius:16px;box-shadow:0 12px 36px #0008;backdrop-filter:blur(17px)}
+#v17Dock button{border:0;background:transparent;color:#d3e2e8;border-radius:11px;padding:11px 16px;white-space:nowrap;cursor:pointer;font-size:13px;font-weight:660;min-height:42px}
+#v17Dock button:hover,#v17Dock button:focus-visible{background:#1e4557}
+#v17Dock .v17-dock-primary{background:#e9c88e;color:#112331}
+#v17Dock .v17-dock-primary:hover{background:#f6dba9}
+.v17-intro{position:fixed;z-index:85;left:clamp(95px,9.2vw,174px);top:50%;transform:translateY(-43%);width:min(420px,calc(100vw - 36px));background:linear-gradient(153deg,#122d41f9,#081824fa);border:1px solid #668d9aa6;color:#f4f7f7;border-radius:22px;box-shadow:0 22px 70px #000a;backdrop-filter:blur(20px);pointer-events:auto;overflow:hidden}
+.v17-intro[hidden],.v17-archive[hidden]{display:none!important}
+.v17-tour-top{padding:15px 21px;border-bottom:1px solid #7796a32e;display:flex;justify-content:space-between;align-items:center;gap:12px;color:#a9c2cb;font-size:11px}
+.v17-tour-top b{color:#edce94}
+.v17-tour-top button{background:none;border:0;color:#b9cbd0;font-size:11px;cursor:pointer;padding:6px}
+.v17-tour-body{padding:26px 25px 21px}
+.v17-kicker{color:#e6c68d;font-size:11px;font-weight:700;letter-spacing:.07em}
+.v17-intro h2{font-size:clamp(23px,2.5vw,31px);margin:13px 0 9px;color:#fff;line-height:1.28;letter-spacing:0;font-weight:750}
+.v17-description{color:#d4e0e4;font-size:14px;line-height:1.8;margin:0 0 19px;max-width:340px}
+.v17-tour-actions{display:flex;flex-direction:column;gap:9px}
+.v17-action-main{border:0;border-radius:12px;background:#e8c487;color:#102434;padding:14px 17px;font-weight:760;font-size:14px;cursor:pointer;min-height:48px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.v17-action-main:hover:not(:disabled){background:#f5dba9}
+.v17-action-main:disabled{background:#556a71;color:#c5d3d6;cursor:default}
+.v17-action-light{border:1px solid #5c7d8c;background:#17374a;color:#e0eff4;border-radius:11px;padding:11px 15px;cursor:pointer;min-height:42px;font-size:13px}
+.v17-action-light:hover{background:#23516a}
+.v17-footnote{font-size:11px;color:#9eb8c2;line-height:1.6;margin:17px 0 0}
+.v17-observation{display:flex;align-items:center;gap:9px;background:#143448;border:1px solid #38617a;border-radius:12px;padding:11px 12px;font-size:13px;margin:18px 0;color:#d8e8ed}
+.v17-dot{display:grid;place-items:center;border-radius:50%;background:#315067;color:#fff;width:26px;height:26px;flex:none}
+.v17-dot.is-done{background:#3b806c;color:#fff}
+.v17-tour-progress{display:flex;gap:6px;padding:0 25px 19px}
+.v17-tour-progress i{height:3px;background:#385467;flex:1;border-radius:2px}
+.v17-tour-progress i.is-current{background:#e9cb92}
+.v17-year-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.v17-year-options button{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:14px;background:#122f40;border:1px solid #557585;border-radius:12px;color:#e2eff2;cursor:pointer;min-height:102px;text-align:left}
+.v17-year-options button.selected{border-color:#e1c68e;background:#234451}
+.v17-year-options strong{font-size:18px}.v17-year-options small{font-size:12px;color:#bacad0}.v17-year-options em{font-size:10px;color:#e5ca8e;font-style:normal}
+.v17-finding{padding:17px;background:#133647;border:1px solid #548378;border-radius:12px;display:flex;flex-direction:column;gap:8px;margin:15px 0 19px}
+.v17-finding b{font-size:21px;color:#f1d397}.v17-finding span{font-size:13px;line-height:1.7}
+.v17-touring .inspector,.v17-touring .node-legend,.v17-touring .mini-map,.v17-touring .left-rail,.v17-touring #timeline,.v17-touring .camera-hud{visibility:hidden!important;pointer-events:none!important}
+.v17-touring #v17Dock{opacity:.2;pointer-events:none}
+.v17-archive{position:fixed;z-index:90;inset:0;background:#061019b5;display:grid;place-items:center;padding:18px}
+.v17-archive-sheet{width:min(540px,100%);max-height:calc(100vh - 36px);overflow:auto;border:1px solid #607f8d;border-radius:22px;background:#0d2432;color:#f3f9fb;box-shadow:0 26px 75px #000b;padding:24px}
+.v17-archive-sheet header{display:flex;justify-content:space-between;gap:15px;align-items:center}.v17-archive-sheet header small{color:#e2c58a;font-size:11px}.v17-archive-sheet h2{font-size:28px;margin:5px 0 0}.v17-archive-sheet header button{background:none;color:#e6eff2;border:1px solid #6c8796;border-radius:9px;padding:10px;cursor:pointer}
+.v17-archive-highlight{background:#163748;border:1px solid #395a6b;border-radius:13px;margin:25px 0 16px;padding:18px}.v17-archive-highlight span{font-size:11px;color:#edca8d}.v17-archive-highlight p{font-size:15px;line-height:1.7;margin:9px 0 0}
+.v17-archive-counts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.v17-archive-counts div{border:1px solid #3b5b6a;border-radius:12px;padding:15px;text-align:center;display:grid;gap:5px}.v17-archive-counts b{font-size:27px;color:#eed19a}.v17-archive-counts span{font-size:11px;color:#c6d6db}.v17-archive-text{font-size:12px;color:#b6cad1;line-height:1.8;margin:19px 0}
+#gameHub{z-index:91!important}
+#gameHub .v17-game-sheet{width:min(760px,calc(100vw - 30px));max-height:min(88vh,850px);overflow:auto;background:#0d2431;color:#eaf1f4;border:1px solid #4d7280;border-radius:22px;padding:clamp(17px,3vw,31px);box-shadow:0 28px 90px #000b}
+.v17-game-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.v17-game-head span{color:#e8c88d;font-size:11px}.v17-game-head h2{font-size:clamp(22px,3vw,30px);margin:8px 0 20px;line-height:1.3}.v17-game-head button{background:transparent;border:1px solid #668697;color:#d6e6ee;border-radius:8px;padding:9px 12px;cursor:pointer}
+.v17-featured{padding:22px;background:linear-gradient(120deg,#173f50,#123044);border:1px solid #638d86;border-radius:17px}.v17-mini-label{font-size:11px;color:#eccf92}.v17-featured h3{font-size:25px;margin:7px 0}.v17-featured p{font-size:13px;color:#cce0e4;line-height:1.65;margin:0 0 16px}.v17-featured-btn{padding:13px 18px;background:#eacb8f;color:#102633;border:0;border-radius:10px;font-weight:760;cursor:pointer}.v17-link-btn{background:transparent;color:#e6edf0;border:0;margin-left:13px;padding:13px 3px;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.v17-other-games{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:12px}.v17-other-games button{padding:20px;border-radius:14px;text-align:left;background:#152e3b;border:1px solid #3d6477;cursor:pointer;color:#e7f2f4;display:flex;flex-direction:column;gap:8px}.v17-other-games button:hover{border-color:#e5c98f}.v17-other-games strong{font-size:17px}.v17-other-games small{font-size:12px;line-height:1.5;color:#bed0d7}.v17-other-games span{font-size:12px;color:#f5d599;margin-top:5px}
+.v17-open-archive{color:#d6e7ed;background:none;border:0;padding:14px 0;cursor:pointer}.v17-hub-footer{border-top:1px solid #3d5c69;padding-top:12px;color:#91b3be;font-size:11px;line-height:1.6}
+@media(max-width:700px){
+ #v17Dock{top:78px;left:10px;right:10px;transform:none;justify-content:space-between;padding:4px;z-index:65}
+ #v17Dock button{font-size:12px;flex:1;padding:9px 6px;min-height:42px}
+ .v17-intro{top:auto;bottom:12px;left:12px;right:12px;transform:none;width:auto;max-height:min(76dvh,650px);overflow:auto;border-radius:18px}
+ .v17-tour-body{padding:19px 19px 15px}.v17-tour-top{padding:12px 18px}.v17-intro h2{font-size:23px;margin:10px 0 6px}.v17-description{font-size:13px;margin-bottom:13px}.v17-footnote{font-size:10px;margin-top:12px}
+ .v17-tour-actions{gap:7px}.v17-action-main{min-height:44px;padding:11px 14px}.v17-action-light{min-height:39px;padding:9px 13px}.v17-year-options button{min-height:87px;padding:12px}
+ .v17-touring .topbar{opacity:.65;pointer-events:none}.v17-touring .center-reticle{display:none}
+ .v17-other-games{grid-template-columns:1fr}.v17-featured .v17-link-btn{display:block;margin:8px 0 0}
+ .v17-archive-sheet{padding:18px}
+}
+@media(prefers-reduced-motion:reduce){.v17-intro,.v17-archive{transition:none!important}}
+
+.v17-touring #v17Dock,.v17-touring .topbar{display:none!important}

@@ -1,0 +1,16 @@
+{
+  "schema": "game-room.opening-schedule.v1",
+  "roomId": "flesh-audit-v6-factory",
+  "primaryArrival": {
+    "openingId": "front-open-boundary",
+    "exception": "当前是程序化开放边界；未进行实体墙布尔开口，不能视为通过Form"
+  },
+  "openings": [
+    {
+      "id": "front-open-boundary",
+      "type": "door",
+      "widthMeters": 12,
+      "state": "unapproved prototype"
+    }
+  ]
+}

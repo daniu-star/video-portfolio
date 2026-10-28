@@ -1,0 +1,38 @@
+{
+  "schema": "game-room.room-final-report.v1",
+  "roomId": "flesh-audit-v6-factory",
+  "gates": {
+    "function": false,
+    "form": false,
+    "runtime": false
+  },
+  "formChecks": {},
+  "reviewRenders": {
+    "corners": [],
+    "ceiling": [],
+    "environment": {}
+  },
+  "runtimeChecks": {
+    "vlow": false,
+    "textureTiers": false,
+    "lightmap": false,
+    "lightingManifest": false,
+    "performance": false,
+    "browserCapture": "software fallback only",
+    "errors": []
+  },
+  "postmortem": {
+    "observations": [
+      "点击操作应具备可感知的空间响应"
+    ],
+    "corrections": [
+      "自动靠近问诊机按真实时间完成，避免低帧率等待"
+    ],
+    "remainingRisks": [
+      "真实GPU未测",
+      "没有刚体/IK/动捕",
+      "三维生产门禁未经人工批准"
+    ]
+  },
+  "proposedLessons": []
+}

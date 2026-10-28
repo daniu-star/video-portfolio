@@ -1,0 +1,36 @@
+/* V19 step three: task-first, role-specific narrative components. */
+.v19-brief{border-left:3px solid #8dded1;background:linear-gradient(100deg,#103346,#152638);padding:13px 16px;margin:10px 0 15px;border-radius:0 10px 10px 0;color:#e9f4f5}
+.v19-who{font-size:11px;color:#9ad8cf;letter-spacing:.025em;margin-bottom:7px}
+.v19-brief p{margin:0 0 8px;color:#d0dfe4;line-height:1.6;font-size:13px}
+.v19-brief strong{display:block;font-size:15px;color:#fff5d8;line-height:1.6}
+.v19-legacy-brief[hidden]{display:none!important}
+.v19-work{margin:13px 0 16px;border:1px solid #4e7580;border-radius:14px;padding:14px;background:#102c3a;color:#edf4f7}
+.v19-work-head{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.v19-work-head strong{line-height:1.6;font-size:14px}.v19-work-head span{color:#b5ded7;white-space:nowrap;font-size:12px}
+.v19-work>p{margin:7px 0 12px;font-size:12px;color:#b5cbd4;line-height:1.65}
+.v19-action-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.v19-action-grid button{background:#183949;color:#f0f7f8;border:1px solid #517384;border-radius:10px;min-height:60px;padding:11px;text-align:left;display:flex;flex-direction:column;gap:5px;transition:border-color .16s,background .16s}
+.v19-action-grid button span{color:#f3c781}.v19-action-grid button b{font-size:13px}.v19-action-grid button small{font-size:11px;color:#c0d2d7;line-height:1.45}
+.v19-action-grid button.selected{border-color:#91e9cc;background:#1c504e}.v19-action-grid button.selected span{color:#96f7d5}
+.v19-action-grid button:hover,.v19-action-grid button:focus-visible{border-color:#ffd79a;outline-offset:2px}
+.v19-action-output{margin-top:11px;color:#b3eddb;font-size:12px;line-height:1.6}
+.v19-action-intro{padding:10px 12px;border-radius:10px;background:#12313d;color:#d7ebec;border:1px solid #4e7982;margin:10px 0}
+.v19-action-intro strong{font-size:13px;color:#ffedc5}.v19-action-intro p{font-size:12px;line-height:1.6;margin:5px 0 0}
+.v19-archive{display:flex;gap:12px;justify-content:space-between;align-items:center;background:#283747;border:1px solid #9b926d77;padding:11px 12px;border-radius:10px;margin:12px 0}
+.v19-archive small{color:#f7d7a1}.v19-archive p{font-size:12px;line-height:1.6;color:#e0eaec;margin:4px 0 0}
+.v19-archive button{border-radius:8px;flex:none;min-width:96px;padding:10px;background:#e2bd82;color:#1a2933;border:none;font-weight:700;font-size:12px}
+.v19-archive button:disabled{background:#234e47;color:#a0e3d4;cursor:default}
+.v19-exchange{font-size:12px;color:#a6c9d0;padding:0 0 11px;line-height:1.55}
+.v19-product{border:1px solid #7dc5ae;border-radius:12px;padding:12px;margin:12px 0;background:#123c3f}
+.v19-product b{color:#f2e4b8;font-size:14px}.v19-product p{margin:6px 0 0;font-size:12px;line-height:1.5;color:#c6e8e5}
+.v19-result-lead{color:#c0dedb}
+.v18-layout .v19-work+ .v18-lab{margin-top:9px}
+@media(max-width:760px){.v19-archive{align-items:stretch;flex-direction:column}.v19-archive button{width:100%}.v19-work{padding:12px}.v19-action-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v19-action-grid button{min-width:0}.v19-brief{padding:11px}}
+@media(max-width:350px){.v19-action-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.v19-action-grid button{transition:none}}
+
+.v19-cross-role{border:1px solid #456b78;border-radius:8px;margin-bottom:10px;padding:8px 10px;background:#103040;font-size:12px;line-height:1.6;color:#cce5e8}.v19-cross-role summary{cursor:pointer;color:#e8d6a6}.v19-cross-role p{margin:7px 0}.v19-cross-role small{color:#9cb8c2}
+/* Keep the primary role action reachable before the user has scrolled past an
+   oversized concept model. Final visual consolidation remains step five. */
+@media(min-width:901px){#fastGameMain .v18-main .fa-scene{height:300px}}
+@media(max-width:900px) and (min-width:421px){#fastGameMain .v18-main .fa-scene{height:245px}}

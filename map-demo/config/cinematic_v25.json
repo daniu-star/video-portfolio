@@ -1,0 +1,28 @@
+{
+  "version": "25.0",
+  "label": "Interaction and cinematic landscape revision",
+  "renderer": {
+    "default": "Canvas2D with cinematic light and terrain-relief shading",
+    "optional": "WebGL2 depth-tested mesh in cinema-focus mode",
+    "fallback": "Canvas2D if WebGL2 unsupported or shader compile fails",
+    "source": "the existing bundled synthetic terrain samples, or imported DEM if available",
+    "survey_grade": false
+  },
+  "interaction": {
+    "dual_site_game": "pointer events restored inside pointer-events:none chrome",
+    "open_handler": "single owner, no duplicate regional listener",
+    "native_site_select": "dark readable option menu",
+    "casebook_qa": "3/3 cases completed in 390px headless test"
+  },
+  "limitations": [
+    "No surveyed DEM included; real_elevation.js remains null",
+    "Official engineering mesh/BIM not bundled",
+    "WebGL2 GPU rendering not verified in current runtime because the browser disallows a WebGL2 context",
+    "Cinematic effects are visual communication, not a structural or geodetic simulation"
+  ],
+  "compatibility": {
+    "preserve_original_database": true,
+    "preserve_original_config": true,
+    "preserve_original_terrain": true
+  }
+}

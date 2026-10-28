@@ -1,0 +1,216 @@
+
+> flesh-audit-first-person@16.0.0 check
+> node --check js/game.js && node --check js/data.js && node --check js/engine.js && node --check js/audio.js && npm test
+
+
+> flesh-audit-first-person@16.0.0 test
+> node --test test/*.test.cjs
+
+TAP version 13
+# Subtest: three independent three-dimensional room meshes are finite and non-empty
+ok 1 - three independent three-dimensional room meshes are finite and non-empty
+  ---
+  duration_ms: 40.855292
+  type: 'test'
+  ...
+# Subtest: city spawn is on a walkable surface
+ok 2 - city spawn is on a walkable surface
+  ---
+  duration_ms: 0.222505
+  type: 'test'
+  ...
+# Subtest: kiosk is solid and player cannot walk through it
+ok 3 - kiosk is solid and player cannot walk through it
+  ---
+  duration_ms: 0.091197
+  type: 'test'
+  ...
+# Subtest: public sidewalk approach is navigable
+ok 4 - public sidewalk approach is navigable
+  ---
+  duration_ms: 0.200542
+  type: 'test'
+  ...
+# Subtest: street furniture creates a blocking collision
+ok 5 - street furniture creates a blocking collision
+  ---
+  duration_ms: 0.104598
+  type: 'test'
+  ...
+# Subtest: out-of-bounds locations reject navigation
+ok 6 - out-of-bounds locations reject navigation
+  ---
+  duration_ms: 0.068383
+  type: 'test'
+  ...
+# Subtest: 第二幕过场不再使用「那句话回来了」等无指代隐喻
+ok 7 - 第二幕过场不再使用「那句话回来了」等无指代隐喻
+  ---
+  duration_ms: 1.719364
+  type: 'test'
+  ...
+# Subtest: 第二幕镜头会带入本次真实漏记内容，而非引用固定句子
+ok 8 - 第二幕镜头会带入本次真实漏记内容，而非引用固定句子
+  ---
+  duration_ms: 0.125789
+  type: 'test'
+  ...
+# Subtest: 第二幕回执明确列出本人原话、AI初稿、漏记项、修改结果
+ok 9 - 第二幕回执明确列出本人原话、AI初稿、漏记项、修改结果
+  ---
+  duration_ms: 0.217248
+  type: 'test'
+  ...
+# Subtest: 问诊AI不再冒用患者第一人称或虚构真实预约
+ok 10 - 问诊AI不再冒用患者第一人称或虚构真实预约
+  ---
+  duration_ms: 0.132901
+  type: 'test'
+  ...
+# Subtest: 职业不进入患者医学风险推断：更换记录只影响信息充分度
+ok 11 - 职业不进入患者医学风险推断：更换记录只影响信息充分度
+  ---
+  duration_ms: 1.421175
+  type: 'test'
+  ...
+# Subtest: 出现紧急征象时不被旧记录降级
+ok 12 - 出现紧急征象时不被旧记录降级
+  ---
+  duration_ms: 0.399042
+  type: 'test'
+  ...
+# Subtest: 核对只会把玩家真实说过的话写回记录，不会虚构预约
+ok 13 - 核对只会把玩家真实说过的话写回记录，不会虚构预约
+  ---
+  duration_ms: 0.273883
+  type: 'test'
+  ...
+# Subtest: 相同一份动作数据，工资、调用、分成可逐笔核对
+ok 14 - 相同一份动作数据，工资、调用、分成可逐笔核对
+  ---
+  duration_ms: 0.461396
+  type: 'test'
+  ...
+# Subtest: 买断不会假装自动分账
+ok 15 - 买断不会假装自动分账
+  ---
+  duration_ms: 1.55742
+  type: 'test'
+  ...
+# Subtest: 限次许可对第三次调用产生真实阻断
+ok 16 - 限次许可对第三次调用产生真实阻断
+  ---
+  duration_ms: 0.195205
+  type: 'test'
+  ...
+# Subtest: 10次采集触发岗位终止但不抹去已经确认的权益
+ok 17 - 10次采集触发岗位终止但不抹去已经确认的权益
+  ---
+  duration_ms: 0.300613
+  type: 'test'
+  ...
+# Subtest: 反事实只固定授权等条件，保留玩家本次真实评估
+ok 18 - 反事实只固定授权等条件，保留玩家本次真实评估
+  ---
+  duration_ms: 0.45781
+  type: 'test'
+  ...
+# Subtest: 警讯或未确认不允许以旧资料门槛作结论
+ok 19 - 警讯或未确认不允许以旧资料门槛作结论
+  ---
+  duration_ms: 0.34438
+  type: 'test'
+  ...
+# Subtest: 危险症状解析：否定、未知、肯定、转折句
+ok 20 - 危险症状解析：否定、未知、肯定、转折句
+  ---
+  duration_ms: 0.909222
+  type: 'test'
+  ...
+# Subtest: 伊森先进入工厂只加载有来源的两个历史样本，工人仍可继续工作
+ok 21 - 伊森先进入工厂只加载有来源的两个历史样本，工人仍可继续工作
+  ---
+  duration_ms: 0.34422
+  type: 'test'
+  ...
+# Subtest: 问诊回复应给出与角色权限一致的服务流程，而非声称已经预约
+ok 22 - 问诊回复应给出与角色权限一致的服务流程，而非声称已经预约
+  ---
+  duration_ms: 0.208104
+  type: 'test'
+  ...
+# Subtest: 第三幕包含独立可折叠任务台与可访问性属性
+ok 23 - 第三幕包含独立可折叠任务台与可访问性属性
+  ---
+  duration_ms: 1.116414
+  type: 'test'
+  ...
+# Subtest: 任务面板有真实开关状态而非仅删除内容
+ok 24 - 任务面板有真实开关状态而非仅删除内容
+  ---
+  duration_ms: 0.283778
+  type: 'test'
+  ...
+# Subtest: 第三幕按钮支持窄边栏、移动端紧凑态和独立滚动
+ok 25 - 第三幕按钮支持窄边栏、移动端紧凑态和独立滚动
+  ---
+  duration_ms: 0.155836
+  type: 'test'
+  ...
+# Subtest: 周远与林舟每个开场问题都有一对一回复，不再依赖统一索引
+ok 26 - 周远与林舟每个开场问题都有一对一回复，不再依赖统一索引
+  ---
+  duration_ms: 0.886027
+  type: 'test'
+  ...
+# Subtest: 乡村和城镇问诊每条原话均有具体可追溯的漏记片段
+ok 27 - 乡村和城镇问诊每条原话均有具体可追溯的漏记片段
+  ---
+  duration_ms: 0.233642
+  type: 'test'
+  ...
+# Subtest: 虚构样本不会因为切换平台而覆盖后续合同许可
+ok 28 - 虚构样本不会因为切换平台而覆盖后续合同许可
+  ---
+  duration_ms: 2.020719
+  type: 'test'
+  ...
+# Subtest: 设备自评结果与生活感受分离，数据反馈可触发不同行为结果
+ok 29 - 设备自评结果与生活感受分离，数据反馈可触发不同行为结果
+  ---
+  duration_ms: 0.764524
+  type: 'test'
+  ...
+# Subtest: 三种合同有不同预付报酬，分账不保证未来必然更优
+ok 30 - 三种合同有不同预付报酬，分账不保证未来必然更优
+  ---
+  duration_ms: 0.924134
+  type: 'test'
+  ...
+# Subtest: 反复调用后分账可能超过买断，限次许可阻止第三次调用
+ok 31 - 反复调用后分账可能超过买断，限次许可阻止第三次调用
+  ---
+  duration_ms: 0.269026
+  type: 'test'
+  ...
+# Subtest: 动作质量根据负荷与时间评估，过载可重录而非奖励高负荷
+ok 32 - 动作质量根据负荷与时间评估，过载可重录而非奖励高负荷
+  ---
+  duration_ms: 0.347735
+  type: 'test'
+  ...
+# Subtest: 第三幕场景热点及终章交互式证据判断实际接线
+ok 33 - 第三幕场景热点及终章交互式证据判断实际接线
+  ---
+  duration_ms: 0.23866
+  type: 'test'
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 33
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 171.382622

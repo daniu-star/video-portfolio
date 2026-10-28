@@ -33,7 +33,7 @@ const Journey={opened:false,lastFocus:null,
  choose(kind){this.close();
   if(kind==='fast'){NS.App.setSite('fast');NS.FastGame.open();return}
   if(kind==='drive'){NS.App.setSite('huajiang');NS.Drive.prepare(NS.DriveRoutes.bridge);return}
-  if(kind==='pixel'){NS.PixelTruck.open();return}
+  if(kind==='pixel'){NS.RelationGame.open();return}
   NS.UI.toast('自由探索：选择场景，再点击地图建筑与地点。顶部「玩法指南」可随时重开。');
  },
  toggleMore(){const open=$('mobileMoreMenu').hidden;$('mobileMoreMenu').hidden=!open;$('mobileMoreBtn').setAttribute('aria-expanded',String(open));},

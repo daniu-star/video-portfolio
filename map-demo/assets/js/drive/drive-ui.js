@@ -21,6 +21,14 @@ const UI={
   $('#driveLaneRight').addEventListener('click',()=>NS.Drive.changeLane(1));
   $('#driveScenicStop').addEventListener('click',()=>NS.Drive.scenicStop());
   $('#driveHorn').addEventListener('click',()=>NS.Drive.horn());
+  $('#v31Cruise').addEventListener('click',()=>NS.Drive.setManual(!NS.Drive.manual));
+  $('#v31Weather').addEventListener('click',()=>NS.Drive.setWeather(!NS.Drive.wet));
+  for(const [id,key] of [['v31Throttle','gas'],['v31Brake','brake'],['v31SteerLeft','left'],['v31SteerRight','right']]){
+   const el=$('#'+id);el.style.touchAction='none';
+   el.addEventListener('pointerdown',e=>{e.preventDefault();el.setPointerCapture(e.pointerId);NS.Drive.inputControl(key,true)});
+   for(const ev of ['pointerup','pointercancel','lostpointercapture'])el.addEventListener(ev,()=>NS.Drive.inputControl(key,false));
+  }
+
  },
  quickStart(){
   if(!NS.state.entered)return;
@@ -41,7 +49,7 @@ const UI={
   $('#driveHud').hidden=false;
   $('#driveFinish').hidden=true;
   $('#driveRouteTitle').textContent=route.title;
-  $('#driveLaneState').textContent='行驶在中间位置';$('#driveScenicStop').textContent='◉ 观景驻留';
+  $('#driveLaneState').textContent='模拟视角';$('#driveScenicStop').textContent='◉ 暂停画面';
   $('#driveEvidence').hidden=true;$('#driveInfo').setAttribute('aria-expanded','false');
  },
  showFinish(){
@@ -64,6 +72,21 @@ const UI={
    const on=b.dataset.driveView===mode;b.classList.toggle('is-current',on);b.setAttribute('aria-pressed',String(on));
   });
   document.body.dataset.driveView=mode;
+ },
+ physics(drive){
+  const d=drive.physics?.diagnostics();if(!d)return;
+  $('#v31Speed').textContent=String(Math.round(d.speedKmh));
+  $('#v31Grade').textContent=`坡度 ${d.gradePct>=0?'+':''}${d.gradePct.toFixed(1)}%`;
+  $('#v31LatG').textContent=`横向 ${d.lateralG.toFixed(2)} g`;
+  $('#v31Travel').textContent=`已行驶 ${Math.round(drive.route.length*drive.progress)} m`;
+  $('#v31Cruise').textContent=drive.manual?'手动驾驶':'自动巡航';
+  $('#v31Cruise').setAttribute('aria-pressed',String(!drive.manual));
+  $('#v31Weather').textContent=drive.wet?'湿滑路面':'干燥路面';
+  $('#v31Weather').setAttribute('aria-pressed',String(drive.wet));
+  $('#v31DriveHint').textContent=d.edge?'已接近道路边界，模拟系统限制侧向偏移':
+   drive.manual?'W/油门加速 · S/刹车减速 · A/D有限转向':'自动维持教学巡航速度，按 W 切换手动';
+  const cockpit=$('#driveHud');cockpit.style.setProperty('--v31-pitch',(d.pitch*15).toFixed(3)+'deg');
+  cockpit.style.setProperty('--v31-roll',(d.roll*20).toFixed(3)+'deg');
  },
  hide(){
   $('#drivePrepare').hidden=true;$('#driveHud').hidden=true;$('#driveFinish').hidden=true;

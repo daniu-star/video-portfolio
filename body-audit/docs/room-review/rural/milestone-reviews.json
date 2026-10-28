@@ -1,0 +1,30 @@
+{
+  "schema": "game-room.milestone-reviews.v1",
+  "roomId": "flesh-audit-v6-rural",
+  "function": {
+    "status": "pending",
+    "approvedBy": "",
+    "approvedAt": "",
+    "evidence": [
+      "软件投影QA截图"
+    ],
+    "strangestElement": "空间必须允许真正接近主交互点",
+    "notes": "待正式平面图及用户批准"
+  },
+  "form": {
+    "status": "pending",
+    "approvedBy": "",
+    "approvedAt": "",
+    "evidence": [],
+    "strangestElement": "缺少高精度人物模型、封闭实体墙与布尔开口",
+    "notes": "未建立Blender最终资产"
+  },
+  "runtime": {
+    "status": "pending",
+    "approvedBy": "",
+    "approvedAt": "",
+    "evidence": [],
+    "strangestElement": "Chromium环境禁用WebGL",
+    "notes": "需真实GPU和浏览器验收"
+  }
+}

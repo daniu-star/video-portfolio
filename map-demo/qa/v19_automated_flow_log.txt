@@ -1,0 +1,241 @@
+URL 39487
+{
+  "groups": [
+    {
+      "role": "research",
+      "era": "construction",
+      "finish": "result",
+      "steps": [
+        {
+          "id": "site",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "台址观察卡"
+        },
+        {
+          "id": "surface",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "联动校验记录"
+        },
+        {
+          "id": "quality",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "异常复核单"
+        }
+      ],
+      "score": 3
+    },
+    {
+      "role": "research",
+      "era": "operation",
+      "finish": "result",
+      "steps": [
+        {
+          "id": "observation",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "观测准备单"
+        },
+        {
+          "id": "spectrum",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "候选信号卡"
+        },
+        {
+          "id": "validation",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "科研复核日志"
+        }
+      ],
+      "score": 3
+    },
+    {
+      "role": "build",
+      "era": "construction",
+      "finish": "result",
+      "steps": [
+        {
+          "id": "structure",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "构件检查单"
+        },
+        {
+          "id": "assembly",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "装配测量单"
+        },
+        {
+          "id": "weather",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "安全处理单"
+        }
+      ],
+      "score": 3
+    },
+    {
+      "role": "build",
+      "era": "operation",
+      "finish": "result",
+      "steps": [
+        {
+          "id": "diagnosis",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "设备巡检单"
+        },
+        {
+          "id": "maintenance",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "维护协调单"
+        },
+        {
+          "id": "explain",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "工程讲述卡"
+        }
+      ],
+      "score": 3
+    },
+    {
+      "role": "public",
+      "era": "construction",
+      "finish": "result",
+      "steps": [
+        {
+          "id": "livemap",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "生活空间记录"
+        },
+        {
+          "id": "consult",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "社区问题清单"
+        },
+        {
+          "id": "memory",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "待核实档案"
+        }
+      ],
+      "score": 3
+    },
+    {
+      "role": "public",
+      "era": "operation",
+      "finish": "result",
+      "steps": [
+        {
+          "id": "visit",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "参观规则记录"
+        },
+        {
+          "id": "quiet",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "电磁环境对照卡"
+        },
+        {
+          "id": "sciencepublic",
+          "ready": true,
+          "decision": true,
+          "feedback": true,
+          "stored": true,
+          "artifact": "科普导览卡"
+        }
+      ],
+      "score": 3
+    }
+  ],
+  "crossEra": {
+    "research": {
+      "kind": "calibration",
+      "done": [],
+      "labels": [],
+      "focus": "",
+      "archiveChecked": false,
+      "product": "联动校验记录"
+    },
+    "build": {
+      "kind": "parts",
+      "done": [
+        "cable",
+        "panel",
+        "feed"
+      ],
+      "labels": [
+        "索网",
+        "反射面板",
+        "馈源索系"
+      ],
+      "focus": "feed",
+      "archiveChecked": false,
+      "product": "构件检查单"
+    },
+    "public": {
+      "kind": "concerns",
+      "done": [
+        "road",
+        "home",
+        "science"
+      ],
+      "labels": [
+        "出行",
+        "生活",
+        "科研保护"
+      ],
+      "focus": "science",
+      "archiveChecked": false,
+      "product": "社区问题清单"
+    }
+  }
+}
+MOBILE {'sw': 390, 'width': 390, 'scroll': 390} ERRORS []
+ALL_TESTS_PASS

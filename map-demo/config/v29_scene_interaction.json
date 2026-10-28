@@ -1,0 +1,26 @@
+{
+  "version": "V29",
+  "based_on": "V28",
+  "render": {
+    "drive_deck": "camera-space near-plane clipped polygon mesh",
+    "overview": "separate terrain sampling displays + bridge/FAST landmark silhouettes",
+    "primary_game_entries": "3D projected DOM spatial hotspots",
+    "compatibility": "Canvas2D + optional existing WebGL2"
+  },
+  "cruise": {
+    "animation_multiplier": 18,
+    "label": "加速教学演示",
+    "physics_note": "propulsion / resistance uncalibrated; speed display is a simulated estimate; animation is time-compressed",
+    "river_centerline": "original authored V26 course retained"
+  },
+  "data_integrity": {
+    "terrain": "original samples unchanged",
+    "DEM": "original remains illustrative; no surveyed DEM imported",
+    "boat_model": "concept model",
+    "drive_route": "non-navigational simulated route"
+  },
+  "test_targets": [
+    "desktop 1280x800",
+    "mobile 390x844"
+  ]
+}

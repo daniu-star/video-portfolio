@@ -11,7 +11,7 @@ function update(){
  }
 function init(){const pane=el('regionalExpedition');if(!pane)return;
 el('regionFold').addEventListener('click',()=>{pane.classList.toggle('is-collapsed');const yes=!pane.classList.contains('is-collapsed');el('regionFold').textContent=yes?'收起':'展开';el('regionFold').setAttribute('aria-expanded',String(yes))});
-el('pixelGameLaunch').addEventListener('click',()=>NS.PixelTruck.open());
+// Casebook owns pixelGameLaunch; a second listener here reopened the dialog twice.
 el('regionYundu').addEventListener('click',()=>NS.App.startBuildingExplore());
 NS.onState((s,p)=>{if('site'in p||'entered'in p)update()});update()}
 document.addEventListener('DOMContentLoaded',init);NS.RegionExpedition={show:update};

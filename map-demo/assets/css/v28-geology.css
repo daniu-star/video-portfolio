@@ -1,0 +1,9 @@
+/* V28 geographic scene: readable cinematic texture tiers, truthful source badge. */
+.v28-render-hud{position:fixed;left:14px;bottom:110px;z-index:49;display:flex;align-items:center;gap:9px;max-width:min(420px,calc(100vw - 28px));background:rgba(8,32,39,.84);border:1px solid rgba(195,219,205,.45);box-shadow:0 9px 26px #00142080;border-radius:12px;padding:7px 9px;color:#e6f3e6;font:11px/1.4 system-ui,sans-serif;backdrop-filter:blur(12px)}
+.v28-render-hud .v28-led{width:7px;height:7px;border-radius:50%;background:#e0b56c;flex:none}
+.v28-render-hud[data-gpu="true"] .v28-led{background:#86ddb3}
+.v28-render-hud button{background:#204957;border:1px solid #94b8b7;color:white;padding:6px 10px;border-radius:8px;white-space:nowrap;cursor:pointer;font:inherit}
+.v28-render-hud button:focus-visible{outline:2px solid #f8d99c;outline-offset:2px}
+body[data-site="overview"] .v28-render-hud,body.is-driving .v28-render-hud,body.is-boating .v28-render-hud,body.is-fast-playing .v28-render-hud{display:none}
+@media(max-width:650px){.v28-render-hud{left:8px;bottom:83px;gap:6px;max-width:calc(100vw - 16px);font-size:9px;padding:5px 7px}.v28-render-hud button{padding:5px 7px}}
+@media(prefers-reduced-motion:reduce){.v28-render-hud{backdrop-filter:none}}

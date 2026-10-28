@@ -1,0 +1,20 @@
+/* V26: persistent cinematic terrain, with controls remaining discoverable. */
+body.v26-cinematic-default .world #cinematicTerrainCanvas{display:block}
+body.v26-cinematic-default #cinemaViewToggle{white-space:nowrap}
+body.v26-cinematic-default:not(.is-driving):not(.is-boating) #journeyBar{display:flex!important;z-index:85;position:fixed;left:50%;bottom:18px;transform:translateX(-50%);gap:9px;max-width:min(95vw,950px);flex-wrap:wrap;justify-content:center}
+body.v26-cinematic-default:not(.is-driving):not(.is-boating) #journeyBar>*{display:inline-flex!important;position:relative!important;opacity:1!important;visibility:visible!important}
+body.v26-cinematic-default .journey-bar .v26-boat-launch{background:linear-gradient(125deg,#276772,#124652);border:1px solid #83c4c7;color:#f0fffb;font-weight:650}
+body.is-boating #journeyBar,body.is-boating .topbar,body.is-boating .node-legend,body.is-boating .inspector,body.is-boating .timeline,body.is-boating .journey-bar,body.is-boating #v17Dock,body.is-boating .terrain-truth{display:none!important}
+.v26-boat-panel[hidden]{display:none!important}
+.v26-boat-panel{position:fixed;left:16px;bottom:20px;width:min(420px,calc(100vw - 32px));max-height:min(75dvh,430px);overflow:auto;z-index:330;pointer-events:auto;color:#f5f9f8;background:linear-gradient(145deg,rgba(6,28,36,.95),rgba(14,52,59,.94));border:1px solid rgba(184,225,219,.46);border-radius:18px;padding:17px 19px;box-shadow:0 16px 60px #04121ad0;backdrop-filter:blur(20px)}
+.v26-boat-panel header{display:flex;justify-content:space-between;align-items:start;gap:12px}.v26-boat-panel h2{font-size:19px;margin:4px 0 12px}.v26-boat-panel small{letter-spacing:.1em;color:#9adddb}
+.v26-boat-panel button{font:inherit;border-radius:9px;border:1px solid rgba(181,226,226,.35);background:#1c4b56;color:#f4fffd;padding:8px 10px;cursor:pointer;min-height:37px}.v26-boat-panel button:hover,.v26-boat-panel button.selected{background:#77b7b7;color:#0b2930}
+.v26-boat-metrics,.v26-boat-actions,.v26-boat-views{display:flex;gap:8px;margin:9px 0;flex-wrap:wrap}.v26-boat-metrics{justify-content:space-between;font-variant-numeric:tabular-nums;color:#d9efed}.v26-boat-panel label{display:flex;align-items:center;gap:15px;font-size:13px;margin:14px 0}.v26-boat-panel input{flex:1;accent-color:#9fd7d0}.v26-boat-panel p{font-size:11px;line-height:1.55;color:#c2d3d2;margin:13px 0 0}
+body.is-boating #worldCanvas{pointer-events:none}
+@media(max-width:650px){body.v26-cinematic-default:not(.is-driving):not(.is-boating) #journeyBar{bottom:9px;left:8px;right:8px;transform:none;max-width:none;gap:5px;padding:5px}body.v26-cinematic-default:not(.is-driving):not(.is-boating) #journeyBar>*{font-size:10px!important;padding:6px 8px!important;min-height:36px!important} .v26-boat-panel{left:8px;bottom:8px;width:calc(100vw - 16px);max-height:46dvh;padding:12px 14px;border-radius:14px}.v26-boat-panel h2{font-size:15px}.v26-boat-panel button{font-size:11px;padding:7px 8px}}
+
+/* The original journey buttons use independent absolute offsets. Reset all of them
+   inside the cinematic compact dock or they force a near-fullscreen panel. */
+body.v26-cinematic-default:not(.is-driving):not(.is-boating) #journeyBar{top:auto!important;height:auto!important;min-height:0!important;max-height:100px!important;width:max-content!important;max-width:calc(100vw - 24px)!important;align-items:center!important;overflow:visible!important}
+body.v26-cinematic-default:not(.is-driving):not(.is-boating) #journeyBar > *{top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;transform:none!important;margin:0!important;width:auto!important;max-width:260px!important;height:auto!important;min-height:39px!important}
+@media(max-width:650px){body.v26-cinematic-default:not(.is-driving):not(.is-boating) #journeyBar{width:calc(100vw - 16px)!important;max-height:85px!important;overflow-x:auto!important;overflow-y:hidden!important;flex-wrap:nowrap!important;justify-content:flex-start!important}}

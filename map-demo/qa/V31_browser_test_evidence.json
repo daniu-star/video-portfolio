@@ -1,0 +1,27 @@
+{
+  "tests": {
+    "automatic_cruise": "passed",
+    "accelerator_press": "passed",
+    "brake_press": "passed",
+    "bounded_steering": "passed",
+    "wet_traction": "passed",
+    "all_five_bridge_tasks_desktop_and_mobile": "passed",
+    "camera_switch_when_task_open": "passed",
+    "restore_map": "passed",
+    "no_javascript_errors": "passed",
+    "no_mobile_horizontal_overflow": "passed"
+  },
+  "metrics": {
+    "route_length_scene_units": 3983.724344388641,
+    "grade_min_percent": -6.328570433962103,
+    "grade_max_percent": 4.676524779996498,
+    "dry_brake_result_m_s": 15.16223372188225,
+    "wet_brake_result_m_s": 15.919039999999995,
+    "lat_offset_limit_scene_units": 10.5
+  },
+  "limitations": [
+    "testing uses offline inlined Chrome: not production-host deployment",
+    "WebGL2 hardware performance not independently validated",
+    "no surveyed DEM/CAD vehicle geometries"
+  ]
+}

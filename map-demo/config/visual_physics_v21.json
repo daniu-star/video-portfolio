@@ -1,0 +1,19 @@
+{
+  "schema": "guizhou-simulation-visual-physics-v21",
+  "stage": "5-of-5-incremental",
+  "current_renderer": "Canvas2D projected height-field and mesh faces",
+  "visual_modes": {
+    "balanced": {"terrain_lod": "view-distance adaptive", "pixel_ratio_cap": 1.4},
+    "detailed": {"terrain_lod": "one increment finer", "pixel_ratio_cap": 2.0}
+  },
+  "models": {
+    "FAST": {"rendering": "procedural faceted reflective bowl", "science": "local-parabolic-cross-section ray reflection", "authoritative_asset": false, "calibrated": false},
+    "HuajiangBridge": {"rendering": "procedural deck towers and cables", "science": "forced damped one-degree-of-freedom oscillator", "authoritative_asset": false, "calibrated": false}
+  },
+  "input_provenance": {
+    "surveyed_meshes": "not supplied",
+    "calibration_measurements": "not supplied",
+    "real_elevation_downloaded": false
+  },
+  "never_assert": ["engineering safety prediction", "actual reflector optical efficiency", "actual bridge vibration", "survey-grade elevation"]
+}

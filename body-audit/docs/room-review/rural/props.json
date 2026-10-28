@@ -1,0 +1,43 @@
+{
+  "schema": "game-room.prop-manifest.v1",
+  "roomId": "flesh-audit-v6-rural",
+  "generation": {
+    "provider": "not-used",
+    "apiModel": "none",
+    "pricingSource": "not-applicable",
+    "pricingVerifiedAt": "",
+    "creditsPerTexturedTask": 0,
+    "hardCreditCeiling": 0,
+    "maxChargedAttemptsPerAsset": 0
+  },
+  "assets": [
+    {
+      "id": "proxy-00",
+      "name": "问诊机",
+      "function": "问诊机",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    },
+    {
+      "id": "proxy-01",
+      "name": "社区诊室",
+      "function": "社区诊室",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    },
+    {
+      "id": "proxy-02",
+      "name": "树木",
+      "function": "树木",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    },
+    {
+      "id": "proxy-03",
+      "name": "围栏",
+      "function": "围栏",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    }
+  ]
+}

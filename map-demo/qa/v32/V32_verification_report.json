@@ -1,0 +1,47 @@
+{
+  "version": "V32",
+  "baseline": "V31 original complete project",
+  "baseline_files": 239,
+  "preserved_file_paths": 239,
+  "unchanged_files": 236,
+  "modified_files": [
+    "assets/js/scene/engine.js",
+    "assets/js/scene/webgl-terrain-v25.js",
+    "index.html"
+  ],
+  "new_files": [
+    "docs/V32_GL模型导入说明.md",
+    "docs/V32_高写实三维管线与验收.md",
+    "assets/css/v32-drive-world.css",
+    "assets/models/v32_car_concept.glb",
+    "assets/models/v32_bridge_concept.glb",
+    "assets/models/v32_asset_manifest.json",
+    "assets/js/scene/v32-drive-world.js"
+  ],
+  "js_syntax_checked": 36,
+  "js_syntax_errors": [],
+  "browser_compatibility_tests": {
+    "viewport_desktop": "1280x800",
+    "viewport_mobile": "390x844",
+    "entry": "passed",
+    "drive_start": "passed",
+    "throttle_brake": "passed",
+    "follow_camera": "passed",
+    "uncaught_errors": 0,
+    "horizontal_overflow": 0
+  },
+  "gpu_render_test": {
+    "webgl2_context": "not_available_in_test_environment",
+    "real_shader_compile": "not_tested",
+    "frame_times": "not_measured",
+    "result": "blocked"
+  },
+  "geometry": {
+    "bridge_scene_triangles": 40654,
+    "car_triangles": 356,
+    "static_geometry_bytes": 4878480,
+    "reference_glbs_reloaded": true
+  },
+  "asset_provenance": "original procedural concept geometry, not surveyed or BIM",
+  "claim": "high-fidelity GPU path development build, not AAA final visual certification"
+}

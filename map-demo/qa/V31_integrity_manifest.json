@@ -1,0 +1,16 @@
+{
+  "baseline_files": 230,
+  "new_package_files": 239,
+  "unchanged_original_files": 225,
+  "changed_original_files": [
+    "Map demo/assets/js/drive/controller.js",
+    "Map demo/assets/js/drive/drive-ui.js",
+    "Map demo/assets/js/drive/route.js",
+    "Map demo/assets/js/scene/engine.js",
+    "Map demo/index.html"
+  ],
+  "added_files": 9,
+  "missing_original_files": [],
+  "original_database_config_data_unchanged": true,
+  "sources": "V30 baseline"
+}

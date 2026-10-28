@@ -1,0 +1,72 @@
+{
+  "version": "v7-procedural-vertical-slice",
+  "room": "factory-global-body-data",
+  "classification": "local gameplay prototype; no approved mesh generation or Blender export",
+  "stage": "function-review-pending",
+  "runtimeSurface": "desktop/mobile browser; WebGL1 with CPU perspective fallback",
+  "worldApproxMeters": [
+    32,
+    11,
+    22
+  ],
+  "mainCamera": {
+    "desktop": [
+      0,
+      8.2,
+      18
+    ],
+    "mobile": {
+      "worker": [
+        -4,
+        8.7,
+        17.1
+      ],
+      "platform": [
+        7.4,
+        8.7,
+        17.1
+      ]
+    },
+    "perspective": true
+  },
+  "heroActions": [
+    "worker prep",
+    "worker perform",
+    "worker review-upload",
+    "worker rest",
+    "platform inspect provenance",
+    "platform reuse under license",
+    "cross-role ledger"
+  ],
+  "spatialZones": [
+    {
+      "id": "worker-floor",
+      "use": "capture",
+      "hero": "Amara, tracking gate, workbench, rest seat",
+      "scope": "ground-level"
+    },
+    {
+      "id": "platform-gallery",
+      "use": "data decision",
+      "hero": "Ethan, console screens and account ledger",
+      "scope": "elevated virtual gallery"
+    }
+  ],
+  "modelTechnique": "self-contained procedural boxes/cylinders/orbs; hand-built runtime mesh",
+  "notImplemented": [
+    "high-resolution rigged character GLBs",
+    "true hand grip/IK",
+    "continuous cloth simulation",
+    "full rigid-body collisions",
+    "collision-calibrated raised gallery path",
+    "Boolean door apertures",
+    "baked lightmaps",
+    "PBR textures",
+    "cross-browser GPU certification"
+  ],
+  "paidServicesUsed": false,
+  "FunctionApproval": false,
+  "FormApproval": false,
+  "RuntimeApproval": false,
+  "gateMessage": "A tested design prototype is not a formal approved room. No Meshy charged generation or Blender exports were submitted."
+}

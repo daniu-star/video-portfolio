@@ -1,0 +1,33 @@
+{
+  "version": "27.0",
+  "source_base": "V26",
+  "rendering": {
+    "overview": "two source-derived, locally scaled heightfield dioramas; illustrative only",
+    "site": "existing cinematic Canvas/WebGL optional layers; unchanged DEM truth status",
+    "camera_mode": "fixed cockpit and ship bow composition for first person"
+  },
+  "river": {
+    "name": "北盘江·花江峡谷段",
+    "status": "SIMULATED",
+    "longitudinal_range_scene_units": [
+      -3420,
+      3420
+    ],
+    "bridge_deck_scene_y": 650,
+    "bridge_axis_water_scene_y": 25,
+    "bridge_axis_clearance_scene_units": 625,
+    "shoreline_source": "unsurveyed authored line",
+    "bathymetry": "unavailable",
+    "navigable_route": "unverified"
+  },
+  "boarding": {
+    "entry": "3D projected dock marker",
+    "legacy_footer_entry": false
+  },
+  "source_data_immutability": "assets/data/ and original config files preserved byte-for-byte",
+  "quality_gate": {
+    "function": "local interface tests completed; no human-approved CAD room design",
+    "form": "not attempted; no Blender/Meshy mesh",
+    "runtime": "Chromium inline test only; GPU WebGL not independently verified"
+  }
+}

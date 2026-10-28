@@ -1,0 +1,20 @@
+{
+  "baseline": "V27",
+  "original_files": 216,
+  "missing_original": [],
+  "changed_original": [
+    "index.html",
+    "assets/js/scene/engine.js",
+    "assets/js/scene/webgl-terrain-v25.js"
+  ],
+  "new_files": [
+    "docs/V28_三维真实感增量说明.md",
+    "config/v28_terrain_render.json",
+    "assets/css/v28-geology.css",
+    "assets/js/scene/v28-quality-ui.js"
+  ],
+  "gpu_render_validation": "NOT_RUN_NO_WEBGL2_CONTEXT",
+  "canvas_smoke": "PASS_1280_390",
+  "boat_driving_smoke": "PASS",
+  "status": "INCREMENTAL"
+}

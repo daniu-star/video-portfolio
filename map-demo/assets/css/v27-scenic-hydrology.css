@@ -1,0 +1,38 @@
+/* V27: floating in-world pier action and stabilized cinematic first-person views. */
+.v27-boat-board[hidden],body.is-driving .v27-boat-board,body.is-boating .v27-boat-board,body[data-site="fast"] .v27-boat-board,body[data-site="overview"] .v27-boat-board{display:none!important}
+.v27-boat-board{position:fixed;z-index:105;transform:translate(-50%,-50%);pointer-events:auto;display:flex;align-items:center;gap:10px;max-width:210px;padding:11px 15px;border:1px solid #f1daa5;border-radius:17px;color:#fff9e7;background:linear-gradient(145deg,rgba(12,47,59,.96),rgba(24,76,87,.93));box-shadow:0 14px 32px #001b28b5,0 0 0 5px #e9d29b20;cursor:pointer;text-align:left;animation:v27PierPulse 2.8s ease-in-out infinite}
+.v27-boat-board strong{display:block;font-size:13px;white-space:nowrap}.v27-boat-board small{display:block;font-size:10px;margin-top:3px;color:#d6e9e5;white-space:nowrap}.v27-boat-icon{display:grid;place-items:center;background:#dcb97d22;border:1px solid #ead5a080;border-radius:11px;width:40px;height:39px;font-size:21px;flex-shrink:0}
+.v27-boat-board:focus-visible{outline:3px solid white;outline-offset:4px}.v27-boat-board:hover{background:#275866}
+@keyframes v27PierPulse{50%{box-shadow:0 15px 37px #001b28b5,0 0 0 10px #e9d29b10}}
+/* Preserve game cockpit frame-to-frame: turn off animated filters, grain and scan layers. */
+body.is-driving .app:before,body.is-boating .app:before,body.is-driving .app:after,body.is-boating .app:after,body.is-driving .scan,body.is-boating .scan,body.is-driving .flare,body.is-boating .flare{animation:none!important;opacity:0!important}
+body.is-driving #worldCanvas,body.is-boating #worldCanvas,body.is-driving #cinematicTerrainCanvas,body.is-boating #cinematicTerrainCanvas{filter:none!important;transform:none!important;will-change:auto!important}
+body.is-driving .drive-cockpit{transition:none!important}
+body.v26-cinematic-default #v26BoatStart{display:none!important}
+@media(max-width:600px){.v27-boat-board{padding:9px 10px;max-width:175px}.v27-boat-board strong{font-size:11px}.v27-boat-board small{font-size:9px}.v27-boat-icon{width:33px;height:34px;font-size:17px}}
+@media(prefers-reduced-motion:reduce){.v27-boat-board{animation:none}}
+
+/* Fixed cockpit geometry: independent from changing camera projection. */
+.drive-cockpit .v27-windshield{position:absolute;left:4%;right:4%;bottom:50%;height:100%;pointer-events:none;border-left:8px solid rgba(20,34,42,.65);border-right:8px solid rgba(20,34,42,.65);border-radius:18% 18% 0 0;box-shadow:inset 0 8px 0 rgba(20,31,36,.42)}
+.drive-cockpit .v27-windshield i:first-child{position:absolute;bottom:-4px;left:0;right:0;height:7px;background:linear-gradient(90deg,#14242b,#354d52,#16272e)}
+.drive-cockpit .v27-windshield i:last-child{position:absolute;top:14px;right:7%;width:20%;height:3px;background:#aec3c45c;transform:rotate(-2deg)}
+.drive-cockpit .v27-dashboard{position:absolute;left:39%;right:18%;bottom:14px;display:flex;gap:12px;align-items:center;z-index:1;pointer-events:none}
+.drive-cockpit .v27-instrument{padding:7px 10px;border-radius:9px;border:1px solid #415f63;background:#071820d9;min-width:89px}
+.drive-cockpit .v27-instrument span{display:block;font-size:9px;color:#89abb2}.drive-cockpit .v27-instrument strong{display:block;font-size:12px;color:#d4f6e7;margin-top:2px}
+@media(max-width:650px){.drive-cockpit .v27-dashboard{display:none}.drive-cockpit .v27-windshield{bottom:40%}}
+body.v26-cinematic-default:not(.is-driving):not(.is-boating) #journeyBar > #v26BoatStart{display:none!important}
+
+/* Overview is a two-destination spatial entry, not a floating road quiz. */
+.v27-overview{display:none;position:fixed;inset:0;z-index:28;pointer-events:none;color:#fff2d9}
+body.is-map-entered[data-site="overview"] .v27-overview{display:block}
+body.is-map-entered[data-site="overview"] .inspector,body.is-map-entered[data-site="overview"] #roadLegend{display:none!important}
+.v27-overview-heading{position:absolute;left:clamp(18px,5vw,85px);top:clamp(110px,18vh,180px);max-width:340px;text-shadow:0 2px 20px #0b2839}
+.v27-overview-heading small,.v27-overview-actions span{font-size:11px;letter-spacing:.12em;color:#e9cd9e}.v27-overview-heading h2{font-size:clamp(24px,3vw,41px);line-height:1.15;margin:12px 0 9px}
+.v27-overview-heading p{font-size:12px;color:#d8e6dd;line-height:1.65}
+.v27-overview-actions{position:absolute;right:clamp(17px,4.7vw,80px);top:32%;width:min(262px,30vw);display:grid;gap:12px;pointer-events:auto}
+.v27-overview-actions button{background:linear-gradient(130deg,rgba(9,37,49,.94),rgba(28,66,69,.88));color:#f5f4e8;text-align:left;border:1px solid #b2c6b389;padding:17px 20px;border-radius:16px;box-shadow:0 15px 35px #07172160;cursor:pointer}
+.v27-overview-actions button:hover,.v27-overview-actions button:focus-visible{outline:2px solid #e8d399;background:#315f60}
+.v27-overview-actions strong{font-size:20px;display:block;margin:7px 0}.v27-overview-actions small{font-size:11px;color:#bfd6d0}
+.v27-overview-source{position:absolute;left:clamp(18px,5vw,85px);bottom:clamp(105px,14vh,170px);width:min(440px,75vw);font-size:10px;line-height:1.6;color:#d2d7c6;text-shadow:0 1px 7px #000}
+@media(max-width:720px){.v27-overview-heading{top:95px;left:14px;max-width:260px}.v27-overview-heading h2{font-size:24px;margin:6px 0}.v27-overview-heading p{font-size:10px}.v27-overview-actions{top:auto;left:10px;right:10px;bottom:94px;width:auto;grid-template-columns:1fr 1fr;gap:7px}.v27-overview-actions button{padding:10px;border-radius:11px}.v27-overview-actions strong{font-size:12px;margin:3px 0}.v27-overview-actions small,.v27-overview-actions span{font-size:9px}.v27-overview-source{display:none}}
+body.is-map-entered[data-site="overview"] #regionalExpedition{display:none!important}

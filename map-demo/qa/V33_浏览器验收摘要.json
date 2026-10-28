@@ -1,0 +1,46 @@
+{
+  "version": "V33",
+  "testedAt": "2026-10-29",
+  "method": "Chromium Headless offline set_content from bundled local CSS/JS/data",
+  "webgl2_available": false,
+  "gpu_pipeline": "DISABLED by default, unverified on actual GPU",
+  "tests": [
+    {
+      "name": "desktop 1280x800 full 5 checkpoint interaction",
+      "result": "PASS"
+    },
+    {
+      "name": "mobile 390x844 full 5 checkpoint interaction",
+      "result": "PASS"
+    },
+    {
+      "name": "casebook 3 cases desktop and mobile",
+      "result": "PASS"
+    },
+    {
+      "name": "pixel role entry desktop/mobile",
+      "result": "PASS"
+    },
+    {
+      "name": "runtime script errors in tested routes",
+      "result": "NONE"
+    },
+    {
+      "name": "horizontal overflow in tested viewports",
+      "result": "NONE"
+    },
+    {
+      "name": "WebGL2 depth-image validation",
+      "result": "NOT RUN -- no WebGL2 context"
+    }
+  ],
+  "screenshots": [
+    "qa/v33/screens/drive_desktop.png",
+    "qa/v33/screens/drive_mobile.png"
+  ],
+  "limitations": [
+    "No real GPU WebGL2 draw pass",
+    "No surveyed DEM or as-built BIM",
+    "No user interviews or accessibility audit"
+  ]
+}

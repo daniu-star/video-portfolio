@@ -1,0 +1,24 @@
+{
+  "version": "V20-stage4",
+  "environment": "Chromium rendered HTML/CSS/JS using inline source embedding because local HTTP navigation was blocked in this sandbox",
+  "checks": {
+    "bridge_seek_gate": true,
+    "bridge_view_gate": true,
+    "bridge_three_observations": true,
+    "bridge_save_artifact": true,
+    "pixel_requires_cargo": true,
+    "pixel_requires_current_stop_check": true,
+    "pixel_routes": [
+      "g552",
+      "s315",
+      "liuan"
+    ],
+    "pixel_all_routes_completed": true,
+    "mobile_390_no_horizontal_overflow": true,
+    "mobile_320_no_horizontal_overflow": true,
+    "uncaught_page_script_errors": 0,
+    "verified_live_navigation": false,
+    "tested_real_mobile_devices": false
+  },
+  "notes": "Automated checks are not a substitute for first-time user testing or real navigable-road validation."
+}

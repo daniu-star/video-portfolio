@@ -1,0 +1,11 @@
+{
+  "viewport": [
+    "1280x800",
+    "390x844"
+  ],
+  "casebook": "pointer events restored; first case passed on both; three chapters passed on mobile",
+  "site_select": "dark text-background contrast verified; scene switch fast passed",
+  "script_errors": [],
+  "GPU_status": "WebGL2 not available in test environment",
+  "terrain_data": "original simulated terrain retained, no DEM imported"
+}

@@ -1,0 +1,18 @@
+{
+  "merge_version": "22.0-source-preserving-ui-integration",
+  "source_baseline": "Map demo(2).zip",
+  "enhancement_source": "贵州3D交互地图游戏_V21_第五步_完整源码与配置.zip",
+  "source_original_files": 145,
+  "baseline_config_files": [
+    "config/project_manifest.json",
+    "config/build_manifest.json"
+  ],
+  "policy": "All original assets/data, database, geo, metadata and configuration files preserve source bytes; selected application files are enhanced.",
+  "visual_default": "nebula (original palette), daylight remains optional",
+  "terrain": {
+    "offline": "original included simulated terrain in database.bundle.js",
+    "public_dem": "real_elevation.js is null in the uploaded source; not fabricated",
+    "open_roads": "offline_roads.js marks roads as missing until imported"
+  },
+  "readme": "docs/V22_合并说明与验证.md"
+}

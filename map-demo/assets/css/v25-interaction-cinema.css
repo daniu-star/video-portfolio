@@ -1,0 +1,67 @@
+/* V25 – Interaction and cinematic-scene repair. Existing site resources unchanged. */
+/* The entire interface chrome is pointer-events:none so the map remains draggable.
+   Standalone fullscreen activities MUST opt back in, including descendants. */
+.chrome > #casebookGame.casebook-game,
+#casebookGame.casebook-game { pointer-events:auto!important; touch-action:pan-y; }
+#casebookGame button,#casebookGame a { pointer-events:auto; }
+body.casebook-open { overscroll-behavior:contain; }
+body.casebook-open #casebookGame { isolation:isolate; }
+/* Native select popups render outside the normal CSS stacking context in many OSes.
+   Apply an opaque background and matching system color scheme at every level. */
+.topbar #siteSelect {
+ appearance:auto; -webkit-appearance:menulist; color-scheme:dark;
+ color:#f5faf7!important; background:#183344!important;
+ border:1px solid #7daca9!important; border-radius:11px;
+ box-shadow:0 3px 16px #06131fa8, inset 0 1px 0 #ffffff18;
+ font-size:12px!important;line-height:1.3; font-weight:650;
+ min-height:40px;min-width:195px;max-width:min(38vw,320px);
+ padding:7px 13px!important;text-shadow:none;
+}
+.topbar #siteSelect option,
+.topbar #siteSelect optgroup {background-color:#163143!important;color:#f8fcfa!important;font-weight:500;}
+.topbar #siteSelect:focus-visible {outline:3px solid #f4cd7a!important;outline-offset:3px;}
+.topbar #siteSelect:hover {background:#21475b!important;}
+/* Opening a game should never leave the topbar or a translucent UI intercepting cards. */
+body.casebook-open .world {pointer-events:none;}
+/* Balanced warm-film palette with non-cryptic legible controls. */
+body[data-theme=cinema] {
+ --accent:#f2d39c; --hot:#d8e9e3;
+ --glow:rgba(242,198,131,.18);
+ --g1:linear-gradient(135deg,rgba(211,179,123,.15),rgba(51,108,98,.13));
+ --g2:linear-gradient(135deg,#f0d49b,#9cbeaf);
+ --terrain-low:#203b3a;--terrain-high:#9d9c80;
+}
+body[data-theme=cinema] .app { background:radial-gradient(circle at 65% 20%,#698c86 0,#263c40 43%,#0d1c2a 100%); }
+body[data-theme=cinema] .world canvas {filter:contrast(1.12) saturate(1.16);}
+body[data-theme=cinema] .film-bars::before,body[data-theme=cinema] .film-bars::after {background:rgba(15,19,24,.60)}
+/* Overlays are deliberately subtle: no fake lens flare obscuring the landscape. */
+body[data-theme=cinema] .grain {opacity:.08;pointer-events:none}
+body[data-theme=cinema] .flare {opacity:.2;pointer-events:none}
+body[data-theme=cinema] .scan {opacity:0;pointer-events:none}
+body[data-theme=cinema] .time-aura {opacity:.08;pointer-events:none}
+/* Maintain sufficient dark/light contrast for secondary controls. */
+body[data-theme=cinema] .topbar.glass{background:linear-gradient(125deg,rgba(13,36,44,.92),rgba(18,40,48,.84));border-color:#a3b8b4aa}
+#casebookGame .casebook-card:focus-visible{outline:3px solid #f9d992;outline-offset:2px}
+#casebookGame .casebook-notice{font-size:13px;line-height:1.5}
+#casebookGame .casebook-shell>header{position:relative}
+@media(max-width:760px){
+ .topbar #siteSelect{min-width:0;max-width:calc(100vw - 180px);font-size:11px!important;padding:7px 8px!important;min-height:36px}
+ #casebookGame .casebook-shell{padding-bottom:max(16px,env(safe-area-inset-bottom))}
+}
+@media(prefers-reduced-motion:reduce){body[data-theme=cinema] .world canvas{filter:none}}
+
+.cinema-view-toggle{flex-shrink:0;min-height:37px;border:1px solid #d3c29d;border-radius:11px;padding:7px 13px;color:#f9e4b8;background:#2b4b4a;cursor:pointer;font-size:12px;font-weight:700}
+.cinema-view-toggle:hover,.cinema-view-toggle[aria-pressed=true]{background:#e8cc98;color:#213d41}
+body.cinema-focus .inspector,body.cinema-focus .mini-map,body.cinema-focus .left-rail,body.cinema-focus #nodeLegend,
+body.cinema-focus #timeline,body.cinema-focus .camera-hud,body.cinema-focus .legend,body.cinema-focus #v17Dock,
+body.cinema-focus #journeyBar,body.cinema-focus #fastPulse,body.cinema-focus #bridgePulse,body.cinema-focus .terrain-truth {display:none!important}
+body.cinema-focus .topbar{background:linear-gradient(90deg,rgba(8,28,36,.86),rgba(8,28,36,.63));max-width:850px;margin:auto}
+body.cinema-focus .world canvas{filter:contrast(1.16) saturate(1.14)}
+@media(max-width:760px){.cinema-view-toggle{font-size:10px;padding:7px 8px;min-height:36px}.topbar #siteSelect{max-width:calc(100vw - 182px)}body.cinema-focus .topbar{left:8px;right:8px;max-width:initial}}
+
+/* True WebGL2 terrain depth layer, transparent 2D roads/structures above it. */
+.world{background:linear-gradient(180deg,#506a72 0%,#8baba5 42%,#b7b9a4 66%,#314e4c 100%)}
+.world #cinematicTerrainCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:none}
+.world #worldCanvas{position:absolute;inset:0;z-index:1;background:transparent}
+body.cinema-focus .world #cinematicTerrainCanvas{display:block}
+body.cinema-focus .world #worldCanvas{filter:contrast(1.11) saturate(1.08)}

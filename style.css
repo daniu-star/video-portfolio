@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
+﻿﻿﻿﻿﻿﻿﻿﻿﻿@font-face {
     font-family: 'Microsoft YaHei';
     src: url('fonts/msyh-subset.woff2') format('woff2');
     font-weight: 400;
@@ -461,7 +461,7 @@ button:focus-visible {
 .hub-categories {
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: clamp(10px, calc(18.4vh - 110px), 48px);
 }
 
 .hub-category {
@@ -536,6 +536,70 @@ button:focus-visible {
 .hub-category:hover .hub-cat-line {
     width: 100%;
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.25), 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.hub-extras {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: max-content;
+    margin-top: 2px;
+}
+
+.hub-extras-label {
+    font-family: var(--font-serif);
+    font-size: 0.66rem;
+    letter-spacing: 0.34em;
+    color: var(--text-white-60);
+    margin-right: 4px;
+}
+
+.hub-pill-row {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 8px;
+}
+
+.hub-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px 9px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    color: #17130f;
+    text-decoration: none;
+    font-family: var(--font-brush);
+    font-size: 1.02rem;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.38);
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hub-pill:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.hub-pill:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.9);
+    outline-offset: 3px;
+}
+
+.hub-pill-arrow {
+    font-family: var(--font-serif);
+    font-size: 0.78em;
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .hub-extras {
+        align-items: center;
+        margin-top: 4px;
+    }
 }
 
 .hub-title-vertical {

@@ -1,0 +1,9 @@
+{
+  "version": "V28",
+  "display_label": "电影化三维地形·增量增强",
+  "renderer": {"preferred":"WebGL2", "fallback":"Canvas2D", "scene_mode":"cinema-focus", "quality_modes":["balanced","detailed"], "real_time_shadows":"approximate_horizon_occlusion", "physically_validated":false},
+  "mesh": {"source":"existing terrain samples or user-imported DEM", "interpolation":"bicubic", "balanced_subdivision_multiplier":2, "detailed_subdivision_multiplier":3, "max_grid_size":{"balanced":161,"detailed":225}, "index_type":"UNSIGNED_INT"},
+  "material": {"terrain":"procedural vegetation and slope-dependent geology", "effects":["normal shading","approximate horizon occlusion","screen-space tone mapping","distance aerial perspective","water color ripples"]},
+  "fidelity": {"survey_accuracy":false,"assets_are_synthetic_unless_dem_imported":true,"visual_perturbation_disabled_on_imported_dem":true,"webgl_tested_on_gpu":false,"water_bathymetry_verified":false},
+  "provenance": {"source_dem_status":"check assets/data/real_elevation.js and SpatialApp.TerrainStatus", "public_dem_reference":"https://registry.opendata.aws/terrain-tiles/"}
+}

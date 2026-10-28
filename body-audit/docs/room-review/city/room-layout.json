@@ -1,0 +1,35 @@
+{
+  "schema": "game-room.layout.v1",
+  "roomId": "flesh-audit-v6-city",
+  "units": "meters",
+  "surfaces": [
+    {
+      "id": "ground",
+      "material": "procedural",
+      "bounds": [
+        26,
+        0.3,
+        22
+      ]
+    }
+  ],
+  "instances": [
+    {
+      "id": "kiosk",
+      "kind": "procedural mesh"
+    }
+  ],
+  "productionCamera": {
+    "location": [
+      0,
+      7.7,
+      16.3
+    ],
+    "target": [
+      0,
+      1.15,
+      -1.05
+    ],
+    "verticalFovDegrees": 43
+  }
+}

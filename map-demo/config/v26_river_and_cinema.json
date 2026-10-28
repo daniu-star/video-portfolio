@@ -1,0 +1,32 @@
+{
+  "version": "V26",
+  "river": "北盘江·花江峡谷段",
+  "data_level": "SIMULATED",
+  "bridge_deck_scene_y": 650,
+  "river_scene_y_at_bridge": 25,
+  "vertical_scene_gap": 625,
+  "river_scene_extent_z": [
+    -1700,
+    1700
+  ],
+  "water_profile": "downhill linear scene gradient",
+  "public_grounding": [
+    "北盘江流域",
+    "有江边码头和峡谷游船项目"
+  ],
+  "not_included": [
+    "实测DEM",
+    "实测岸线",
+    "实时水位",
+    "真实游船航线",
+    "船舶动力学参数"
+  ],
+  "renderer": [
+    "WebGL2 depth mesh when available",
+    "Canvas fallback"
+  ],
+  "assets": [
+    "assets/js/geo/huajiang-river-v26.js",
+    "assets/js/drive/river-cruise-v26.js"
+  ]
+}

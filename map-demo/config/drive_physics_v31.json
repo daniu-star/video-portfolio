@@ -1,0 +1,43 @@
+{
+  "version": "V31",
+  "model": "reduced-order educational vehicle dynamics",
+  "disclaimer": "Route, elevation and car parameters are conceptual; not surveyed roadway, validated vehicle simulator or navigation.",
+  "units": {
+    "distance": "concept scene unit ~ meter",
+    "velocity": "m/s",
+    "mass": "kg",
+    "forces": "N",
+    "acceleration": "m/s^2"
+  },
+  "assumptions": {
+    "vehicle_mass_kg": 1580,
+    "driving_force_max_N": 5400,
+    "brake_force_max_N": 9200,
+    "rolling_coefficient": 0.014,
+    "rho_air_kg_m3": 1.225,
+    "CdA_m2": 0.72,
+    "grip_dry": 0.82,
+    "grip_wet": 0.52,
+    "max_speed_kmh": 100,
+    "cruise_dry_kmh": 70.2,
+    "cruise_wet_kmh": 50.4,
+    "maximum_lateral_offset_scene_units": 10.5,
+    "training_time_multiplier": 2.4
+  },
+  "systems": [
+    "longitudinal force balance",
+    "bounded in-lane steering",
+    "damped ride heave and chassis roll",
+    "arc-length cubic road interpolation",
+    "route-space markings and railings",
+    "camera exponential damping"
+  ],
+  "verified": {
+    "desktop_1280x800": "pass",
+    "mobile_390x844": "pass",
+    "bridge_observation_5_tasks": "pass",
+    "browser_script_errors": 0,
+    "real_GPU_validation": "not performed",
+    "vehicle_data_validation": "not performed"
+  }
+}

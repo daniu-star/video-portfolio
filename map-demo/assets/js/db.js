@@ -17,6 +17,8 @@ NS.DB={
  relationsBySite:by(raw.relations,'site_id'), stories:(raw.story_chapters||[]).slice().sort((a,b)=>a.seq-b.seq),
  timelineBySite, themes:map(raw.themes), terrain:raw.terrain
 };
+NS.DB.themes.cinema={id:'cinema',name:'山川电影',gradient:['#415c68','#86a4a0','#c0a78d','#435c55'],palette:{accent:'#ead2a0',hot:'#f5e2b4',ground:'#203f3e',terrainHigh:'#a2a18a',terrainLow:'#314d47',road:'#d7d4c4',building:'#c7cac0',village:'#dabf9d'}};
+NS.DB.themes.daylight={id:'daylight',name:'自然日光',gradient:['#526f82','#91adb3','#d3bf9e','#667c73'],palette:{accent:'#92d6d3',hot:'#f3c989',ground:'#304b49',terrainHigh:'#8b9478',terrainLow:'#354c42',road:'#d1cfbf',building:'#9cafa8',village:'#dfc5a3'}};
 NS.DB.featureMedia=id=>(NS.DB.mediaBindingsByFeature[id]||[]).map(b=>({binding:b,asset:NS.DB.mediaAssets[b.asset_id]})).filter(x=>x.asset);
 NS.DB.resolveNode=id=>NS.DB.nodes[id];NS.DB.source=id=>NS.DB.sources[id];
 NS.DB.nodeLegend=id=>NS.DB.legends[id];

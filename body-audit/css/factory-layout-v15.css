@@ -1,0 +1,59 @@
+/* v15: A collapsible, scene-side factory task console. The 3D workspace remains visible.
+   Desktop: narrow edge inspector instead of a wide 46vh bottom overlay.
+   Mobile: closed by default; controls open on demand in a bounded sheet. */
+.factory-screen .factory-dock{
+  position:absolute;z-index:34;right:clamp(14px,2vw,30px);bottom:clamp(12px,2vh,22px);
+  width:clamp(330px,29vw,420px);max-width:calc(100% - 24px);
+  display:flex;flex-direction:column;max-height:min(66vh,calc(100% - 190px));
+  background:rgba(16,36,45,.95);border:1px solid rgba(165,187,188,.48);
+  border-top:2px solid #cbb181;border-radius:13px;
+  box-shadow:0 16px 48px #06141dd9;backdrop-filter:blur(13px);
+  overflow:hidden;pointer-events:auto;
+}
+.factory-dock-bar{flex:0 0 auto;display:flex;align-items:center;gap:10px;justify-content:space-between;padding:11px 12px 10px 15px;min-height:69px}
+.factory-dock-summary{min-width:0;display:flex;flex-direction:column;gap:4px}
+.factory-dock-summary small{font-size:10px;color:#d5b884;letter-spacing:.04em}
+.factory-dock-summary strong{color:#f3eee4;font-size:13px;font-weight:650;line-height:1.45;overflow-wrap:anywhere}
+.factory-dock-toggle{border:1px solid #788e93;background:#304954;border-radius:8px;padding:9px 11px;white-space:nowrap;color:#f5e9d5;font-size:12px;cursor:pointer;min-height:42px;flex-shrink:0}
+.factory-dock-toggle:hover,.factory-dock-toggle:focus-visible{border-color:#d5b77e;background:#47616b}
+.factory-dock[data-open="false"] .factory-controls{display:none!important}
+.factory-dock[data-open="false"]{box-shadow:0 10px 32px #06141dcc}
+.factory-dock .factory-controls.fv7-controls{
+  position:static;inset:auto;transform:none;left:auto;bottom:auto;
+  width:100%;max-height:none;min-height:0;flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;
+  background:transparent;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;
+  border-top:1px solid #64808b6b;padding:12px;gap:9px;
+}
+.factory-dock .fv7-head{gap:4px 10px}
+.factory-dock .fv7-head strong{font-size:13px}
+.factory-dock .fv7-head small{flex-basis:100%;line-height:1.4}
+.factory-dock .fv7-options .f-btn{flex-basis:100%;padding:8px 10px}
+.factory-dock .fv7-actions .f-btn{flex-basis:135px;min-height:42px}
+.factory-dock .fv7-sideby{grid-template-columns:1fr}
+.factory-dock .fv7-sideby>div{padding:8px 10px}
+.factory-dock .fv7-sideby span{font-size:10px}
+.factory-dock .fv7-samples{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;max-height:95px}
+.factory-dock .fv7-inspector{grid-template-columns:1fr 1fr}
+.factory-dock .fv7-inspector>div:last-child{grid-column:span 2}
+.factory-dock .f-btn{line-height:1.4}
+.factory-dock .fv7-fine{font-size:11px;line-height:1.5}
+@media(max-height:750px) and (min-width:681px){
+ .factory-screen .factory-dock{max-height:min(59vh,calc(100% - 165px))}
+ .factory-dock-bar{min-height:61px}
+}
+@media(max-width:680px){
+ .factory-screen .factory-dock{left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));width:auto;max-width:none;max-height:min(53dvh,430px);border-radius:12px}
+ .factory-dock-bar{min-height:59px;padding:7px 8px 7px 12px}
+ .factory-dock-summary strong{font-size:12px}
+ .factory-dock-toggle{min-height:40px;font-size:12px;padding:8px 10px}
+ .factory-dock .factory-controls.fv7-controls{padding:10px 11px;gap:8px}
+ .factory-dock .fv7-actions .f-btn{flex-basis:115px;font-size:11px;min-height:43px}
+ .factory-dock .fv7-sideby{grid-template-columns:1fr}
+ .factory-dock .fv7-fine{font-size:11px}
+}
+@media(max-height:520px) and (min-width:681px){
+ .factory-screen .factory-dock{max-height:calc(100% - 95px)}
+ .factory-screen .factory-status{display:none}
+}
+
+@media(min-width:681px){body.webgl-ready .factory-story h2{max-width:390px;font-size:clamp(23px,2.15vw,31px)}}

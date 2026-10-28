@@ -1,0 +1,76 @@
+/* v12 — restrained clinical receipt, not a dashboard. Follows existing CSS and overrides legacy report cards. */
+body:has(#sheetOverlay:not(.hidden)) .director-impact,
+body:has(#sheetOverlay:not(.hidden)) .director-atmosphere{display:none!important}
+#sheetOverlay:has(.receipt){z-index:80;padding:clamp(12px,3vh,34px) clamp(12px,4vw,36px);background:rgba(6,17,23,.78)}
+#sheetOverlay .sheet:has(.receipt){box-sizing:border-box;width:min(786px,100%);max-height:min(840px,calc(100dvh - 104px));padding:0;background:#f6f5f1;color:#20353c;border-radius:6px;border:1px solid #cbd1ce;box-shadow:0 35px 110px rgba(0,0,0,.52);scrollbar-color:#aab4b0 transparent;scrollbar-width:thin}
+#sheetOverlay .sheet:has(.receipt) .sheet-top{position:sticky;top:0;z-index:4;min-height:66px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;background:#f6f5f1;border-bottom:1px solid #dbded9;padding:14px clamp(22px,4vw,46px);font-size:12px;font-weight:650;color:#587074;letter-spacing:.06em;text-transform:none}
+#sheetOverlay .sheet:has(.receipt) .sheet-top button{width:42px;height:42px;display:grid;place-items:center;color:#4e6369;font-size:20px;border-radius:50%;font-weight:400}
+#sheetOverlay .sheet:has(.receipt) .sheet-top button:hover{background:#e8eae5}
+#sheetOverlay .sheet:has(.receipt) #sheetTitle{font-family:"Noto Sans CJK SC","Microsoft YaHei",system-ui,sans-serif;font-size:clamp(25px,3vw,35px);font-weight:720;line-height:1.28;letter-spacing:-.04em;max-width:690px;padding:0 clamp(22px,4vw,46px);margin:clamp(24px,3vh,36px) 0 24px;color:#183338;word-break:normal;overflow-wrap:break-word}
+#sheetOverlay .sheet:has(.receipt) #sheetBody{display:block;padding:0 clamp(22px,4vw,46px)}
+.receipt{font-size:15px;line-height:1.6}
+.receipt-current{padding:0 0 22px;border-bottom:1px solid #d5dad5}
+.receipt-overline{font-size:12px;color:#69807b;font-weight:650;letter-spacing:.04em}
+#sheetOverlay .receipt-current>p{font-size:clamp(17px,2vw,20px);line-height:1.45;font-weight:700;color:#21454a;margin:6px 0 7px}
+.receipt-doctor{font-size:14px;line-height:1.6;color:#697c7d}
+.receipt-comparison{margin-top:24px}
+.receipt-rowtitle{display:flex;align-items:baseline;justify-content:space-between;gap:8px 20px;margin-bottom:13px}
+.receipt-rowtitle h3,.receipt-next h3{font-size:17px;line-height:1.4;font-weight:700;color:#244349;margin:0}
+.receipt-rowtitle span{font-size:12px;line-height:1.5;color:#7a8987}
+.receipt-paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid #d7ddd7;border-bottom:1px solid #d7ddd7;background:transparent}
+.receipt-person{padding:20px 20px 20px 0;min-width:0}
+.receipt-person + .receipt-person{padding-left:24px;padding-right:0;border-left:1px solid #d7ddd7}
+.receipt-identity{display:flex;align-items:center;gap:10px;min-width:0}
+.receipt-monogram{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border:1px solid #c8d5d0;border-radius:50%;background:#e8ece6;color:#496d6a;font-size:16px;font-weight:600}
+.receipt-identity>span:last-child{display:flex;flex-direction:column;min-width:0}
+.receipt-identity strong{font-size:17px;color:#243c40;line-height:1.3}
+.receipt-identity small{font-size:12px;color:#81908c;margin-top:2px}
+.receipt-state{font-size:clamp(17px,2vw,22px);font-weight:750;line-height:1.35;letter-spacing:-.03em;margin:17px 0 6px;color:#335f56}
+.receipt-person.gate .receipt-state{color:#945f65}.receipt-person.care .receipt-state,.receipt-person.unclear .receipt-state{color:#777350}
+.receipt-reason{font-size:13px;color:#697a79;line-height:1.4}
+.receipt-insight{display:flex;gap:13px;align-items:flex-start;margin-top:18px}
+.receipt-rule{width:3px;min-height:25px;flex:0 0 3px;background:#b59766;border-radius:3px}
+#sheetOverlay .receipt-insight p{font-size:16px;font-weight:670;color:#304a4b;line-height:1.6;margin:0}
+#sheetOverlay[data-outcome="gate"] .receipt-rule{background:#aa7477}
+#sheetOverlay[data-outcome="access"] .receipt-rule{background:#6a9b8d}
+.receipt-next{margin:25px 0 20px;background:#e8eeea;border:1px solid #dae1dc;padding:18px 20px;border-radius:5px}
+.receipt-next .cost-options{display:flex;flex-wrap:wrap;gap:10px;margin-top:13px}
+.receipt-next .cost-options button{font-family:inherit;min-height:44px;border-radius:4px;padding:10px 17px;color:#27535b;background:#fafbf8;border:1px solid #bfcfca;font-size:14px;font-weight:650;cursor:pointer}
+.receipt-next .cost-options button:hover,.receipt-next .cost-options button:focus-visible{background:#d3e2dd;outline-offset:3px}
+#sheetOverlay .receipt-next .cost-result{display:none;padding:11px 0 0;font-size:14px;line-height:1.5;margin:7px 0 0;color:#3f6560;background:transparent}
+#sheetOverlay .receipt-next .cost-result.shown{display:block}
+.receipt-details{margin:6px 0 25px;border-top:1px solid #d9ddd8;padding:16px 0 0}
+.receipt-details summary{cursor:pointer;font-size:13px;color:#657974;list-style-position:inside}
+#sheetOverlay .receipt-details p{font-size:13px;color:#657572;line-height:1.7;margin:10px 0}
+.receipt-metrics{display:flex;flex-wrap:wrap;gap:12px;color:#425e60;font-size:13px}
+.receipt-whatif{padding:12px 15px;border:1px solid #dadbd3;background:#eeeae1;border-radius:4px}
+.receipt-whatif button{border:0;background:#2f5a60;color:white;padding:10px 14px;font-size:13px;border-radius:3px;cursor:pointer}
+.receipt-whatif button:disabled{opacity:.65;cursor:default}
+.receipt-whatif .audit-replay-result{display:block;margin-top:10px;font-size:14px;color:#365254}
+.receipt-whatif .audit-replay-result.hidden{display:none}
+#sheetOverlay .sheet:has(.receipt) .sheet-actions{position:sticky;z-index:3;bottom:0;box-sizing:border-box;display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:10px;margin:0;padding:14px clamp(22px,4vw,46px) 16px;border-top:1px solid #d9ddd8;background:#f6f5f1}
+#sheetOverlay .sheet:has(.receipt) .sheet-actions button{font-family:inherit;font-size:13px;font-weight:650;min-height:42px;padding:9px 15px;letter-spacing:0;white-space:normal}
+#sheetOverlay .sheet:has(.receipt) .sheet-actions button:last-child{background:#264d54;color:#f7faf8;border-color:#264d54}
+#sheetOverlay .sheet:has(.receipt) .sheet-actions button:first-child{border:none;background:transparent;color:#647a78}
+@media(max-width:600px){
+ #sheetOverlay:has(.receipt){padding:0}
+ #sheetOverlay .sheet:has(.receipt){width:100%;height:calc(100dvh - 58px);max-height:calc(100dvh - 58px);border-radius:0;border:0}
+ #sheetOverlay .sheet:has(.receipt) .sheet-top{min-height:58px;padding:9px 19px}
+ #sheetOverlay .sheet:has(.receipt) #sheetTitle{font-size:26px;padding:0 19px;margin:22px 0 18px}
+ #sheetOverlay .sheet:has(.receipt) #sheetBody{padding:0 19px}
+ .receipt-current{padding-bottom:17px}.receipt-comparison{margin-top:17px}
+ .receipt-rowtitle{display:block;margin-bottom:11px}.receipt-rowtitle h3{font-size:16px}.receipt-rowtitle span{display:block;font-size:12px;margin-top:3px}
+ .receipt-person{padding:14px 8px 15px 0}.receipt-person + .receipt-person{padding:14px 0 15px 12px}
+ .receipt-monogram{width:31px;height:31px;flex-basis:31px;font-size:14px}.receipt-identity{gap:6px}.receipt-identity strong{font-size:15px}.receipt-identity small{font-size:11px}
+ .receipt-state{font-size:16px;margin:13px 0 6px}.receipt-reason{font-size:12px}
+ #sheetOverlay .receipt-insight p{font-size:14px}.receipt-insight{margin-top:14px}
+ .receipt-next{margin:19px 0 16px;padding:15px}
+ .receipt-next .cost-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}.receipt-next .cost-options button{min-height:46px;font-size:12px;padding:10px 7px}
+ #sheetOverlay .sheet:has(.receipt) .sheet-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:10px 19px max(12px,env(safe-area-inset-bottom))}
+ #sheetOverlay .sheet:has(.receipt) .sheet-actions button:last-child{grid-column:1/-1;grid-row:1}
+ #sheetOverlay .sheet:has(.receipt) .sheet-actions button{font-size:12px;min-height:43px;padding:9px 8px}
+}
+@media(prefers-reduced-motion:reduce){.receipt *{scroll-behavior:auto!important}}
+
+/* v13: confirmed player decision stays visibly selected */
+#act1HumanCost button[aria-pressed="true"]{background:#284c48;color:#f9f8f4;border-color:#284c48} .receipt-rowtitle span{font-size:12px;line-height:1.4}

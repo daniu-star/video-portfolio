@@ -1,0 +1,18 @@
+/* V33 quality stabilization. Compatible layout first; no GPU-based hiding of fallback road. */
+body.is-driving .drive-stage-mark{display:none!important}
+body.is-driving .drive-controls{overflow:visible!important;max-height:none!important;max-width:870px!important;padding:10px 13px!important;gap:6px!important}
+body.is-driving .v31-drive-telemetry{min-width:0!important}
+body.is-driving .drive-control-line{flex-wrap:wrap;gap:6px}
+body.is-driving .drive-hud-top{max-width:880px}
+@media (max-width:700px){
+ body.is-driving .drive-controls{bottom:env(safe-area-inset-bottom,0px)!important;max-width:calc(100vw - 12px)!important;width:calc(100vw - 12px)!important;padding:7px!important;gap:4px!important}
+ body.is-driving .drive-hud-top{top:3px!important;width:calc(100vw - 14px)!important;min-height:42px!important;padding:6px 9px!important}
+ body.is-driving .drive-narrative{left:8px;top:60px;max-width:65vw;padding:7px 10px}
+ body.is-driving .v31-physics{display:none!important}
+ body.is-driving .drive-control-line .drive-eyebrow{display:none!important}
+ body.is-driving .drive-cockpit{pointer-events:none!important}
+ body.is-driving .drive-view-rail{z-index:52;right:7px;left:auto;top:62px;bottom:auto;display:flex!important;flex-direction:column;gap:4px}
+ body.is-driving .drive-view-rail button{padding:5px 8px;font-size:10px}
+ body.is-driving .drive-meter-line{display:none!important}
+ body.is-driving .drive-progress{height:9px!important;margin:0!important}
+}

@@ -1,0 +1,78 @@
+/* Stage 2: task-first presentation. Current action is visually primary. */
+#fastGameMain .v18-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,360px);max-width:1390px;min-height:100%;margin:0 auto;background:#0a1c2b;color:#eff7f4}
+#fastGameMain .v18-main{min-width:0;padding:24px clamp(18px,3vw,42px) 70px}
+#fastGameMain .v18-panel{min-width:0;padding:22px 21px 40px;border-left:1px solid #3a5968;background:#102b3c;display:flex;flex-direction:column;gap:13px}
+#fastGameMain .v18-stepcount{font-size:12px;color:#c4d6d6;line-height:1.6;margin:0 0 13px}
+#fastGameMain .v18-phases{display:flex;align-items:center;gap:6px;margin:0 0 18px;max-width:530px}
+#fastGameMain .v18-phases span{flex:1;text-align:center;padding:8px 4px;border-radius:7px;color:#a4b8bf;border:1px solid #385261;font-size:12px}
+#fastGameMain .v18-phases .is-current{background:#e8c98d;border-color:#e8c98d;color:#142b38;font-weight:750}
+#fastGameMain .v18-main h2{font-size:clamp(25px,2.6vw,35px);line-height:1.35;margin:0 0 10px}
+#fastGameMain .v18-brief{margin:0 0 20px;color:#d0dfe1;font-size:15px;line-height:1.7}
+#fastGameMain .v18-handoff{background:#163b43;border-left:3px solid #cfbb86;padding:10px 14px;margin:0 0 14px;border-radius:0 9px 9px 0}
+#fastGameMain .v18-handoff strong{display:block;font-size:12px;color:#f4d49d}
+#fastGameMain .v18-handoff p{font-size:12px;line-height:1.6;color:#d5e4e5;margin:4px 0 0}
+#fastGameMain .v18-main .fa-scene{height:clamp(245px,43vh,450px);border-color:#497785}
+#fastGameMain .v18-main .fa-hotspots{display:none!important}
+#fastGameMain .v18-main .fa-scene-controls span{display:none}
+#fastGameMain .v18-scene-prompt{display:inline-flex;margin:0 0 10px;color:#bde5cb;font-size:12px}
+#fastGameMain .v18-lab{margin:16px 0;padding:18px;border:1px solid #385b65;border-radius:14px;background:#102c3d}
+#fastGameMain .v18-lab h3{font-size:16px;margin:0 0 6px}
+#fastGameMain .v18-lab p{font-size:12px;line-height:1.65;color:#bfd0d8;margin:4px 0 12px}
+#fastGameMain .v18-lab label{display:block;font-size:12px;margin:12px 0;color:#e0edf0}
+#fastGameMain .v18-lab output{float:right;color:#f6d293}
+#fastGameMain .v18-lab input[type=range]{display:block;width:100%;margin:11px 0;accent-color:#eac88c}
+#fastGameMain .v18-lab-meta{font-size:12px;color:#d1e5e8;margin-bottom:12px}
+#fastGameMain .v18-lab-meta b{color:#f3cf91}
+#fastGameMain .v18-lab small{display:block;color:#a5bec5;font-size:11px;margin-top:10px;line-height:1.6}
+#fastGameMain .v18-lab svg{max-width:100%;display:block;width:100%;height:auto;background:#081d2d;border-radius:8px;margin-top:11px}
+#fastGameMain .v18-lab svg path:last-child{fill:none;stroke:#ebce90;stroke-width:2.4;stroke-linejoin:round}
+#fastGameMain .v18-signal-picks{display:flex;flex-wrap:wrap;gap:8px}
+#fastGameMain .v18-signal-picks button,#fastGameMain .v18-secondary{border:1px solid #5b7a85;background:#193c4a;color:#e4eff0;border-radius:9px;padding:9px 12px;font-size:12px;cursor:pointer}
+#fastGameMain .v18-signal-picks button.is-active{border-color:#edca8b;color:#ffe5ae;background:#30505b}
+#fastGameMain .v18-bars{display:flex;align-items:flex-end;gap:10px;height:115px;margin-top:14px;border-bottom:1px solid #668b8d;padding:8px}
+#fastGameMain .v18-bars span{flex:1;background:linear-gradient(#efcb8d,#3d9c9c);border-radius:5px 5px 0 0}
+#fastGameMain .v18-zone-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:16px 0}
+#fastGameMain .v18-zone-row span{border:1px solid #4d8c94;padding:13px 3px;text-align:center;background:#1d4754;border-radius:8px;font-size:12px}
+#fastGameMain .v18-sources{margin-top:19px;border-top:1px solid #365161;padding-top:12px;color:#a8bcc7;font-size:12px}
+#fastGameMain .v18-sources summary{cursor:pointer;list-style:auto}
+#fastGameMain .v18-sources a{color:#e3cc94}
+#fastGameMain .v18-panel-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#fastGameMain .v18-panel-top strong{font-size:17px}
+#fastGameMain .v18-panel-top small{font-size:12px;color:#efd096}
+#fastGameMain .v18-evidence-list{display:grid;gap:8px;margin:0}
+#fastGameMain .v18-evidence-list button{display:flex;align-items:center;gap:11px;text-align:left;min-height:48px;width:100%;background:#153649;border:1px solid #496778;color:#e5f0f2;border-radius:11px;padding:10px 12px;cursor:pointer;font-size:13px}
+#fastGameMain .v18-evidence-list button span{flex:none;border-radius:50%;display:grid;place-items:center;width:22px;height:22px;background:#284b5d;color:#f6d391;font-weight:700}
+#fastGameMain .v18-evidence-list button.is-done{border-color:#66a897;background:#173c44}
+#fastGameMain .v18-evidence-list button.is-done span{background:#39776b;color:#e9fff8}
+#fastGameMain .v18-evidence-detail{background:#1a3d48;color:#deeced;border:1px solid #3d6b72;border-radius:10px;padding:12px 14px;line-height:1.7;font-size:12px}
+#fastGameMain .v18-check{display:grid;gap:8px;margin-top:6px}
+#fastGameMain .v18-primary{border:0;background:#ebcc91;color:#122d39;border-radius:11px;padding:13px 17px;font-weight:750;font-size:14px;cursor:pointer;text-align:center}
+#fastGameMain .v18-primary:hover{background:#fbe5b6}
+#fastGameMain .v18-check small{font-size:12px;color:#bacdd1;line-height:1.55}
+#fastGameMain .v18-choices{display:grid;gap:9px}
+#fastGameMain .v18-choices button{display:flex;align-items:center;justify-content:space-between;gap:11px;text-align:left;border:1px solid #547782;border-radius:10px;padding:13px;background:#174255;color:#eef7f7;font-size:13px;line-height:1.6;cursor:pointer}
+#fastGameMain .v18-choices button span{color:#ecc989;font-size:18px}
+#fastGameMain .v18-notice{padding:11px 13px;background:#30423e;color:#f1dfaa;border:1px solid #8c8668;border-radius:9px;line-height:1.7;font-size:12px}
+#fastGameMain .v18-panel-bottom{margin-top:auto;padding-top:15px;border-top:1px solid #385561;display:flex;flex-direction:column;gap:8px}
+#fastGameMain .v18-panel-bottom button{color:#d3e3e7;border:0;background:transparent;padding:5px;text-align:left;text-decoration:underline;cursor:pointer;font-size:12px}
+#fastGameMain .v18-panel-bottom span{font-size:11px;color:#9fbdc2}
+#fastGameMain .v18-note{font-size:12px;color:#e4edeb}
+#fastGameMain .v18-note textarea{display:block;width:100%;box-sizing:border-box;min-height:83px;margin:8px 0 0;padding:10px;border-radius:9px;border:1px solid #5b7b83;background:#153448;color:#eff8f4;font:inherit;line-height:1.6}
+#fastGameMain .v18-review{border:1px solid #456c75;background:#123343;border-radius:15px;padding:22px;margin-top:16px}
+#fastGameMain .v18-review strong{font-size:17px}
+#fastGameMain .v18-review p{font-size:13px;line-height:1.8;color:#bfdbdd}
+#fastGameMain .v18-feedback{max-width:660px;margin:0 auto;padding:clamp(24px,5vw,60px) 18px 70px;box-sizing:border-box}
+#fastGameMain .v18-feedback-icon{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;border:2px solid #88d6b4;color:#9ee3be;font-size:30px;margin:20px 0}
+#fastGameMain .v18-feedback h2{font-size:clamp(29px,4vw,39px);margin:0 0 16px}
+#fastGameMain .v18-feedback-main{font-size:16px;line-height:1.8;color:#e2eeef}
+#fastGameMain .v18-outcome,#fastGameMain .v18-forward{margin:18px 0;padding:18px;border-radius:12px;background:#133748;border:1px solid #43687b}
+#fastGameMain .v18-outcome small,#fastGameMain .v18-forward small{color:#efcc8a;display:block;margin-bottom:8px}
+#fastGameMain .v18-outcome strong{font-size:17px}
+#fastGameMain .v18-outcome p,#fastGameMain .v18-forward p{margin:7px 0 0;font-size:13px;line-height:1.65;color:#d0e0e2}
+#fastGameMain .v18-forward{border-color:#537c6f;background:#163b40}
+#fastGameMain .v18-feedback>.v18-primary{width:100%;margin:8px 0 0}
+#fastGameMain .v18-muted{color:#a4bbc3;font-size:11px;line-height:1.6}
+@media(max-width:900px){#fastGameMain .v18-layout{display:block}#fastGameMain .v18-main{padding:18px 15px 16px}#fastGameMain .v18-panel{border-left:0;border-top:1px solid #426475;padding:18px 15px 26px;gap:10px}#fastGameMain .v18-main .fa-scene{height:245px}#fastGameMain .v18-main .fa-scene-meta{font-size:9px}#fastGameMain .v18-sources{display:none}#fastGameMain .v18-brief{font-size:14px;margin-bottom:12px}#fastGameMain .v18-main h2{font-size:24px}#fastGameMain .v18-evidence-list{grid-template-columns:repeat(2,minmax(0,1fr))}#fastGameMain .v18-evidence-list button{min-height:42px;font-size:12px}#fastGameMain .v18-feedback{padding:25px 15px 50px}}
+@media(max-width:420px){#fastGameMain .v18-main .fa-scene{height:212px}#fastGameMain .v18-evidence-list{grid-template-columns:1fr}#fastGameMain .v18-main .fa-scene-controls{gap:6px}#fastGameMain .v18-main .fa-scene-controls button{font-size:10px!important;padding:7px}#fastGameMain .v18-lab{padding:14px}#fastGameMain .v18-lab svg{max-height:83px}#fastGameMain .v18-stepcount{font-size:11px}}
+/* The global map dock belongs to the map, never to a full-screen game. */
+body.is-fast-playing #v17Dock,body.is-driving #v17Dock,body.pixel-is-open #v17Dock{display:none!important}

@@ -1,0 +1,28 @@
+/* Native WebGL staging — original CSS world remains a functional fallback. */
+.world #real3D{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;touch-action:none;cursor:crosshair}
+body.webgl-ready .world .sky,body.webgl-ready .world .moon,body.webgl-ready .world .skyline,body.webgl-ready .world .window-lights,body.webgl-ready .world .horizon,body.webgl-ready .world .ground,body.webgl-ready .world .road-line,body.webgl-ready .world .decor,body.webgl-ready .world .avatar,body.webgl-ready .world .machine{display:none!important}
+body.webgl-ready .world{background:#162833}
+body.webgl-ready .world::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:radial-gradient(ellipse at 53% 42%,transparent 39%,rgba(6,16,23,.43) 100%);mix-blend-mode:multiply}
+body.webgl-ready .hotspot{bottom:auto;transform:translate(-50%,-50%);z-index:18;border:1px solid #b99863;background:rgba(14,29,36,.9);box-shadow:0 0 0 1px #d8ae6b1d,0 0 42px #c59f4b30}
+body.webgl-ready .hotspot:hover{transform:translate(-50%,-50%) scale(1.05)}
+body.webgl-ready .scene-title{top:20%;z-index:8;max-width:min(28vw,370px);text-shadow:0 3px 28px #0b1b23d9}
+body.webgl-ready .scene-title span{font-size:clamp(29px,2.7vw,43px)}
+body.webgl-ready .scene-title small{font-size:13px;line-height:1.74;margin-top:12px}
+body.webgl-ready .scene-meta,body.webgl-ready .world-caption{z-index:8}
+.spatial-hint{position:absolute;left:clamp(18px,5vw,76px);bottom:62px;z-index:9;pointer-events:none;border-left:2px solid #c7ad80;background:#10222cc9;backdrop-filter:blur(8px);padding:11px 15px;max-width:330px;box-shadow:0 12px 35px #07131b66}
+.spatial-hint b,.spatial-hint span,.spatial-hint small{display:block}.spatial-hint b{font-size:12px;color:#efcc95;margin-bottom:7px}.spatial-hint span{font-size:11px;color:#d3e0e1;line-height:1.7}.spatial-hint small{font-size:10px;color:#98b1b7;margin-top:5px;line-height:1.65}.spatial-hint kbd{font-size:10px;border:1px solid #70888e;border-radius:3px;padding:0 4px;color:#fff}
+body.webgl-ready .factory-centre{display:none!important}
+body.webgl-ready .factory-story{z-index:30;left:7%;max-width:min(31vw,370px);text-shadow:0 3px 22px #14212c}
+body.webgl-ready .factory-status{z-index:30;backdrop-filter:blur(7px);background:#152933cc}
+body.webgl-ready .factory-controls{z-index:33;background:#112630ed;box-shadow:0 12px 40px #050d13ad}
+.touch-pad{position:absolute;z-index:12;right:clamp(20px,5vw,65px);bottom:75px;display:none;align-items:center;gap:5px;flex-direction:column;color:#acc1c3;font-size:9px;touch-action:none;user-select:none}
+.touch-base{width:100px;height:100px;border-radius:50%;border:1px solid #809aa688;background:#14293499;display:grid;place-items:center;box-shadow:0 0 30px #06121699;touch-action:none}
+.touch-knob{width:44px;height:44px;border-radius:50%;background:#bd9b69aa;border:1px solid #e4cfab;box-shadow:0 4px 20px #0006;will-change:transform}
+body.webgl-ready:has(#chatScreen:not(.hidden)) .spatial-hint,body.webgl-ready:has(#roleOverlay:not(.hidden)) .spatial-hint,body.webgl-ready:has(#intro:not(.hidden)) .spatial-hint{display:none!important}
+@media(hover:none) and (pointer:coarse){body.webgl-ready .touch-pad{display:flex}}
+@media(max-width:680px){body.webgl-ready .scene-title{left:19px;top:16%;max-width:76vw}body.webgl-ready .scene-title span{font-size:26px}body.webgl-ready .scene-title small{font-size:11px;line-height:1.6;max-width:58vw}body.webgl-ready .spatial-hint{left:12px;bottom:50px;max-width:215px;padding:9px 10px}body.webgl-ready .spatial-hint b{font-size:10px}body.webgl-ready .spatial-hint span,body.webgl-ready .spatial-hint small{font-size:9px}body.webgl-ready .factory-story{top:10%;left:18px;max-width:66vw}body.webgl-ready .factory-story h2{font-size:25px}}
+@media(max-width:390px){body.webgl-ready .spatial-hint{max-width:181px}body.webgl-ready .touch-base{width:83px;height:83px}.touch-knob{width:36px;height:36px}}
+
+.kiosk-3d-label{position:absolute;z-index:7;transform:translate(-50%,-50%);pointer-events:none;text-align:center;white-space:nowrap;text-shadow:0 0 10px #072332,0 1px 2px #05121f;line-height:1.5}
+.kiosk-3d-label b{display:block;font-weight:500;font-family:serif;letter-spacing:.08em;font-size:clamp(11px,1.6vw,21px);color:#e1e8de}.kiosk-3d-label span{display:block;font-size:clamp(7px,.8vw,10px);letter-spacing:.07em;color:#e0c18d}
+body:has(#chatScreen:not(.hidden)) .kiosk-3d-label,body:has(#intro:not(.hidden)) .kiosk-3d-label,body:has(#roleOverlay:not(.hidden)) .kiosk-3d-label{opacity:0}

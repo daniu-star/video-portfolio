@@ -1,0 +1,31 @@
+/* v14 — plain-language evidence report: user quote → AI summary → omitted field → saved result. */
+#sheetOverlay .sheet:has(.rural-proof){box-sizing:border-box;width:min(800px,calc(100% - 20px));max-height:calc(100dvh - 94px);padding:0;background:#f7f6f1;color:#23383a;border-radius:7px;border:1px solid #cfd7d3}
+#sheetOverlay .sheet:has(.rural-proof) .sheet-top{position:sticky;top:0;z-index:2;background:#f7f6f1;border-bottom:1px solid #dbe0dd;padding:16px 28px}
+#sheetOverlay .sheet:has(.rural-proof) #sheetTitle{color:#203f42;font-size:clamp(24px,3vw,34px);font-weight:720;line-height:1.28;padding:0 30px;margin:22px 0 20px;letter-spacing:-.02em;overflow-wrap:anywhere}
+#sheetOverlay .sheet:has(.rural-proof) #sheetBody{padding:0 30px 18px}
+#sheetOverlay .sheet:has(.rural-proof) .sheet-actions{position:sticky;bottom:0;z-index:2;background:#f7f6f1;border-top:1px solid #dbe0dd;padding:13px 30px;display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.rural-proof{display:grid;gap:0;border-top:1px solid #dce1dd;border-bottom:1px solid #dce1dd}
+.rural-proof-line,.rural-proof-missing,.rural-proof-outcome{display:grid;grid-template-columns:115px minmax(0,1fr);gap:10px 18px;padding:16px 4px;border-bottom:1px solid #e0e3de;align-items:start}
+.rural-proof-line>span,.rural-proof-missing>span,.rural-proof-outcome>span{font-size:14px;font-weight:630;color:#697f80;padding-top:2px}
+.rural-proof-line>p,.rural-proof-outcome>p{font-size:18px;line-height:1.55;margin:0;color:#253d3f;overflow-wrap:break-word}
+.rural-proof-missing{background:#f6ecea;padding-left:13px;border-left:3px solid #b77879}
+.rural-proof-missing strong{color:#8d3d45;font-size:18px;line-height:1.5;overflow-wrap:break-word}
+.rural-proof-outcome{border-bottom:none;padding-left:13px;border-left:3px solid #668f87;background:#edf3ef}
+.rural-proof-outcome.is-missing{border-color:#b77879;background:#f6ecea}
+.rural-next-result{padding:14px 0 6px;display:flex;gap:12px;align-items:baseline;font-size:15px;color:#304e4c}
+.rural-next-result strong{white-space:nowrap}.rural-next-result p{margin:0;line-height:1.6}
+.rural-proof-details{border-top:1px solid #e1e4e0;padding:12px 0 8px;color:#526969}
+.rural-proof-details summary{font-size:14px;font-weight:650;cursor:pointer}
+.rural-proof-details p{font-size:14px;line-height:1.6;margin:9px 0}
+@media(max-width:620px){
+ #sheetOverlay .sheet:has(.rural-proof){max-height:calc(100dvh - 58px);height:calc(100dvh - 58px);width:100%;border:0;border-radius:0}
+ #sheetOverlay .sheet:has(.rural-proof) .sheet-top{padding:10px 17px}
+ #sheetOverlay .sheet:has(.rural-proof) #sheetTitle{font-size:25px;padding:0 18px;margin:18px 0}
+ #sheetOverlay .sheet:has(.rural-proof) #sheetBody{padding:0 18px 16px}
+ #sheetOverlay .sheet:has(.rural-proof) .sheet-actions{padding:10px 18px max(12px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ #sheetOverlay .sheet:has(.rural-proof) .sheet-actions button:last-child{grid-column:1/-1;grid-row:1}
+ .rural-proof-line,.rural-proof-missing,.rural-proof-outcome{display:block;padding:12px 7px}
+ .rural-proof-line>span,.rural-proof-missing>span,.rural-proof-outcome>span{display:block;margin-bottom:5px;font-size:13px}
+ .rural-proof-line>p,.rural-proof-outcome>p,.rural-proof-missing strong{font-size:17px}
+ .rural-next-result{display:block}.rural-next-result strong{display:block;margin-bottom:4px}
+}

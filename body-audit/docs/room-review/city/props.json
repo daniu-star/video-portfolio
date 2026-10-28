@@ -1,0 +1,50 @@
+{
+  "schema": "game-room.prop-manifest.v1",
+  "roomId": "flesh-audit-v6-city",
+  "generation": {
+    "provider": "not-used",
+    "apiModel": "none",
+    "pricingSource": "not-applicable",
+    "pricingVerifiedAt": "",
+    "creditsPerTexturedTask": 0,
+    "hardCreditCeiling": 0,
+    "maxChargedAttemptsPerAsset": 0
+  },
+  "assets": [
+    {
+      "id": "proxy-00",
+      "name": "问诊机",
+      "function": "问诊机",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    },
+    {
+      "id": "proxy-01",
+      "name": "路灯",
+      "function": "路灯",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    },
+    {
+      "id": "proxy-02",
+      "name": "城市楼群",
+      "function": "城市楼群",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    },
+    {
+      "id": "proxy-03",
+      "name": "公交车站",
+      "function": "公交车站",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    },
+    {
+      "id": "proxy-04",
+      "name": "行道树",
+      "function": "行道树",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    }
+  ]
+}

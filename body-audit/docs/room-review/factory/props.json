@@ -1,0 +1,50 @@
+{
+  "schema": "game-room.prop-manifest.v1",
+  "roomId": "flesh-audit-v6-factory",
+  "generation": {
+    "provider": "not-used",
+    "apiModel": "none",
+    "pricingSource": "not-applicable",
+    "pricingVerifiedAt": "",
+    "creditsPerTexturedTask": 0,
+    "hardCreditCeiling": 0,
+    "maxChargedAttemptsPerAsset": 0
+  },
+  "assets": [
+    {
+      "id": "proxy-00",
+      "name": "传送带",
+      "function": "传送带",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    },
+    {
+      "id": "proxy-01",
+      "name": "工位",
+      "function": "工位",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    },
+    {
+      "id": "proxy-02",
+      "name": "服务器机架",
+      "function": "服务器机架",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    },
+    {
+      "id": "proxy-03",
+      "name": "数据扫描仪",
+      "function": "数据扫描仪",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    },
+    {
+      "id": "proxy-04",
+      "name": "箱子",
+      "function": "箱子",
+      "origin": "original procedural geometry",
+      "approval": "pending"
+    }
+  ]
+}
